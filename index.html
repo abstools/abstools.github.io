@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.52" />
+    <meta name="description" content="">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <title>The ABS Language :: The ABS Modeling Language</title>
+    
+    
+    <link href="/css/nucleus.css?1545311490" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1545311490" rel="stylesheet">
+    <link href="/css/hybrid.css?1545311490" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1545311490" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1545311490" rel="stylesheet">
+    <link href="/css/auto-complete.css?1545311490" rel="stylesheet">
+    <link href="/css/theme.css?1545311490" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1545311490" rel="stylesheet">
+    
+      <link href="/css/theme-abs.css?1545311490" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1545311490"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="http://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1545311490"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1545311490"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1545311490"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/overview/" title="Overview" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/overview/">
+          Overview
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/getting_started/">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item ">
+        <a href="/getting_started/local-install/">
+        Installing Command-Line Tools
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
+        <a href="/getting_started/docker/">
+        Running a Browser-Based IDE
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
+        <a href="/getting_started/editor-support/">
+        Installing Editor Support
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/tutorials/" title="Tutorials" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tutorials/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/costabs/" title="CostABS" class="dd-item ">
+        <a href="/tutorials/costabs/">
+        CostABS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/resources/" title="Resources" class="dd-item ">
+        <a href="/tutorials/resources/">
+        Resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/publications/" title="Selected Publications" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/publications/">
+          Selected Publications
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/contact/" title="Contact" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/contact/">
+          Contact
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/acknowledgments/">
+          Acknowledgments
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+
+        
+        <div id="body-inner">
+          
+
+        
+
+<span id="sidebar-toggle-span">
+<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
+</span>
+
+ 
+
+
+<h1 id="the-abs-language">The ABS Language</h1>
+
+<p>ABS is a language for Abstract Behavioral Specification, which combines
+implementation-level specifications with verifiability, high-level design with
+executablity, and formal semantics with practical usability. ABS is a
+concurrent, object-oriented, modeling language that features functional
+data-types.</p>
+
+<ul>
+<li>ABS is designed to develop executable models with an object-oriented program
+flow</li>
+<li>ABS targets distributed and concurrent systems by means of concurrent object
+groups and asynchronous method calls</li>
+<li>ABS supports model variability based on delta-oriented specifications</li>
+<li>ABS supports deployment modelling based on high-level deployment models</li>
+<li>ABS supports a range of techniques for model exploration and analysis, based
+on formal semantics</li>
+</ul>
+
+<p><a href="/overview/">Overview</a></p>
+
+<p><a href="/getting_started/">Getting Started</a></p>
+
+<p><a href="/tutorials/">Tutorials</a></p>
+
+<p><a href="/publications/">Publications</a></p>
+
+<p><a href="/contact/">Contact</a></p>
+	
+  
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+        
+            <a class="nav nav-next" href="/overview/" title="Overview" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1545311490"></script>
+    <script src="/js/jquery.sticky.js?1545311490"></script>
+    <script src="/js/featherlight.min.js?1545311490"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1545311490"></script>
+    <script src="/js/highlight.pack.js?1545311490"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1545311490"></script>
+    <script src="/js/learn.js?1545311490"></script>
+    <script src="/js/hugo-learn.js?1545311490"></script>
+
+    <link href="/mermaid/mermaid.css?1545311490" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1545311490"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

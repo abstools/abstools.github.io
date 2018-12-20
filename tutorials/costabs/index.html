@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.52" />
+    <meta name="description" content="">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <title>CostABS :: The ABS Modeling Language</title>
+    
+    
+    <link href="/css/nucleus.css?1545311490" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1545311490" rel="stylesheet">
+    <link href="/css/hybrid.css?1545311490" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1545311490" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1545311490" rel="stylesheet">
+    <link href="/css/auto-complete.css?1545311490" rel="stylesheet">
+    <link href="/css/theme.css?1545311490" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1545311490" rel="stylesheet">
+    
+      <link href="/css/theme-abs.css?1545311490" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1545311490"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/tutorials/costabs/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="http://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1545311490"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1545311490"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1545311490"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/overview/" title="Overview" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/overview/">
+          Overview
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/getting_started/">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item ">
+        <a href="/getting_started/local-install/">
+        Installing Command-Line Tools
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
+        <a href="/getting_started/docker/">
+        Running a Browser-Based IDE
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
+        <a href="/getting_started/editor-support/">
+        Installing Editor Support
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/tutorials/" title="Tutorials" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tutorials/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/costabs/" title="CostABS" class="dd-item active">
+        <a href="/tutorials/costabs/">
+        CostABS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/resources/" title="Resources" class="dd-item ">
+        <a href="/tutorials/resources/">
+        Resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/publications/" title="Selected Publications" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/publications/">
+          Selected Publications
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/contact/" title="Contact" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/contact/">
+          Contact
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/acknowledgments/">
+          Acknowledgments
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/tutorials/'>Tutorials</a> > CostABS
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>CostABS</h1>
+          
+
+        
+
+
+<p>CostABS is a a static analyzer for automatically inferring upper/lower bounds
+on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  The
+inferred upper bounds have important applications in the fields of program
+optimization, verification and certification.  CostABS is parametric on the
+cost model, i.e., the type of cost that the user wants to infer (e.g., number
+of steps, amount of memory allocated, amount of data transmitted, etc.), and
+it supports different notions of cost such as sequential, parallel, peak, etc.</p>
+
+<p>In this tutorial, we overview the different features of CostABS by example.
+All examples are linked to the collaboratory where you can directly replay the
+steps described in the tutorial.</p>
+
+<h1 id="general-overview-resource-analysis">General Overview: Resource Analysis</h1>
+
+<p>In what follows we present how to use EasyInterface with the different
+analyses that CostABS is able to perform with some examples.</p>
+
+<p>We first show how to start to use CostABS within the ABS collaboratory.  For
+this, we must first select the analysis in the top pull-down menu, and, for
+executing the analysis, we click on <code>Run</code>.  The <code>Clear</code> button (top right)
+removes all previous results.</p>
+
+<p>The parameters of the selected analysis can be configured by clicking on the
+~Settings~ button located in the top-left corner of the EasyInterface page.
+The results of the selected analysis are presented in the console at the
+bottom of the screen.  This can be done by means of graphs, text messages,
+markers, highlighters in the code, and interactions among them.  In the
+following, we describe the use of CostABS by analyzing several examples.</p>
+
+<h2 id="basic-resource-analysis">Basic Resource Analysis</h2>
+
+<p>Let us start by performing the basic resource analysis computed by CostABS and
+described in <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46" title="this paper">this paper</a>. To do it, open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a>,
+which contains the following code:</p>
+
+<pre><code class="language-abs">   module VendingMachine_init;
+
+   interface VendingMachine {
+    Unit insertCoin();
+    Unit insertCoins( Int nCoins );
+    Int retrieveCoins();
+   }
+
+   interface PrettyPrinter {
+    Unit showIncome( Int nCoins );
+    Unit showCoin();
+  }
+
+  class IVendingMachine( Int coins, PrettyPrinter out ) implements VendingMachine{
+    Unit insertCoin(){
+      coins = coins + 1;
+  }
+
+    Unit insertCoins( Int nCoins ){
+      while( nCoins &gt; 0 ){
+      nCoins = nCoins - 1;
+      Fut&lt;Unit&gt; f = this ! insertCoin();
+      await f?;
+      }
+    }
+
+     [coins &lt; max(coins)]
+     Int retrieveCoins(){
+       Int total = 0;
+
+       while( coins &gt; 0 ){
+        coins = coins - 1;
+        Fut&lt;Unit&gt; f = out ! showCoin();
+        //await f?;
+        total = total + 1;
+       }
+       return total;
+     }
+    }
+
+
+  class IPrettyPrinter implements PrettyPrinter{
+     Unit showIncome( Int nCoins ){ /*Show something*/ }
+     Unit showCoin(){ /*Show something*/ }
+  }
+
+  class IMain {
+     Unit main( Int n ){
+       PrettyPrinter o = new IPrettyPrinter();
+       VendingMachine v = new IVendingMachine( 0, o );
+
+       v ! insertCoins(n);
+       Fut&lt;Int&gt; f = v ! retrieveCoins();
+       await f?;
+       Int total = f.get;
+       o ! showIncome( total );
+     }
+  }
+</code></pre>
+
+<p>By selecting Resource Analysis and clicking on <code>Settings</code> a pop-up window
+appears and shows the configuration that allows us to set up the parameters
+for the analysis.  The following parameters are available:</p>
+
+<dl>
+<dt>Cost model</dt>
+<dd>The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).</dd>
+</dl>
+
+<dl>
+<dt>Cost centers</dt>
+<dd>This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.</dd>
+</dl>
+
+<dl>
+<dt>Asymptotic bounds</dt>
+<dd>Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.</dd>
+</dl>
+
+<dl>
+<dt>Symbolic or numeric</dt>
+<dd>Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.</dd>
+</dl>
+
+<dl>
+<dt>Debug</dt>
+<dd>sets the verbosity of the output (the higher the number, the more verbose the output).</dd>
+</dl>
+
+<dl>
+<dt>Rely Guarantee</dt>
+<dd>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this paper">this paper</a>).</dd>
+</dl>
+
+<dl>
+<dt>Peak Cost Analysis</dt>
+<dd>computes the peak cost analysis for all objects which are identified (see <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2" title="this paper">this paper</a>).</dd>
+</dl>
+
+<dl>
+<dt>Parallel Cost Analysis</dt>
+<dd>computes the parallel cost analysis of the program (see <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>).</dd>
+</dl>
+
+<dl>
+<dt>Non-cumulative Cost Analysis</dt>
+<dd>computes the non-cumulative cost of the program (see <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6" title="this paper">this paper</a>).</dd>
+</dl>
+
+<dl>
+<dt>Backend of the Analysis</dt>
+<dd>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="this technical report">this technical report</a>).</dd>
+</dl>
+
+<dl>
+<dt>Conditional Upper Bounds</dt>
+<dd>computes a set of conditional upper bounds (UBs)</dd>
+     according to some conditions on the input parameters (see <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="this technical
+     report">this technical
+     report</a>).
+</dl>
+
+<dl>
+<dt>Timed Cost Analysis</dt>
+<dd>computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf" title="this technical report">this technical report</a>).</dd>
+</dl>
+
+<p>Let us analyze the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a> with the default values, except for the <code>Asymptotic bounds</code> parameter that
+must be set to <code>yes</code>.  Click on <code>Refresh Outline</code> and select the entry method
+(method <code>main</code> of class <code>IMain</code>) in the Outline (the region on the right of
+the page).  Then click on <code>Run</code> to perform the analysis.  The result should be
+shown in the console as follows:</p>
+
+<pre><code>Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,max(coins)) = nat(n)+nat(max(coins))
+</code></pre>
+
+<p>It can be seen in the resource analysis results given by CostABS that the
+upper bound is linear and it is a function on <code>n</code> (the input parameter of
+~main~) and on the maximum value that the field <code>coins</code> can take, denoted
+~max(coins)~.  Variable <code>n</code> is wrapped by function <code>nat</code> previously defined to
+avoid negative costs.  The upper bound is shown in the console view and also
+at the method’s header when the mouse passes over the marker in line 48 in the
+program.</p>
+
+<p>Now, let us analyze the main method of the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" title="VendingMachine.abs">VendingMachine.abs</a>, which contains the following code:</p>
+
+<pre><code class="language-abs">  module VendingMachine;
+  interface VendingMachine {
+      Unit insertCoin();
+      Unit insertCoins( Int nCoins );
+      Int retrieveCoins();
+  }
+  interface PrettyPrinter {
+      Unit showIncome( Int nCoins );
+      Unit showCoin();
+  }
+  interface Main{
+      Unit main( Int n );
+  }
+  class IVendingMachine( Int coins, PrettyPrinter out ) implements VendingMachine{
+      Unit insertCoin(){
+          coins = coins + 1;
+      }
+      Unit insertCoins( Int nCoins ){
+          while( nCoins &gt; 0 ){
+              nCoins = nCoins - 1;
+              Fut&lt;Unit&gt; f = this ! insertCoin();
+              await f?;
+          }
+      }
+      Int retrieveCoins(){
+          Int result = 0;
+          while( coins &gt; 0 ){
+              coins = coins - 1;
+              Fut&lt;Unit&gt; f = out ! showCoin();
+              await f?;
+              result = result + 1;
+          }
+          return result;
+      }
+  }
+  class IPrettyPrinter implements PrettyPrinter{
+      Unit showIncome( Int nCoins ){ /*Show something*/ }
+      Unit showCoin(){ /*Show something*/ }
+  }
+  class IMain implements Main{
+      Unit main( Int n ){
+          PrettyPrinter o = new IPrettyPrinter();
+          VendingMachine v = new IVendingMachine( 0, o );
+          v ! insertCoins(n);
+          Fut&lt;Int&gt; f = v ! retrieveCoins();
+          await f?;
+          Int result = f.get;
+          o ! showIncome( result );
+      }
+  }
+</code></pre>
+
+<p>This file is just like the previous example, but includes the <code>await</code> instruction at line 37 that was commented out in the previous program.
+Analyze this program with the same configuration as before: default setting
+values, except for the asymptotic bounds parameter set to <code>yes</code>.  Click on
+~Refresh Outline~ and select the entry method (method <code>main</code> of class <code>IMain</code>)
+in the outline. Then click on <code>Run</code> to perform the analysis.  The results will be shown like this:</p>
+
+<pre><code>Method IMain.main terminates?: UNKOWN
+UB for 'IMain.main'(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
+</code></pre>
+
+<p>The analyzer shows, by using a warning marker (see line 41), that the resource analysis cannot infer an upper bound nor guarantee the termination of the program.</p>
+
+<h2 id="rely-guarantee-resource-analysis">Rely-Guarantee Resource Analysis</h2>
+
+<div class="notices info" ><p>NOTE: this analysis is not currently available.</p>
+</div>
+
+
+<p>Let us now perform the rely-guarantee resource analysis, described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this paper">this paper</a>, on the main method of the <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" title="VendingMachine.abs">VendingMachine.abs</a> file. To do so, we set the
+option <code>Rely Guarantee</code> to <code>yes</code> and the <code>Cost Model</code> to <code>termination</code>.</p>
+
+<p>After applying the analysis, it can be seen on the default console that
+CostABS proves that all methods of the program terminate.  Let us now slightly
+modify the example to make method <code>insertCoins</code> non-terminating by removing
+line 35 with the instruction <code>coins = coins – 1</code>.  The analysis information is
+displayed as follows. For each strongly connected component(SCC) (SCC-while
+loops and recursive methods are basically the SCCs in a program), the analysis
+places a marker in the entry line to the SCC.  If the SCC is terminating
+(eg. line 25), by clicking on the marker, the lines that compose this SCC are
+highlighted in yellow. On the other hand, if the SCC is non-terminating (line
+34), by clicking on the marker, CostABS highlights the lines of the SCC in
+blue.  Besides the markers, the list of all SCCs of the program and their
+computed termination results are printed by CostABS on the console.</p>
+
+<p>At this point, let us perform the rely guarantee resource analysis to infer
+the cost of the program.  Restore the original code of line 35, click on
+~Settings~ and select the <code>Steps</code> cost model with the option <code>Rely guarantee</code> set to <code>yes</code>.  Then click on <code>Run</code> to perform the analysis.</p>
+
+<p>The resulting upper bound obtained is a function in terms on <code>n</code> (the input
+parameter of <code>main</code>) and in terms of the maximum value that field <code>coins</code> can
+take, denoted <code>max(coins)</code>.  We can observe that the cost of <code>main</code> is linear
+with respect to both.  In addition, CostABS shows a marker to the left of each
+method header to display their corresponding upper bounds.</p>
+
+<h2 id="load-balance">Load Balance</h2>
+
+<p>At this point, let us use the resource analysis to study the load balance of
+the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Performance.abs&amp;app=cost" title="Performance.abs">Performance.abs</a>, which contains the following code:</p>
+
+<pre><code class="language-abs">   module Parallel;
+   import * from ABS.StdLib;
+
+  interface I {
+      Unit m (Int n);
+      Unit p (Int n, I x);
+      Unit m2 (Int n);
+      Unit q ();
+  }
+
+  class C implements I{
+      Unit m (Int n) {
+          I a = new C();
+          while (n &gt; 0) {
+              a!p(n, a);
+              n = n - 1;
+          }
+      }
+
+      Unit mthis (Int n) {
+          I a = new C();
+          while (n &gt; 0) {
+              a!p(n, this);
+              n = n - 1;
+          }
+      }
+
+      Unit p (Int n, I x) {
+          while (n &gt; 0) {
+              x!q();
+              n = n - 1;
+          }
+      }
+
+      Unit m2 (Int n) {
+          while (n &gt; 0) {
+              I a = new C ();
+              a!p(n, a);
+              n = n - 1;
+          }
+      }
+
+      Unit q () {
+          skip;
+      }
+
+  }
+</code></pre>
+
+<p>As the concurrency unit of ABS is the object, this analysis uses the cost
+centers to assign the cost of each execution step to the object where the step
+is performed.  We start by applying the Resource Analysis and setting the
+option <code>Cost Centers</code> to <code>object</code> in the settings.  Then click on <code>Refresh
+Outline</code> and select the method <code>C.m</code> on the right region of the page. Finally,
+click on <code>Run</code> to perform the analysis.  In the console, we see the following output:</p>
+
+<pre><code>UB Object Sensitive for C.m(this,n): 6*c([C.m])+nat(n)* (2*c([C.m])+5*c([C.m])+3*c([1,C.m])+nat(n)* (2*c([1,C.m])+5*c([1,C.m])+2*c([1,C.m]))+2*c([1,C.m])+c([1,C.m]))+2*c([C.m])+c([C.m])+c([1,C.m])
+UB for cobox ([13,12],C): 1+nat(n)* (6+9*nat(n))
+UB for cobox ([12],C.m): 9+7*nat(n)
+</code></pre>
+
+<p>CostABS returns the cost centers in the program, one cost center labelled with
+~[12]~ which corresponds to the object that executes <code>C.m</code> and another one
+labelled with <code>[13,12]</code>, which abstracts the object created at line 13.  The
+labels of the nodes contain the program lines where the corresponding object
+is created.  That is, the node labeled as <code>[13,12]</code> corresponds to the <code>C</code> object, created at line 13 while executing the main method, the node
+identified by line 12. In addition, CostABS shows a graph with both nodes in
+the <code>Console Graph</code> view at the bottom of the screen.  By clicking on the node
+~[12]~, CostABS shows a dialog box with the upper bound on the number of steps
+performed by this node.  Similarly, by clicking on the node <code>[13,12]</code>, it shows
+the number of steps that can be executed by the object identified with
+~[13,12]~.</p>
+
+<p>We can observe that the node <code>[12]</code> performs a number of steps that is bounded
+by a linear function on the input parameter <code>n</code>, while in the node <code>[13,12]</code> the number of steps is bounded by a quadratic function on <code>n</code>.  If we analyze
+method <code>C.mthis</code>, the cost is distributed in a different way.  In this case,
+both nodes <code>[20]</code> and <code>[21,20]</code> have a quadratic upper bound on the number of
+steps performed by each node. The difference between both methods is that the
+call <code>x!q()</code> at line 30 is performed in object <code>[13,12]</code> in the former case,
+and in object <code>[20]</code> in the latter.</p>
+
+<p>We can obtain the number of instances of each object we can have in each node.
+Select <code>C.m2</code> and unselect the previously selected methods on the outline on
+the right of the page, and perform the Resource Analysis, setting the options
+~Cost Model~ to <code>Objects</code> and <code>Cost Centers</code> to <code>Object</code>.  It can be seen in
+the output of CostABS that the number of instances of the object identified by
+~[37,35]~ is bounded by <code>n</code> (the input argument of method <code>m2</code>).  Finally, we
+can apply the resource analysis to <code>C.m2</code> selecting <code>Cost Model</code> to <code>Steps</code> to
+obtain the results of the analysis for this method regarding the number of
+steps.</p>
+
+<h2 id="transmission-data-sizes">Transmission Data Sizes</h2>
+
+<p>Now, let us perform the transmission data size analysis to the following code:</p>
+
+<pre><code class="language-abs">  module DemoTraffic;
+  import * from ABS.StdLib;
+
+  interface II {
+          Unit work (Int n, List&lt;Int&gt; l);
+  }
+
+  interface IS {
+          Int process (List&lt;Int&gt; l);
+  }
+
+  class Master (IS s) implements II {
+
+
+          Unit work (Int n, List&lt;Int&gt; l){
+                  while (n&gt;0) {
+                          l = Cons(1,l);
+                          Fut&lt;Int&gt; q = s!process(l);
+                          q.get;
+                          n = n - 1;
+                  }
+          }
+
+  }
+
+  class Slave () implements IS{
+          Int process (List&lt;Int&gt; l) {return 1;}
+  }
+
+  class IMain {
+          Unit main (List&lt;Int&gt; l, Int n) {
+                  IS s = new  Slave();
+                  II m = new  Master(s);
+                  m!work(n,l);
+           }
+  }
+</code></pre>
+
+<p>Open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/path/to/DataTransmitted.abs" title="DataTransmitted.abs">DataTransmitted.abs</a>.  To analyze this file with the transmission
+data size analysis, select the analysis <code>Resource Analysis (SACO)</code> and set the
+option <code>Cost Model</code> to <code>Traffic</code>.  Then refresh the outline and apply the
+analysis to the method <code>IMain.main</code>.</p>
+
+<p>When the analysis is applied, the console will show the upper bound
+expressions for all possible pairs of objects identified by the analysis:</p>
+
+<pre><code>UB Object Sensitive for IMain.main(this,l,n): c(o([IMain.main],[2,IMain.main],Master.work))* (1+c(i)+nat(l))+c(o([2,IMain.main],[IMain.main],Master.work))* (1+c(i))+c(o([IMain.main],[2,IMain.main],Master.init))* (1+c(i))+c(o([2,IMain.main],[IMain.main],Master.init))*c(i)+c(o([IMain.main],[1,IMain.main],Slave.init))*c(i)+c(o([1,IMain.main],[IMain.main],Slave.init))*c(i)+nat(n)* (c(o([2,IMain.main],[1,IMain.main],Slave.process))* (c(i)+nat(l+2*n))+c(o([1,IMain.main],[2,IMain.main],Slave.process))* (1+c(i)))
+UB for interactions between ([31],[32,31]): c(i)
+UB for interactions between ([31],[33,31]): 2+nat(l)+2*c(i)
+UB for interactions between ([33,31],[32,31]): nat(n)* (c(i)+nat(l+2*n))
+UB for interactions between ([32,31],[31]): c(i)
+UB for interactions between ([33,31],[31]): 1+2*c(i)
+UB for interactions between ([32,31],[33,31]): nat(n)* (1+c(i))
+</code></pre>
+
+<p>For example, the last line of the console output is the upper bound of the
+size of the data transmitted from the node <code>[32,31]</code> to the node <code>[33,31]</code>,
+that are the <code>Slave</code> and <code>Master</code> objects created at line 32 and line 33,
+respectively.  We can observe that this upper bound linearly depends on the
+input parameter <code>n</code>, which is the number of times the method <code>process</code> in the
+~Slave~ object is invoked.  On the other hand, the data transmitted from the
+~Master~ object <code>[33,31]</code> to the <code>Slave</code> object <code>[32,31]</code> is different, as the
+invocation contains the list <code>l</code> which is passed as argument to the method
+~process~.  In this case, the upper bound is a quadratic function on the
+parameter <code>n</code>, as the list passed as argument grows at each iteration of the
+loop at line 16, and this loop iterates <code>n</code> times.</p>
+
+<p>In addition to the console information, the graph in output tab <code>Console
+Graph</code> shows the objects creation.  By clicking on a node in the graph, a
+message outputs the UBs (upper bounds) for all transmissions data sizes that
+the selected object can perform and the objects involved in such
+transmissions.  For example, by clicking on the node <code>[32,31]</code>, which
+corresponds to the <code>Master</code> object, we can see the upper bounds on the data
+transmitted (incoming and outgoing transmissions) from this object.  As
+before, the labels of the nodes contain the program lines where the
+corresponding object is created. For instance, the node labeled as <code>[32,31]~
+corresponds to the ~Master</code> object, created at line 32 while executing the
+main method, the object identified by line 31.  In such upper bounds, the cost
+expression <code>c(i)</code> represents the cost of establishing the communication.</p>
+
+<h2 id="non-cumulative-cost">Non-Cumulative Cost</h2>
+
+<p>We can illustrate the analysis for computing the non-cumulative cost with the
+file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Noncumulative.abs&amp;app=cost" title="Noncumulative.abs">Noncumulative.abs</a>, which contains the following code:</p>
+
+<pre><code class="language-abs">  module Noncumulative;
+  import * from ABS.StdLib;
+  class IMain {
+      Unit main (Int s, Int n) {
+          [x == acquire(10)]
+          Int i= 0;
+          [r == acquire(100)]
+          i = 0;
+          [r == acquire(s)]
+          i = 1;
+          [r == release()]
+          i = 2;
+          [y == acquire(n)]
+          i = 3;
+          [x == release()]
+          i = 4;
+      }
+  }
+</code></pre>
+
+<p>In <code>Settings</code>, restore the default values and set the option <code>noncumulative_cost</code> to <code>yes</code>.  Then refresh the outline and select the method <code>IMain.main</code>.  The results obtained after clicking <code>Run</code> show that we have two sets of program points that can lead to the maximum on the number of resources acquired, as well as their corresponding upper bound expressions.  The set <code>[L6,L8,L10]</code> corresponds to the acquireinstructions at lines 6, 8 and 10 of the program.  With this set of <code>acquire</code> instructions, we obtain an upper bound of the number of resources that linearly depends on the input parameter <code>s</code> because of the <code>acquire</code> at line 10.  The set <code>[L6,L8,L14]</code> can also lead to the maximum number of resources acquired, if the actual value of the input parameter <code>n</code> is larger than <code>s</code>.</p>
+
+<h2 id="peak-cost-analysis">Peak Cost Analysis</h2>
+
+<p>Let us continue by performing the peak cost analysis to the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a>.  Similarly to other analyses, we first select the entry method (method <code>main</code> in class <code>IMain</code>) in the outline view and start the Resource Analysis (SACO) with default options, with the exception of the option <code>Peak Cost</code>, which must be set to <code>yes</code>.  After clicking <code>Run</code>, the peak cost analysis outputs in the console.</p>
+
+<pre><code>Closure time 2 ms.
+Direct mhp time 0 ms.
+ Indirect mhp time 24 ms.
+Configurations found for queue [49,48] -- IPrettyPrinter.showIncome,IPrettyPrinter.showCoin
+   -- IPrettyPrinter.init
+UBs for the configurations of queue [49,48]
+   -- UB_k for [49,48]-[IPrettyPrinter.showIncome,IPrettyPrinter.showCoin]): 2+2*nat(max(coins)-1)
+   -- UB_k for [49,48]-[IPrettyPrinter.init]): 0
+
+Configurations found for queue [50,48] -- IVendingMachine.insertCoins,IVendingMachine.retrieveCoins,IVendingMachine.insertCoin
+   -- IVendingMachine.init
+UBs for the configurations of queue [50,48]
+   -- UB_k for [50,48]-[IVendingMachine.insertCoins,IVendingMachine.retrieveCoins,IVendingMachine.insertCoin]): 13+14*nat(n)+13*nat(max(coins)-1)
+   -- UB_k for [50,48]-[IVendingMachine.init]): 0
+</code></pre>
+
+<p>For each identified ABS object, all possible queue configurations are shown. A queue configuration is the set of tasks that can be in the task queue simultaneously. For each queue configuration, the tasks involved in the configuration are shown. In addition, the total cost associated with the configuration is displayed as well.</p>
+
+<p>The analysis of the program <code>VendingMachine_init.abs</code> shows that there are two possible queue configurations for each object identified in the program.  For example, for the object <code>[49,48]</code> one of the configurations contains tasks for methods <code>showIncome</code> and <code>showCoin</code>, and the number of steps executed by those tasks linearly depends on the value of the field <code>coins</code>.</p>
+
+<p>As before, the output tab <code>Console Graph</code> also shows a graph where the labels of the nodes contain the program lines where the corresponding object is created.  For instance, the node labeled as <code>[49,48]</code> corresponds to the <code>PrettyPrinter</code> object, created at line 49 while executing the <code>main</code> method which starts at line 48.  By clicking on a node, the queue configurations that have been identified and their costs are shown in a message.</p>
+
+<h2 id="parallel-cost">Parallel Cost</h2>
+
+<p>Let us perform the parallel cost analysis described in <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>.  To do so, we open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Parallel.abs&amp;app=cost" title="Parallel.abs">Parallel.abs</a>, which contains the following code:</p>
+
+<pre><code class="language-abs">  module Parallel;
+  import * from ABS.StdLib;
+
+  interface IX {
+      Unit p (IY y);
+  }
+
+  interface IY {
+      Unit q ();
+      Unit s ();
+  }
+
+  class X implements IX {
+      Unit p (IY y) {
+          skip;
+          y!s();
+          Int method_end = 0;
+      }
+  }
+
+  class Y implements IY {
+      Unit q () {
+          Int method_end = 0;
+      }
+      Unit s () {
+          Int method_end = 0;
+      }
+
+  }
+
+  class IMain {
+      Unit main () {
+
+          IX x = new  X ();
+          IY y = new  Y ();
+
+          x!p(y);
+          skip;
+          y!q();
+          Int method_end = 0;
+      }
+  }
+</code></pre>
+
+<p>Select the entry method <code>IMain.main</code> in the outline and apply the Resource Analysis by restoring the default values and setting the option <code>Parallel Cost</code>  to <code>yes</code>.  The analysis results show the computed upper bound expressions obtained for all paths identified in the DFG (distributed flow graph) of the program.  In addition, the result shows the number of nodes and edges of the computed DFG.</p>
+
+<pre><code>Closure time 1 ms.
+Direct mhp time 0 ms.
+ Indirect mhp time 3 ms.
+DFG Number of Nodes: 11
+DFG Number of Edges: 12
+DFG Number of Exit nodes: 4
+Number of Paths found: 16
+The Parallel Cost for IMain.main(this) is the maximum of the expressions (4):
+UB Expression: 10
+UB Expression: 14
+UB Expression: 13
+UB Expression: 9
+</code></pre>
+<!-- * [0/3] TODOs                                                      :noexport: -->
+<!-- - [ ] Add boilerplate text at beginning of each task: "Restore settings to -->
+<!--   default and set the following options ..." -->
+<!-- - [ ] Add overview / table of contents at the start -->
+<!-- - [ ] Add short explanation of the tool to each section + link to -->
+<!--   documentation or paper -->
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tutorials/" title="Tutorials"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tutorials/resources/" title="Resources" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1545311490"></script>
+    <script src="/js/jquery.sticky.js?1545311490"></script>
+    <script src="/js/featherlight.min.js?1545311490"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1545311490"></script>
+    <script src="/js/highlight.pack.js?1545311490"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1545311490"></script>
+    <script src="/js/learn.js?1545311490"></script>
+    <script src="/js/hugo-learn.js?1545311490"></script>
+
+    <link href="/mermaid/mermaid.css?1545311490" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1545311490"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

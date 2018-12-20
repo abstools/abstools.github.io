@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.52" />
+    <meta name="description" content="">
+
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <title>Installing Command-Line Tools :: The ABS Modeling Language</title>
+    
+    
+    <link href="/css/nucleus.css?1545311490" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1545311490" rel="stylesheet">
+    <link href="/css/hybrid.css?1545311490" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1545311490" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1545311490" rel="stylesheet">
+    <link href="/css/auto-complete.css?1545311490" rel="stylesheet">
+    <link href="/css/theme.css?1545311490" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1545311490" rel="stylesheet">
+    
+      <link href="/css/theme-abs.css?1545311490" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1545311490"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/getting_started/local-install/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="http://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1545311490"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1545311490"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1545311490"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/overview/" title="Overview" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/overview/">
+          Overview
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/getting_started/">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item active">
+        <a href="/getting_started/local-install/">
+        Installing Command-Line Tools
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
+        <a href="/getting_started/docker/">
+        Running a Browser-Based IDE
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
+        <a href="/getting_started/editor-support/">
+        Installing Editor Support
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/tutorials/" title="Tutorials" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tutorials/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/costabs/" title="CostABS" class="dd-item ">
+        <a href="/tutorials/costabs/">
+        CostABS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/resources/" title="Resources" class="dd-item ">
+        <a href="/tutorials/resources/">
+        Resources
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/publications/" title="Selected Publications" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/publications/">
+          Selected Publications
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/contact/" title="Contact" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/contact/">
+          Contact
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/acknowledgments/">
+          Acknowledgments
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/getting_started/'>Getting Started</a> > Installing Command-Line Tools
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#installing-the-abs-compiler">Installing the ABS Compiler</a></li>
+<li><a href="#installing-key-abs">Installing KeY-ABS</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Installing Command-Line Tools</h1>
+          
+
+        
+
+
+
+
+<p>Many of the tools can be run from the command line.  This chapter describes
+how to run various tools on a local machine.</p>
+
+<h2 id="installing-the-abs-compiler">Installing the ABS Compiler</h2>
+
+<p>To install the ABS compiler, install the <a href="https://java.com/en/download/" title="Java 8 download site">Java 8
+JDK</a> and
+<a href="https://www.erlang-solutions.com/resources/download.html" title="Erlang binary distribution download">Erlang</a> (version 21 or higher).  Then,
+clone the git repository and build the compiler:</p>
+
+<pre><code class="language-bash">git clone https://github.com/abstools/abstools.git
+cd abstools/frontend
+./gradlew assemble
+</code></pre>
+
+<p>After a successful build, there is an absc shell script in the
+<code>abstools/frontend/bin/bash/</code> directory that invokes the ABS compiler.  For
+Windows, there is <code>abstools/frontend/bin/win/absc.bat</code>.  After adding that
+directory to your path environment variable, you can invoke <code>absc</code> on one or
+more abs source files with a command like <code>absc -erlang model.abs</code>.</p>
+
+<h2 id="installing-key-abs">Installing KeY-ABS</h2>
+
+<p>For a local installation of the KeY-ABS theorem prover, install Java 8.  Then,
+download KeY-ABS from <a href="http://i12www.ira.uka.de/key/key-abs/key-abs.zip">http://i12www.ira.uka.de/key/key-abs/key-abs.zip</a>.
+Unzipping that downloaded file and double-clicking on the key.jar file should
+start KeY-ABS.  To start from the command line, use:</p>
+
+<pre><code class="language-bash">java -jar key.jar
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/getting_started/" title="Getting Started"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/getting_started/docker/" title="Running a Browser-Based IDE" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.min.js?1545311490"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1545311490"></script>
+    <script src="/js/jquery.sticky.js?1545311490"></script>
+    <script src="/js/featherlight.min.js?1545311490"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1545311490"></script>
+    <script src="/js/highlight.pack.js?1545311490"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1545311490"></script>
+    <script src="/js/learn.js?1545311490"></script>
+    <script src="/js/hugo-learn.js?1545311490"></script>
+
+    <link href="/mermaid/mermaid.css?1545311490" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1545311490"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+
