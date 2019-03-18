@@ -60,7 +60,7 @@
 	"title": "Contact",
 	"tags": [],
 	"description": "",
-	"content": "Slack channel, mailing list, Github repo\n"
+	"content": "We welcome bug reports and feature requests submitted via github.\nTo contact the maintainers, write to abs-info@abs-models.org.\nSubscribe to the developers’ mailing list at the developer list manager page. Subscribe to a low-traffic announcement-only list at the announcement list manager page.\n"
 },
 {
 	"uri": "http://abs-models.org/acknowledgments/",
