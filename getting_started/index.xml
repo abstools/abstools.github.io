@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Getting Started on The ABS Modeling Language</title>
-    <link>http://abs-models.org/getting_started/</link>
+    <link>https://abs-models.org/getting_started/</link>
     <description>Recent content in Getting Started on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 22 Mar 2018 12:22:10 +0100</lastBuildDate>
     
-	<atom:link href="http://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Installing Command-Line Tools</title>
-      <link>http://abs-models.org/getting_started/local-install/</link>
+      <link>https://abs-models.org/getting_started/local-install/</link>
       <pubDate>Wed, 15 Aug 2018 09:22:58 +0200</pubDate>
       
-      <guid>http://abs-models.org/getting_started/local-install/</guid>
+      <guid>https://abs-models.org/getting_started/local-install/</guid>
       <description>Many of the tools can be run from the command line. This chapter describes how to run various tools on a local machine.
 Installing the ABS Compiler To install the ABS compiler, install the Java 8 JDK and Erlang (version 21 or higher). Then, clone the git repository and build the compiler:
 git clone https://github.com/abstools/abstools.git cd abstools/frontend ./gradlew assemble  After a successful build, there is an absc shell script in the abstools/frontend/bin/bash/ directory that invokes the ABS compiler.</description>
@@ -24,10 +24,10 @@ git clone https://github.com/abstools/abstools.git cd abstools/frontend ./gradle
     
     <item>
       <title>Running a Browser-Based IDE</title>
-      <link>http://abs-models.org/getting_started/docker/</link>
+      <link>https://abs-models.org/getting_started/docker/</link>
       <pubDate>Wed, 15 Aug 2018 09:20:37 +0200</pubDate>
       
-      <guid>http://abs-models.org/getting_started/docker/</guid>
+      <guid>https://abs-models.org/getting_started/docker/</guid>
       <description>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
 Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
 docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest  When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</description>
@@ -35,10 +35,10 @@ docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest 
     
     <item>
       <title>Installing Editor Support</title>
-      <link>http://abs-models.org/getting_started/editor-support/</link>
+      <link>https://abs-models.org/getting_started/editor-support/</link>
       <pubDate>Wed, 05 Sep 2018 09:46:58 +0200</pubDate>
       
-      <guid>http://abs-models.org/getting_started/editor-support/</guid>
+      <guid>https://abs-models.org/getting_started/editor-support/</guid>
       <description>We provide support for Emacs, Atom and Visual Studio Code.
 Emacs The abs-mode package provides support for ABS in the Emacs editor.
 Installation instructions are at https://github.com/abstools/abs-mode.

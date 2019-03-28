@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Acknowledgments on The ABS Modeling Language</title>
-    <link>http://abs-models.org/acknowledgments/</link>
+    <link>https://abs-models.org/acknowledgments/</link>
     <description>Recent content in Acknowledgments on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 19 Dec 2018 17:41:18 +0100</lastBuildDate>
     
-	<atom:link href="http://abs-models.org/acknowledgments/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://abs-models.org/acknowledgments/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
