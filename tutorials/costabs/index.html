@@ -12,19 +12,19 @@
     <title>CostABS :: The ABS Modeling Language</title>
     
     
-    <link href="/css/nucleus.css?1553785260" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?1553785260" rel="stylesheet">
-    <link href="/css/hybrid.css?1553785260" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1553785260" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1553785260" rel="stylesheet">
-    <link href="/css/auto-complete.css?1553785260" rel="stylesheet">
-    <link href="/css/theme.css?1553785260" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1553785260" rel="stylesheet">
+    <link href="/css/nucleus.css?1553788760" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1553788760" rel="stylesheet">
+    <link href="/css/hybrid.css?1553788760" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1553788760" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1553788760" rel="stylesheet">
+    <link href="/css/auto-complete.css?1553788760" rel="stylesheet">
+    <link href="/css/theme.css?1553788760" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1553788760" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1553785260" rel="stylesheet">
+      <link href="/css/theme-abs.css?1553788760" rel="stylesheet">
     
 
-    <script src="/js/jquery-2.x.min.js?1553785260"></script>
+    <script src="/js/jquery-2.x.min.js?1553788760"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1553785260"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1553785260"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1553788760"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1553788760"></script>
 <script type="text/javascript">
     
         var baseurl = '\/';
     
 </script>
-<script type="text/javascript" src="/js/search.js?1553785260"></script>
+<script type="text/javascript" src="/js/search.js?1553788760"></script>
 
     
   </div>
@@ -450,8 +450,10 @@ following, we describe the use of CostABS by analyzing several examples.</p>
 <h2 id="basic-resource-analysis">Basic Resource Analysis</h2>
 
 <p>Let us start by performing the basic resource analysis computed by CostABS and
-described in <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46" title="this paper">this paper</a>. To do it, open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a>,
-which contains the following code:</p>
+described in <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46" title="this paper">this paper</a>. To do it, open the file 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
+
+, which contains the following code:</p>
 
 <pre><code class="language-abs">   module VendingMachine_init;
 
@@ -580,11 +582,14 @@ for the analysis.  The following parameters are available:</p>
 <dd>computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf" title="this technical report">this technical report</a>).</dd>
 </dl>
 
-<p>Let us analyze the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a> with the default values, except for the <code>Asymptotic bounds</code> parameter that
-must be set to <code>yes</code>.  Click on <code>Refresh Outline</code> and select the entry method
-(method <code>main</code> of class <code>IMain</code>) in the Outline (the region on the right of
-the page).  Then click on <code>Run</code> to perform the analysis.  The result should be
-shown in the console as follows:</p>
+<p>Let us analyze the program 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
+
+ with the default values, except for the
+~Asymptotic bounds~ parameter that must be set to <code>yes</code>.  Click on <code>Refresh
+Outline</code> and select the entry method (method <code>main</code> of class <code>IMain</code>) in the
+Outline (the region on the right of the page).  Then click on <code>Run</code> to perform
+the analysis.  The result should be shown in the console as follows:</p>
 
 <pre><code>Method IMain.main terminates?: YES
 UB for 'IMain.main'(this,n,max(coins)) = nat(n)+nat(max(coins))
@@ -598,7 +603,10 @@ avoid negative costs.  The upper bound is shown in the console view and also
 at the method’s header when the mouse passes over the marker in line 48 in the
 program.</p>
 
-<p>Now, let us analyze the main method of the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" title="VendingMachine.abs">VendingMachine.abs</a>, which contains the following code:</p>
+<p>Now, let us analyze the main method of the file 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" target="_blank">VendingMachine.abs</a>
+
+, which contains the following code:</p>
 
 <pre><code class="language-abs">  module VendingMachine;
   interface VendingMachine {
@@ -670,8 +678,13 @@ UB for 'IMain.main'(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
 </div>
 
 
-<p>Let us now perform the rely-guarantee resource analysis, described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this paper">this paper</a>, on the main method of the <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" title="VendingMachine.abs">VendingMachine.abs</a> file. To do so, we set the
-option <code>Rely Guarantee</code> to <code>yes</code> and the <code>Cost Model</code> to <code>termination</code>.</p>
+<p>Let us now perform the rely-guarantee resource analysis, described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this
+paper">this
+paper</a>, on the main method of the 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" target="_blank">VendingMachine.abs</a>
+
+ file. To do so, we set the option <code>Rely Guarantee</code> to
+~yes~ and the <code>Cost Model</code> to <code>termination</code>.</p>
 
 <p>After applying the analysis, it can be seen on the default console that
 CostABS proves that all methods of the program terminate.  Let us now slightly
@@ -699,7 +712,10 @@ method header to display their corresponding upper bounds.</p>
 <h2 id="load-balance">Load Balance</h2>
 
 <p>At this point, let us use the resource analysis to study the load balance of
-the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Performance.abs&amp;app=cost" title="Performance.abs">Performance.abs</a>, which contains the following code:</p>
+the program 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Performance.abs&amp;app=cost" target="_blank">Performance.abs</a>
+
+, which contains the following code:</p>
 
 <pre><code class="language-abs">   module Parallel;
    import * from ABS.StdLib;
@@ -834,8 +850,11 @@ steps.</p>
   }
 </code></pre>
 
-<p>Open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/path/to/DataTransmitted.abs" title="DataTransmitted.abs">DataTransmitted.abs</a>.  To analyze this file with the transmission
-data size analysis, select the analysis <code>Resource Analysis (SACO)</code> and set the
+<p>Open the file 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/path/to/DataTransmitted.abs" target="_blank">DataTransmitted.abs</a>
+
+.  To analyze this file with the transmission data
+size analysis, select the analysis <code>Resource Analysis (SACO)</code> and set the
 option <code>Cost Model</code> to <code>Traffic</code>.  Then refresh the outline and apply the
 analysis to the method <code>IMain.main</code>.</p>
 
@@ -879,7 +898,10 @@ expression <code>c(i)</code> represents the cost of establishing the communicati
 <h2 id="non-cumulative-cost">Non-Cumulative Cost</h2>
 
 <p>We can illustrate the analysis for computing the non-cumulative cost with the
-file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Noncumulative.abs&amp;app=cost" title="Noncumulative.abs">Noncumulative.abs</a>, which contains the following code:</p>
+file 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Noncumulative.abs&amp;app=cost" target="_blank">Noncumulative.abs</a>
+
+, which contains the following code:</p>
 
 <pre><code class="language-abs">  module Noncumulative;
   import * from ABS.StdLib;
@@ -905,7 +927,14 @@ file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collabo
 
 <h2 id="peak-cost-analysis">Peak Cost Analysis</h2>
 
-<p>Let us continue by performing the peak cost analysis to the program <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" title="VendingMachine_init.abs">VendingMachine_init.abs</a>.  Similarly to other analyses, we first select the entry method (method <code>main</code> in class <code>IMain</code>) in the outline view and start the Resource Analysis (SACO) with default options, with the exception of the option <code>Peak Cost</code>, which must be set to <code>yes</code>.  After clicking <code>Run</code>, the peak cost analysis outputs in the console.</p>
+<p>Let us continue by performing the peak cost analysis to the program 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
+
+.  Similarly to other analyses, we first select
+the entry method (method <code>main</code> in class <code>IMain</code>) in the outline view and
+start the Resource Analysis (SACO) with default options, with the exception of
+the option <code>Peak Cost</code>, which must be set to <code>yes</code>.  After clicking <code>Run</code>, the
+peak cost analysis outputs in the console.</p>
 
 <pre><code>Closure time 2 ms.
 Direct mhp time 0 ms.
@@ -931,7 +960,12 @@ UBs for the configurations of queue [50,48]
 
 <h2 id="parallel-cost">Parallel Cost</h2>
 
-<p>Let us perform the parallel cost analysis described in <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>.  To do so, we open the file <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Parallel.abs&amp;app=cost" title="Parallel.abs">Parallel.abs</a>, which contains the following code:</p>
+<p>Let us perform the parallel cost analysis described in <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>.  To do so,
+we open the file 
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Parallel.abs&amp;app=cost" target="_blank">Parallel.abs</a>
+
+,
+which contains the following code:</p>
 
 <pre><code class="language-abs">  module Parallel;
   import * from ABS.StdLib;
@@ -1253,20 +1287,20 @@ UB Expression: 9
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1553785260"></script>
-    <script src="/js/perfect-scrollbar.min.js?1553785260"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1553785260"></script>
-    <script src="/js/jquery.sticky.js?1553785260"></script>
-    <script src="/js/featherlight.min.js?1553785260"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1553785260"></script>
-    <script src="/js/highlight.pack.js?1553785260"></script>
+    <script src="/js/clipboard.min.js?1553788760"></script>
+    <script src="/js/perfect-scrollbar.min.js?1553788760"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1553788760"></script>
+    <script src="/js/jquery.sticky.js?1553788760"></script>
+    <script src="/js/featherlight.min.js?1553788760"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1553788760"></script>
+    <script src="/js/highlight.pack.js?1553788760"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom.71422.js?1553785260"></script>
-    <script src="/js/learn.js?1553785260"></script>
-    <script src="/js/hugo-learn.js?1553785260"></script>
+    <script src="/js/modernizr.custom.71422.js?1553788760"></script>
+    <script src="/js/learn.js?1553788760"></script>
+    <script src="/js/hugo-learn.js?1553788760"></script>
 
-    <link href="/mermaid/mermaid.css?1553785260" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1553785260"></script>
+    <link href="/mermaid/mermaid.css?1553788760" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1553788760"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
