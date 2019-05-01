@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.55.4" />
-    <meta name="description" content="">
+    <meta name="description" content="We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS called vml.">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
-    <title>Getting Started :: The ABS Modeling Language</title>
+    <title>Resource Analysis with SRA :: The ABS Modeling Language</title>
     
     
     <link href="/css/nucleus.css?1556712317" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/getting_started/">
+  <body class="" data-url="/tutorials/sra/">
     <nav id="sidebar" class="">
 
 
@@ -100,8 +100,8 @@
   
     
     <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/getting_started/">
@@ -189,7 +189,7 @@
   
     
     <li data-nav-id="/tutorials/" title="Tutorials" class="dd-item 
-        
+        parent
         
         
         ">
@@ -232,7 +232,7 @@
  
   
     
-      <li data-nav-id="/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
+      <li data-nav-id="/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item active">
         <a href="/tutorials/sra/">
         Resource Analysis with SRA
         
@@ -423,7 +423,13 @@
             
           
           
-            <a href='/'>The ABS Language</a> > Getting Started
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/tutorials/'>Tutorials</a> > Resource Analysis with SRA
+          
+         
           
          
           
@@ -437,7 +443,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#use-on-line-tools">Use On-Line Tools</a></li>
+<li><a href="#general-overview">General Overview</a></li>
+<li><a href="#resource-analysis">Resource Analysis</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -452,7 +459,7 @@
         
         <div id="body-inner">
           
-            <h1>Getting Started</h1>
+            <h1>Resource Analysis with SRA</h1>
           
 
         
@@ -460,116 +467,116 @@
 
 
 
-<p>There are various ways of running ABS models.</p>
+<h2 id="general-overview">General Overview</h2>
 
-<h2 id="use-on-line-tools">Use On-Line Tools</h2>
+<p>We prototype a static analysis technique that computes upper bounds of virtual
+machine usages in a dialect of ABS, called vml, whose syntax will be covered
+by the examples in this tutorial, with explicit acquire and release operations
+of virtual machines.  In our language it is possible to delegate other (ad-hoc
+or third party) concurrent code to release virtual machines (by passing them
+as arguments of invocations).  Our technique is modular and consists of (i) a
+type system associating programs with behavioural types that records relevant
+information for resource usage (creations, releases, and concurrent
+operations), (ii) a translation function that takes behavioural types and
+return cost equations.  It is integrated with the solver CoFloCo that given
+the cost equations produces the result.</p>
 
-<p>The simplest way to use the ABS tools is on-line, in the collaboratory.  This
-means you only need a modern browser to start experimenting with ABS.  The
-tools work best with Firefox and Chrome.</p>
+<h2 id="resource-analysis">Resource Analysis</h2>
 
-<p>An introduction and link to the collaboratory can be found at
-<a href="http://abs-models.org/laboratory/">http://abs-models.org/laboratory/</a>.</p>
+<p>In this section we present how to compute the cost of a vml program in term of
+virtual machine usage.</p>
 
-<ul class="children children-li">
-    
-    
-    
+<p>First, select <code>Resource Analysis (SRA)</code> from the pull-down menu at the top of
+the window on the center-left.  The parameters of the selected analysis are
+automatically set, so there is nothing to be configured in the <code>Settings</code>
+section in the top-left corner.</p>
 
-    
-        
-    
-        
-  
-
-
-<li>
-<a href="/getting_started/local-install/" >Installing Command-Line Tools</a>
-</li>
-
+<p>As an example, open the program 
 
 
 
 
 
-            
-                
-<p>Many of the tools can be run from the command line. This chapter describes how to run various tools on a local machine.
-Installing the ABS Compiler To install the ABS compiler, install the Java 8 JDK and Erlang (version 21 or higher). Then, clone the git repository and build the compiler:
-git clone https://github.com/abstools/abstools.git cd abstools/frontend ./gradlew assemble  After a successful build, there is an absc shell script in the abstools/frontend/bin/bash/ directory that invokes the ABS compiler.</p>
-                
-            
-        
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/review_2nd_year/sra/doubleRelease.vml&app=sra" target="_blank">doubleRelease.vml</a>
 
-        
-            
+:</p>
 
-        
-    
-        
-  
+<pre><code>/* DOUBLE RELEASE */
+Int doubleRelease(VM x, VM y) {
+  release x; release y;
+  return 0 ;
+}
 
+Int user1() {
+  VM x ; VM y ; Fut&lt;Int&gt; f ;
+  x = new VM() ; y = new VM();
+  f = this!doubleRelease(x, y);
+  Int a = f.get ; return 0 ; 
+}
 
-<li>
-<a href="/getting_started/docker/" >Running a Browser-Based IDE</a>
-</li>
+{
+  Fut&lt;Int&gt; fuser1 = this!user1();
+  Int a = fuser1.get;
+}
+</code></pre>
 
+<p>Let us analyze the program. Click on <code>Run</code> to perform the analysis.</p>
 
+<p>The output of the analysis is shown in three tabs of the console, which are
+generated by the tool:</p>
 
-
-
-
-            
-                
-<p>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
-Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
-docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest  When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</p>
-                
-            
-        
-
-        
-            
-
-        
-    
-        
-  
-
-
-<li>
-<a href="/getting_started/editor-support/" >Installing Editor Support</a>
-</li>
-
-
-
-
-
-
-            
-                
-<p>We provide support for Emacs, Atom and Visual Studio Code.
-Emacs The abs-mode package provides support for ABS in the Emacs editor.
-Installation instructions are at https://github.com/abstools/abs-mode.
-Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code is at https://github.</p>
-                
-            
-        
-
-        
-            
-
-        
-    
-
-    
+<ul>
+<li><strong>Types</strong> contains the behavioural types generated for the input program</li>
+<li><strong>Equations</strong> contains the cost equations resulted by the translation of the
+behavioural types</li>
+<li><strong>UBs</strong> which is the overall output and shows the upper bounds. For the
+<code>doubleRelease.vml</code> we get:
+<br /></li>
 </ul>
+
+<pre><code>### Partitioned upper bound of main(MAINVM):
+* 2
+ if []
+
+### Partitioned upper bound of doubleRelease012net(THISVM,X,Y):
+* -2
+ if [THISVM=1,X=1,Y=1]
+* -1
+ if [THISVM=1,X=1,Y&gt;=2]
+ or [THISVM=1,Y=1,X&gt;=2]
+* 0
+ if [THISVM=1,X&gt;=2,Y&gt;=2]
+ or [THISVM=3]
+
+### Partitioned upper bound of user10net(THISVM):
+* 0
+ if [3&gt;=THISVM,THISVM&gt;=1]
+
+### Partitioned upper bound of doubleRelease012peak(THISVM,X,Y):
+* 0
+ if [X=1,Y=1,2&gt;=THISVM]
+* 0
+ if [X=1,2&gt;=THISVM,Y&gt;=2]
+ or [Y=1,2&gt;=THISVM,X&gt;=2]
+ or [X=1,2&gt;=THISVM,0&gt;=Y]
+* 0
+ if [2&gt;=THISVM,X&gt;=2,Y&gt;=2]
+ or [2&gt;=THISVM,0&gt;=Y,X&gt;=2]
+ or [3&gt;=THISVM,0&gt;=X]
+ or [THISVM=3,X&gt;=1]
+
+### Partitioned upper bound of user10peak(THISVM):
+* 0
+ if [THISVM=3]
+* 2
+ if [2&gt;=THISVM]
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -621,7 +628,6 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
             
                 
                     
-                    
                 
                 
 
@@ -629,89 +635,6 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -769,6 +692,7 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
             
                 
                     
+                    
                 
                 
 
@@ -776,6 +700,77 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
                     
                     
 
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
             
         
@@ -828,6 +823,22 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
         
@@ -835,10 +846,10 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
 
 
         
-            <a class="nav nav-prev" href="/overview/" title="Overview"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/tutorials/language-tutorial/" title="Language Tutorial"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/getting_started/local-install/" title="Installing Command-Line Tools" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/tutorials/costabs/" title="Resource Analysis with CostABS" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -870,3 +881,4 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
 
   </body>
 </html>
+

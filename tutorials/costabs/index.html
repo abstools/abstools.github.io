@@ -3,28 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.54.0" />
+    <meta name="generator" content="Hugo 0.55.4" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
-    <title>CostABS :: The ABS Modeling Language</title>
+    <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
     
     
-    <link href="/css/nucleus.css?1553797219" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?1553797219" rel="stylesheet">
-    <link href="/css/hybrid.css?1553797219" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1553797219" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1553797219" rel="stylesheet">
-    <link href="/css/auto-complete.css?1553797219" rel="stylesheet">
-    <link href="/css/theme.css?1553797219" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1553797219" rel="stylesheet">
+    <link href="/css/nucleus.css?1556712317" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1556712317" rel="stylesheet">
+    <link href="/css/hybrid.css?1556712317" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1556712317" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1556712317" rel="stylesheet">
+    <link href="/css/auto-complete.css?1556712317" rel="stylesheet">
+    <link href="/css/theme.css?1556712317" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1556712317" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1553797219" rel="stylesheet">
+      <link href="/css/theme-abs.css?1556712317" rel="stylesheet">
     
 
-    <script src="/js/jquery-2.x.min.js?1553797219"></script>
+    <script src="/js/jquery-2.x.min.js?1556712317"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1553797219"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1553797219"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1556712317"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1556712317"></script>
 <script type="text/javascript">
     
         var baseurl = '\/';
     
 </script>
-<script type="text/javascript" src="/js/search.js?1553797219"></script>
+<script type="text/javascript" src="/js/search.js?1556712317"></script>
 
     
   </div>
@@ -232,9 +232,28 @@
  
   
     
-      <li data-nav-id="/tutorials/costabs/" title="CostABS" class="dd-item active">
+      <li data-nav-id="/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
+        <a href="/tutorials/sra/">
+        Resource Analysis with SRA
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/costabs/" title="Resource Analysis with CostABS" class="dd-item active">
         <a href="/tutorials/costabs/">
-        CostABS
+        Resource Analysis with CostABS
         
         </a>
     </li>
@@ -337,6 +356,28 @@
  
 
           
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/laboratory/">
+          The Collaboratory
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
          
     </ul>
 
@@ -386,7 +427,7 @@
             
           
           
-            <a href='/'>The ABS Language</a> > <a href='/tutorials/'>Tutorials</a> > CostABS
+            <a href='/'>The ABS Language</a> > <a href='/tutorials/'>Tutorials</a> > Resource Analysis with CostABS
           
          
           
@@ -410,13 +451,11 @@
         
         <div id="body-inner">
           
-            <h1>CostABS</h1>
+            <h1>Resource Analysis with CostABS</h1>
           
 
         
 
-
-<p><em>This tutorial is partially adapted from the pdf tutorial.  Content is accurate but the last sections are missing</em></p>
 
 <p>CostABS is a a static analyzer for automatically inferring upper/lower bounds
 on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  The
@@ -430,7 +469,7 @@ it supports different notions of cost such as sequential, parallel, peak, etc.</
 All examples are linked to the collaboratory where you can directly replay the
 steps described in the tutorial.</p>
 
-<h1 id="general-overview-resource-analysis">General Overview: Resource Analysis</h1>
+<h2 id="resource-analysis-with-saco">Resource Analysis with SACO</h2>
 
 <p>In what follows we present how to use EasyInterface with the different
 analyses that CostABS is able to perform with some examples.</p>
@@ -447,10 +486,11 @@ bottom of the screen.  This can be done by means of graphs, text messages,
 markers, highlighters in the code, and interactions among them.  In the
 following, we describe the use of CostABS by analyzing several examples.</p>
 
-<h2 id="basic-resource-analysis">Basic Resource Analysis</h2>
+<h3 id="basic-resource-analysis">Basic Resource Analysis</h3>
 
 <p>Let us start by performing the basic resource analysis computed by CostABS and
-described in <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46" title="this paper">this paper</a>. To do it, open the file 
+described in the paper <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46" title="“SACO: Static Analyzer for Concurrent Objects”">“SACO: Static Analyzer for Concurrent Objects”</a>.  To do
+it, open the file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
 
 , which contains the following code:</p>
@@ -546,35 +586,32 @@ for the analysis.  The following parameters are available:</p>
 
 <dl>
 <dt>Rely Guarantee</dt>
-<dd>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this paper">this paper</a>).</dd>
+<dd>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="“Termination and Cost Analysis of Loops with Concurrent Interleavings”">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).</dd>
 </dl>
 
 <dl>
 <dt>Peak Cost Analysis</dt>
-<dd>computes the peak cost analysis for all objects which are identified (see <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2" title="this paper">this paper</a>).</dd>
+<dd>computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2" title="”Peak Cost Analysis of Distributed Systems”">”Peak Cost Analysis of Distributed Systems”</a>).</dd>
 </dl>
 
 <dl>
 <dt>Parallel Cost Analysis</dt>
-<dd>computes the parallel cost analysis of the program (see <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>).</dd>
+<dd>computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="“Parallel Cost Analysis of Distributed Systems”">“Parallel Cost Analysis of Distributed Systems”</a>).</dd>
 </dl>
 
 <dl>
 <dt>Non-cumulative Cost Analysis</dt>
-<dd>computes the non-cumulative cost of the program (see <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6" title="this paper">this paper</a>).</dd>
+<dd>computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6" title="“Non-cumulative Resource Analysis”">“Non-cumulative Resource Analysis”</a>).</dd>
 </dl>
 
 <dl>
 <dt>Backend of the Analysis</dt>
-<dd>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="this technical report">this technical report</a>).</dd>
+<dd>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="“Resource Analysis of Complex Programs with Cost Equations”">“Resource Analysis of Complex Programs with Cost Equations”</a>).</dd>
 </dl>
 
 <dl>
 <dt>Conditional Upper Bounds</dt>
-<dd>computes a set of conditional upper bounds (UBs)</dd>
-     according to some conditions on the input parameters (see <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="this technical
-     report">this technical
-     report</a>).
+<dd>computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf" title="“Resource Analysis of Complex Programs with Cost Equations”">“Resource Analysis of Complex Programs with Cost Equations”</a>).</dd>
 </dl>
 
 <dl>
@@ -672,15 +709,13 @@ UB for 'IMain.main'(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
 
 <p>The analyzer shows, by using a warning marker (see line 41), that the resource analysis cannot infer an upper bound nor guarantee the termination of the program.</p>
 
-<h2 id="rely-guarantee-resource-analysis">Rely-Guarantee Resource Analysis</h2>
+<h3 id="rely-guarantee-resource-analysis">Rely-Guarantee Resource Analysis</h3>
 
-<div class="notices info" ><p>NOTE: this analysis is not currently available.</p>
-</div>
+<p><div class="notices info" >
+NOTE: this analysis is not currently available.
+</div></p>
 
-
-<p>Let us now perform the rely-guarantee resource analysis, described in <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="this
-paper">this
-paper</a>, on the main method of the 
+<p>Let us now perform the rely-guarantee resource analysis, described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25" title="”Termination and Cost Analysis of Loops with Concurrent Interleavings“">”Termination and Cost Analysis of Loops with Concurrent Interleavings“</a>, on the main method of the 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" target="_blank">VendingMachine.abs</a>
 
  file. To do so, we set the option <code>Rely Guarantee</code> to
@@ -709,7 +744,7 @@ take, denoted <code>max(coins)</code>.  We can observe that the cost of <code>ma
 with respect to both.  In addition, CostABS shows a marker to the left of each
 method header to display their corresponding upper bounds.</p>
 
-<h2 id="load-balance">Load Balance</h2>
+<h3 id="load-balance">Load Balance</h3>
 
 <p>At this point, let us use the resource analysis to study the load balance of
 the program 
@@ -808,7 +843,7 @@ can apply the resource analysis to <code>C.m2</code> selecting <code>Cost Model<
 obtain the results of the analysis for this method regarding the number of
 steps.</p>
 
-<h2 id="transmission-data-sizes">Transmission Data Sizes</h2>
+<h3 id="transmission-data-sizes">Transmission Data Sizes</h3>
 
 <p>Now, let us perform the transmission data size analysis to the following code:</p>
 
@@ -895,7 +930,7 @@ corresponds to the ~Master</code> object, created at line 32 while executing the
 main method, the object identified by line 31.  In such upper bounds, the cost
 expression <code>c(i)</code> represents the cost of establishing the communication.</p>
 
-<h2 id="non-cumulative-cost">Non-Cumulative Cost</h2>
+<h3 id="non-cumulative-cost">Non-Cumulative Cost</h3>
 
 <p>We can illustrate the analysis for computing the non-cumulative cost with the
 file 
@@ -925,7 +960,7 @@ file
 
 <p>In <code>Settings</code>, restore the default values and set the option <code>noncumulative_cost</code> to <code>yes</code>.  Then refresh the outline and select the method <code>IMain.main</code>.  The results obtained after clicking <code>Run</code> show that we have two sets of program points that can lead to the maximum on the number of resources acquired, as well as their corresponding upper bound expressions.  The set <code>[L6,L8,L10]</code> corresponds to the acquireinstructions at lines 6, 8 and 10 of the program.  With this set of <code>acquire</code> instructions, we obtain an upper bound of the number of resources that linearly depends on the input parameter <code>s</code> because of the <code>acquire</code> at line 10.  The set <code>[L6,L8,L14]</code> can also lead to the maximum number of resources acquired, if the actual value of the input parameter <code>n</code> is larger than <code>s</code>.</p>
 
-<h2 id="peak-cost-analysis">Peak Cost Analysis</h2>
+<h3 id="peak-cost-analysis">Peak Cost Analysis</h3>
 
 <p>Let us continue by performing the peak cost analysis to the program 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
@@ -958,9 +993,9 @@ UBs for the configurations of queue [50,48]
 
 <p>As before, the output tab <code>Console Graph</code> also shows a graph where the labels of the nodes contain the program lines where the corresponding object is created.  For instance, the node labeled as <code>[49,48]</code> corresponds to the <code>PrettyPrinter</code> object, created at line 49 while executing the <code>main</code> method which starts at line 48.  By clicking on a node, the queue configurations that have been identified and their costs are shown in a message.</p>
 
-<h2 id="parallel-cost">Parallel Cost</h2>
+<h3 id="parallel-cost">Parallel Cost</h3>
 
-<p>Let us perform the parallel cost analysis described in <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="this paper">this paper</a>.  To do so,
+<p>Let us perform the parallel cost analysis described in the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16" title="“Parallel Cost Analysis of Distributed Systems”">“Parallel Cost Analysis of Distributed Systems”</a>.  To do so,
 we open the file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Parallel.abs&amp;app=cost" target="_blank">Parallel.abs</a>
 
@@ -1026,6 +1061,252 @@ UB Expression: 14
 UB Expression: 13
 UB Expression: 9
 </code></pre>
+
+<h3 id="cost-analysis-in-time">Cost Analysis in Time</h3>
+
+<p>Let us continue by performing the cost analysis in time to the program in 
+
+
+
+
+
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Timed.abs&app=cost" target="_blank">Timed.abs</a>
+
+,
+with the following code:</p>
+
+<pre><code class="language-abs">module Timed; 
+
+interface Job{
+    Unit start(Int dur);
+}
+
+class IMain{
+    Unit main(Int n){
+        while(n&gt;0){
+            Job job=new local Job();
+            job!start(10);	
+            await duration(1,1);
+            n= n-1;
+        }
+    }
+}
+
+class Job implements Job{
+    Unit start(Int dur){
+        while(dur&gt;0){
+            [Cost: 1] dur=dur-1;
+            await duration(1,1);
+        }
+    }
+}
+</code></pre>
+
+<p>Select the entry method <code>IMain.main</code> in the outline of the program.  Then,
+select the Resource Analysis and set the option <code>Timed Cost</code> to <code>yes</code>.  After
+applying the analysis, the output of SACO shows</p>
+
+<pre><code>Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = n*c(condition([[1*time=1,-1*n+1*_G13533=1,-1*target&gt;= -9,1*_G13533&gt;=2,-1*_G13533+1*target&gt;=0]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = 0*c(condition([[1*time=1,-1*n+1*_G13533=1,1*_G13533&gt;=2,-1*_G13533+1*target&gt;=9],[1*time=1,1*_G13533=1,-1*n&gt;=0,1*target&gt;=1]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = 1*c(condition([[1*time=1,1*target=1,-1*n+1*_G13542=1,1*_G13542&gt;=3],[1*time=1,-1*n+1*_G13542=1,-1*target+1*_G13542= -8,1*_G13542&gt;=2],[1*n=1,1*time=1,1*target=1,1*_G13542=2]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = 9*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target&gt;=11,-1*target+1*_G13533&gt;= -7,-1*_G13533+1*target&gt;=0],[1*time=1,1*target=10,-1*n+1*_G13533=1,-1*_G13533&gt;= -10,1*_G13533&gt;=3]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = 10*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target&gt;=11,-1*target+1*_G13533&gt;=2],[1*time=1,1*target=10,-1*n+1*_G13533=1,1*_G13533&gt;=12]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = 11*c(condition([[1*time=1,-1*target+1*n=0,-1*_G13545+1*n= -1,1*n&gt;=11],[1*n=10,1*time=1,1*target=10,1*_G13545=11]]))
+Method IMain.main terminates?: YES
+UB for 'IMain.main'(this,n,time,target) = (n+1)*c(condition([[1*time=1,-1*n+1*_G13536=1,-1*target&gt;= -9,1*target&gt;=2,-1*target+1*_G13536&gt;=2],[1*time=1,-1*target+1*n=0,-1*_G13536+1*n= -1,-1*n&gt;= -9,1*n&gt;=2]]))
+</code></pre>
+
+<h3 id="cofloco-backend">CoFloCo Backend</h3>
+
+<p>Finally, let us analyze the program 
+
+
+
+
+
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/CoFloCoExample.abs&app=cost" target="_blank">CoFloCoExample.abs</a>
+
+ by
+using CoFloCo as backend. In this case, the file contains the following code:</p>
+
+<pre><code class="language-abs">module Parallel;
+import * from ABS.StdLib;
+
+class C {
+    Bool nondet=False;
+
+    Unit m1 (Int i, Int dir, Int n) {
+        while (0&lt;i &amp;&amp; i &lt; n) {
+            if (dir == 1) {
+                i = i + 1;
+            } else {
+                i = i - 1;
+            }
+        }
+    }
+
+    Unit m2 (Int x, Int y, Int a, Int r) {
+        while (x &gt; 0 &amp;&amp; y &gt; 0) {
+            if (nondet) {
+                x = x - 1;
+                y = r;
+            } else {
+                y = y - 1;
+            }
+            suspend;
+        }
+    }
+
+    Unit m3 (Int x, Int y, Int a) {
+        while (x &gt; 0) {
+            while (y &gt; 0 &amp;&amp; nondet) {
+                y = y - 1;
+                suspend;
+            }
+            x = x - 1;
+        }
+    }
+}
+</code></pre>
+
+<p>We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</code> or <code>C.m3</code> and then perform the resource analysis with the default options except the option <code>Backend</code>, which must be set to <code>CoFloCo</code>.  After applying the analysis, SACO shows the results of the analysis of <code>C.m</code> with CoFloCo.</p>
+<!-- FIXME: The option "Conditional UBs" is not in the Settings window for Resource Analysis (SACO) -->
+<!-- Additionally, by setting the option ~Conditional UBs~ to ~yes~, we can obtain conditional upper bounds. -->
+
+<h2 id="may-happen-in-parallel-analysis-mhp">May-Happen-in-Parallel Analysis (MHP)</h2>
+
+<p>ABS is a distributed language where different methods can be invoked
+asynchronously.  Therefore, there can be several tasks executing their code at
+the same time.  This simultaneity complicates the analysis and understanding
+of ABS programs, since (in general) there is a high level of parallelism.  The
+MHP analysis alleviates this situation by computing, for each instruction,
+which other instructions could execute in parallel.  This information can be
+very interesting for developers and testers, but it is crucial for the
+precision of many of the SACO analysis presented in the previous section.</p>
+
+<p>The result of the MHP analysis, described in the paper <a href="http://dx.doi.org/10.1007/978-3-642-30793-5_3" title="“Analysis of
+May-Happen-in-Parallel in Concurrent Objects”">“Analysis of
+May-Happen-in-Parallel in Concurrent Objects”</a>, is a set of pairs of
+instructions that could execute in parallel in any execution of the program.
+It is important to stress that this analysis computes an /overapproximation/
+of the parallelism.  In other words, if a pair of instruction can execute in
+parallel, then they will be detected by the analysis; however, the analysis
+can incorrectly detect pairs of instructions that never execute in parallel
+when executing the program.</p>
+
+<h3 id="mhp-analysis-in-the-collaboratory">MHP Analysis in the Collaboratory</h3>
+
+<p>In order to apply the MHP Analysis in the Collaboratory, just:</p>
+
+<ul>
+<li>Open the ABS program to analyze.</li>
+<li>Select <code>MHP Analysis</code> in the list of analyses.</li>
+<li>Refresh the list of methods in the right side (button <code>Refresh Outline</code>) and select the entry point of the analysis.  Only one method or function can be selected as entry point.  If none is selected then the main block will be considered the entry point.</li>
+<li>Press the <code>Run</code> button.</li>
+</ul>
+
+<p>Let us see the results of the MHP analysis in the 
+
+
+
+
+
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&app=mhp" target="_blank">VendingMachine.abs</a>
+
+ program selecting the <code>main</code> method from class <code>IMain</code> as the entry point.  The analysis reports its results in two places.  First, all the pairs of instructions that can be executed in parallel are printed in the console. This information is very detailed and verbose, but difficult to understand:</p>
+
+<pre><code>...
+L28 (Await)[IVendingMachine.insertCoins(-[2,'IMain.main']-)]  ||  L37 (Await)[IVendingMachine.retrieveCoins(-[2,'IMain.main']-)]
+
+L20 (Entry)[IVendingMachine.insertCoin(-[2,'IMain.main']-)]  ||  L60 (Exit)[IMain.main(-['IMain.main']-)]
+...
+</code></pre>
+
+<p>The previous fragment shows that the instruction at L28 (the <code>await</code> instruction in method <code>insertCoins</code>) can happen in parallel with the instruction at L37 (the <code>await</code> instruction in method <code>retrieveCoins</code>), and the same for instructions at L20 and L60.  However, the most comfortable way of inspecting the results of the MHP analysis is by navigating the code.  Every considered instruction will have a blue arrow in its left margin.  When clicking the arrow of an instruction, all the other considered instructions that can happen in parallel with it will be highlighted in yellow.  For example, clicking on the arrow in L37 will show the instructions that can happen in parallel with it, which as expected include L28.  We have mentioned “considered instruction” because, by default, the MHP analysis only takes into account those instructions that are entry/exit points of methods and <code>await</code> or <code>release</code> instructions.  In order to obtain the full list of instructions that may happen in parallel, open the settings window (button <code>Settings</code>, option <code>MHP analysis</code>) and change the option <code>Amount of considered points</code> from <code>Reduced</code> to <code>Full</code>.  With these new settings the analysis obtains the MHP information for all the instructions in the program.</p>
+
+<p>Since the MHP analysis is a sound overapproximation, instructions that cannot execute in parallel are never detected.  For example, due to the <code>await</code> instruction at L57, the task <code>retrieveCoins</code> must be finished before continuing.  Therefore, the <code>await</code> instruction at L37, which is inside <code>retrieveCoins</code>, cannot happen in parallel with the instructions after the <code>await</code> (L58 and L59) or the method <code>showIncome</code> that is invoked at L59.  If we execute a full MHP analysis and select the arrow at L37, those fragments will not be highlighted.</p>
+
+<h3 id="mhp-settings">MHP Settings</h3>
+
+<p>In addition to the Amount of considered points to compute all the pairs of instructions that can execute in parallel or only a the most important, the MHP analysis supports other important settings, as shown in the next figure:</p>
+
+<figure class="image main">
+    <img src="/images/tutorials/costabs/mhp_settings.png"/> 
+</figure>
+
+
+<ul>
+Using these parameters we can adapt the behavior of the analysis:
+<li><code>Debug information</code> (<code>0</code>, <code>1</code>, or <code>2</code>): level of information that is printed in the console, where <code>0</code> is the lowest level.</li>
+<li><code>Points-to analysis precision</code> (<code>1</code>, <code>2</code>, <code>3</code> and <code>4</code>): the precision that will be used in the point-to analysis that approximates the different objects that are created during execution.</li>
+<li><code>Condition synchronization MHP extension</code> (<code>no</code>, <code>yes</code>): by default, the MHP analysis only considers simple await instructions involving one future variable (<code>await f?;</code>).  When enabling this option, the analysis tries to use the information from <code>await</code> instructions that involve complex conditions like <code>await this.x != null</code>.</li>
+<li><code>Inter-Procedural Synchronization</code> (<code>no</code>, <code>yes</code>): enables a refinement of the MHP analysis that obtains finer information about the finished task, thus producing more precise results in programs with inter-procedural synchronization.</li>
+  # FIXME explain "Amount of considered points" option
+</ul>
+
+<h3 id="may-happen-in-parallel-with-inter-procedural-synchronization">May-Happen-in-Parallel with Inter-Procedural Synchronization</h3>
+
+<p>Let us analyze with SACO the program 
+
+
+
+
+
+<a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/InterProcedural.abs&app=mhp" target="_blank">InterProcedural.abs</a>
+
+ with the Inter-Procedural Synchronization of the MHP analysis (described in the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_5" title="May-Happen-in-Parallel Analysis for Asynchronous Programs with Inter-Procedural Synchronization">May-Happen-in-Parallel Analysis for Asynchronous Programs with Inter-Procedural Synchronization</a>), as mentioned before.</p>
+
+<pre><code class="language-abs">module Parallel;
+import * from ABS.StdLib;
+
+interface IO1 {
+    Unit f ();
+}
+
+interface IO2 {
+    Unit g (Fut&lt;Unit&gt; w);
+}
+
+class O1 implements IO1 {
+    Unit f () {
+        skip;
+    }
+}
+
+class O2 implements IO2 {
+    Unit g (Fut&lt;Unit&gt; w) {
+        skip;
+        await w?;
+        skip;
+    }
+}
+
+{
+    Fut&lt;Unit&gt; x;
+    Fut&lt;Unit&gt; y;
+    IO1 o1 = new local O1();
+    IO2 o2 = new local O2();
+    x = o1!f();
+    y = o2!g(x);
+    await y?;
+}
+</code></pre>
+
+<p>If we apply the MHP analysis without inter-procedural synchronization, we
+obtain that L14 can happen in parallel with L34 because the analysis is not
+able to infer that when method <code>g</code> finishes its execution, method <code>f</code> has finished
+too (caused by the await instruction in L21).</p>
+
+<p>To refine the MHP analysis, we set the option <code>Inter-Procedural
+Synchronization</code> to <code>yes</code>.  Using this refinement we obtain that the only
+program points that can happen in parallel with L34 are the end of methods <code>f~
+and ~g</code>, which means that both methods must have finished when L34 is reached.</p>
 <!-- * [0/3] TODOs                                                      :noexport: -->
 <!-- - [ ] Add boilerplate text at beginning of each task: "Restore settings to -->
 <!--   default and set the following options ..." -->
@@ -1186,6 +1467,22 @@ UB Expression: 9
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -1268,6 +1565,22 @@ UB Expression: 9
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
         
@@ -1275,7 +1588,7 @@ UB Expression: 9
 
 
         
-            <a class="nav nav-prev" href="/tutorials/language-tutorial/" title="Language Tutorial"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/tutorials/sra/" title="Resource Analysis with SRA"> <i class="fa fa-chevron-left"></i></a>
         
         
             <a class="nav nav-next" href="/tutorials/resources/" title="Resources" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
@@ -1287,20 +1600,20 @@ UB Expression: 9
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1553797219"></script>
-    <script src="/js/perfect-scrollbar.min.js?1553797219"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1553797219"></script>
-    <script src="/js/jquery.sticky.js?1553797219"></script>
-    <script src="/js/featherlight.min.js?1553797219"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1553797219"></script>
-    <script src="/js/highlight.pack.js?1553797219"></script>
+    <script src="/js/clipboard.min.js?1556712317"></script>
+    <script src="/js/perfect-scrollbar.min.js?1556712317"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1556712317"></script>
+    <script src="/js/jquery.sticky.js?1556712317"></script>
+    <script src="/js/featherlight.min.js?1556712317"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1556712317"></script>
+    <script src="/js/highlight.pack.js?1556712317"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom.71422.js?1553797219"></script>
-    <script src="/js/learn.js?1553797219"></script>
-    <script src="/js/hugo-learn.js?1553797219"></script>
+    <script src="/js/modernizr.custom.71422.js?1556712317"></script>
+    <script src="/js/learn.js?1556712317"></script>
+    <script src="/js/hugo-learn.js?1556712317"></script>
 
-    <link href="/mermaid/mermaid.css?1553797219" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1553797219"></script>
+    <link href="/mermaid/mermaid.css?1556712317" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1556712317"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -57,13 +57,21 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
     </item>
     
     <item>
-      <title>CostABS</title>
+      <title>Resource Analysis with SRA</title>
+      <link>https://abs-models.org/tutorials/sra/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://abs-models.org/tutorials/sra/</guid>
+      <description>General Overview We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS, called vml, whose syntax will be covered by the examples in this tutorial, with explicit acquire and release operations of virtual machines. In our language it is possible to delegate other (ad-hoc or third party) concurrent code to release virtual machines (by passing them as arguments of invocations). Our technique is modular and consists of (i) a type system associating programs with behavioural types that records relevant information for resource usage (creations, releases, and concurrent operations), (ii) a translation function that takes behavioural types and return cost equations.</description>
+    </item>
+    
+    <item>
+      <title>Resource Analysis with CostABS</title>
       <link>https://abs-models.org/tutorials/costabs/</link>
       <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://abs-models.org/tutorials/costabs/</guid>
-      <description>This tutorial is partially adapted from the pdf tutorial. Content is accurate but the last sections are missing
-CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs. The inferred upper bounds have important applications in the fields of program optimization, verification and certification. CostABS is parametric on the cost model, i.e., the type of cost that the user wants to infer (e.</description>
+      <description>CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs. The inferred upper bounds have important applications in the fields of program optimization, verification and certification. CostABS is parametric on the cost model, i.e., the type of cost that the user wants to infer (e.g., number of steps, amount of memory allocated, amount of data transmitted, etc.), and it supports different notions of cost such as sequential, parallel, peak, etc.</description>
     </item>
     
     <item>

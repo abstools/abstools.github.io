@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.54.0" />
+    <meta name="generator" content="Hugo 0.55.4" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,19 +12,19 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
     
     
-    <link href="/css/nucleus.css?1553797219" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?1553797219" rel="stylesheet">
-    <link href="/css/hybrid.css?1553797219" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1553797219" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1553797219" rel="stylesheet">
-    <link href="/css/auto-complete.css?1553797219" rel="stylesheet">
-    <link href="/css/theme.css?1553797219" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1553797219" rel="stylesheet">
+    <link href="/css/nucleus.css?1556712317" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1556712317" rel="stylesheet">
+    <link href="/css/hybrid.css?1556712317" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1556712317" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1556712317" rel="stylesheet">
+    <link href="/css/auto-complete.css?1556712317" rel="stylesheet">
+    <link href="/css/theme.css?1556712317" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1556712317" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1553797219" rel="stylesheet">
+      <link href="/css/theme-abs.css?1556712317" rel="stylesheet">
     
 
-    <script src="/js/jquery-2.x.min.js?1553797219"></script>
+    <script src="/js/jquery-2.x.min.js?1556712317"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1553797219"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1553797219"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1556712317"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1556712317"></script>
 <script type="text/javascript">
     
         var baseurl = '\/';
     
 </script>
-<script type="text/javascript" src="/js/search.js?1553797219"></script>
+<script type="text/javascript" src="/js/search.js?1556712317"></script>
 
     
   </div>
@@ -232,9 +232,28 @@
  
   
     
-      <li data-nav-id="/tutorials/costabs/" title="CostABS" class="dd-item ">
+      <li data-nav-id="/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
+        <a href="/tutorials/sra/">
+        Resource Analysis with SRA
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/tutorials/costabs/" title="Resource Analysis with CostABS" class="dd-item ">
         <a href="/tutorials/costabs/">
-        CostABS
+        Resource Analysis with CostABS
         
         </a>
     </li>
@@ -328,6 +347,28 @@
         ">
       <a href="/acknowledgments/">
           Acknowledgments
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/laboratory/">
+          The Collaboratory
           
       </a>
       
@@ -469,7 +510,7 @@
 
 <h2 id="1-installation-of-the-abs-eclipse-plugin">1 Installation of the ABS Eclipse Plugin</h2>
 
-<p><img src="/images/fig1.png" alt="The gap in the landscape of software modeling languages" title="The gap in the landscape of software modeling languages" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig1.png" alt="The gap in the landscape of software modeling languages" title="The gap in the landscape of software modeling languages" /></p>
 
 <p>ABS fills a <em>gap</em> in the landscape of software modeling languages.  It
 is situated between architectural, design-oriented, foundational, and
@@ -488,7 +529,7 @@ create a new <em>ABS Project</em> and import the directory file contents into
 Eclipse workspace in the usual way. After opening a few files in the
 editor you should see a screen similar to the one here:</p>
 
-<p><img src="/images/ABSModelingPerspective.jpg" alt="Screenshot of ABS Modeling Perspective in Eclipse plugin" title="Screenshot of ABS Modeling Perspective in Eclipse plugin" /></p>
+<p><img src="/images/tutorials/language-tutorial/ABSModelingPerspective.jpg" alt="Screenshot of ABS Modeling Perspective in Eclipse plugin" title="Screenshot of ABS Modeling Perspective in Eclipse plugin" /></p>
 
 <h2 id="2-design-principles-of-abs">2 Design Principles of ABS</h2>
 
@@ -522,7 +563,7 @@ terfaces from and to ABS as shown in below. These are
 realized by various import, export, and code generation tools, several
 of which are discussed below.</p>
 
-<p><img src="/images/fig3.png" alt="Interfaces between ABS and other languages" title="Interfaces between ABS and other languages" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig3.png" alt="Interfaces between ABS and other languages" title="Interfaces between ABS and other languages" /></p>
 
 <p>Arguably the most important criterion for tools,
 however, is usability. This tutorial is not the place to embark on a
@@ -558,7 +599,7 @@ Regarding <em>integration</em>, the tool set around the ABS language is
 realized as a set of plugins for the popular Eclipse IDE. These plugins
 realize the ABS</p>
 
-<p><img src="/images/fig4.png" alt="Architecture of the ABS language" title="Architecture of the ABS language" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig4.png" alt="Architecture of the ABS language" title="Architecture of the ABS language" /></p>
 
 <p><em>Modeling Perspective</em> (see <a href="ABSModelingPerspective.jpg">Fig.
 2</a>) and the <em>ABS Debug Perspective</em> (see
@@ -751,7 +792,7 @@ def Set&lt;A&gt; set&lt;A&gt;(List&lt;A&gt; l) =
     } ;
 </code></pre>
 
-<p><img src="/images/ABSProblemReporting.jpg" alt="Parser error in the ABS Eclipse editor" title="Parser error in the ABS Eclipse editor" /></p>
+<p><img src="/images/tutorials/language-tutorial/ABSProblemReporting.jpg" alt="Parser error in the ABS Eclipse editor" title="Parser error in the ABS Eclipse editor" /></p>
 
 <p>Errors are highlighted on the editor line where they
 occur as well as in the <strong>Problems</strong> tab of the messages subwindow</p>
@@ -1042,7 +1083,7 @@ global behavior from the composition of local behavior. In a setting,
 where concurrent objects can arbitrarily cross-reference each other,
 this is hardly possible.</p>
 
-<p><img src="/images/fig6.png" alt="Illustration of an ABS Component Group" title="Illustration of an ABS Component Group" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig6.png" alt="Illustration of an ABS Component Group" title="Illustration of an ABS Component Group" /></p>
 
 <p>Arbitrarily complex, global invariants, might be needed to describe
 behavior. One approach to tackle the problem is to impose structure on
@@ -1144,7 +1185,7 @@ retrieving their results is common in ABS:</p>
 <pre><code>Fut&lt;T&gt; v = o!m(e); ... ; await v?; r = v.get;
 </code></pre>
 
-<p><img src="/images/fig7.png" alt="Illustration of object and COG creation (gray boundaries represent COGs)" title="Illustration of object and COG creation; gray boundaries represent COGs" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig7.png" alt="Illustration of object and COG creation (gray boundaries represent COGs)" title="Illustration of object and COG creation; gray boundaries represent COGs" /></p>
 
 <p>ABS does not attempt to check that each <strong>get</strong> expression is guarded
 by an <strong>await</strong> statement. So what happens when the result of an
@@ -1200,7 +1241,7 @@ implements Account { ... }
 }
 </code></pre>
 
-<p><img src="/images/ABSDebugPerspective.jpg" alt="Screenshot of ABS Debug Perspective in Eclipse plugin" title="Screenshot of ABS Debug Perspective in Eclipse plugin" /></p>
+<p><img src="/images/tutorials/language-tutorial/ABSDebugPerspective.jpg" alt="Screenshot of ABS Debug Perspective in Eclipse plugin" title="Screenshot of ABS Debug Perspective in Eclipse plugin" /></p>
 
 <p>We create an account objects in a different COG from the current one.
 Note that there is no sharing of objects between COGs, so that the
@@ -1215,7 +1256,7 @@ click on the file with the <strong>Account</strong> module in the explorer and s
 the ABS Debug Perspective (see <a href="ABSDebugPerspective.jpg">Fig. 8</a>) and
 start the Eclipse debugger.</p>
 
-<p><img src="/images/ABSSequenceDiagram.jpg" alt="Sequence diagram generated from an ABS simulation" title="Sequence diagram generated from an ABS simulation" /></p>
+<p><img src="/images/tutorials/language-tutorial/ABSSequenceDiagram.jpg" alt="Sequence diagram generated from an ABS simulation" title="Sequence diagram generated from an ABS simulation" /></p>
 
 <p>All the usual
 features of a graphical debugger are available: navigation, breakpoints,
@@ -1284,7 +1325,7 @@ main ideas. The central issue is to give an appropriate structure to the
 terms that represent ABS <em>runtime configurations</em>. They are collections
 over the following items:</p>
 
-<p><img src="/images/6.5.cogs_.png" alt="Cogs" title="Cogs" /></p>
+<p><img src="/images/tutorials/language-tutorial/6.5.cogs_.png" alt="Cogs" title="Cogs" /></p>
 
 <p><strong>COGs</strong> are identified simply by a name <em>b</em> for their <em>lock</em> whose
 value can be either ⊤ or ⊥. <strong>Objects</strong> have a name <em>o</em>, need to have
@@ -1300,7 +1341,7 @@ ABS is given by rewrite rules that match the next executable statement
 of a task (and thereby also the current COG and object). A typical
 example is the rewrite rule that realizes <em>creation of a new COG</em>:</p>
 
-<p><img src="/images/6.5.formula.png" alt="formula" /></p>
+<p><img src="/images/tutorials/language-tutorial/6.5.formula.png" alt="formula" /></p>
 
 <p>where:</p>
 
@@ -1410,7 +1451,7 @@ ABS&rdquo; to be printed on the system console.</p>
 
 <h3 id="8-1-product-line-engineering">8.1 Product Line Engineering</h3>
 
-<p><img src="/images/fig11.png" alt="Product line engineering" title="Product line engineering" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig11.png" alt="Product line engineering" title="Product line engineering" /></p>
 
 <p>One of the aims of ABS is to provide a uniform and formal framework for
 product line engineering (PLE)
@@ -1447,7 +1488,7 @@ well-structured and represent a suitable match for the analysis methods
 used in ABS
 <a href="http://www.hats-project.eu/sites/default/files/Deliverable27.pdf">[14]</a>.</p>
 
-<p><img src="/images/fig12.png" alt="Graphical representation of the Account feature model" title="Graphical representation of the Account feature model" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig12.png" alt="Graphical representation of the Account feature model" title="Graphical representation of the Account feature model" /></p>
 
 <p>Such a mechanism is delta-oriented programming (DOP)
 <a href="http://dx.doi.org/10.1007/978-3-642-15579-6_6">[36,</a>
@@ -1542,7 +1583,7 @@ Sect. 8.5).</p>
 
 <h3 id="8-3-delta-modeling">8.3 Delta Modeling</h3>
 
-<p><img src="/images/fig13.png" alt="Application of delta modules to a core product" title="Application of delta modules to a core product" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig13.png" alt="Application of delta modules to a core product" title="Application of delta modules to a core product" /></p>
 
 <p>As mentioned above, the realization of features in ABS is done with
 delta modules (or deltas, for short), a variant of delta-oriented
@@ -1639,7 +1680,7 @@ with DSave in <a href="fig14.png">Fig. 14</a>. Syntax and parse error highlighti
 for delta modules works as usual. Automatic completion works as well,
 but it is only done relative to the base product.</p>
 
-<p><img src="/images/fig14.png" alt="Application of delta DSave" title="Application of delta DSave" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig14.png" alt="Application of delta DSave" title="Application of delta DSave" /></p>
 
 <p>The reason is that before product
 build time, the compiler cannot know which deltas have been applied
@@ -1650,7 +1691,7 @@ done. Research to lift type checking to the family level is under way
 
 <h3 id="8-4-product-line-configuration">8.4 Product Line Configuration</h3>
 
-<p><img src="/images/fig15.png" alt="Schema of product line configuration in ABS" title="Schema of product line configuration in ABS" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig15.png" alt="Schema of product line configuration in ABS" title="Schema of product line configuration in ABS" /></p>
 
 <p>So far, we have two models relating to product lines: the feature model
 and the delta model, that is, the feature implementation. Unlike any
@@ -1714,7 +1755,7 @@ activities that took place until now can be viewed as mostly being part
 of family engineering, the selection process is always part of
 application engineering.</p>
 
-<p><img src="/images/fig16.png" alt="The role of product line configuration in product selection and
+<p><img src="/images/tutorials/language-tutorial/fig16.png" alt="The role of product line configuration in product selection and
 compilation" title="The role of product line configuration in product selection and
 compilation" /></p>
 
@@ -1753,7 +1794,7 @@ configuration files will be displayed at this stage. For example,
 selection of the SavingWithOverdraft product above results in an error,
 because the constraints in the feature model are not satisfied.</p>
 
-<p><img src="/images/fig17.png" alt="Choice of different layers when modeling with ABS" title="Choice of different layers when modeling with ABS" /></p>
+<p><img src="/images/tutorials/language-tutorial/fig17.png" alt="Choice of different layers when modeling with ABS" title="Choice of different layers when modeling with ABS" /></p>
 
 <p>After
 selection of a valid product one can run and debug the
@@ -2006,6 +2047,38 @@ general discussion of verification of concurrent open systems.</p>
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -2067,7 +2140,7 @@ general discussion of verification of concurrent open systems.</p>
             <a class="nav nav-prev" href="/tutorials/" title="Tutorials"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/tutorials/costabs/" title="CostABS" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/tutorials/sra/" title="Resource Analysis with SRA" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -2076,20 +2149,20 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1553797219"></script>
-    <script src="/js/perfect-scrollbar.min.js?1553797219"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1553797219"></script>
-    <script src="/js/jquery.sticky.js?1553797219"></script>
-    <script src="/js/featherlight.min.js?1553797219"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1553797219"></script>
-    <script src="/js/highlight.pack.js?1553797219"></script>
+    <script src="/js/clipboard.min.js?1556712317"></script>
+    <script src="/js/perfect-scrollbar.min.js?1556712317"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1556712317"></script>
+    <script src="/js/jquery.sticky.js?1556712317"></script>
+    <script src="/js/featherlight.min.js?1556712317"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1556712317"></script>
+    <script src="/js/highlight.pack.js?1556712317"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom.71422.js?1553797219"></script>
-    <script src="/js/learn.js?1553797219"></script>
-    <script src="/js/hugo-learn.js?1553797219"></script>
+    <script src="/js/modernizr.custom.71422.js?1556712317"></script>
+    <script src="/js/learn.js?1556712317"></script>
+    <script src="/js/hugo-learn.js?1556712317"></script>
 
-    <link href="/mermaid/mermaid.css?1553797219" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1553797219"></script>
+    <link href="/mermaid/mermaid.css?1556712317" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1556712317"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

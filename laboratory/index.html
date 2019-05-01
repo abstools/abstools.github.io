@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
-    <title>Getting Started :: The ABS Modeling Language</title>
+    <title>The Collaboratory :: The ABS Modeling Language</title>
     
     
     <link href="/css/nucleus.css?1556712317" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/getting_started/">
+  <body class="" data-url="/laboratory/">
     <nav id="sidebar" class="">
 
 
@@ -100,8 +100,8 @@
   
     
     <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/getting_started/">
@@ -363,8 +363,8 @@
   
     
     <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/laboratory/">
@@ -423,7 +423,7 @@
             
           
           
-            <a href='/'>The ABS Language</a> > Getting Started
+            <a href='/'>The ABS Language</a> > The Collaboratory
           
          
           
@@ -433,14 +433,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#use-on-line-tools">Use On-Line Tools</a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -452,119 +445,28 @@
         
         <div id="body-inner">
           
-            <h1>Getting Started</h1>
+            <h1>The Collaboratory</h1>
           
 
         
 
 
+<p>The Collaboratory is a browser-based IDE for ABS that offers an online, zero
+install version of the ABS toolchain.  Use it to experiment with the language
+in a risk-free environment.</p>
 
+<p>Load our ready-made examples or run your own ABS models. The editor has many
+features of an IDE, including showing you an outline of the code, and of
+course reporting syntax- and type errors.</p>
 
-<p>There are various ways of running ABS models.</p>
+<p>The collaboratory also supports many of the analysis tools that we have
+developed, like COSTA and SACO.</p>
 
-<h2 id="use-on-line-tools">Use On-Line Tools</h2>
+<p>A collaboratory instance is hosted online at
+<a href="http://ei.abs-models.org:8082/clients/web/">http://ei.abs-models.org:8082/clients/web/</a>.  Please use this instance
+responsibly, and consider running the collaboratory on your local machine.</p>
 
-<p>The simplest way to use the ABS tools is on-line, in the collaboratory.  This
-means you only need a modern browser to start experimenting with ABS.  The
-tools work best with Firefox and Chrome.</p>
-
-<p>An introduction and link to the collaboratory can be found at
-<a href="http://abs-models.org/laboratory/">http://abs-models.org/laboratory/</a>.</p>
-
-<ul class="children children-li">
-    
-    
-    
-
-    
-        
-    
-        
-  
-
-
-<li>
-<a href="/getting_started/local-install/" >Installing Command-Line Tools</a>
-</li>
-
-
-
-
-
-
-            
-                
-<p>Many of the tools can be run from the command line. This chapter describes how to run various tools on a local machine.
-Installing the ABS Compiler To install the ABS compiler, install the Java 8 JDK and Erlang (version 21 or higher). Then, clone the git repository and build the compiler:
-git clone https://github.com/abstools/abstools.git cd abstools/frontend ./gradlew assemble  After a successful build, there is an absc shell script in the abstools/frontend/bin/bash/ directory that invokes the ABS compiler.</p>
-                
-            
-        
-
-        
-            
-
-        
-    
-        
-  
-
-
-<li>
-<a href="/getting_started/docker/" >Running a Browser-Based IDE</a>
-</li>
-
-
-
-
-
-
-            
-                
-<p>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
-Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
-docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest  When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</p>
-                
-            
-        
-
-        
-            
-
-        
-    
-        
-  
-
-
-<li>
-<a href="/getting_started/editor-support/" >Installing Editor Support</a>
-</li>
-
-
-
-
-
-
-            
-                
-<p>We provide support for Emacs, Atom and Visual Studio Code.
-Emacs The abs-mode package provides support for ABS in the Emacs editor.
-Installation instructions are at https://github.com/abstools/abs-mode.
-Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code is at https://github.</p>
-                
-            
-        
-
-        
-            
-
-        
-    
-
-    
-</ul>
+<p>To run a private local instance of the collaboratory, see <a href="/getting_started/docker/">Running a Browser-Based IDE</a>.</p>
 
 
 <footer class=" footline" >
@@ -621,74 +523,6 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                 
                 
 
@@ -745,6 +579,9 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
             
         
                     
+            
+        
+                    
                         
             
             
@@ -757,12 +594,6 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
                     
                     
 
-                    
-            
-        
-                    
-            
-        
                     
                         
             
@@ -830,15 +661,83 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
         
         
 
 
         
-            <a class="nav nav-prev" href="/overview/" title="Overview"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/acknowledgments/" title="Acknowledgments"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/getting_started/local-install/" title="Installing Command-Line Tools" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/overview/" title="Overview" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
