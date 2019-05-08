@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://abs-models.org/documentation/tutorials/language-tutorial/</loc>
+    <lastmod>2018-03-22T12:22:10+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://abs-models.org/getting_started/docker/</loc>
     <lastmod>2018-08-15T09:20:37+02:00</lastmod>
   </url>
@@ -23,8 +28,13 @@
   </url>
   
   <url>
-    <loc>https://abs-models.org/tutorials/language-tutorial/</loc>
-    <lastmod>2018-03-22T12:22:10+01:00</lastmod>
+    <loc>https://abs-models.org/documentation/tutorials/resources/</loc>
+    <lastmod>2017-07-04T09:31:38+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abs-models.org/documentation/</loc>
+    <lastmod>2019-05-03T09:16:13+02:00</lastmod>
   </url>
   
   <url>
@@ -33,13 +43,28 @@
   </url>
   
   <url>
-    <loc>https://abs-models.org/tutorials/</loc>
-    <lastmod>2018-03-22T12:21:52+01:00</lastmod>
+    <loc>https://abs-models.org/documentation/tutorials/costabs/</loc>
+    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abs-models.org/documentation/tutorials/mhp/</loc>
+    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://abs-models.org/publications/</loc>
     <lastmod>2018-03-22T12:22:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abs-models.org/documentation/tutorials/</loc>
+    <lastmod>2018-03-22T12:21:52+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://abs-models.org/documentation/tutorials/sra/</loc>
+    <lastmod>2019-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -58,23 +83,8 @@
   </url>
   
   <url>
-    <loc>https://abs-models.org/tutorials/sra/</loc>
-    <lastmod>2019-03-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://abs-models.org/tutorials/costabs/</loc>
-    <lastmod>2018-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://abs-models.org/</loc>
     <lastmod>2018-03-22T12:21:59+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://abs-models.org/tutorials/resources/</loc>
-    <lastmod>2017-07-04T09:31:38+02:00</lastmod>
   </url>
   
   <url>
