@@ -2,32 +2,33 @@
 <html lang="en" class="js csstransforms3d">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.6" />
     <meta name="description" content="">
 
 
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
     <title>Selected Publications :: The ABS Modeling Language</title>
+
     
+    <link href="/css/nucleus.css?1559046352" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1559046352" rel="stylesheet">
+    <link href="/css/hybrid.css?1559046352" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1559046352" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1559046352" rel="stylesheet">
+    <link href="/css/auto-complete.css?1559046352" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1559046352" rel="stylesheet">
+    <link href="/css/theme.css?1559046352" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1559046352" rel="stylesheet">
     
-    <link href="/css/nucleus.css?1557329279" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?1557329279" rel="stylesheet">
-    <link href="/css/hybrid.css?1557329279" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1557329279" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1557329279" rel="stylesheet">
-    <link href="/css/auto-complete.css?1557329279" rel="stylesheet">
-    <link href="/css/theme.css?1557329279" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1557329279" rel="stylesheet">
-    
-      <link href="/css/theme-abs.css?1557329279" rel="stylesheet">
+      <link href="/css/theme-abs.css?1559046352" rel="stylesheet">
     
 
-    <script src="/js/jquery-2.x.min.js?1557329279"></script>
-    
+    <script src="/js/jquery-3.3.1.min.js?1559046352"></script>
+
     <style type="text/css">
-      :root #header + #content > #left > #rlblock_left{ 
+      :root #header + #content > #left > #rlblock_left{
           display:none !important;
       }
       
@@ -49,19 +50,19 @@
     </div>
     
         <div class="searchbox">
-    <label for="search-by"><i class="fa fa-search"></i></label>
-    <input data-search-input id="search-by" type="text" placeholder="Search...">
-    <span data-search-clear=""><i class="fa fa-close"></i></span>
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1557329279"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1557329279"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1559046352"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1559046352"></script>
 <script type="text/javascript">
     
-        var baseurl = '\/';
+        var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1557329279"></script>
+<script type="text/javascript" src="/js/search.js?1559046352"></script>
 
     
   </div>
@@ -441,9 +442,9 @@
 
     
     <section id="footer">
-      <p><a href="/manual/">Language Manual</a></p>
+      <ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
 <br/>
-<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
 
     </section>
   </div>
@@ -464,13 +465,15 @@
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
                         <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fa fa-bars"></i>
+                          <i class="fas fa-bars"></i>
                         </a>
                     </span>
                   
-                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
                   
                   <span class="links">
+                 
+                 
                     
           
           
@@ -482,7 +485,8 @@
           
          
           
-           
+        
+                 
                   </span>
                 </div>
                 
@@ -494,6 +498,7 @@
 <ul>
 <li><a href="#case-studies">Case Studies</a></li>
 <li><a href="#language-development">Language Development</a></li>
+<li><a href="#software-product-lines">Software Product Lines</a></li>
 <li><a href="#deductive-verification">Deductive Verification</a></li>
 <li><a href="#cost-analysis">Cost Analysis</a></li>
 <li><a href="#deadlock-analysis">Deadlock Analysis</a></li>
@@ -509,17 +514,24 @@
               </div>
             </div>
             
-
+        <div id="head-tags">
+        
+        </div>
         
         <div id="body-inner">
           
-            <h1>Selected Publications</h1>
+            <h1>
+              
+              Selected Publications
+            </h1>
           
 
         
 
 
 
+
+	
 
 <p>This page contains selected research papers on the development and usage of the ABS modeling language and analysis tools.</p>
 
@@ -549,6 +561,20 @@ DOI: <a href="http://dx.doi.org/10.1007/978-3-642-25271-6_8">10.1007/978-3-642-2
 <em>Integrating Deployment Architecture and Resource Consumption in Timed Object-Oriented Models.</em><br />
 Journal of Logical and Algebraic Methods in Programming 84(1): 67-91, 2015.<br />
 DOI: <a href="http://dx.doi.org/10.1016/j.jlamp.2014.07.001">10.1016/j.jlamp.2014.07.001</a>. Download a <a href="http://einarj.at.ifi.uio.no/Papers/johnsen15jlamp.pdf">preprint</a>.</p></li>
+
+<li><p>F. Damiani, R. Hähnle, E. Kamburjan, M. Lienhardt.<br />
+<em>A Unified and Formal Programming Model for Deltas and Traits.</em><br />
+Proc. 20th International Conference on Fundamental Approaches to Software Engineering (FASE 2017), LNCS 10202. Springer, 2017.<br />
+DOI: <a href="https://doi.org/10.1007/978-3-662-54494-5_25">10.1007/978-3-662-54494-5_25</a>.  Download a <a href="http://hdl.handle.net/2318/1633390">postprint</a>.</p></li>
+</ul>
+
+<h2 id="software-product-lines">Software Product Lines</h2>
+
+<ul>
+<li>F. Damiani, M. Lienhardt, R. Muschevici, I. Schaefer.<br />
+<em>An Extension of the ABS Toolchain with a Mechanism for Type Checking SPLs.</em>
+Proc. 13th International Conference on Integrated Formal Methods (IFM 2017), LNCS 10510. Springer, 2017.<br />
+DOI: <a href="https://doi.org/10.1007/978-3-319-66845-1_8">10.1007/978-3-319-66845-1_8</a>.  Download a <a href="http://hdl.handle.net/2318/1649744">postprint</a>.</li>
 </ul>
 
 <h2 id="deductive-verification">Deductive Verification</h2>
@@ -605,6 +631,9 @@ DOI: <a href="http://doi.ieeecomputersociety.org/10.1109/MC.2015.172">10.1109/MC
 In Proc. 4th European Conf. on Service Oriented and Cloud Computing (ESOCC 2015). LNCS 9306, Springer, 2015.<br />
 DOI: <a href="http://dx.doi.org/10.1007/978-3-319-24072-5_9">10.1007/978-3-319-24072-5_9</a>. Download a <a href="http://envisage-project.eu/wp-content/uploads/2015/09/paper-esocc.pdf">preprint</a>.</p></li>
 </ul>
+
+
+
 
 
 <footer class=" footline" >
@@ -908,12 +937,15 @@ DOI: <a href="http://dx.doi.org/10.1007/978-3-319-24072-5_9">10.1007/978-3-319-2
         
 
 
-        
-            <a class="nav nav-prev" href="/documentation/tutorials/sra/" title="Resource Analysis with SRA"> <i class="fa fa-chevron-left"></i></a>
-        
-        
-            <a class="nav nav-next" href="/contact/" title="Contact" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-        
+	 
+	 
+		
+			<a class="nav nav-prev" href="/documentation/tutorials/sra/" title="Resource Analysis with SRA"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/contact/" title="Contact" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
     </div>
 
     </section>
@@ -921,20 +953,20 @@ DOI: <a href="http://dx.doi.org/10.1007/978-3-319-24072-5_9">10.1007/978-3-319-2
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1557329279"></script>
-    <script src="/js/perfect-scrollbar.min.js?1557329279"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1557329279"></script>
-    <script src="/js/jquery.sticky.js?1557329279"></script>
-    <script src="/js/featherlight.min.js?1557329279"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1557329279"></script>
-    <script src="/js/highlight.pack.js?1557329279"></script>
+    <script src="/js/clipboard.min.js?1559046352"></script>
+    <script src="/js/perfect-scrollbar.min.js?1559046352"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1559046352"></script>
+    <script src="/js/jquery.sticky.js?1559046352"></script>
+    <script src="/js/featherlight.min.js?1559046352"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1559046352"></script>
+    <script src="/js/highlight.pack.js?1559046352"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom.71422.js?1557329279"></script>
-    <script src="/js/learn.js?1557329279"></script>
-    <script src="/js/hugo-learn.js?1557329279"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1559046352"></script>
+    <script src="/js/learn.js?1559046352"></script>
+    <script src="/js/hugo-learn.js?1559046352"></script>
 
-    <link href="/mermaid/mermaid.css?1557329279" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1557329279"></script>
+    <link href="/mermaid/mermaid.css?1559046352" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1559046352"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

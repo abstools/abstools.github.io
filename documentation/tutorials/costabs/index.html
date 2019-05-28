@@ -2,32 +2,33 @@
 <html lang="en" class="js csstransforms3d">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="generator" content="Hugo 0.55.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.6" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-<link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
+
     
+    <link href="/css/nucleus.css?1559046351" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1559046351" rel="stylesheet">
+    <link href="/css/hybrid.css?1559046351" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1559046351" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1559046351" rel="stylesheet">
+    <link href="/css/auto-complete.css?1559046351" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1559046351" rel="stylesheet">
+    <link href="/css/theme.css?1559046351" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1559046351" rel="stylesheet">
     
-    <link href="/css/nucleus.css?1557329279" rel="stylesheet">
-    <link href="/css/font-awesome.min.css?1557329279" rel="stylesheet">
-    <link href="/css/hybrid.css?1557329279" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1557329279" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1557329279" rel="stylesheet">
-    <link href="/css/auto-complete.css?1557329279" rel="stylesheet">
-    <link href="/css/theme.css?1557329279" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1557329279" rel="stylesheet">
-    
-      <link href="/css/theme-abs.css?1557329279" rel="stylesheet">
+      <link href="/css/theme-abs.css?1559046351" rel="stylesheet">
     
 
-    <script src="/js/jquery-2.x.min.js?1557329279"></script>
-    
+    <script src="/js/jquery-3.3.1.min.js?1559046351"></script>
+
     <style type="text/css">
-      :root #header + #content > #left > #rlblock_left{ 
+      :root #header + #content > #left > #rlblock_left{
           display:none !important;
       }
       
@@ -49,19 +50,19 @@
     </div>
     
         <div class="searchbox">
-    <label for="search-by"><i class="fa fa-search"></i></label>
-    <input data-search-input id="search-by" type="text" placeholder="Search...">
-    <span data-search-clear=""><i class="fa fa-close"></i></span>
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1557329279"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1557329279"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1559046351"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1559046351"></script>
 <script type="text/javascript">
     
-        var baseurl = '\/';
+        var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1557329279"></script>
+<script type="text/javascript" src="/js/search.js?1559046351"></script>
 
     
   </div>
@@ -441,9 +442,9 @@
 
     
     <section id="footer">
-      <p><a href="/manual/">Language Manual</a></p>
+      <ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
 <br/>
-<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
 
     </section>
   </div>
@@ -464,13 +465,15 @@
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
                         <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fa fa-bars"></i>
+                          <i class="fas fa-bars"></i>
                         </a>
                     </span>
                   
-                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
                   
                   <span class="links">
+                 
+                 
                     
           
           
@@ -494,7 +497,8 @@
           
          
           
-           
+        
+                 
                   </span>
                 </div>
                 
@@ -508,14 +512,20 @@
               </div>
             </div>
             
-
+        <div id="head-tags">
+        
+        </div>
         
         <div id="body-inner">
           
-            <h1>Resource Analysis with CostABS</h1>
+            <h1>
+              
+              Resource Analysis with CostABS
+            </h1>
           
 
         
+
 
 
 <p>CostABS is a a static analyzer for automatically inferring upper/lower bounds
@@ -1548,12 +1558,15 @@ class C {
         
 
 
-        
-            <a class="nav nav-prev" href="/documentation/tutorials/resources/" title="Resource Modeling Tutorial"> <i class="fa fa-chevron-left"></i></a>
-        
-        
-            <a class="nav nav-next" href="/documentation/tutorials/mhp/" title="May-Happen-in-Parallel Analysis" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-        
+	 
+	 
+		
+			<a class="nav nav-prev" href="/documentation/tutorials/resources/" title="Resource Modeling Tutorial"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/documentation/tutorials/mhp/" title="May-Happen-in-Parallel Analysis" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
     </div>
 
     </section>
@@ -1561,20 +1574,20 @@ class C {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1557329279"></script>
-    <script src="/js/perfect-scrollbar.min.js?1557329279"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1557329279"></script>
-    <script src="/js/jquery.sticky.js?1557329279"></script>
-    <script src="/js/featherlight.min.js?1557329279"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1557329279"></script>
-    <script src="/js/highlight.pack.js?1557329279"></script>
+    <script src="/js/clipboard.min.js?1559046352"></script>
+    <script src="/js/perfect-scrollbar.min.js?1559046352"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1559046352"></script>
+    <script src="/js/jquery.sticky.js?1559046352"></script>
+    <script src="/js/featherlight.min.js?1559046352"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1559046352"></script>
+    <script src="/js/highlight.pack.js?1559046352"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom.71422.js?1557329279"></script>
-    <script src="/js/learn.js?1557329279"></script>
-    <script src="/js/hugo-learn.js?1557329279"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1559046352"></script>
+    <script src="/js/learn.js?1559046352"></script>
+    <script src="/js/hugo-learn.js?1559046352"></script>
 
-    <link href="/mermaid/mermaid.css?1557329279" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1557329279"></script>
+    <link href="/mermaid/mermaid.css?1559046352" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1559046352"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
