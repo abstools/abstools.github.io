@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     <meta name="description" content="An introduction to time and resource modeling in ABS.">
 
 
@@ -12,20 +12,20 @@
     <title>Resource Modeling Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1559046351" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1559046351" rel="stylesheet">
-    <link href="/css/hybrid.css?1559046351" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1559046351" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1559046351" rel="stylesheet">
-    <link href="/css/auto-complete.css?1559046351" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1559046351" rel="stylesheet">
-    <link href="/css/theme.css?1559046351" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1559046351" rel="stylesheet">
+    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
+    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
+    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
+    <link href="/css/theme.css?1565709739" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1559046351" rel="stylesheet">
+      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1559046351"></script>
+    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1559046351"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1559046351"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1559046351"></script>
+<script type="text/javascript" src="/js/search.js?1565709739"></script>
 
     
   </div>
@@ -504,7 +504,34 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li><a href="#headline-1">Core ABS</a>
+</li>
+<li><a href="#headline-2">Real-Time ABS</a>
+<ul>
+<li><a href="#headline-3">Deadlines</a>
+</li>
+<li><a href="#headline-4">Explicit Time</a>
+</li>
+<li><a href="#headline-5">Implicit Time</a>
+</li>
+</ul>
+</li>
+<li><a href="#headline-6">Modeling Deployment Architectures in ABS</a>
+<ul>
+<li><a href="#headline-7">Deployment Components</a>
+<ul>
+<li><a href="#headline-8">Resource Costs</a>
+</li>
+<li><a href="#headline-9">Cost models</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -528,9 +555,12 @@
 
 
 
-<h2 id="core-abs">Core ABS</h2>
 
-<p>ABS is a modeling language which combines functional and imperative
+<h2 id="headline-1">
+Core ABS
+</h2>
+<p>
+ABS is a modeling language which combines functional and imperative
 programming styles to develop high-level executable models.  Concurrent object
 groups execute in parallel and communicate through asynchronous method calls.
 To intuitively capture internal computation inside a method, we use a simple
@@ -548,27 +578,28 @@ empty type <code>Unit</code>, booleans <code>Bool</code>, integers <code>Int</co
 as sets <code>Set&lt;A&gt;</code> and maps <code>Map&lt;A&gt;</code> (given a value for the type variable <code>A</code>),
 and (parametric) functions over values of these data types.  For example, we
 can define polymorphic sets using a type variable <code>A</code> and two constructors
-~EmptySet~ and <code>Insert</code>, and a function contains which checks whether an
-element <code>el</code> is in a set <code>ss</code> recursively by pattern matching over ~ss~:</p>
-
-<pre><code class="language-abs">data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
+<code>EmptySet</code> and <code>Insert</code>, and a function contains which checks whether an
+element <code>el</code> is in a set <code>ss</code> recursively by pattern matching over <code>ss</code>:
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
 def Bool contains&lt;A&gt;(Set&lt;A&gt; ss, A el) =
   case ss {
     EmptySet      =&gt; False ;
     Insert(el, _) =&gt; True;
     Insert(_, xs) =&gt; contains(xs, el);
-  };
-</code></pre>
-
-<p>Here, the cases <code>p=&gt;exp</code> are evaluated in the listed order, underscore works
+  };</code></pre></div>
+</div>
+<p>
+Here, the cases <code>p=&gt;exp</code> are evaluated in the listed order, underscore works
 as a wild card in the pattern <code>p</code>, and variables in <code>p</code> are bound in the
 expression <code>exp</code>.  The imperative sublanguage of ABS addresses concurrency,
 communication, and synchronization at the concurrent object level in the
 system design, and defines interfaces and methods with a Java-like syntax.
 ABS objects are active; i.e., their <code>run</code> method, if defined, gets called upon
 creation.  Statements are standard for sequential composition <code>s1;s2</code>,
-assignments <code>x=rhs</code>, and for the <code>skip</code>, <code>if</code>, <code>while</code>, and <code>return~
-constructs.  The statement ~suspend</code> unconditionally suspends the execution of
+assignments <code>x=rhs</code>, and for the <code>skip</code>, <code>if</code>, <code>while</code>, and <code>return</code>
+constructs.  The statement <code>suspend</code> unconditionally suspends the execution of
 the active process of an object by adding this process to the queue, from
 which an enabled process is then selected for execution.  In <code>await g</code>, the
 guard <code>g</code> controls the suspension of the active process and consists of
@@ -584,7 +615,7 @@ are decoupled in ABS.  Communication is based on asynchronous method calls,
 denoted by assignments <code>f=o!m(e)</code> to future variables <code>f</code>.  Here, <code>o</code> is an
 object expression and <code>e</code> are (data value or object) expressions providing
 actual parameter values for the method invocation.  (Local calls are written
-~this!m(e)~.)  After calling <code>f=o!m(e)</code>, the future variable <code>f</code> refers to the
+<code>this!m(e)</code>.)  After calling <code>f=o!m(e)</code>, the future variable <code>f</code> refers to the
 return value of the call and the caller may proceed with its execution without
 blocking on the method reply.  There are two operations on future variables,
 which control synchronization in ABS.  First, the guard <code>await f?</code> suspends
@@ -593,23 +624,27 @@ arrived, allowing other processes in the object group to execute.  Second, the
 return value is retrieved by the expression <code>f.get</code>, which blocks all
 execution in the object until the return value is available.  The statement
 sequence <code>x=o!m(e);v=x.get</code> encodes commonly used blocking calls, abbreviated
-~v=o.m(e)~ (often referred to as synchronous calls).  If the return value of a
-call is without interest, the call may occur directly as a statement ~o!m(e)~
+<code>v=o.m(e)</code> (often referred to as synchronous calls).  If the return value of a
+call is without interest, the call may occur directly as a statement <code>o!m(e)</code>
 with no associated future variable.  This corresponds to message passing in
-the sense that there is no synchronization associated with the call.</p>
-
-<h2 id="real-time-abs">Real-Time ABS</h2>
-
-<p>Real-Time ABS is an extension of ABS which captures the timed behavior of ABS
+the sense that there is no synchronization associated with the call.
+</p>
+<h2 id="headline-2">
+Real-Time ABS
+</h2>
+<p>
+Real-Time ABS is an extension of ABS which captures the timed behavior of ABS
 models.  An ABS model is a model in Real-Time ABS in which execution takes
 zero time; thus, standard statements in ABS are assumed to execute in zero
 time.  Timing aspects may be added incrementally to an untimed behavioral
 model.  Our approach extends the distributed concurrent object groups in ABS
-with an integration of both explicit and implicit time.</p>
-
-<h3 id="deadlines">Deadlines</h3>
-
-<p>The object-oriented perspective on timed behavior is captured by deadlines to
+with an integration of both explicit and implicit time.
+</p>
+<h3 id="headline-3">
+Deadlines
+</h3>
+<p>
+The object-oriented perspective on timed behavior is captured by deadlines to
 method calls.  Every method activation in Real-Time ABS has an associated
 deadline, which decrements with the passage of time.  This deadline can be
 accessed inside the method body with the expression <code>deadline()</code>.  Deadlines
@@ -621,55 +656,60 @@ Real-Time ABS introduces two new data types into the functional sublanguage of
 ABS: <code>Time</code>, which has the constructor <code>Time(r)</code>, and <code>Duration</code>, which has
 the constructors <code>InfDuration</code> and <code>Duration(r)</code>, where <code>r</code> is a value of the
 type <code>Rat</code> of rational numbers.  The accessor functions <code>timeVal</code> and
-~durationValue~ return <code>r</code> for time and duration values <code>Time(r)</code> and
-~Duration(r)~, respectively.  Let <code>o</code> be an object which implements a method
-~m~.  Below, we define a method <code>n</code> which calls <code>m</code> on <code>o</code> and specifies a
+<code>durationValue</code> return <code>r</code> for time and duration values <code>Time(r)</code> and
+<code>Duration(r)</code>, respectively.  Let <code>o</code> be an object which implements a method
+<code>m</code>.  Below, we define a method <code>n</code> which calls <code>m</code> on <code>o</code> and specifies a
 deadline for this call, given as an annotation and expressed in terms of its
 own deadline.  Remark that if its own deadline is <code>InfDuration</code>, then the
 deadline to <code>m</code> will also be unlimited.  The function <code>scale(d,r)</code> multiplies
 a duration <code>d</code> by a rational number <code>r</code> (the definition of <code>scale</code> is
-straightforward).</p>
-
-<pre><code class="language-abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }
-</code></pre>
-
-<h3 id="explicit-time">Explicit Time</h3>
-
-<p>In the explicit time model of Real-Time ABS, the execution time of
+straightforward).
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }</code></pre></div>
+</div>
+<h3 id="headline-4">
+Explicit Time
+</h3>
+<p>
+In the explicit time model of Real-Time ABS, the execution time of
 computations is modeled using duration statements <code>duration(e1,e2)</code> with best-
 and worst-case execution times <code>e1</code> and <code>e2</code>.  These statements are inserted
 into the model, and capture execution time which does not depend on the
 system’s deployment architecture.  Let <code>f</code> be a function defined in the
-functional sublanguage of ABS, which recurses through some data structure <code>x~
-of type ~T</code>, and let <code>size(x)</code> be a measure of the size of this data structure
-~x~.  Consider a method <code>m</code> which takes as input such a value <code>x</code> and returns
+functional sublanguage of ABS, which recurses through some data structure <code>x</code>
+of type <code>T</code>, and let <code>size(x)</code> be a measure of the size of this data structure
+<code>x</code>.  Consider a method <code>m</code> which takes as input such a value <code>x</code> and returns
 the result of applying <code>f</code> to <code>x</code>.  Let us assume that the time needed for
-this computation depends on the size of <code>x~; e.g., the computation time is
-between a duration ~0.5*size(x)</code> and a duration <code>4*size(x)</code>.  An interface <code>I~
-which provides the method ~m</code> and a class <code>C</code> which implements <code>I</code>, including the
-execution time for <code>m</code> using the explicit time model, are specified as follows:</p>
-
-<pre><code class="language-abs">interface I {
+this computation depends on the size of <code>x</code>; e.g., the computation time is
+between a duration <code>0.5*size(x)</code> and a duration <code>4*size(x)</code>.  An interface <code>I</code>
+which provides the method <code>m</code> and a class <code>C</code> which implements <code>I</code>, including the
+execution time for <code>m</code> using the explicit time model, are specified as follows:
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">interface I {
   Int m(T x)
 }
 class C implements I {
   Int m (T x){
     duration(0.5*size(x), 4*size(x)); return f(x);
   }
-}
-</code></pre>
-
-<h3 id="implicit-time">Implicit Time</h3>
-
-<p>In the implicit time model of Real-Time ABS, the execution time is not
+}</code></pre></div>
+</div>
+<h3 id="headline-5">
+Implicit Time
+</h3>
+<p>
+In the implicit time model of Real-Time ABS, the execution time is not
 specified explicitly in terms of durations, but rather observed on the
 executing model.  This is done by comparing clock values from a global clock,
 which can be read by an expression <code>now()</code> of type <code>Time</code>.  We specify an
 interface <code>J</code> with a method <code>p</code> which, given a value of type <code>T</code>, returns a
-value of type <code>Duration</code>, and implement <code>p</code> in a class <code>D</code> such that <code>p~
-measures the time needed to call the method ~m</code> above, as follows:</p>
-
-<pre><code class="language-abs">interface J {
+value of type <code>Duration</code>, and implement <code>p</code> in a class <code>D</code> such that <code>p</code>
+measures the time needed to call the method <code>m</code> above, as follows:
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">interface J {
   Duration p (T x)
 }
 class D implements J (I o) {
@@ -678,23 +718,25 @@ class D implements J (I o) {
     start = now();  y=o.m(x);
     return timeDifference(now(),start);
   }
-}
-
-</code></pre>
-
-<p>Observe that by using the implicit time model, no assumptions about execution
+}</code></pre></div>
+</div>
+<p>
+Observe that by using the implicit time model, no assumptions about execution
 times are specified in the model above.  The execution time depends on how
 quickly the method call is effectuated by the called object.  The execution
 time is simply measured during execution by comparing the time before and
 after making the call.  As a consequence, the time needed to execute a
 statement with the implicit time model depends on the capacity of the chosen
-deployment architecture and on synchronization with (slower) objects.</p>
-
-<h2 id="modeling-deployment-architectures-in-abs">Modeling Deployment Architectures in ABS</h2>
-
-<h3 id="deployment-components">Deployment Components</h3>
-
-<p>A deployment component in Real-Time ABS captures the execution capacity
+deployment architecture and on synchronization with (slower) objects.
+</p>
+<h2 id="headline-6">
+Modeling Deployment Architectures in ABS
+</h2>
+<h3 id="headline-7">
+Deployment Components
+</h3>
+<p>
+A deployment component in Real-Time ABS captures the execution capacity
 associated with a number of concurrent object groups.  Deployment components
 are first-class citizens in Real-Time ABS, and provide a given amount of
 resources which are shared by their allocated objects.  Deployment components
@@ -711,7 +753,7 @@ interfaces <code>I</code> and <code>J</code> and classes <code>C</code> and <cod
 example specify a deployment architecture in which two <code>C</code> objects are
 deployed on different deployment components <code>server1</code> and <code>server2</code>, and
 interact with the <code>D</code> objects deployed on a deployment component
-~clientServer~.  Deployment components in Real-Time ABS have the type <code>DC</code> and
+<code>clientServer</code>.  Deployment components in Real-Time ABS have the type <code>DC</code> and
 are instances of the class <code>DeploymentComponent</code>.  This class takes as
 parameters a name, given as a string, and a set of restrictions on resources.
 The name is mainly used for monitoring purposes.  Here we focus on resources
@@ -721,49 +763,52 @@ processing resources available between observable points in time.  Below, we
 create three deployment components <code>Server1</code>, <code>Server2</code>, and <code>ClientServer</code>,
 with the processing capacities 6, 3, and unlimited (i.e., <code>ClientServer</code> has
 no resource restrictions).  The local variables <code>server1</code>, <code>server2</code>, and
-~clientServer~ refer to these three deployment components, respectively.
+<code>clientServer</code> refer to these three deployment components, respectively.
 Objects are explicitly allocated to the servers by annotations; below,
-~object1~ is allocated to <code>Server1</code>, etc.</p>
-
-<pre><code class="language-abs">{ // This main block initializes a static deployment architecture:
-  DC server1 = new DeploymentComponent(&quot;Server1&quot;,set[CPUCapacity(6)]);
-  DC server2 = new DeploymentComponent(&quot;Server2&quot;,set[CPUCapacity(3)]);
-  DC clientServer = new DeploymentComponent(&quot;ClientServer&quot;, EmptySet);
+<code>object1</code> is allocated to <code>Server1</code>, etc.
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">{ // This main block initializes a static deployment architecture:
+  DC server1 = new DeploymentComponent(&#34;Server1&#34;,set[CPUCapacity(6)]);
+  DC server2 = new DeploymentComponent(&#34;Server2&#34;,set[CPUCapacity(3)]);
+  DC clientServer = new DeploymentComponent(&#34;ClientServer&#34;, EmptySet);
   [DC: server1] I object1 = new cog C;
   [DC: server2] I object2 = new cog C;
   [DC: clientServer] J client1monitor = new cog D(object1);
   [DC: clientServer] J client2monitor = new cog D(object2);
-}
-</code></pre>
-
+}</code></pre></div>
+</div>
+<p>
 <figure class="image main">
     <img src="/images/tutorials/resources/DC_arqu.jpg"/> 
 </figure>
 
-<!-- #+CAPTION: Deployment Architecture and Artefacts -->
-<!-- #+ATTR_HTML: :class "image main" :alt "Deployment Architecture and Artefacts" :title "Deployment Architecture and Artefacts" -->
-<!-- [[file:/images/tutorials/resources/DC_arqu.jpg]] -->
-
-<p>The figure depicts this deployment architecture and the artefacts introduced
+</p>
+<p>
+The figure depicts this deployment architecture and the artefacts introduced
 into the modeling language.  Since all objects are allocated to a deployment
 component (which is environment unless overridden by an annotation), we let
 the expression <code>thisDC()</code> evaluate to the deployment component of an object.
-For convenience, a call to the method <code>total(&quot;CPU&quot;)</code> of a deployment component
-returns its total amount of allocated CPU resources.</p>
-
-<h4 id="resource-costs">Resource Costs</h4>
-
-<p>The available resource capacity of a deployment component determines how much
+For convenience, a call to the method <code>total(&#34;CPU&#34;)</code> of a deployment component
+returns its total amount of allocated CPU resources.
+</p>
+<h4 id="headline-8">
+Resource Costs
+</h4>
+<p>
+The available resource capacity of a deployment component determines how much
 computation may occur in the objects allocated to that component.  Objects
 allocated to the component compete for the shared resources in order to
 execute, and they may execute until the component runs out of resources or
 they are otherwise blocked.  For the case of CPU resources, the resources of
 the component define its processing capacity between observable (discrete)
-points in time, after which the resources are renewed.</p>
-
-<h4 id="cost-models">Cost models</h4>
-
-<p>The cost of executing statements in the ABS model is determined by a default
+points in time, after which the resources are renewed.
+</p>
+<h4 id="headline-9">
+Cost models
+</h4>
+<p>
+The cost of executing statements in the ABS model is determined by a default
 value which is set as a compiler option (e.g., <code>defaultcost=10</code>).  However,
 the default cost does not discriminate between statements and we may want to
 introduce a more refined cost model.  For example, if <code>e</code> is a complex
@@ -775,15 +820,16 @@ in the section on Real-Time ABS may be given as a function <code>g</code> which 
 on the size of the input value <code>x</code>.  In the context of deployment components,
 we may redefine the implementation of interface <code>I</code> above to be
 resource-sensitive instead of having a predefined duration as in the explicit
-time model.  The resulting class <code>C2</code> can be defined as follows:</p>
-
-<pre><code class="language-abs">class C2 implements I {
+time model.  The resulting class <code>C2</code> can be defined as follows:
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">class C2 implements I {
   Int m (T x){ [Cost: g(size(x))] return f(x);
   }
-}
-</code></pre>
-
-<p>It is the responsibility of the modeler to specify an appropriate cost model.
+}</code></pre></div>
+</div>
+<p>
+It is the responsibility of the modeler to specify an appropriate cost model.
 A behavioral model with default costs may be gradually refined to provide more
 realistic resource-sensitive behavior.  For the computation of the cost
 functions such as <code>g</code> in our example above, the modeler may be assisted by the
@@ -796,13 +842,14 @@ further refinement of a behavioral model.  Therefore, cost annotations may be
 used by the modeler to abstractly represent the cost of some computation which
 remains to be fully specified.  For example, the class <code>C3</code> below represents a
 draft version of our method <code>m</code> in which the worst-case cost of the computation
-is specified although the function <code>f</code> has yet to be introduced:</p>
-
-<pre><code class="language-abs">class C3 implements I {
+is specified although the function <code>f</code> has yet to be introduced:
+</p>
+<div class="src src-abs">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">class C3 implements I {
   Int m (T x){ [Cost: size(x)*size(x)] return 0;
   }
-}
-</code></pre>
+}</code></pre></div>
+</div>
 
 
 <footer class=" footline" >
@@ -1128,20 +1175,20 @@ is specified although the function <code>f</code> has yet to be introduced:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1559046352"></script>
-    <script src="/js/perfect-scrollbar.min.js?1559046352"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1559046352"></script>
-    <script src="/js/jquery.sticky.js?1559046352"></script>
-    <script src="/js/featherlight.min.js?1559046352"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1559046352"></script>
-    <script src="/js/highlight.pack.js?1559046352"></script>
+    <script src="/js/clipboard.min.js?1565709739"></script>
+    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
+    <script src="/js/jquery.sticky.js?1565709739"></script>
+    <script src="/js/featherlight.min.js?1565709739"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
+    <script src="/js/highlight.pack.js?1565709739"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1559046352"></script>
-    <script src="/js/learn.js?1559046352"></script>
-    <script src="/js/hugo-learn.js?1559046352"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
+    <script src="/js/learn.js?1565709739"></script>
+    <script src="/js/hugo-learn.js?1565709739"></script>
 
-    <link href="/mermaid/mermaid.css?1559046352" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1559046352"></script>
+    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1565709739"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
