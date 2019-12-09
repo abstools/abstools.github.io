@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="An introduction to time and resource modeling in ABS.">
 
 
@@ -12,20 +12,20 @@
     <title>Resource Modeling Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -582,13 +582,13 @@ can define polymorphic sets using a type variable <code>A</code> and two constru
 element <code>el</code> is in a set <code>ss</code> recursively by pattern matching over <code>ss</code>:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
-def Bool contains&lt;A&gt;(Set&lt;A&gt; ss, A el) =
+<pre><code class="language-abs" data-lang="abs">data Set<A> = EmptySet | Insert(A, Set<A>);
+def Bool contains<A>(Set<A> ss, A el) =
   case ss {
-    EmptySet      =&gt; False ;
-    Insert(el, _) =&gt; True;
-    Insert(_, xs) =&gt; contains(xs, el);
-  };</code></pre></div>
+    EmptySet      => False ;
+    Insert(el, _) => True;
+    Insert(_, xs) => contains(xs, el);
+  };</code></pre>
 </div>
 <p>
 Here, the cases <code>p=&gt;exp</code> are evaluated in the listed order, underscore works
@@ -666,7 +666,7 @@ a duration <code>d</code> by a rational number <code>r</code> (the definition of
 straightforward).
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }</code></pre></div>
+<pre><code class="language-abs" data-lang="abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }</code></pre>
 </div>
 <h3 id="headline-4">
 Explicit Time
@@ -687,14 +687,14 @@ which provides the method <code>m</code> and a class <code>C</code> which implem
 execution time for <code>m</code> using the explicit time model, are specified as follows:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">interface I {
+<pre><code class="language-abs" data-lang="abs">interface I {
   Int m(T x)
 }
 class C implements I {
   Int m (T x){
     duration(0.5*size(x), 4*size(x)); return f(x);
   }
-}</code></pre></div>
+}</code></pre>
 </div>
 <h3 id="headline-5">
 Implicit Time
@@ -709,7 +709,7 @@ value of type <code>Duration</code>, and implement <code>p</code> in a class <co
 measures the time needed to call the method <code>m</code> above, as follows:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">interface J {
+<pre><code class="language-abs" data-lang="abs">interface J {
   Duration p (T x)
 }
 class D implements J (I o) {
@@ -718,7 +718,7 @@ class D implements J (I o) {
     start = now();  y=o.m(x);
     return timeDifference(now(),start);
   }
-}</code></pre></div>
+}</code></pre>
 </div>
 <p>
 Observe that by using the implicit time model, no assumptions about execution
@@ -768,15 +768,15 @@ Objects are explicitly allocated to the servers by annotations; below,
 <code>object1</code> is allocated to <code>Server1</code>, etc.
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">{ // This main block initializes a static deployment architecture:
-  DC server1 = new DeploymentComponent(&#34;Server1&#34;,set[CPUCapacity(6)]);
-  DC server2 = new DeploymentComponent(&#34;Server2&#34;,set[CPUCapacity(3)]);
-  DC clientServer = new DeploymentComponent(&#34;ClientServer&#34;, EmptySet);
+<pre><code class="language-abs" data-lang="abs">{ // This main block initializes a static deployment architecture:
+  DC server1 = new DeploymentComponent("Server1",set[CPUCapacity(6)]);
+  DC server2 = new DeploymentComponent("Server2",set[CPUCapacity(3)]);
+  DC clientServer = new DeploymentComponent("ClientServer", EmptySet);
   [DC: server1] I object1 = new cog C;
   [DC: server2] I object2 = new cog C;
   [DC: clientServer] J client1monitor = new cog D(object1);
   [DC: clientServer] J client2monitor = new cog D(object2);
-}</code></pre></div>
+}</code></pre>
 </div>
 <p>
 <figure class="image main">
@@ -823,10 +823,10 @@ resource-sensitive instead of having a predefined duration as in the explicit
 time model.  The resulting class <code>C2</code> can be defined as follows:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">class C2 implements I {
+<pre><code class="language-abs" data-lang="abs">class C2 implements I {
   Int m (T x){ [Cost: g(size(x))] return f(x);
   }
-}</code></pre></div>
+}</code></pre>
 </div>
 <p>
 It is the responsibility of the modeler to specify an appropriate cost model.
@@ -845,10 +845,10 @@ draft version of our method <code>m</code> in which the worst-case cost of the c
 is specified although the function <code>f</code> has yet to be introduced:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">class C3 implements I {
+<pre><code class="language-abs" data-lang="abs">class C3 implements I {
   Int m (T x){ [Cost: size(x)*size(x)] return 0;
   }
-}</code></pre></div>
+}</code></pre>
 </div>
 
 
@@ -1175,20 +1175,20 @@ is specified although the function <code>f</code> has yet to be introduced:
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

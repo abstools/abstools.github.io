@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on The ABS Modeling Language</title>
@@ -18,7 +18,7 @@
       
       <guid>https://abs-models.org/documentation/tutorials/language-tutorial/</guid>
       <description>This tutorial is partially adapted but needs updating to the newest language and tool features
-1 Installation of the ABS Eclipse Plugin ABS fills a gap in the landscape of software modeling languages. It is situated between architectural, design-oriented, foundational, and implementation-oriented languages [25] For trying out the examples provided in this tutorial you will need the ABS Eclipse plugin. To install it, follow the simple instructions at http://tools. hats-project.</description>
+1 Installation of the ABS Eclipse Plugin ABS fills a gap in the landscape of software modeling languages. It is situated between architectural, design-oriented, foundational, and implementation-oriented languages [25] For trying out the examples provided in this tutorial you will need the ABS Eclipse plugin. To install it, follow the simple instructions at http://tools. hats-project.eu/eclipseplugin/installation.html. You will need at least Eclipse version 3.</description>
     </item>
     
     <item>

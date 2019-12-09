@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS called vml.">
 
 
@@ -12,20 +12,20 @@
     <title>Resource Analysis with SRA :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -505,13 +505,10 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#general-overview">General Overview</a></li>
-<li><a href="#resource-analysis">Resource Analysis</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#general-overview">General Overview</a></li>
+    <li><a href="#resource-analysis">Resource Analysis</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -536,10 +533,7 @@
 
 
 
-
-
 <h2 id="general-overview">General Overview</h2>
-
 <p>We prototype a static analysis technique that computes upper bounds of virtual
 machine usages in a dialect of ABS, called vml, whose syntax will be covered
 by the examples in this tutorial, with explicit acquire and release operations
@@ -551,17 +545,13 @@ information for resource usage (creations, releases, and concurrent
 operations), (ii) a translation function that takes behavioural types and
 return cost equations.  It is integrated with the solver CoFloCo that given
 the cost equations produces the result.</p>
-
 <h2 id="resource-analysis">Resource Analysis</h2>
-
 <p>In this section we present how to compute the cost of a vml program in term of
 virtual machine usage.</p>
-
 <p>First, select <code>Resource Analysis (SRA)</code> from the pull-down menu at the top of
 the window on the center-left.  The parameters of the selected analysis are
 automatically set, so there is nothing to be configured in the <code>Settings</code>
 section in the top-left corner.</p>
-
 <p>As an example, open the program 
 
 
@@ -571,7 +561,6 @@ section in the top-left corner.</p>
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/review_2nd_year/sra/doubleRelease.vml&app=sra" target="_blank">doubleRelease.vml</a>
 
 :</p>
-
 <pre><code>/* DOUBLE RELEASE */
 Int doubleRelease(VM x, VM y) {
   release x; release y;
@@ -589,60 +578,53 @@ Int user1() {
   Fut&lt;Int&gt; fuser1 = this!user1();
   Int a = fuser1.get;
 }
-</code></pre>
-
-<p>Let us analyze the program. Click on <code>Run</code> to perform the analysis.</p>
-
+</code></pre><p>Let us analyze the program. Click on <code>Run</code> to perform the analysis.</p>
 <p>The output of the analysis is shown in three tabs of the console, which are
 generated by the tool:</p>
-
 <ul>
 <li><strong>Types</strong> contains the behavioural types generated for the input program</li>
 <li><strong>Equations</strong> contains the cost equations resulted by the translation of the
 behavioural types</li>
-
-<li><p><strong>UBs</strong> which is the overall output and shows the upper bounds. For the
-<code>doubleRelease.vml</code> we get:</p>
-
+<li><strong>UBs</strong> which is the overall output and shows the upper bounds. For the
+<code>doubleRelease.vml</code> we get:</li>
+</ul>
 <pre><code>### Partitioned upper bound of main(MAINVM):
 * 2
-if []
+ if []
 
 ### Partitioned upper bound of doubleRelease012net(THISVM,X,Y):
 * -2
-if [THISVM=1,X=1,Y=1]
+ if [THISVM=1,X=1,Y=1]
 * -1
-if [THISVM=1,X=1,Y&gt;=2]
-or [THISVM=1,Y=1,X&gt;=2]
+ if [THISVM=1,X=1,Y&gt;=2]
+ or [THISVM=1,Y=1,X&gt;=2]
 * 0
-if [THISVM=1,X&gt;=2,Y&gt;=2]
-or [THISVM=3]
+ if [THISVM=1,X&gt;=2,Y&gt;=2]
+ or [THISVM=3]
 
 ### Partitioned upper bound of user10net(THISVM):
 * 0
-if [3&gt;=THISVM,THISVM&gt;=1]
+ if [3&gt;=THISVM,THISVM&gt;=1]
 
 ### Partitioned upper bound of doubleRelease012peak(THISVM,X,Y):
 * 0
-if [X=1,Y=1,2&gt;=THISVM]
+ if [X=1,Y=1,2&gt;=THISVM]
 * 0
-if [X=1,2&gt;=THISVM,Y&gt;=2]
-or [Y=1,2&gt;=THISVM,X&gt;=2]
-or [X=1,2&gt;=THISVM,0&gt;=Y]
+ if [X=1,2&gt;=THISVM,Y&gt;=2]
+ or [Y=1,2&gt;=THISVM,X&gt;=2]
+ or [X=1,2&gt;=THISVM,0&gt;=Y]
 * 0
-if [2&gt;=THISVM,X&gt;=2,Y&gt;=2]
-or [2&gt;=THISVM,0&gt;=Y,X&gt;=2]
-or [3&gt;=THISVM,0&gt;=X]
-or [THISVM=3,X&gt;=1]
+ if [2&gt;=THISVM,X&gt;=2,Y&gt;=2]
+ or [2&gt;=THISVM,0&gt;=Y,X&gt;=2]
+ or [3&gt;=THISVM,0&gt;=X]
+ or [THISVM=3,X&gt;=1]
 
 ### Partitioned upper bound of user10peak(THISVM):
 * 0
-if [THISVM=3]
+ if [THISVM=3]
 * 2
-if [2&gt;=THISVM]
-</code></pre></li>
-</ul>
-
+ if [2&gt;=THISVM]
+</code></pre>
 
 <footer class=" footline" >
 	
@@ -967,20 +949,20 @@ if [2&gt;=THISVM]
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

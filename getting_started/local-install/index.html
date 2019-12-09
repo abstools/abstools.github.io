@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Installing Command-Line Tools :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -499,13 +499,10 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#installing-the-abs-compiler">Installing the ABS Compiler</a></li>
-<li><a href="#installing-key-abs">Installing KeY-ABS</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#installing-the-abs-compiler">Installing the ABS Compiler</a></li>
+    <li><a href="#installing-keyabs">Installing KeY-ABS</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -530,39 +527,28 @@
 
 
 
-
-
 <p>Many of the tools can be run from the command line.  This chapter describes
 how to run various tools on a local machine.</p>
-
 <h2 id="installing-the-abs-compiler">Installing the ABS Compiler</h2>
-
 <p>To install the ABS compiler, install the <a href="https://java.com/en/download/" title="Java 8 download site">Java 8
 JDK</a> and
 <a href="https://www.erlang-solutions.com/resources/download.html" title="Erlang binary distribution download">Erlang</a> (version 21 or higher).  Then,
 clone the git repository and build the compiler:</p>
-
-<pre><code class="language-bash">git clone https://github.com/abstools/abstools.git
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/abstools/abstools.git
 cd abstools
 ./gradlew assemble
-</code></pre>
-
-<p>After a successful build, there is an absc shell script in the
+</code></pre></div><p>After a successful build, there is an absc shell script in the
 <code>abstools/frontend/bin/bash/</code> directory that invokes the ABS compiler.  For
 Windows, there is <code>abstools/frontend/bin/win/absc.bat</code>.  After adding that
 directory to your path environment variable, you can invoke <code>absc</code> on one or
 more abs source files with a command like <code>absc -erlang model.abs</code>.</p>
-
-<h2 id="installing-key-abs">Installing KeY-ABS</h2>
-
+<h2 id="installing-keyabs">Installing KeY-ABS</h2>
 <p>For a local installation of the KeY-ABS theorem prover, install Java 8.  Then,
 download KeY-ABS from <a href="http://i12www.ira.uka.de/key/key-abs/key-abs.zip">http://i12www.ira.uka.de/key/key-abs/key-abs.zip</a>.
 Unzipping that downloaded file and double-clicking on the key.jar file should
 start KeY-ABS.  To start from the command line, use:</p>
-
-<pre><code class="language-bash">java -jar key.jar
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -jar key.jar
+</code></pre></div>
 
 <footer class=" footline" >
 	
@@ -883,20 +869,20 @@ start KeY-ABS.  To start from the command line, use:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

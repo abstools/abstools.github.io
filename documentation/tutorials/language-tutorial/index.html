@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,20 +12,20 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -505,52 +505,55 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#1-installation-of-the-abs-eclipse-plugin">1 Installation of the ABS Eclipse Plugin</a></li>
-<li><a href="#2-design-principles-of-abs">2 Design Principles of ABS</a></li>
-<li><a href="#3-architecture-of-abs">3 Architecture of ABS</a></li>
-<li><a href="#4-the-functional-layer">4 The Functional Layer</a>
-<ul>
-<li><a href="#4-1-algebraic-data-types">4.1 Algebraic Data Types</a></li>
-<li><a href="#4-2-functions">4.2 Functions</a></li>
-<li><a href="#4-3-modules">4.3 Modules</a></li>
-<li><a href="#4-4-abstract-data-types">4.4 Abstract Data Types</a></li>
-</ul></li>
-<li><a href="#5-the-oo-imperative-layer">5 The OO-Imperative Layer</a>
-<ul>
-<li><a href="#5-1-the-object-model">5.1 The Object Model</a></li>
-<li><a href="#5-2-the-imperative-layer">5.2 The Imperative Layer</a></li>
-</ul></li>
-<li><a href="#6-the-concurrency-layers">6 The Concurrency Layers</a>
-<ul>
-<li><a href="#6-1-background">6.1 Background</a></li>
-<li><a href="#6-2-component-object-groups">6.2 Component Object Groups</a></li>
-<li><a href="#6-3-scheduling-and-synchronization">6.3 Scheduling and Synchronization</a></li>
-<li><a href="#6-4-object-and-cog-creation">6.4 Object and COG Creation</a></li>
-<li><a href="#6-5-formal-semantics-of-concurrent-abs">6.5 Formal Semantics of Concurrent ABS</a></li>
-</ul></li>
-<li><a href="#7-extensions">7 Extensions</a>
-<ul>
-<li><a href="#7-1-pluggable-type-system">7.1 Pluggable Type System</a></li>
-<li><a href="#7-2-foreign-language-interface">7.2 Foreign Language Interface</a></li>
-</ul></li>
-<li><a href="#8-product-line-modeling-with-abs">8 Product Line Modeling with ABS</a>
-<ul>
-<li><a href="#8-1-product-line-engineering">8.1 Product Line Engineering</a></li>
-<li><a href="#8-2-feature-description">8.2 Feature Description</a></li>
-<li><a href="#8-3-delta-modeling">8.3 Delta Modeling</a></li>
-<li><a href="#8-4-product-line-configuration">8.4 Product Line Configuration</a></li>
-<li><a href="#8-5-product-selection">8.5 Product Selection</a></li>
-</ul></li>
-<li><a href="#9-concluding-remarks">9 Concluding Remarks</a>
-<ul>
-<li><a href="#acknowledgments">Acknowledgments</a></li>
-<li><a href="#further-reading">Further Reading</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#1-installation-of-the-abs-eclipse-plugin">1 Installation of the ABS Eclipse Plugin</a></li>
+    <li><a href="#2-design-principles-of-abs">2 Design Principles of ABS</a></li>
+    <li><a href="#3-architecture-of-abs">3 Architecture of ABS</a></li>
+    <li><a href="#4-the-functional-layer">4 The Functional Layer</a>
+      <ul>
+        <li><a href="#41-algebraic-data-types">4.1 Algebraic Data Types</a></li>
+        <li><a href="#42-functions">4.2 Functions</a></li>
+        <li><a href="#43-modules">4.3 Modules</a></li>
+        <li><a href="#44-abstract-data-types">4.4 Abstract Data Types</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-the-ooimperative-layer">5 The OO-Imperative Layer</a>
+      <ul>
+        <li><a href="#51-the-object-model">5.1 The Object Model</a></li>
+        <li><a href="#52-the-imperative-layer">5.2 The Imperative Layer</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-the-concurrency-layers">6 The Concurrency Layers</a>
+      <ul>
+        <li><a href="#61-background">6.1 Background</a></li>
+        <li><a href="#62-component-object-groups">6.2 Component Object Groups</a></li>
+        <li><a href="#63-scheduling-and-synchronization">6.3 Scheduling and Synchronization</a></li>
+        <li><a href="#64-object-and-cog-creation">6.4 Object and COG Creation</a></li>
+        <li><a href="#65-formal-semantics-of-concurrent-abs">6.5 Formal Semantics of Concurrent ABS</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-extensions">7 Extensions</a>
+      <ul>
+        <li><a href="#71-pluggable-type-system">7.1 Pluggable Type System</a></li>
+        <li><a href="#72-foreign-language-interface">7.2 Foreign Language Interface</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-product-line-modeling-with-abs">8 Product Line Modeling with ABS</a>
+      <ul>
+        <li><a href="#81-product-line-engineering">8.1 Product Line Engineering</a></li>
+        <li><a href="#82-feature-description">8.2 Feature Description</a></li>
+        <li><a href="#83-delta-modeling">8.3 Delta Modeling</a></li>
+        <li><a href="#84-product-line-configuration">8.4 Product Line Configuration</a></li>
+        <li><a href="#85-product-selection">8.5 Product Selection</a></li>
+      </ul>
+    </li>
+    <li><a href="#9-concluding-remarks">9 Concluding Remarks</a>
+      <ul>
+        <li><a href="#acknowledgments">Acknowledgments</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -575,14 +578,9 @@
 
 
 
-
-
 <p><em>This tutorial is partially adapted but needs updating to the newest language and tool features</em></p>
-
 <h2 id="1-installation-of-the-abs-eclipse-plugin">1 Installation of the ABS Eclipse Plugin</h2>
-
-<p><img src="/images/tutorials/language-tutorial/fig1.png" alt="The gap in the landscape of software modeling languages" title="The gap in the landscape of software modeling languages" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig1.png" alt="The gap in the landscape of software modeling languages" title="The gap in the landscape of software modeling languages"></p>
 <p>ABS fills a <em>gap</em> in the landscape of software modeling languages.  It
 is situated between architectural, design-oriented, foundational, and
 implementation-oriented languages
@@ -599,11 +597,8 @@ install, unzip the archive file into a directory /mypath/Account. Then
 create a new <em>ABS Project</em> and import the directory file contents into
 Eclipse workspace in the usual way. After opening a few files in the
 editor you should see a screen similar to the one here:</p>
-
-<p><img src="/images/tutorials/language-tutorial/ABSModelingPerspective.jpg" alt="Screenshot of ABS Modeling Perspective in Eclipse plugin" title="Screenshot of ABS Modeling Perspective in Eclipse plugin" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/ABSModelingPerspective.jpg" alt="Screenshot of ABS Modeling Perspective in Eclipse plugin" title="Screenshot of ABS Modeling Perspective in Eclipse plugin"></p>
 <h2 id="2-design-principles-of-abs">2 Design Principles of ABS</h2>
-
 <p>ABS targets software systems that are concurrent, distributed,
 object-oriented, built from components, and highly reusable. To achieve
 the latter, we follow the arguably most successful software reuse
@@ -633,9 +628,7 @@ notations than ABS. This is ensured by providing numerous language in-
 terfaces from and to ABS as shown in below. These are
 realized by various import, export, and code generation tools, several
 of which are discussed below.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig3.png" alt="Interfaces between ABS and other languages" title="Interfaces between ABS and other languages" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig3.png" alt="Interfaces between ABS and other languages" title="Interfaces between ABS and other languages"></p>
 <p>Arguably the most important criterion for tools,
 however, is usability. This tutorial is not the place to embark on a
 full discussion of what that entails, but it should be indisputable that
@@ -669,9 +662,7 @@ observed behavior
 Regarding <em>integration</em>, the tool set around the ABS language is
 realized as a set of plugins for the popular Eclipse IDE. These plugins
 realize the ABS</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig4.png" alt="Architecture of the ABS language" title="Architecture of the ABS language" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig4.png" alt="Architecture of the ABS language" title="Architecture of the ABS language"></p>
 <p><em>Modeling Perspective</em> (see <a href="ABSModelingPerspective.jpg">Fig.
 2</a>) and the <em>ABS Debug Perspective</em> (see
 <a href="ABSDebugPerspective.jpg">Fig. 8</a>), which provide the same functionality
@@ -683,20 +674,16 @@ tools are available as well. Some of these, for example, Java code
 generation or type inference are illustrated below. An overview of the
 ABS tool suite is given in
 <a href="http://dx.doi.org/10.1007/s10009-012-0250-1">[42]</a>.</p>
-
 <h2 id="3-architecture-of-abs">3 Architecture of ABS</h2>
-
 <p>The architecture of ABS has been organized as a stack of clearly
 separated layers as illustrated in <a href="fig4.png">Fig. 4</a>. In the design we
 strove for</p>
-
 <ol>
 <li>an attractive, easy-to-learn language with a syntax that is familiar
 to many developers and</li>
 <li>to provide maximal separation of concern (orthogonality) among
 different concepts.</li>
 </ol>
-
 <p>The four bottom layers provide a modern programming language based on a
 combination of algebraic data types (ADTs), pure functions, and a simple
 imperative-OO language. The idea is that anyone familiar with either
@@ -748,17 +735,14 @@ from feature analysis, deployment mapping, high-level design and down to
 implementation issues. To show that in spite of this ABS is not
 unwieldy, but rather easy to use and quite flexible, is the aim of the
 present tutorial.</p>
-
 <h2 id="4-the-functional-layer">4 The Functional Layer</h2>
-
-<h3 id="4-1-algebraic-data-types">4.1 Algebraic Data Types</h3>
-
+<h3 id="41-algebraic-data-types">4.1 Algebraic Data Types</h3>
 <p>The base layer of ABS is a simple language for parametric algebraic data
 types (ADTs) with a self-explaining syntax. The only predefined
 datatypes(Foot: There is one more predefined type that is used for
 synchronization which is explained in Sect. 6.) are <strong>Bool,Int, String,
 Unit</strong> and parametric lists as defined below. The type <strong>Unit</strong> is used
-as a type for methods without return value and works like Java&rsquo;s
+as a type for methods without return value and works like Java's
 <strong>void</strong>. All other types are user-defined. We assume that the Eclipse
 plugin is installed (see Sect. 1.3). To create a new ABS file in an
 existing ABS project, right click on the project in the explorer and
@@ -768,56 +752,39 @@ creates a new file named CustomerData.abs in the workspace, which can be
 edited in the usual way. The running example of this tutorial has a
 banking theme. Let us create some datatypes related to customers. <em>All
 type and constructor names must be upper-case</em>.</p>
-
 <pre><code>data Level = Standard | Silver | Gold;
 data Customer = Test | Person(Int, Level) | Company(Int);
-</code></pre>
-
-<p>There are three kind of customers defined by three different type
+</code></pre><p>There are three kind of customers defined by three different type
 constructors: a test customer, individual customers, and corporate
 customers. Individual customers are identified by a personal id and
 possess a status level while corporate customers are identified by
 their vat number. We can make this more explicit and, at the same,
 automatically create selector functions for the arguments of each type
 constructor by the following alternative definition:</p>
-
 <pre><code>data Customer = Test | Person(Int pid, Level) | Company(Int vat);
-</code></pre>
-
-<p>Assume now that we want to define lists of customers. For this we can
+</code></pre><p>Assume now that we want to define lists of customers. For this we can
 use the following built-in parametric list type, which provides a
 convenient concrete syntax for lists:</p>
-
 <pre><code>data List&lt;T&gt; = Nil | Cons(T, List&lt;T&gt;);
 List&lt;Int&gt; l = [1,2,3];
-</code></pre>
-
-<p>The definition of parametric lists demonstrates that type definitions
+</code></pre><p>The definition of parametric lists demonstrates that type definitions
 may be recursive. Let us instantiate parametric lists with <strong>Customer</strong>
 and, at the same time, create a <em>type synonym</em>:</p>
-
 <pre><code>type CustomerList = List&lt;Customer&gt;;
-</code></pre>
-
-<p>Type synonyms do not add new types or functionality, but can greatly en-
+</code></pre><p>Type synonyms do not add new types or functionality, but can greatly en-
 hance readability.</p>
-
-<h3 id="4-2-functions">4.2 Functions</h3>
-
+<h3 id="42-functions">4.2 Functions</h3>
 <p>The functional layer of ABS consists of a pure first-order functional
 language with definitions by case distinction and pattern matching. All
 function names must be lower-case. Let us begin by defining a function
 that computes the length of a list of customers:</p>
-
 <pre><code>def Int length(CustomerList list) =
     case list {
        Nil =&gt; 0 ;
        Cons(n, ls) =&gt; 1 + length(ls) ;
        _ =&gt; 0 ;
     } ;
-</code></pre>
-
-<p>Several kinds of patterns are permitted on the left-hand side of case
+</code></pre><p>Several kinds of patterns are permitted on the left-hand side of case
 distinctions. In the example above, the first and second cases use a
 data constructor pattern. In the second case, this contains an unbound
 variable whose value is extracted and used on the right-hand side. The
@@ -827,25 +794,19 @@ a parametric version of <strong>Int length(List&lt;T&gt; list)</strong>. This is
 an exercise to the reader. Here is another example illustrating the
 remaining patterns, that is, the literal pattern and the bound variable
 pattern:</p>
-
 <pre><code>def Int sign(Int n) =
     case n {
        0 =&gt; 0 ;
        n =&gt; if (n &gt; 0) then 1 else -1 ;
     } ;
-</code></pre>
-
-<p>The ABS parser does not attempt to establish whether case distinctions
+</code></pre><p>The ABS parser does not attempt to establish whether case distinctions
 are exhaustive. If no pattern in a case expression matches, a runtime
 error results. It is up to the modeler to prevent this situation (in the
 near future, ABS will be equipped with the possibility of failure
 handling). Similarly, it is perfectly possible to define the following
 function:</p>
-
 <pre><code>def Int getPid(Customer c) = pid(c);
-</code></pre>
-
-<p>However, if c has any other type than <strong>Person(Int,Level)</strong> at runtime,
+</code></pre><p>However, if c has any other type than <strong>Person(Int,Level)</strong> at runtime,
 an error will result. We close this section by illustrating a piece of
 syntactic sugar for associative collection types such as sets, bags,
 sequences, etc. To construct concrete elements of such datatypes one
@@ -854,25 +815,17 @@ typically needs to iterate several binary constructors, such as
 following idiom defines an n-ary constructor that uses concrete list
 syntax as its argument. By convention, the constructor should have the
 same name as the type it is derived from, but in lower-case.</p>
-
 <pre><code>data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
 def Set&lt;A&gt; set&lt;A&gt;(List&lt;A&gt; l) =
     case l {
        Nil =&gt; EmptySet;
        Cons(hd, tl) =&gt; Insert(hd, set(tl));
     } ;
-</code></pre>
-
-<p><img src="/images/tutorials/language-tutorial/ABSProblemReporting.jpg" alt="Parser error in the ABS Eclipse editor" title="Parser error in the ABS Eclipse editor" /></p>
-
+</code></pre><p><img src="/images/tutorials/language-tutorial/ABSProblemReporting.jpg" alt="Parser error in the ABS Eclipse editor" title="Parser error in the ABS Eclipse editor"></p>
 <p>Errors are highlighted on the editor line where they
 occur as well as in the <strong>Problems</strong> tab of the messages subwindow</p>
-
 <pre><code>Set&lt;Int&gt; s = set[1,2,3];
-</code></pre>
-
-<h3 id="4-3-modules">4.3 Modules</h3>
-
+</code></pre><h3 id="43-modules">4.3 Modules</h3>
 <p>If you tried to type in the previous examples into the ABS Eclipse
 editor you got parser errors despite the definitions being syntactically
 correct (similarly as in <a href="ABSProblemReporting.jpg">Fig. 5</a>). This is,
@@ -881,11 +834,8 @@ ABS is equipped with a simple syntactic module system that is inspired
 by that of Haskell <a href="http://haskell.org/">[33]</a>. To make the examples
 of the previous section work, simply add a <em>module declaration</em> like
 this as the first line of the file:</p>
-
 <pre><code>module CustomerData;
-</code></pre>
-
-<p>Module names must be upper-case and define a syntactic scope until the
+</code></pre><p>Module names must be upper-case and define a syntactic scope until the
 end of the file or until the next module declaration, whatever comes
 first. Module names can also be part of qualified type names. Module
 declarations are followed by <em>export</em> and <em>import</em> directives. The
@@ -893,7 +843,6 @@ former lists the types, type constructors, and functions that are
 visible to other modules, the latter lists the entities from other
 modules that can be used in the current module. With the type
 definitions of the previous section we might write:</p>
-
 <pre><code>module CustomerData;
 export Standard, Customer, Company, getPid;
 ...
@@ -901,21 +850,16 @@ module Test;
 import * from CustomerData;
 def Customer c1() = Company(2);
 def Customer c2() = Person(1,Standard); // erroneous
-</code></pre>
-
-<p>The module <strong>CustomerData</strong> exposes three of its constructors and a
+</code></pre><p>The module <strong>CustomerData</strong> exposes three of its constructors and a
 function while module <strong>Test</strong> imports anything made available by the
 former. The definition of <strong>c1</strong> is correct, but the definition of
 <strong>c2</strong> gives a parse error about a constructor that cannot be resolved,
 because <strong>Person</strong> is not exported. The <strong>from</strong> clause constitutes an
 <em>unqualified import</em>. Instead, it is also possible to make <em>qualified</em>
 imports. For example, we could have written:</p>
-
 <pre><code>import CustomerData.Company, CustomerData.Customer;
 def CustomerData.Customer c1() = CustomerData.Company(2);
-</code></pre>
-
-<p>In this case, however, one must also use qualified type names in the
+</code></pre><p>In this case, however, one must also use qualified type names in the
 definitions as illustrated above. The ABS compiler knows one predefined
 module that does not need to be explicitly imported&mdash;the ABS standard
 library <strong>ABS.StdLib</strong>. It contains a number of standard collection
@@ -930,9 +874,7 @@ in the previous section opens a new tab that contains <strong>abslang.abs</stron
 and jumps to the line that contains the definition of the constructor
 <strong>Cons</strong>. This lookup functionality is, of course, well-known to users
 of the Eclipse IDE.</p>
-
-<h3 id="4-4-abstract-data-types">4.4 Abstract Data Types</h3>
-
+<h3 id="44-abstract-data-types">4.4 Abstract Data Types</h3>
 <p>The module system allows to define <em>abstract data types</em> by hiding the
 type constructors. This implies that only functions can be used to
 access data elements. Their explicit representation is hidden. Of
@@ -940,22 +882,16 @@ course, one then needs to supply suitable constructor functions,
 otherwise, no new elements can be created at all. In the example of the
 previous section we might decide to expose only the types and
 constructor functions as follows:</p>
-
 <pre><code>module CustomerData;
 export Customer, Level, createCustomer, createLevel;
 def Customer createCustomer(Int id, String kind) = ... ;
 def Level createLevel() = ... ;
-</code></pre>
-
-<p>We leave it as an exercise to write a suitable definition of
+</code></pre><p>We leave it as an exercise to write a suitable definition of
 <strong>createCustomer</strong>. As usual, the advantage of using abstract data types
 is that one can replace the definition of types without the need to
 change any client code.</p>
-
-<h2 id="5-the-oo-imperative-layer">5 The OO-Imperative Layer</h2>
-
-<h3 id="5-1-the-object-model">5.1 The Object Model</h3>
-
+<h2 id="5-the-ooimperative-layer">5 The OO-Imperative Layer</h2>
+<h3 id="51-the-object-model">5.1 The Object Model</h3>
 <p>ABS follows a strict <em>programming to interfaces</em> discipline
 <a href="http://st-www.cs.illinois.edu/patterns/dpbook/dpbook.html">[17]</a>.
 This means that the <em>only</em> declaration types of objects are interface
@@ -967,26 +903,20 @@ and objects. Instead of static elements the ABS modeler should consider
 to use ADTs and functions.) but subinterfaces, even multiple
 subinterfaces, are permitted. Let us give an example that models the
 Customer type from previous sections in an object-oriented fashion:</p>
-
 <pre><code>module CustomerIF;
 export Customer;
 import Level, createLevel from CustomerData;
 interface Customer { Int getId(); }
 interface IndvCustomer extends Customer {}
 interface CorpCustomer extends Customer { Level getLevel(); }
-</code></pre>
-
-<p>As can be seen, interfaces (and also classes) can be exported. In fact,
+</code></pre><p>As can be seen, interfaces (and also classes) can be exported. In fact,
 this is necessary, if anyone outside their modules is to use them. It is
 possible to mix object and data types: data types may occur anywhere
 within classes and interfaces as long as they are well-typed. Less
 obviously, reference types may also occur inside algebraic data types.
 As seen earlier, it is perfectly possible to declare the following type:</p>
-
 <pre><code>type CustomerList = List&lt;Customer&gt;;
-</code></pre>
-
-<p>Keep in mind, though, that it is not allowed to call methods in function
+</code></pre><p>Keep in mind, though, that it is not allowed to call methods in function
 definitions. The reason is that method calls might have side effects. It
 was mentioned already that classes do not provide type names. They are
 only used for object construction. As a consequence, in ABS it is always
@@ -1001,16 +931,13 @@ larations that implicitly define corresponding fields and a constructor.
 Class definitions then consist of field declarations, followed by an
 initialization block and method implementations. Any of these elements
 may be missing. Hence, we can continue the example as follows:</p>
-
 <pre><code>class CorpIndvCustomerImpl(Int id) implements IndvCustomer, CorpCustomer {
     Level lv = createLevel();
     // no initialization block
     Level getLevel() { return lv; }
     Int getId() { return id; }
 }
-</code></pre>
-
-<p>Here, the <strong>id</strong> field is modeled as a class parameter, because it is
+</code></pre><p>Here, the <strong>id</strong> field is modeled as a class parameter, because it is
 not possible to give a reasonable default value, which is otherwise
 required, because fields that have no reference type must be
 initialized. Reference type fields are initialized with <strong>null</strong>. In
@@ -1031,16 +958,13 @@ implicitly declares a class as <em>active</em> and lets objects execute the
 code in the body of the run method after initialization. Classes without
 a <strong>run()</strong> method are called <em>passive</em> and their objects react only to
 incoming calls.</p>
-
-<h3 id="5-2-the-imperative-layer">5.2 The Imperative Layer</h3>
-
+<h3 id="52-the-imperative-layer">5.2 The Imperative Layer</h3>
 <p>ABS has standard statements for sequential composition, assignment,
 while-loops, conditionals, synchronous method calls, and method return.
 To illustrate all of these, one can look at the implementation of
 method <strong>findCustomer( CustomerList)</strong> in class <strong>CorpIndvCustomerImpl</strong>
-(don&rsquo;t forget to add it to the implemented interfaces as well to
+(don't forget to add it to the implemented interfaces as well to
 render it visible!).</p>
-
 <pre><code>Customer findCustomer(CustomerList cl) {
     Customer result;
     Int i = 0;
@@ -1051,9 +975,7 @@ render it visible!).</p>
     }
     return result;
 }
-</code></pre>
-
-<p>In addition to the various constructs, we can illustrate several
+</code></pre><p>In addition to the various constructs, we can illustrate several
 ABS-specific restrictions: it is necessary that the final statement in
 the method body is a return statement with the correct type. A typical
 ABS idiom is, therefore, to declare a local <strong>result</strong> variable. Neither
@@ -1078,11 +1000,8 @@ encapsulation</em> of objects: it is only possible to view or change the
 state of another object via getter- and setter-methods. For example, it
 is not possible to change the second line in the body of the while-loop
 of <strong>findCustomer(CustomerList)</strong> as follows:</p>
-
 <pre><code>Int curId = curCust.id;
-</code></pre>
-
-<p>The designers of ABS consider object encapsulation not as a restriction,
+</code></pre><p>The designers of ABS consider object encapsulation not as a restriction,
 but as a virtue: it makes all cross references between objects
 syntactically explicit. This avoids errors that can be hard to find. In
 addition it makes static analysis much more efficient, because any cross
@@ -1090,7 +1009,7 @@ reference and possible side effect to a different object can be
 associated with a unique method contract. For the practicing ABS modeler
 object encapsulation is greatly alleviated by the method completion
 feature of the Eclipse editor: if one types the beginning of the example
-above &ldquo;<strong>Int curId = curCust</strong>.&ldquo;, then a pop-up menu will offer a
+above &ldquo;<strong>Int curId = curCust</strong>.&quot;, then a pop-up menu will offer a
 selection of all methods that are known for objects of type
 <strong>Customer</strong>, the required getter-method <strong>getId()</strong> among them. If a
 suitable method is not found, then the modeler can take this as a hint
@@ -1098,7 +1017,6 @@ that it needs to be implemented or added to the interface. ABS is a
 <em>block-structured</em> language. Blocks are delimited by curly braces (no
 semicolon afterward) and may appear at four different places in a
 program:</p>
-
 <ol>
 <li>as a way to group several statements and provide a scope for local
 variables&ndash;blocks are necessary for bodies of loops and
@@ -1108,7 +1026,6 @@ conditionals that have more than one statement;</li>
 method declarations;</li>
 <li>as an (optional) implicit &ldquo;main&rdquo; method at end of a module.</li>
 </ol>
-
 <p>The last usage serves as an entry point for execution of ABS programs.
 At least one main block in one module is necessary for executing an ABS
 project, otherwise it is not clear which objects are to be created and
@@ -1117,24 +1034,18 @@ target via the Eclipse <strong>Run Configurations ...</strong> dialog or simply 
 right clicking on the desired module in the explorer and selection of
 <strong>Run As</strong>. We might complete the example by specifying the following
 main block for module <strong>CustomerIF</strong>:</p>
-
 <pre><code>{
     Customer c = new CorpIndvCustomerImpl(17); // create some customers
     Customer d = new CorpIndvCustomerImpl(16);
     CustomerList l = Cons(c,Cons(d,Nil)); // create list of customers
     Customer e = c.findCustomer(l); // we should find c in l
 }
-</code></pre>
-
-<p>This code illustrates at the same time the usage of the <strong>new</strong>
+</code></pre><p>This code illustrates at the same time the usage of the <strong>new</strong>
 statement, which works as in Java. As usual in Eclipse, pressing the F4
 key displays the type hierarchy pertaining to a class or interface name
 at the cursor position.</p>
-
 <h2 id="6-the-concurrency-layers">6 The Concurrency Layers</h2>
-
-<h3 id="6-1-background">6.1 Background</h3>
-
+<h3 id="61-background">6.1 Background</h3>
 <p>One of the most distinctive features of ABS is its concurrency model. If
 we look at commercial programming languages such as C, C++, or Java, one
 can observe that, despite intense efforts in the last decade, none of
@@ -1153,9 +1064,7 @@ the rest of the system. This is a prerequisite for being able to deduce
 global behavior from the composition of local behavior. In a setting,
 where concurrent objects can arbitrarily cross-reference each other,
 this is hardly possible.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig6.png" alt="Illustration of an ABS Component Group" title="Illustration of an ABS Component Group" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig6.png" alt="Illustration of an ABS Component Group" title="Illustration of an ABS Component Group"></p>
 <p>Arbitrarily complex, global invariants, might be needed to describe
 behavior. One approach to tackle the problem is to impose structure on
 concurrent objects and to make their dependencies syntactically
@@ -1175,9 +1084,7 @@ COGs form the primitive units of distribution. This constitutes the
 <em>upper</em> tier of the ABS concurrency model. Its main ideas are derived
 from the modeling language Creol
 <a href="http://dx.doi.org/10.1016/j.tcs.2006.07.031">[26]</a>.</p>
-
-<h3 id="6-2-component-object-groups">6.2 Component Object Groups</h3>
-
+<h3 id="62-component-object-groups">6.2 Component Object Groups</h3>
 <p>An ABS Concurrent Object Group (COG) is a collection of tasks with
 shared memory and processor. This means that exactly one task is active
 at any given time and tasks can cross-reference each other. The
@@ -1199,9 +1106,7 @@ between the explicit scheduling points, only one task is active,
 signified by the (single) <em>lock</em> of a COG being set to &amp;#8868. As a
 consequence, data races between synchronization points simply cannot
 happen, which was an important design goal of ABS.</p>
-
-<h3 id="6-3-scheduling-and-synchronization">6.3 Scheduling and Synchronization</h3>
-
+<h3 id="63-scheduling-and-synchronization">6.3 Scheduling and Synchronization</h3>
 <p>So, how are scheduling points specified in ABS? It is here that we
 encounter a second, central concurrency principle of ABS: <em>communication
 and synchronization are decoupled</em>. This is done via <em>future types</em>
@@ -1212,12 +1117,9 @@ variable declared with type <strong>Fut&lt;T&gt;</strong> serves as a reference 
 future result of an asynchronous call and allows to retrieve it once it
 will have been computed. For example, the final line of the example on
 p. 15 can be rewritten to:</p>
-
 <pre><code>Fut&lt;Customer&gt; e = c!findCustomer(l);
 // do something else ...
-</code></pre>
-
-<p>Now the call creates a new task in the current COG and declares <strong>e</strong> as
+</code></pre><p>Now the call creates a new task in the current COG and declares <strong>e</strong> as
 a future reference to its final result. The following code is executed
 immediately. The future mechanism allows to dispatch asynchronous calls,
 continue with the execution, and then synchronize on the result,
@@ -1234,11 +1136,8 @@ later the task is scheduled gain, the guard is re-evaluated, and so on,
 until it finally becomes true. We call this a <em>conditional scheduling
 point</em> or <em>conditional release point</em>. To continue the previous example
 we could write:</p>
-
 <pre><code>await e?;
-</code></pre>
-
-<p>If the asynchronous call to <strong>findCustomer(l)</strong> has finished, then
+</code></pre><p>If the asynchronous call to <strong>findCustomer(l)</strong> has finished, then
 execution simply continues. Otherwise, the lock of the current COG is
 set to ⊥ and the processor is free to proceed with another task. For
 efficiency reasons ABS allows only <em>monotonic</em> guards and only
@@ -1246,18 +1145,11 @@ conjunctive composition. Once the result from an asynchronous call is
 available, it can be retrieved with a <strong>get</strong>-expression that has a
 future variable as its argument. In the example this may look as
 follows:</p>
-
 <pre><code>Customer f = e.get;
-</code></pre>
-
-<p>In summary, the following programming idiom for asynchronous calls and
+</code></pre><p>In summary, the following programming idiom for asynchronous calls and
 retrieving their results is common in ABS:</p>
-
 <pre><code>Fut&lt;T&gt; v = o!m(e); ... ; await v?; r = v.get;
-</code></pre>
-
-<p><img src="/images/tutorials/language-tutorial/fig7.png" alt="Illustration of object and COG creation (gray boundaries represent COGs)" title="Illustration of object and COG creation; gray boundaries represent COGs" /></p>
-
+</code></pre><p><img src="/images/tutorials/language-tutorial/fig7.png" alt="Illustration of object and COG creation (gray boundaries represent COGs)" title="Illustration of object and COG creation; gray boundaries represent COGs"></p>
 <p>ABS does not attempt to check that each <strong>get</strong> expression is guarded
 by an <strong>await</strong> statement. So what happens when the result of an
 asynchronous call is not ready when <strong>get</strong> is executed? The answer is
@@ -1267,10 +1159,8 @@ COG can continue until the blocking future is resolved. Sometimes it
 is convenient to create an <em>unconditional scheduling point</em>, for
 example, to insert release points into long running sequential
 tasks. The syntax for unconditional scheduling statements in ABS is
-&ldquo;<strong>suspend;</strong>&rdquo;.</p>
-
-<h3 id="6-4-object-and-cog-creation">6.4 Object and COG Creation</h3>
-
+&ldquo;<strong>suspend;</strong>&quot;.</p>
+<h3 id="64-object-and-cog-creation">6.4 Object and COG Creation</h3>
 <p>In the previous section we discussed the fundamental concurrency model
 of ABS, which is based on COGs. Whenever we create an object with the
 <strong>new</strong> statement, it is by default created in the same COG as the
@@ -1289,7 +1179,6 @@ consequence, it is not possible to re-enter via recursive calls into the
 same execution thread. This is the reason why a simple binary lock for
 each COG is sufficient. Let us extend our running example with an
 <strong>Account</strong> class and COG creation:</p>
-
 <pre><code>module Account;
 interface Account {
     Int getAid();
@@ -1310,10 +1199,7 @@ implements Account { ... }
     Int y = with.get;
     Int net = x + y;
 }
-</code></pre>
-
-<p><img src="/images/tutorials/language-tutorial/ABSDebugPerspective.jpg" alt="Screenshot of ABS Debug Perspective in Eclipse plugin" title="Screenshot of ABS Debug Perspective in Eclipse plugin" /></p>
-
+</code></pre><p><img src="/images/tutorials/language-tutorial/ABSDebugPerspective.jpg" alt="Screenshot of ABS Debug Perspective in Eclipse plugin" title="Screenshot of ABS Debug Perspective in Eclipse plugin"></p>
 <p>We create an account objects in a different COG from the current one.
 Note that there is no sharing of objects between COGs, so that the
 variable c provides no alias to the object parameter c in the
@@ -1326,9 +1212,7 @@ click on the file with the <strong>Account</strong> module in the explorer and s
 <strong>Run As|ABS Java Backend (Debug)</strong>. This will automatically switch to
 the ABS Debug Perspective (see <a href="ABSDebugPerspective.jpg">Fig. 8</a>) and
 start the Eclipse debugger.</p>
-
-<p><img src="/images/tutorials/language-tutorial/ABSSequenceDiagram.jpg" alt="Sequence diagram generated from an ABS simulation" title="Sequence diagram generated from an ABS simulation" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/ABSSequenceDiagram.jpg" alt="Sequence diagram generated from an ABS simulation" title="Sequence diagram generated from an ABS simulation"></p>
 <p>All the usual
 features of a graphical debugger are available: navigation, breakpoints,
 state inspection, etc. If instead, the backend <strong>Run As|ABS Java
@@ -1365,7 +1249,6 @@ needs to obtain the lock of cog_c , but this is not possible, because
 progress. Deadlocks are very difficult to avoid in general.
 Deadlock-free concurrent languages tend to be too restrictive to be
 usable and, unlike data race-freeness, are not a practical option.</p>
-
 <pre><code>class C {
     C m1(C b, C c) { Fut&lt;C&gt; r = b!m2(c); return r.get; }
     C m2(C c) { Fut&lt;C&gt; r = c!m3(); return r.get; }
@@ -1375,19 +1258,14 @@ usable and, unlike data race-freeness, are not a practical option.</p>
     C c = new C(); C d = new cog C(); C e = new C();
     c!m1(d,e);
 }
-</code></pre>
-
-<p><strong>Fig. 10.</strong> Example for deadlock in ABS</p>
-
+</code></pre><p><strong>Fig. 10.</strong> Example for deadlock in ABS</p>
 <p>In
 ABS many deadlocks can be avoided by supplying enough release points. In
 the example above it is sufficient to guard one of the <strong>get</strong>
 expressions. In addition, there is an automatic deadlock analysis for
 ABS <a href="http://dx.doi.org/10.1007/978-3-642-21461-5_11">[18]</a> that is
 currently being implemented.</p>
-
-<h3 id="6-5-formal-semantics-of-concurrent-abs">6.5 Formal Semantics of Concurrent ABS</h3>
-
+<h3 id="65-formal-semantics-of-concurrent-abs">6.5 Formal Semantics of Concurrent ABS</h3>
 <p>The ABS language has a mathematically rigorous, SOS-style semantics
 <a href="http://www.hats-project.eu/sites/default/files/Deliverable12.pdf">[13,</a>
 <a href="http://dx.doi.org/10.1007/978-3-642-25271-6_8">25]</a>. This tutorial
@@ -1395,9 +1273,7 @@ introduction is not the place go into the details, but we sketch the
 main ideas. The central issue is to give an appropriate structure to the
 terms that represent ABS <em>runtime configurations</em>. They are collections
 over the following items:</p>
-
-<p><img src="/images/tutorials/language-tutorial/6.5.cogs_.png" alt="Cogs" title="Cogs" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/6.5.cogs_.png" alt="Cogs" title="Cogs"></p>
 <p><strong>COGs</strong> are identified simply by a name <em>b</em> for their <em>lock</em> whose
 value can be either ⊤ or ⊥. <strong>Objects</strong> have a name <em>o</em>, need to have
 a reference to their COG <em>b</em>, to their class <em>C</em>, and they also have a
@@ -1411,21 +1287,22 @@ consist of any number of the above items. The operational semantics of
 ABS is given by rewrite rules that match the next executable statement
 of a task (and thereby also the current COG and object). A typical
 example is the rewrite rule that realizes <em>creation of a new COG</em>:</p>
-
-<p><img src="/images/tutorials/language-tutorial/6.5.formula.png" alt="formula" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/6.5.formula.png" alt="formula"></p>
 <p>where:</p>
-
 <ul>
-<li><p>\(b&rsquo;, o&rsquo;, n&rsquo;\) new;</p></li>
-
-<li><p>\(\overline{T f}; s&rsquo;\) init block of class \(C\) and \(\sigma&rsquo;_{init}\) binds constructor parameters \(v&rsquo;\);</p></li>
-
-<li><p>\(\sigma&rsquo;_{init} = \overline{T f}\);</p></li>
-
-<li><p>\(s_{task} = s&rsquo;\{\mathbf{this}\, / o&rsquo;;\mathbf{suspend}\}\).</p></li>
+<li>
+<p>\(b&rsquo;, o&rsquo;, n&rsquo;\) new;</p>
+</li>
+<li>
+<p>\(\overline{T f}; s&rsquo;\) init block of class \(C\) and \(\sigma&rsquo;_{init}\) binds constructor parameters \(v&rsquo;\);</p>
+</li>
+<li>
+<p>\(\sigma&rsquo;_{init} = \overline{T f}\);</p>
+</li>
+<li>
+<p>\(s_{task} = s&rsquo;\{\mathbf{this}\, / o&rsquo;;\mathbf{suspend}\}\).</p>
+</li>
 </ul>
-
 <p>The rule matches a new cog statement in task \(n\), COG \(b\),
 current object \(o\), and subsequent statements <code>s</code>.  First we
 need to create a new COG with a fresh name \(b&rsquo;\) and a new object
@@ -1437,11 +1314,8 @@ initialization, execution is suspended.  The original task \(n\)
 immediately continues to execute the remaining code <code>s</code> as there is no
 release point here.  The value of the object reference <code>z</code> is replaced
 with the new object \(o&rsquo;\).</p>
-
 <h2 id="7-extensions">7 Extensions</h2>
-
-<h3 id="7-1-pluggable-type-system">7.1 Pluggable Type System</h3>
-
+<h3 id="71-pluggable-type-system">7.1 Pluggable Type System</h3>
 <p>All declarations (fields, methods, classes, interfaces) in ABS can carry
 annotations. These are simply expressions that are enclosed in square
 brackets. The location type system in Sect. 6.4 provided examples. Other
@@ -1454,15 +1328,11 @@ easily in ABS via meta annotations. The special annotation
 following it to be a definition for type annotations and makes the
 parser aware of it. For example, the location type system is declared as
 follows:</p>
-
 <pre><code>[TypeAnnotation]
 data LocationType = Far | Near | Somewhere | Infer;
 // usage
 [LocationType: Near] T n;
-</code></pre>
-
-<h3 id="7-2-foreign-language-interface">7.2 Foreign Language Interface</h3>
-
+</code></pre><h3 id="72-foreign-language-interface">7.2 Foreign Language Interface</h3>
 <p>As a modeling language ABS does not contain mechanisms for I/O, because
 these are typically implementation-dependent. Of course, one often would
 like to have some output from the execution of an ABS model. This is
@@ -1471,15 +1341,12 @@ not only can be used to implement I/O for ABS, but to connect ABS models
 with legacy code in implementation languages in general. At the moment,
 the ABS FLI is realized for the Java language. An ABS class that is to
 be implemented in Java needs three ingredients:</p>
-
 <ol>
 <li>import of helper functions and classes from the module ABS.FLI;</li>
 <li>declaration as being foreign by the annotation [Foreign];</li>
 <li>default ABS implementations of all interface methods.</li>
 </ol>
-
 <p>A simple example can look as follows:</p>
-
 <pre><code>import * from ABS.FLI;
 interface Hello { String hello(String msg); }
 [Foreign]
@@ -1490,40 +1357,31 @@ class HelloImpl implements Hello {
     Hello h = new HelloImpl();
     h.hello(&quot;Hi there&quot;);
 }
-</code></pre>
-
-<p>The default implementation is used for simulation of ABS code without
+</code></pre><p>The default implementation is used for simulation of ABS code without
 Java. It is now possible to implement a Java version of the HelloImpl
 class in a Java project and to connect that project with ABS. The
 details of how this is done are explained at the HATS tools site.
 Basically, one extends the Java class HelloImpl_c that was generated by
 the ABS Java backend with a new implementation of the Java method
 hello(String). By convention, the Java methods carry the prefix fli.</p>
-
-<pre><code class="language-java">import abs.backend.java.lib.types.ABSString;
-import abs.backend.java.lib.runtime.FLIHelper;
-import Test.HelloImpl_c;
-public class HelloImpl_fli extends HelloImpl_c {
-   @Override
-   public ABSString fli_hello(ABSString msg) {
-      FLIHelper.println(&quot;I got &quot;+msg.getString()+&quot; from ABS&quot;);
-      return ABSString.fromString(&quot;Hello ABS, this is Java&quot;);
-   }
-}
-</code></pre>
-
-<p>On the Java side any Java construct can be used. ABS provides a Java
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> abs.backend.java.lib.types.ABSString<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> abs.backend.java.lib.runtime.FLIHelper<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> Test.HelloImpl_c<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloImpl_fli</span> <span style="color:#66d9ef">extends</span> HelloImpl_c <span style="color:#f92672">{</span>
+   <span style="color:#a6e22e">@Override</span>
+   <span style="color:#66d9ef">public</span> ABSString <span style="color:#a6e22e">fli_hello</span><span style="color:#f92672">(</span>ABSString msg<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      FLIHelper<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;I got &#34;</span><span style="color:#f92672">+</span>msg<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34; from ABS&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+      <span style="color:#66d9ef">return</span> ABSString<span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello ABS, this is Java&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+   <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>On the Java side any Java construct can be used. ABS provides a Java
 package abs.backend.java.lib.types containing declarations of the
 built-in ABS types usable in Java such as ABSString. Execution of the
 ABS main block above will now cause the Java output &ldquo;I got Hi there from
 ABS&rdquo; to be printed on the system console.</p>
-
 <h2 id="8-product-line-modeling-with-abs">8 Product Line Modeling with ABS</h2>
-
-<h3 id="8-1-product-line-engineering">8.1 Product Line Engineering</h3>
-
-<p><img src="/images/tutorials/language-tutorial/fig11.png" alt="Product line engineering" title="Product line engineering" /></p>
-
+<h3 id="81-product-line-engineering">8.1 Product Line Engineering</h3>
+<p><img src="/images/tutorials/language-tutorial/fig11.png" alt="Product line engineering" title="Product line engineering"></p>
 <p>One of the aims of ABS is to provide a uniform and formal framework for
 product line engineering (PLE)
 <a href="http://dx.doi.org/10.1007/3-540-28901-1">[35]</a>, a practically highly
@@ -1558,9 +1416,7 @@ This means that the feature composition mechanism must be
 well-structured and represent a suitable match for the analysis methods
 used in ABS
 <a href="http://www.hats-project.eu/sites/default/files/Deliverable27.pdf">[14]</a>.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig12.png" alt="Graphical representation of the Account feature model" title="Graphical representation of the Account feature model" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig12.png" alt="Graphical representation of the Account feature model" title="Graphical representation of the Account feature model"></p>
 <p>Such a mechanism is delta-oriented programming (DOP)
 <a href="http://dx.doi.org/10.1007/978-3-642-15579-6_6">[36,</a>
 <a href="http://ceur-ws.org/Vol-557/paper3.pdf%20">38]</a>, because it allows to
@@ -1572,16 +1428,13 @@ the ABS-extensions used to model product lines consist of four
 elements <a href="http://dx.doi.org/10.1007/978-3-642-21455-4_13">[9,</a>
 <a href="http://dx.doi.org/10.1007/978-3-642-25271-6_11">10]</a>, which we
 describe now in turn:</p>
-
 <ol>
 <li>A feature description language</li>
 <li>A language for deltas that modify ABS models</li>
 <li>A configuration language connecting features with the deltas that realize them</li>
 <li>A language for product configuration</li>
 </ol>
-
-<h3 id="8-2-feature-description">8.2 Feature Description</h3>
-
+<h3 id="82-feature-description">8.2 Feature Description</h3>
 <p>Modern software development processes, notably agile processes and PLE,
 tend to be feature-driven. A number of mature and useful formalisms for
 feature description have been developed in the last decade. For ABS we
@@ -1594,12 +1447,11 @@ from TVL in that (i) attribute types that are not needed are omitted and
 model orthogonal variability in product lines. Let us build a product
 line based on the Account interface from Sect. 6.4. Assume we want to
 distinguish between checking and saving accounts. The latter may pay
-interest, whereas the former usually don&rsquo;t. Optionally, a checking ac-
+interest, whereas the former usually don't. Optionally, a checking ac-
 count (but not a saving account) may permit an overdraft or incur fees
 for transactions. A graphical representation of the Account feature
 model is in <a href="fig12.png">Fig. 12</a>. The textual rendering in μTVL looks as
 follows:</p>
-
 <pre><code>root Account {
    group allof {
       Type {
@@ -1614,9 +1466,7 @@ follows:</p>
       opt Overdraft
    }
 }
-</code></pre>
-
-<p>In μTVL one represents each subhierarchy in the feature tree by a group
+</code></pre><p>In μTVL one represents each subhierarchy in the feature tree by a group
 of features, which can be further qualified as inclusive (allof) or
 alternative (oneof). Within a group there is a comma-separated list of
 feature declarations. Each feature declaration may be optional (opt) and
@@ -1641,21 +1491,16 @@ check validity of a given feature selection for a feature model F : for
 any selected feature f and parameter value p := v one simply adds f = 1
 ∧ p = v to the semantics of F and checks for satisfiability with a
 constraint solver. The constraint solver of ABS can:</p>
-
 <ul>
 <li>find all possible solutions for a given feature model and</li>
 <li>check whether a feature selection is a solution of a feature model.</li>
 </ul>
-
 <p>The latter check is
 performed implicitly in the ABS Eclipse plugin, whenever the user
 requests to build a product based on a specific feature selection (see
 Sect. 8.5).</p>
-
-<h3 id="8-3-delta-modeling">8.3 Delta Modeling</h3>
-
-<p><img src="/images/tutorials/language-tutorial/fig13.png" alt="Application of delta modules to a core product" title="Application of delta modules to a core product" /></p>
-
+<h3 id="83-delta-modeling">8.3 Delta Modeling</h3>
+<p><img src="/images/tutorials/language-tutorial/fig13.png" alt="Application of delta modules to a core product" title="Application of delta modules to a core product"></p>
 <p>As mentioned above, the realization of features in ABS is done with
 delta modules (or deltas, for short), a variant of delta-oriented
 programming (DOP). This constitutes the main reuse principle of ABS and
@@ -1666,18 +1511,16 @@ functionality. Product variants with additional features are obtained
 from it by applying one or more deltas that realize the desired
 features, as illustrated in <a href="fig13.png">Fig. 13</a>. In ABS, deltas have
 the following capabilities:</p>
-
 <ul>
 <li>Delta modules may add, remove or modify classes and interfaces</li>
 <li>Permitted class modifications are:
-
 <ul>
 <li>adding and removal of fields</li>
 <li>adding, removal and modification of methods</li>
 <li>extending the list of implemented interfaces</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>The actual reuse mechanism
 is located in the modification of methods: the description of a method
 modification in a delta can access the most recent incarnation of that
@@ -1694,7 +1537,6 @@ while <code>super()</code>-calls occur at runtime. As a consequence, there is a
 runtime penalty for the latter. Assume we have the following
 implementation of the withdraw(Int) method of the Account interface,
 which ensures that we cannot withdraw more than the current balance:</p>
-
 <pre><code>class AccountImpl(Int aid, Int balance, Customer owner)
 implements Account {
    Int withdraw(Int x) {
@@ -1702,12 +1544,9 @@ implements Account {
       return balance;
    }
 }
-</code></pre>
-
-<p>Now we would like to create a delta module that realizes the feature
+</code></pre><p>Now we would like to create a delta module that realizes the feature
 Fee. We need to modify withdraw(Int), which can be achieved by the
 following delta:</p>
-
 <pre><code>delta DFee(Int fee); // Implements feature Fee
 uses Account;
 modifies class AccountImpl {
@@ -1717,9 +1556,7 @@ modifies class AccountImpl {
       return result;
    }
 }
-</code></pre>
-
-<p>One or more features can be put into a file with extension .abs. The
+</code></pre><p>One or more features can be put into a file with extension .abs. The
 connection between different deltas and a base implementation is given
 via the uses clause that refers to the module where the base is found.
 Like classes, deltas can have parameters, however, these are not fields,
@@ -1734,36 +1571,28 @@ interest rate is set to 0. ABS deltas at this time do not support to add
 or modify class initialization blocks. To change the initial value of a
 field, we simply remove the field declaration and add it again with a
 suitable initial value:</p>
-
 <pre><code>delta DSave(Int i); // Implements feature Save
 uses Account;
 modifies class AccountImpl {
    removes Int interest;
    adds Int interest = i;
 }
-</code></pre>
-
-<p>Of course, we assume here that the interest field has been added in the
+</code></pre><p>Of course, we assume here that the interest field has been added in the
 first place in the earlier delta DType. This requires to specify and
 check temporal constraints on the application of deltas as we shall see
 in the following section. Application of a concrete delta is illustrated
 with DSave in <a href="fig14.png">Fig. 14</a>. Syntax and parse error highlighting
 for delta modules works as usual. Automatic completion works as well,
 but it is only done relative to the base product.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig14.png" alt="Application of delta DSave" title="Application of delta DSave" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig14.png" alt="Application of delta DSave" title="Application of delta DSave"></p>
 <p>The reason is that before product
 build time, the compiler cannot know which deltas have been applied
 before. For the same reason, only a limited amount of type checking is
 done. Research to lift type checking to the family level is under way
 <a href="http://doi.acm.org/10.1145/2110147.2110161">[29,</a>
 <a href="http://link.springer.com/article/10.1007%2Fs00236-012-0173-z">37]</a>.</p>
-
-<h3 id="8-4-product-line-configuration">8.4 Product Line Configuration</h3>
-
-<p><img src="/images/tutorials/language-tutorial/fig15.png" alt="Schema of product line configuration in ABS" title="Schema of product line configuration in ABS" /></p>
-
+<h3 id="84-product-line-configuration">8.4 Product Line Configuration</h3>
+<p><img src="/images/tutorials/language-tutorial/fig15.png" alt="Schema of product line configuration in ABS" title="Schema of product line configuration in ABS"></p>
 <p>So far, we have two models relating to product lines: the feature model
 and the delta model, that is, the feature implementation. Unlike any
 other formalism we are aware of, in ABS we can make a formal connection
@@ -1775,7 +1604,6 @@ debugging easy, because all information about the realization of a given
 feature model is collected in one place. To establish a connection
 between features and deltas, the configuration files need to specify
 three things:</p>
-
 <ol>
 <li>they must associate features with their implementing delta modules
 by application conditions;</li>
@@ -1784,12 +1612,10 @@ partial temporal constraints on delta application;</li>
 <li>they need to pass the attribute values of features to the parameters
 of the delta modules.</li>
 </ol>
-
 <p>We can illustrate all three aspects with our running example. The
 following file (again, use file extension .abs) defines a product line
 named Accounts based on the five features of the feature model in <a href="fig12.png">Fig.
 12</a>.</p>
-
 <pre><code>productline Accounts;
 features Type, Fee, Overdraft, Check, Save;
 delta DType (Type.i) when Type;
@@ -1797,17 +1623,13 @@ delta DFee (Fee.amount) when Fee;
 delta DOverdraft after DCheck when Overdraft;
 delta DSave (Type.i) after DType when Save;
 delta DCheck after DType when Check;
-</code></pre>
-
-<p>For each delta that is to be used for implementing any of the features
+</code></pre><p>For each delta that is to be used for implementing any of the features
 one specifies:</p>
-
 <ul>
 <li>the application conditions (when clauses), that is, the feature(s) that are being realized by each delta and whose presence triggers delta application;</li>
 <li>the delta parameters which are derived from feature attribute values;</li>
 <li>a strict partial order of delta application (after clauses) to ensure well-definedness of delta applications and resolve conflicts.</li>
 </ul>
-
 <p>In the example, there is a one-to-one correspondence between deltas and
 features, which is reflected in the application conditions. Likewise,
 the feature attributes Type.i and Fee.amount directly can be used as
@@ -1818,32 +1640,25 @@ checking accounts. It would also have been possible to express this
 constraint at the level of the feature model with an includes: clause.
 It is up to the modeler to decide whether a given constraint is a
 property of the feature model or of the product line.</p>
-
-<h3 id="8-5-product-selection">8.5 Product Selection</h3>
-
+<h3 id="85-product-selection">8.5 Product Selection</h3>
 <p>The final step in PLE with ABS is product selection. Whereas the
 activities that took place until now can be viewed as mostly being part
 of family engineering, the selection process is always part of
 application engineering.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig16.png" alt="The role of product line configuration in product selection and
-compilation" title="The role of product line configuration in product selection and
-compilation" /></p>
-
+<p>![The role of product line configuration in product selection and
+compilation](/images/tutorials/language-tutorial/fig16.png &ldquo;The role of product line configuration in product selection and
+compilation&rdquo;)</p>
 <p>To create a product it is sufficient to list the features
 that should be realized in it and to instantiate the feature attributes
 with concrete values. The syntax is very simple and self-explaining. As
 any other ABS file, product selection files have the .abs extension and
 there is Eclipse support for syntax and parse error highlighting. Some
 examples for the Accounts product line are as follows:</p>
-
 <pre><code>product CheckingAccount (Type{i=0},Check);
 product AccountWithFee (Type{i=0},Check,Fee{amount=1});
 product AccountWithOverdraft (Type{i=0},Check,Overdraft);
 product SavingWithOverdraft (Type{i=1},Save,Overdraft);
-</code></pre>
-
-<p>The simplest product that can be built is CheckingAccount. The second
+</code></pre><p>The simplest product that can be built is CheckingAccount. The second
 product above extends it by charging a fee of one unit per
 transaction. The ABS compiler uses the product selection file and the
 other related files to create a &ldquo;flattened&rdquo; ABS model where all deltas
@@ -1864,9 +1679,7 @@ the ABS Product menu. Invalid product selections or type errors in the
 configuration files will be displayed at this stage. For example,
 selection of the SavingWithOverdraft product above results in an error,
 because the constraints in the feature model are not satisfied.</p>
-
-<p><img src="/images/tutorials/language-tutorial/fig17.png" alt="Choice of different layers when modeling with ABS" title="Choice of different layers when modeling with ABS" /></p>
-
+<p><img src="/images/tutorials/language-tutorial/fig17.png" alt="Choice of different layers when modeling with ABS" title="Choice of different layers when modeling with ABS"></p>
 <p>After
 selection of a valid product one can run and debug the
 resulting core ABS model as described earlier. The ABS compiler
@@ -1879,9 +1692,7 @@ AccountWithFee, we obtain 34. A current limitation of the Eclipse ABS
 plugin is that the debugger correctly displays the runtime configuration
 and the values of variables of products, but in the editor window only
 the core product is displayed.</p>
-
 <h2 id="9-concluding-remarks">9 Concluding Remarks</h2>
-
 <p>In this tutorial we gave an introduction to the abstract modeling
 language ABS. Uniquely among current modeling languages, ABS has a
 formal semantics and covers the whole spectrum from feature modeling to
@@ -1899,9 +1710,7 @@ approaches such as <a href="http://doi.acm.org/10.1145/2103776.2103785">[5]</a>
 are complementary to ABS. As mentioned earlier, the analysis
 capabilities and the ABS runtime component layer are beyond this
 tutorial, but some chapters in this volume cover part of the material.</p>
-
 <h3 id="acknowledgments">Acknowledgments</h3>
-
 <p>The development and implementation of ABS was a collaborative effort of
 the many researchers involved in the HATS project. While the text of
 this tutorial has been written from scratch by the author, it could
@@ -1909,9 +1718,7 @@ never have been done without the background of all the papers,
 presentations, and discussions provided by many colleagues. Special
 thanks go to the main contributors to Work Package 8: Frank de Boer,
 Einar Broch Johnsen, and Ina Schaefer.</p>
-
 <h3 id="further-reading">Further Reading</h3>
-
 <p>This paper is a tutorial on ABS and not a language specification nor a
 formal definition. A more technical and more detailed description of ABS
 and its tool set is contained in the paper trio
@@ -2258,20 +2065,20 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

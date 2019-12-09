@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Getting Started :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -493,12 +493,9 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#use-on-line-tools">Use On-Line Tools</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#use-online-tools">Use On-Line Tools</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -524,93 +521,21 @@
 
 
 
-	
-
-<p>There are various ways of running ABS models.</p>
-
-<h2 id="use-on-line-tools">Use On-Line Tools</h2>
-
+	<p>There are various ways of running ABS models.</p>
+<h2 id="use-online-tools">Use On-Line Tools</h2>
 <p>The simplest way to use the ABS tools is on-line, in the collaboratory.  This
 means you only need a modern browser to start experimenting with ABS.  The
 tools work best with Firefox and Chrome.</p>
-
 <p>An introduction and link to the collaboratory can be found at
 <a href="http://abs-models.org/laboratory/">http://abs-models.org/laboratory/</a>.</p>
-
-<ul class="children children-li">
-    
-
-    
-        
-    
-    
-    
-
-    
-        
-    
-        
-            
-                
-<li>
-<a href="/getting_started/local-install/" >Installing Command-Line Tools</a>
-</li>
-                
-
-                
-                    
-<p>Many of the tools can be run from the command line. This chapter describes how to run various tools on a local machine.
-Installing the ABS Compiler To install the ABS compiler, install the Java 8 JDK and Erlang (version 21 or higher). Then, clone the git repository and build the compiler:
-git clone https://github.com/abstools/abstools.git cd abstools ./gradlew assemble  After a successful build, there is an absc shell script in the abstools/frontend/bin/bash/ directory that invokes the ABS compiler.</p>
-                    
-                
-            
-            
-        
-    
-        
-            
-                
-<li>
-<a href="/getting_started/docker/" >Running a Browser-Based IDE</a>
-</li>
-                
-
-                
-                    
-<p>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
-Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
-docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest  When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</p>
-                    
-                
-            
-            
-        
-    
-        
-            
-                
-<li>
-<a href="/getting_started/editor-support/" >Installing Editor Support</a>
-</li>
-                
-
-                
-                    
-<p>We provide support for Emacs, Atom and Visual Studio Code.
-Emacs The abs-mode package provides support for ABS in the Emacs editor.
-Installation instructions are at https://github.com/abstools/abs-mode.
-Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code is at https://github.</p>
-                    
-                
-            
-            
-        
-    
-
-    
-</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
 
 
@@ -933,20 +858,20 @@ Visual Studio Code ABS editing support for Visual Studio Code is at https://gith
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

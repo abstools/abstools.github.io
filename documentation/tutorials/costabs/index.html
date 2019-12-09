@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.56.3" />
+    <meta name="generator" content="Hugo 0.60.1" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,20 +12,20 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1565709739" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1565709739" rel="stylesheet">
-    <link href="/css/hybrid.css?1565709739" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1565709739" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1565709739" rel="stylesheet">
-    <link href="/css/auto-complete.css?1565709739" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1565709739" rel="stylesheet">
-    <link href="/css/theme.css?1565709739" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1565709739" rel="stylesheet">
+    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
+    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
+    <link href="/css/theme.css?1575898910" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1565709739" rel="stylesheet">
+      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1565709739"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1565709739"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1565709739"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1565709739"></script>
+<script type="text/javascript" src="/js/search.js?1575898910"></script>
 
     
   </div>
@@ -601,7 +601,7 @@ it, open the file
 , which contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">   module VendingMachine_init;
+<pre><code class="language-abs" data-lang="abs">   module VendingMachine_init;
 
    interface VendingMachine {
     Unit insertCoin();
@@ -620,20 +620,20 @@ it, open the file
   }
 
     Unit insertCoins( Int nCoins ){
-      while( nCoins &gt; 0 ){
+      while( nCoins > 0 ){
       nCoins = nCoins - 1;
-      Fut&lt;Unit&gt; f = this ! insertCoin();
+      Fut<Unit> f = this ! insertCoin();
       await f?;
       }
     }
 
-     [coins &lt; max(coins)]
+     [coins < max(coins)]
      Int retrieveCoins(){
        Int total = 0;
 
-       while( coins &gt; 0 ){
+       while( coins > 0 ){
         coins = coins - 1;
-        Fut&lt;Unit&gt; f = out ! showCoin();
+        Fut<Unit> f = out ! showCoin();
         //await f?;
         total = total + 1;
        }
@@ -653,12 +653,12 @@ it, open the file
        VendingMachine v = new IVendingMachine( 0, o );
 
        v ! insertCoins(n);
-       Fut&lt;Int&gt; f = v ! retrieveCoins();
+       Fut<Int> f = v ! retrieveCoins();
        await f?;
        Int total = f.get;
        o ! showIncome( total );
      }
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 By selecting Resource Analysis and clicking on <code>Settings</code> a pop-up window
@@ -667,77 +667,101 @@ for the analysis.  The following parameters are available:
 </p>
 <dl>
 <dt>
-Cost model<dd>
+Cost model
+</dt>
+<dd>
 <p>
 The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).
 </p>
-<dd>
+</dd>
 <dt>
-Cost centers<dd>
+Cost centers
+</dt>
+<dd>
 <p>
 This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.
 </p>
-<dd>
+</dd>
 <dt>
-Asymptotic bounds<dd>
+Asymptotic bounds
+</dt>
+<dd>
 <p>
 Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.
 </p>
-<dd>
+</dd>
 <dt>
-Symbolic or numeric<dd>
+Symbolic or numeric
+</dt>
+<dd>
 <p>
 Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.
 </p>
-<dd>
+</dd>
 <dt>
-Debug<dd>
+Debug
+</dt>
+<dd>
 <p>
 sets the verbosity of the output (the higher the number, the more verbose the output).
 </p>
-<dd>
+</dd>
 <dt>
-Rely Guarantee<dd>
+Rely Guarantee
+</dt>
+<dd>
 <p>
 performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Peak Cost Analysis<dd>
+Peak Cost Analysis
+</dt>
+<dd>
 <p>
 computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2">”Peak Cost Analysis of Distributed Systems”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Parallel Cost Analysis<dd>
+Parallel Cost Analysis
+</dt>
+<dd>
 <p>
 computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Non-cumulative Cost Analysis<dd>
+Non-cumulative Cost Analysis
+</dt>
+<dd>
 <p>
 computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6">“Non-cumulative Resource Analysis”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Backend of the Analysis<dd>
+Backend of the Analysis
+</dt>
+<dd>
 <p>
 SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Conditional Upper Bounds<dd>
+Conditional Upper Bounds
+</dt>
+<dd>
 <p>
 computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).
 </p>
-<dd>
+</dd>
 <dt>
-Timed Cost Analysis<dd>
+Timed Cost Analysis
+</dt>
+<dd>
 <p>
 computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf">this technical report</a>).
 </p>
-<dd>
+</dd>
 </dl>
 <p>
 Let us analyze the program 
@@ -769,7 +793,7 @@ Now, let us analyze the main method of the file
 , which contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">  module VendingMachine;
+<pre><code class="language-abs" data-lang="abs">  module VendingMachine;
   interface VendingMachine {
       Unit insertCoin();
       Unit insertCoins( Int nCoins );
@@ -787,17 +811,17 @@ Now, let us analyze the main method of the file
           coins = coins + 1;
       }
       Unit insertCoins( Int nCoins ){
-          while( nCoins &gt; 0 ){
+          while( nCoins > 0 ){
               nCoins = nCoins - 1;
-              Fut&lt;Unit&gt; f = this ! insertCoin();
+              Fut<Unit> f = this ! insertCoin();
               await f?;
           }
       }
       Int retrieveCoins(){
           Int result = 0;
-          while( coins &gt; 0 ){
+          while( coins > 0 ){
               coins = coins - 1;
-              Fut&lt;Unit&gt; f = out ! showCoin();
+              Fut<Unit> f = out ! showCoin();
               await f?;
               result = result + 1;
           }
@@ -813,12 +837,12 @@ Now, let us analyze the main method of the file
           PrettyPrinter o = new IPrettyPrinter();
           VendingMachine v = new IVendingMachine( 0, o );
           v ! insertCoins(n);
-          Fut&lt;Int&gt; f = v ! retrieveCoins();
+          Fut<Int> f = v ! retrieveCoins();
           await f?;
           Int result = f.get;
           o ! showIncome( result );
       }
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 This file is just like the previous example, but includes the <code>await</code> instruction at line 37 that was commented out in the previous program.
@@ -886,7 +910,7 @@ the program
 , which contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">   module Parallel;
+<pre><code class="language-abs" data-lang="abs">   module Parallel;
    import * from ABS.StdLib;
 
   interface I {
@@ -899,7 +923,7 @@ the program
   class C implements I{
       Unit m (Int n) {
           I a = new C();
-          while (n &gt; 0) {
+          while (n > 0) {
               a!p(n, a);
               n = n - 1;
           }
@@ -907,21 +931,21 @@ the program
 
       Unit mthis (Int n) {
           I a = new C();
-          while (n &gt; 0) {
+          while (n > 0) {
               a!p(n, this);
               n = n - 1;
           }
       }
 
       Unit p (Int n, I x) {
-          while (n &gt; 0) {
+          while (n > 0) {
               x!q();
               n = n - 1;
           }
       }
 
       Unit m2 (Int n) {
-          while (n &gt; 0) {
+          while (n > 0) {
               I a = new C ();
               a!p(n, a);
               n = n - 1;
@@ -932,7 +956,7 @@ the program
           skip;
       }
 
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 As the concurrency unit of ABS is the object, this analysis uses the cost
@@ -987,24 +1011,24 @@ Transmission Data Sizes
 Now, let us perform the transmission data size analysis to the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">  module DemoTraffic;
+<pre><code class="language-abs" data-lang="abs">  module DemoTraffic;
   import * from ABS.StdLib;
 
   interface II {
-          Unit work (Int n, List&lt;Int&gt; l);
+          Unit work (Int n, List<Int> l);
   }
 
   interface IS {
-          Int process (List&lt;Int&gt; l);
+          Int process (List<Int> l);
   }
 
   class Master (IS s) implements II {
 
 
-          Unit work (Int n, List&lt;Int&gt; l){
-                  while (n&gt;0) {
+          Unit work (Int n, List<Int> l){
+                  while (n>0) {
                           l = Cons(1,l);
-                          Fut&lt;Int&gt; q = s!process(l);
+                          Fut<Int> q = s!process(l);
                           q.get;
                           n = n - 1;
                   }
@@ -1013,16 +1037,16 @@ Now, let us perform the transmission data size analysis to the following code:
   }
 
   class Slave () implements IS{
-          Int process (List&lt;Int&gt; l) {return 1;}
+          Int process (List<Int> l) {return 1;}
   }
 
   class IMain {
-          Unit main (List&lt;Int&gt; l, Int n) {
+          Unit main (List<Int> l, Int n) {
                   IS s = new  Slave();
                   II m = new  Master(s);
                   m!work(n,l);
            }
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 Open the file 
@@ -1084,7 +1108,7 @@ file
 , which contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">  module Noncumulative;
+<pre><code class="language-abs" data-lang="abs">  module Noncumulative;
   import * from ABS.StdLib;
   class IMain {
       Unit main (Int s, Int n) {
@@ -1101,7 +1125,7 @@ file
           [x == release()]
           i = 4;
       }
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 In <code>Settings</code>, restore the default values and set the option <code>noncumulative_cost</code> to <code>yes</code>.  Then refresh the outline and select the method <code>IMain.main</code>.  The results obtained after clicking <code>Run</code> show that we have two sets of program points that can lead to the maximum on the number of resources acquired, as well as their corresponding upper bound expressions.  The set <code>[L6,L8,L10]</code> corresponds to the acquireinstructions at lines 6, 8 and 10 of the program.  With this set of <code>acquire</code> instructions, we obtain an upper bound of the number of resources that linearly depends on the input parameter <code>s</code> because of the <code>acquire</code> at line 10.  The set <code>[L6,L8,L14]</code> can also lead to the maximum number of resources acquired, if the actual value of the input parameter <code>n</code> is larger than <code>s</code>.
@@ -1156,7 +1180,7 @@ we open the file
 which contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">  module Parallel;
+<pre><code class="language-abs" data-lang="abs">  module Parallel;
   import * from ABS.StdLib;
 
   interface IX {
@@ -1197,7 +1221,7 @@ which contains the following code:
           y!q();
           Int method_end = 0;
       }
-  }</code></pre></div>
+  }</code></pre>
 </div>
 <p>
 Select the entry method <code>IMain.main</code> in the outline and apply the Resource Analysis by restoring the default values and setting the option <code>Parallel Cost</code>  to <code>yes</code>.  The analysis results show the computed upper bound expressions obtained for all paths identified in the DFG (distributed flow graph) of the program.  In addition, the result shows the number of nodes and edges of the computed DFG.
@@ -1232,7 +1256,7 @@ Let us continue by performing the cost analysis in time to the program in
 with the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">module Timed; 
+<pre><code class="language-abs" data-lang="abs">module Timed; 
 
 interface Job{
     Unit start(Int dur);
@@ -1240,7 +1264,7 @@ interface Job{
 
 class IMain{
     Unit main(Int n){
-        while(n&gt;0){
+        while(n>0){
             Job job=new local Job();
             job!start(10);	
             await duration(1,1);
@@ -1251,12 +1275,12 @@ class IMain{
 
 class Job implements Job{
     Unit start(Int dur){
-        while(dur&gt;0){
+        while(dur>0){
             [Cost: 1] dur=dur-1;
             await duration(1,1);
         }
     }
-}</code></pre></div>
+}</code></pre>
 </div>
 <p>
 Select the entry method <code>IMain.main</code> in the outline of the program.  Then,
@@ -1295,14 +1319,14 @@ Finally, let us analyze the program
 using CoFloCo as backend. In this case, the file contains the following code:
 </p>
 <div class="src src-abs">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-abs" data-lang="abs">module Parallel;
+<pre><code class="language-abs" data-lang="abs">module Parallel;
 import * from ABS.StdLib;
 
 class C {
     Bool nondet=False;
 	
     Unit m1 (Int i, Int dir, Int n) {
-        while (0&lt;i &amp;&amp; i &lt; n) {
+        while (0<i && i < n) {
             if (dir == 1) {
                 i = i + 1;
             } else {
@@ -1312,7 +1336,7 @@ class C {
     }
 	
     Unit m2 (Int x, Int y, Int a, Int r) {
-        while (x &gt; 0 &amp;&amp; y &gt; 0) {
+        while (x > 0 && y > 0) {
             if (nondet) {
                 x = x - 1;
                 y = r;
@@ -1324,15 +1348,15 @@ class C {
     }
 
     Unit m3 (Int x, Int y, Int a) {
-        while (x &gt; 0) {
-            while (y &gt; 0 &amp;&amp; nondet) {
+        while (x > 0) {
+            while (y > 0 && nondet) {
                 y = y - 1;
                 suspend;
             }
             x = x - 1;
         }
     }
-}</code></pre></div>
+}</code></pre>
 </div>
 <p>
 We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</code> or <code>C.m3</code> and then perform the resource analysis with the default options except the option <code>Backend</code>, which must be set to <code>CoFloCo</code>.  After applying the analysis, SACO shows the results of the analysis of <code>C.m</code> with CoFloCo.
@@ -1662,20 +1686,20 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.min.js?1565709739"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1565709739"></script>
-    <script src="/js/jquery.sticky.js?1565709739"></script>
-    <script src="/js/featherlight.min.js?1565709739"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1565709739"></script>
-    <script src="/js/highlight.pack.js?1565709739"></script>
+    <script src="/js/clipboard.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
+    <script src="/js/jquery.sticky.js?1575898910"></script>
+    <script src="/js/featherlight.min.js?1575898910"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
+    <script src="/js/highlight.pack.js?1575898910"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1565709739"></script>
-    <script src="/js/learn.js?1565709739"></script>
-    <script src="/js/hugo-learn.js?1565709739"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
+    <script src="/js/learn.js?1575898910"></script>
+    <script src="/js/hugo-learn.js?1575898910"></script>
 
-    <link href="/mermaid/mermaid.css?1565709739" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1565709739"></script>
+    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575898910"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
