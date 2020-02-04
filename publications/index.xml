@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Selected Publications on The ABS Modeling Language</title>
+    <title>Publications and Workshops on The ABS Modeling Language</title>
     <link>https://abs-models.org/publications/</link>
-    <description>Recent content in Selected Publications on The ABS Modeling Language</description>
+    <description>Recent content in Publications and Workshops on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Mar 2018 12:22:31 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 04 Feb 2020 12:22:31 +0100</lastBuildDate>
     
 	<atom:link href="https://abs-models.org/publications/index.xml" rel="self" type="application/rss+xml" />
     

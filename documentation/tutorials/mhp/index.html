@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.60.1" />
+    <meta name="generator" content="Hugo 0.63.1" />
     <meta name="description" content="The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.">
 
 
@@ -12,20 +12,20 @@
     <title>May-Happen-in-Parallel Analysis :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1575898910" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1575898910" rel="stylesheet">
-    <link href="/css/hybrid.css?1575898910" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1575898910" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1575898910" rel="stylesheet">
-    <link href="/css/auto-complete.css?1575898910" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1575898910" rel="stylesheet">
-    <link href="/css/theme.css?1575898910" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1575898910" rel="stylesheet">
+    <link href="/css/nucleus.css?1580829246" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1580829246" rel="stylesheet">
+    <link href="/css/hybrid.css?1580829246" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1580829246" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1580829246" rel="stylesheet">
+    <link href="/css/auto-complete.css?1580829246" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1580829246" rel="stylesheet">
+    <link href="/css/theme.css?1580829246" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1580829246" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1575898910" rel="stylesheet">
+      <link href="/css/theme-abs.css?1580829246" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1575898910"></script>
+    <script src="/js/jquery-3.3.1.min.js?1580829246"></script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1575898910"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1575898910"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1580829246"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1580829246"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1575898910"></script>
+<script type="text/javascript" src="/js/search.js?1580829246"></script>
 
     
   </div>
@@ -352,13 +352,13 @@
  
   
     
-    <li data-nav-id="/publications/" title="Selected Publications" class="dd-item 
+    <li data-nav-id="/publications/" title="Publications and Workshops" class="dd-item 
         
         
         
         ">
       <a href="/publications/">
-          Selected Publications
+          Publications and Workshops
           
       </a>
       
@@ -542,9 +542,9 @@
 
 
 
-<h2 id="headline-1">
+<h3 id="headline-1">
 May-Happen-in-Parallel Analysis (MHP)
-</h2>
+</h3>
 <p>
 ABS is a distributed language where different methods can be invoked
 asynchronously.  Therefore, there can be several tasks executing their code at
@@ -565,9 +565,9 @@ parallel, then they will be detected by the analysis; however, the analysis
 can incorrectly detect pairs of instructions that never execute in parallel
 when executing the program.
 </p>
-<h3 id="headline-2">
+<h4 id="headline-2">
 MHP Analysis in the Collaboratory
-</h3>
+</h4>
 <p>
 In order to apply the MHP Analysis in the Collaboratory, just:
 </p>
@@ -617,9 +617,9 @@ The previous fragment shows that the instruction at L28 (the <code>await</code> 
 <p>
 Since the MHP analysis is a sound overapproximation, instructions that cannot execute in parallel are never detected.  For example, due to the <code>await</code> instruction at L57, the task <code>retrieveCoins</code> must be finished before continuing.  Therefore, the <code>await</code> instruction at L37, which is inside <code>retrieveCoins</code>, cannot happen in parallel with the instructions after the <code>await</code> (L58 and L59) or the method <code>showIncome</code> that is invoked at L59.  If we execute a full MHP analysis and select the arrow at L37, those fragments will not be highlighted.
 </p>
-<h3 id="headline-3">
+<h4 id="headline-3">
 MHP Settings
-</h3>
+</h4>
 <p>
 In addition to the Amount of considered points to compute all the pairs of instructions that can execute in parallel or only a the most important, the MHP analysis supports other important settings, as shown in the next figure:
 </p>
@@ -654,9 +654,9 @@ Using these parameters we can adapt the behavior of the analysis:
 </p>
 </li>
 </ul>
-<h3 id="headline-4">
+<h4 id="headline-4">
 May-Happen-in-Parallel with Inter-Procedural Synchronization
-</h3>
+</h4>
 <p>
 Let us analyze with SACO the program 
 
@@ -1041,20 +1041,20 @@ and <code>g</code>, which means that both methods must have finished when L34 is
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1575898910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1575898910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1575898910"></script>
-    <script src="/js/jquery.sticky.js?1575898910"></script>
-    <script src="/js/featherlight.min.js?1575898910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1575898910"></script>
-    <script src="/js/highlight.pack.js?1575898910"></script>
+    <script src="/js/clipboard.min.js?1580829246"></script>
+    <script src="/js/perfect-scrollbar.min.js?1580829246"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1580829246"></script>
+    <script src="/js/jquery.sticky.js?1580829246"></script>
+    <script src="/js/featherlight.min.js?1580829246"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1580829246"></script>
+    <script src="/js/highlight.pack.js?1580829246"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1575898910"></script>
-    <script src="/js/learn.js?1575898910"></script>
-    <script src="/js/hugo-learn.js?1575898910"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1580829246"></script>
+    <script src="/js/learn.js?1580829246"></script>
+    <script src="/js/hugo-learn.js?1580829246"></script>
 
-    <link href="/mermaid/mermaid.css?1575898910" type="text/css" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1575898910"></script>
+    <link href="/mermaid/mermaid.css?1580829246" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1580829246"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
