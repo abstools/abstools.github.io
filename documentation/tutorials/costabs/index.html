@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.64.1" />
+    <meta name="generator" content="Hugo 0.65.1" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,20 +12,20 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1582202398" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1582202398" rel="stylesheet">
-    <link href="/css/hybrid.css?1582202398" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1582202398" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1582202398" rel="stylesheet">
-    <link href="/css/auto-complete.css?1582202398" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1582202398" rel="stylesheet">
-    <link href="/css/theme.css?1582202398" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1582202398" rel="stylesheet">
+    <link href="/css/nucleus.css?1582286247" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1582286247" rel="stylesheet">
+    <link href="/css/hybrid.css?1582286247" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1582286247" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1582286247" rel="stylesheet">
+    <link href="/css/auto-complete.css?1582286247" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1582286247" rel="stylesheet">
+    <link href="/css/theme.css?1582286247" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1582286247" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1582202398" rel="stylesheet">
+      <link href="/css/theme-abs.css?1582286247" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1582202398"></script>
+    <script src="/js/jquery-3.3.1.min.js?1582286247"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +55,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1582202398"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1582202398"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1582286247"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1582286247"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1582202398"></script>
+<script type="text/javascript" src="/js/search.js?1582286247"></script>
 
     
   </div>
@@ -620,20 +620,20 @@ it, open the file
   }
 
     Unit insertCoins( Int nCoins ){
-      while( nCoins > 0 ){
+      while( nCoins &gt; 0 ){
       nCoins = nCoins - 1;
-      Fut<Unit> f = this ! insertCoin();
+      Fut&lt;Unit&gt; f = this ! insertCoin();
       await f?;
       }
     }
 
-     [coins < max(coins)]
+     [coins &lt; max(coins)]
      Int retrieveCoins(){
        Int total = 0;
 
-       while( coins > 0 ){
+       while( coins &gt; 0 ){
         coins = coins - 1;
-        Fut<Unit> f = out ! showCoin();
+        Fut&lt;Unit&gt; f = out ! showCoin();
         //await f?;
         total = total + 1;
        }
@@ -653,7 +653,7 @@ it, open the file
        VendingMachine v = new IVendingMachine( 0, o );
 
        v ! insertCoins(n);
-       Fut<Int> f = v ! retrieveCoins();
+       Fut&lt;Int&gt; f = v ! retrieveCoins();
        await f?;
        Int total = f.get;
        o ! showIncome( total );
@@ -811,17 +811,17 @@ Now, let us analyze the main method of the file
           coins = coins + 1;
       }
       Unit insertCoins( Int nCoins ){
-          while( nCoins > 0 ){
+          while( nCoins &gt; 0 ){
               nCoins = nCoins - 1;
-              Fut<Unit> f = this ! insertCoin();
+              Fut&lt;Unit&gt; f = this ! insertCoin();
               await f?;
           }
       }
       Int retrieveCoins(){
           Int result = 0;
-          while( coins > 0 ){
+          while( coins &gt; 0 ){
               coins = coins - 1;
-              Fut<Unit> f = out ! showCoin();
+              Fut&lt;Unit&gt; f = out ! showCoin();
               await f?;
               result = result + 1;
           }
@@ -837,7 +837,7 @@ Now, let us analyze the main method of the file
           PrettyPrinter o = new IPrettyPrinter();
           VendingMachine v = new IVendingMachine( 0, o );
           v ! insertCoins(n);
-          Fut<Int> f = v ! retrieveCoins();
+          Fut&lt;Int&gt; f = v ! retrieveCoins();
           await f?;
           Int result = f.get;
           o ! showIncome( result );
@@ -926,7 +926,7 @@ the program
   class C implements I{
       Unit m (Int n) {
           I a = new C();
-          while (n > 0) {
+          while (n &gt; 0) {
               a!p(n, a);
               n = n - 1;
           }
@@ -934,21 +934,21 @@ the program
 
       Unit mthis (Int n) {
           I a = new C();
-          while (n > 0) {
+          while (n &gt; 0) {
               a!p(n, this);
               n = n - 1;
           }
       }
 
       Unit p (Int n, I x) {
-          while (n > 0) {
+          while (n &gt; 0) {
               x!q();
               n = n - 1;
           }
       }
 
       Unit m2 (Int n) {
-          while (n > 0) {
+          while (n &gt; 0) {
               I a = new C ();
               a!p(n, a);
               n = n - 1;
@@ -1018,20 +1018,20 @@ Now, let us perform the transmission data size analysis to the following code:
   import * from ABS.StdLib;
 
   interface II {
-          Unit work (Int n, List<Int> l);
+          Unit work (Int n, List&lt;Int&gt; l);
   }
 
   interface IS {
-          Int process (List<Int> l);
+          Int process (List&lt;Int&gt; l);
   }
 
   class Master (IS s) implements II {
 
 
-          Unit work (Int n, List<Int> l){
-                  while (n>0) {
+          Unit work (Int n, List&lt;Int&gt; l){
+                  while (n&gt;0) {
                           l = Cons(1,l);
-                          Fut<Int> q = s!process(l);
+                          Fut&lt;Int&gt; q = s!process(l);
                           q.get;
                           n = n - 1;
                   }
@@ -1040,11 +1040,11 @@ Now, let us perform the transmission data size analysis to the following code:
   }
 
   class Slave () implements IS{
-          Int process (List<Int> l) {return 1;}
+          Int process (List&lt;Int&gt; l) {return 1;}
   }
 
   class IMain {
-          Unit main (List<Int> l, Int n) {
+          Unit main (List&lt;Int&gt; l, Int n) {
                   IS s = new  Slave();
                   II m = new  Master(s);
                   m!work(n,l);
@@ -1267,7 +1267,7 @@ interface Job{
 
 class IMain{
     Unit main(Int n){
-        while(n>0){
+        while(n&gt;0){
             Job job=new local Job();
             job!start(10);	
             await duration(1,1);
@@ -1278,7 +1278,7 @@ class IMain{
 
 class Job implements Job{
     Unit start(Int dur){
-        while(dur>0){
+        while(dur&gt;0){
             [Cost: 1] dur=dur-1;
             await duration(1,1);
         }
@@ -1329,7 +1329,7 @@ class C {
     Bool nondet=False;
 	
     Unit m1 (Int i, Int dir, Int n) {
-        while (0<i && i < n) {
+        while (0&lt;i &amp;&amp; i &lt; n) {
             if (dir == 1) {
                 i = i + 1;
             } else {
@@ -1339,7 +1339,7 @@ class C {
     }
 	
     Unit m2 (Int x, Int y, Int a, Int r) {
-        while (x > 0 && y > 0) {
+        while (x &gt; 0 &amp;&amp; y &gt; 0) {
             if (nondet) {
                 x = x - 1;
                 y = r;
@@ -1351,8 +1351,8 @@ class C {
     }
 
     Unit m3 (Int x, Int y, Int a) {
-        while (x > 0) {
-            while (y > 0 && nondet) {
+        while (x &gt; 0) {
+            while (y &gt; 0 &amp;&amp; nondet) {
                 y = y - 1;
                 suspend;
             }
@@ -1688,19 +1688,19 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1582202398"></script>
-    <script src="/js/perfect-scrollbar.min.js?1582202398"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1582202398"></script>
-    <script src="/js/jquery.sticky.js?1582202398"></script>
-    <script src="/js/featherlight.min.js?1582202398"></script>
-    <script src="/js/highlight.pack.js?1582202398"></script>
+    <script src="/js/clipboard.min.js?1582286247"></script>
+    <script src="/js/perfect-scrollbar.min.js?1582286247"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1582286247"></script>
+    <script src="/js/jquery.sticky.js?1582286247"></script>
+    <script src="/js/featherlight.min.js?1582286247"></script>
+    <script src="/js/highlight.pack.js?1582286247"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1582202398"></script>
-    <script src="/js/learn.js?1582202398"></script>
-    <script src="/js/hugo-learn.js?1582202398"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1582286247"></script>
+    <script src="/js/learn.js?1582286247"></script>
+    <script src="/js/hugo-learn.js?1582286247"></script>
 
-    <link href="/mermaid/mermaid.css?1582202398" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1582202398"></script>
+    <link href="/mermaid/mermaid.css?1582286247" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1582286247"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
