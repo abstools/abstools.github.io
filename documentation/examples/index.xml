@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Examples on The ABS Modeling Language</title>
+    <link>https://abs-models.org/documentation/examples/</link>
+    <description>Recent content in Examples on The ABS Modeling Language</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Apr 2020 20:21:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://abs-models.org/documentation/examples/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Modeling and Visualizing Calendar Time</title>
+      <link>https://abs-models.org/documentation/examples/time-and-date/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://abs-models.org/documentation/examples/time-and-date/</guid>
+      <description>ABS provides a logical clock, a rational-valued global counter starting at 0 &amp;ndash; see the Timed ABS chapter of the manual for details. This example shows how to use ABS to run simulations modeling real (calendar) time and visualize the resulting data in a timeline.
+The code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/
+Modeling Time in ABS The following short ABS model creates a list of values together with the time when the value was produced.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.68.3" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Examples :: The ABS Modeling Language</title>
+
+    
+    <link href="/css/nucleus.css?1586114517" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1586114517" rel="stylesheet">
+    <link href="/css/hybrid.css?1586114517" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1586114517" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1586114517" rel="stylesheet">
+    <link href="/css/auto-complete.css?1586114517" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1586114517" rel="stylesheet">
+    <link href="/css/theme.css?1586114517" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1586114517" rel="stylesheet">
+    
+      <link href="/css/theme-abs.css?1586114517" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1586114517"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/documentation/examples/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="https://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1586114517"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1586114517"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/abs-models.org\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1586114517"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/overview/" title="Overview" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/overview/">
+          Overview
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/getting_started/">
+          Getting Started
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item ">
+        <a href="/getting_started/local-install/">
+        Installing Command-Line Tools
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
+        <a href="/getting_started/docker/">
+        Running a Browser-Based IDE
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
+        <a href="/getting_started/editor-support/">
+        Installing Editor Support
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/documentation/" title="Documentation" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/documentation/">
+          Documentation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/documentation/examples/" title="Examples" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/documentation/examples/">
+          Examples
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time" class="dd-item ">
+        <a href="/documentation/examples/time-and-date/">
+        Modeling and Visualizing Calendar Time
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/documentation/tutorials/" title="Tutorials" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/documentation/tutorials/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/tutorials/language-tutorial/" title="Language Tutorial" class="dd-item ">
+        <a href="/documentation/tutorials/language-tutorial/">
+        Language Tutorial
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/tutorials/resources/" title="Resource Modeling Tutorial" class="dd-item ">
+        <a href="/documentation/tutorials/resources/">
+        Resource Modeling Tutorial
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/tutorials/costabs/" title="Resource Analysis with CostABS" class="dd-item ">
+        <a href="/documentation/tutorials/costabs/">
+        Resource Analysis with CostABS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/tutorials/mhp/" title="May-Happen-in-Parallel Analysis" class="dd-item ">
+        <a href="/documentation/tutorials/mhp/">
+        May-Happen-in-Parallel Analysis
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
+        <a href="/documentation/tutorials/sra/">
+        Resource Analysis with SRA
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/publications/" title="Publications and Workshops" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/publications/">
+          Publications and Workshops
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/contact/" title="Contact" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/contact/">
+          Contact
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/acknowledgments/">
+          Acknowledgments
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/laboratory/">
+          The Collaboratory
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
+<br/>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > Examples
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents"></nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Examples
+            </h1>
+          
+
+        
+
+
+
+
+	<p>This page features a list of examples &ndash; small but complete ABS models that illustrate various modeling techniques.</p>
+
+
+
+
+
+
+
+<ul class="children children-li">
+	
+
+	
+		
+	
+
+	
+
+	
+		
+	
+		
+			
+				
+<li>
+<a href="/documentation/examples/time-and-date/" >Modeling and Visualizing Calendar Time</a>
+</li>
+				
+
+				
+					
+<p>An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.</p>
+					
+				
+			
+			
+		
+	
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/documentation/" title="Documentation"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1586114517"></script>
+    <script src="/js/perfect-scrollbar.min.js?1586114517"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1586114517"></script>
+    <script src="/js/jquery.sticky.js?1586114517"></script>
+    <script src="/js/featherlight.min.js?1586114517"></script>
+    <script src="/js/highlight.pack.js?1586114517"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1586114517"></script>
+    <script src="/js/learn.js?1586114517"></script>
+    <script src="/js/hugo-learn.js?1586114517"></script>
+
+    <link href="/mermaid/mermaid.css?1586114517" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1586114517"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </body>
+</html>
