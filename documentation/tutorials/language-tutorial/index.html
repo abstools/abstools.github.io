@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.68.3" />
+    <meta name="generator" content="Hugo 0.72.0" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,20 +12,21 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1586114517" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1586114517" rel="stylesheet">
-    <link href="/css/hybrid.css?1586114517" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1586114517" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1586114517" rel="stylesheet">
-    <link href="/css/auto-complete.css?1586114517" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1586114517" rel="stylesheet">
-    <link href="/css/theme.css?1586114517" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1586114517" rel="stylesheet">
+    <link href="/css/nucleus.css?1592585453" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1592585453" rel="stylesheet">
+    <link href="/css/hybrid.css?1592585453" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1592585453" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1592585453" rel="stylesheet">
+    <link href="/css/auto-complete.css?1592585453" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1592585453" rel="stylesheet">
+    <link href="/css/theme.css?1592585453" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1592585453" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1586114517" rel="stylesheet">
+    <link href="/css/theme-abs.css?1592585453" rel="stylesheet">
+    
     
 
-    <script src="/js/jquery-3.3.1.min.js?1586114517"></script>
+    <script src="/js/jquery-3.3.1.min.js?1592585453"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1586114517"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1586114517"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1592585453"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1592585453"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1586114517"></script>
+<script type="text/javascript" src="/js/search.js?1592585453"></script>
 
     
   </div>
@@ -73,6 +74,8 @@
         
           
           
+
+
 
 
  
@@ -95,6 +98,8 @@
 
           
           
+
+
 
 
  
@@ -122,6 +127,8 @@
             
 
 
+
+
  
   
     
@@ -141,6 +148,8 @@
             
 
 
+
+
  
   
     
@@ -158,6 +167,8 @@
           
             
             
+
+
 
 
  
@@ -184,6 +195,8 @@
 
           
           
+
+
 
 
  
@@ -213,6 +226,8 @@
             
 
 
+
+
  
   
     
@@ -236,6 +251,8 @@
           
             
             
+
+
 
 
  
@@ -266,6 +283,8 @@
             
 
 
+
+
  
   
     
@@ -291,6 +310,8 @@
             
 
 
+
+
  
   
     
@@ -308,6 +329,8 @@
           
             
             
+
+
 
 
  
@@ -329,6 +352,8 @@
             
 
 
+
+
  
   
     
@@ -348,6 +373,8 @@
             
 
 
+
+
  
   
     
@@ -365,6 +392,8 @@
           
             
             
+
+
 
 
  
@@ -402,6 +431,8 @@
           
 
 
+
+
  
   
     
@@ -422,6 +453,8 @@
 
           
           
+
+
 
 
  
@@ -446,6 +479,8 @@
           
 
 
+
+
  
   
     
@@ -466,6 +501,8 @@
 
           
           
+
+
 
 
  
@@ -502,7 +539,6 @@
     </section>
   </div>
 </nav>
-
 
 
 
@@ -544,11 +580,11 @@
           
             <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > <a href='/documentation/tutorials/'>Tutorials</a> > Language Tutorial
           
-         
+        
           
-         
+        
           
-         
+        
           
         
                  
@@ -628,7 +664,6 @@
           
 
         
-
 
 
 <p><em>This tutorial is partially adapted but needs updating to the newest language and tool features</em></p>
@@ -1062,7 +1097,7 @@ reference and possible side effect to a different object can be
 associated with a unique method contract. For the practicing ABS modeler
 object encapsulation is greatly alleviated by the method completion
 feature of the Eclipse editor: if one types the beginning of the example
-above &ldquo;<strong>Int curId = curCust</strong>.&quot;, then a pop-up menu will offer a
+above &ldquo;<strong>Int curId = curCust</strong>.&rdquo;, then a pop-up menu will offer a
 selection of all methods that are known for objects of type
 <strong>Customer</strong>, the required getter-method <strong>getId()</strong> among them. If a
 suitable method is not found, then the modeler can take this as a hint
@@ -1212,7 +1247,7 @@ COG can continue until the blocking future is resolved. Sometimes it
 is convenient to create an <em>unconditional scheduling point</em>, for
 example, to insert release points into long running sequential
 tasks. The syntax for unconditional scheduling statements in ABS is
-&ldquo;<strong>suspend;</strong>&quot;.</p>
+&ldquo;<strong>suspend;</strong>&rdquo;.</p>
 <h3 id="64-object-and-cog-creation">6.4 Object and COG Creation</h3>
 <p>In the previous section we discussed the fundamental concurrency model
 of ABS, which is based on COGs. Whenever we create an object with the
@@ -2151,19 +2186,19 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1586114517"></script>
-    <script src="/js/perfect-scrollbar.min.js?1586114517"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1586114517"></script>
-    <script src="/js/jquery.sticky.js?1586114517"></script>
-    <script src="/js/featherlight.min.js?1586114517"></script>
-    <script src="/js/highlight.pack.js?1586114517"></script>
+    <script src="/js/clipboard.min.js?1592585453"></script>
+    <script src="/js/perfect-scrollbar.min.js?1592585453"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1592585453"></script>
+    <script src="/js/jquery.sticky.js?1592585453"></script>
+    <script src="/js/featherlight.min.js?1592585453"></script>
+    <script src="/js/highlight.pack.js?1592585453"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1586114517"></script>
-    <script src="/js/learn.js?1586114517"></script>
-    <script src="/js/hugo-learn.js?1586114517"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1592585453"></script>
+    <script src="/js/learn.js?1592585453"></script>
+    <script src="/js/hugo-learn.js?1592585453"></script>
 
-    <link href="/mermaid/mermaid.css?1586114517" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1586114517"></script>
+    <link href="/mermaid/mermaid.css?1592585453" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1592585453"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

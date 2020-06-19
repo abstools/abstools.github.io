@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.68.3" />
+    <meta name="generator" content="Hugo 0.72.0" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,20 +12,21 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1586114517" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1586114517" rel="stylesheet">
-    <link href="/css/hybrid.css?1586114517" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1586114517" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1586114517" rel="stylesheet">
-    <link href="/css/auto-complete.css?1586114517" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1586114517" rel="stylesheet">
-    <link href="/css/theme.css?1586114517" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1586114517" rel="stylesheet">
+    <link href="/css/nucleus.css?1592585453" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1592585453" rel="stylesheet">
+    <link href="/css/hybrid.css?1592585453" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1592585453" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1592585453" rel="stylesheet">
+    <link href="/css/auto-complete.css?1592585453" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1592585453" rel="stylesheet">
+    <link href="/css/theme.css?1592585453" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1592585453" rel="stylesheet">
     
-      <link href="/css/theme-abs.css?1586114517" rel="stylesheet">
+    <link href="/css/theme-abs.css?1592585453" rel="stylesheet">
+    
     
 
-    <script src="/js/jquery-3.3.1.min.js?1586114517"></script>
+    <script src="/js/jquery-3.3.1.min.js?1592585453"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -55,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1586114517"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1586114517"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1592585453"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1592585453"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1586114517"></script>
+<script type="text/javascript" src="/js/search.js?1592585453"></script>
 
     
   </div>
@@ -73,6 +74,8 @@
         
           
           
+
+
 
 
  
@@ -95,6 +98,8 @@
 
           
           
+
+
 
 
  
@@ -122,6 +127,8 @@
             
 
 
+
+
  
   
     
@@ -141,6 +148,8 @@
             
 
 
+
+
  
   
     
@@ -158,6 +167,8 @@
           
             
             
+
+
 
 
  
@@ -184,6 +195,8 @@
 
           
           
+
+
 
 
  
@@ -213,6 +226,8 @@
             
 
 
+
+
  
   
     
@@ -236,6 +251,8 @@
           
             
             
+
+
 
 
  
@@ -266,6 +283,8 @@
             
 
 
+
+
  
   
     
@@ -291,6 +310,8 @@
             
 
 
+
+
  
   
     
@@ -308,6 +329,8 @@
           
             
             
+
+
 
 
  
@@ -329,6 +352,8 @@
             
 
 
+
+
  
   
     
@@ -348,6 +373,8 @@
             
 
 
+
+
  
   
     
@@ -365,6 +392,8 @@
           
             
             
+
+
 
 
  
@@ -402,6 +431,8 @@
           
 
 
+
+
  
   
     
@@ -422,6 +453,8 @@
 
           
           
+
+
 
 
  
@@ -446,6 +479,8 @@
           
 
 
+
+
  
   
     
@@ -466,6 +501,8 @@
 
           
           
+
+
 
 
  
@@ -502,7 +539,6 @@
     </section>
   </div>
 </nav>
-
 
 
 
@@ -544,11 +580,11 @@
           
             <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > <a href='/documentation/tutorials/'>Tutorials</a> > Resource Analysis with CostABS
           
-         
+        
           
-         
+        
           
-         
+        
           
         
                  
@@ -603,7 +639,6 @@
           
 
         
-
 
 
 
@@ -828,7 +863,7 @@ the analysis.  The result should be shown in the console as follows:
 </p>
 <pre class="example">
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,max(coins)) = nat(n)+nat(max(coins))
+UB for &#39;IMain.main&#39;(this,n,max(coins)) = nat(n)+nat(max(coins))
 </pre>
 <p>
 It can be seen in the resource analysis results given by CostABS that the
@@ -906,7 +941,7 @@ in the outline. Then click on <code>Run</code> to perform the analysis.  The res
 </p>
 <pre class="example">
 Method IMain.main terminates?: UNKOWN
-UB for 'IMain.main'(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
+UB for &#39;IMain.main&#39;(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
 </pre>
 <p>
 The analyzer shows, by using a warning marker (see line 41), that the resource analysis cannot infer an upper bound nor guarantee the termination of the program.
@@ -1345,19 +1380,19 @@ applying the analysis, the output of SACO shows
 </p>
 <pre class="example">
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = n*c(condition([[1*time=1,-1*n+1*_G13533=1,-1*target>= -9,1*_G13533>=2,-1*_G13533+1*target>=0]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = n*c(condition([[1*time=1,-1*n+1*_G13533=1,-1*target&gt;= -9,1*_G13533&gt;=2,-1*_G13533+1*target&gt;=0]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = 0*c(condition([[1*time=1,-1*n+1*_G13533=1,1*_G13533>=2,-1*_G13533+1*target>=9],[1*time=1,1*_G13533=1,-1*n>=0,1*target>=1]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = 0*c(condition([[1*time=1,-1*n+1*_G13533=1,1*_G13533&gt;=2,-1*_G13533+1*target&gt;=9],[1*time=1,1*_G13533=1,-1*n&gt;=0,1*target&gt;=1]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = 1*c(condition([[1*time=1,1*target=1,-1*n+1*_G13542=1,1*_G13542>=3],[1*time=1,-1*n+1*_G13542=1,-1*target+1*_G13542= -8,1*_G13542>=2],[1*n=1,1*time=1,1*target=1,1*_G13542=2]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = 1*c(condition([[1*time=1,1*target=1,-1*n+1*_G13542=1,1*_G13542&gt;=3],[1*time=1,-1*n+1*_G13542=1,-1*target+1*_G13542= -8,1*_G13542&gt;=2],[1*n=1,1*time=1,1*target=1,1*_G13542=2]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = 9*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target>=11,-1*target+1*_G13533>= -7,-1*_G13533+1*target>=0],[1*time=1,1*target=10,-1*n+1*_G13533=1,-1*_G13533>= -10,1*_G13533>=3]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = 9*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target&gt;=11,-1*target+1*_G13533&gt;= -7,-1*_G13533+1*target&gt;=0],[1*time=1,1*target=10,-1*n+1*_G13533=1,-1*_G13533&gt;= -10,1*_G13533&gt;=3]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = 10*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target>=11,-1*target+1*_G13533>=2],[1*time=1,1*target=10,-1*n+1*_G13533=1,1*_G13533>=12]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = 10*c(condition([[1*time=1,-1*n+1*_G13533=1,1*target&gt;=11,-1*target+1*_G13533&gt;=2],[1*time=1,1*target=10,-1*n+1*_G13533=1,1*_G13533&gt;=12]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = 11*c(condition([[1*time=1,-1*target+1*n=0,-1*_G13545+1*n= -1,1*n>=11],[1*n=10,1*time=1,1*target=10,1*_G13545=11]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = 11*c(condition([[1*time=1,-1*target+1*n=0,-1*_G13545+1*n= -1,1*n&gt;=11],[1*n=10,1*time=1,1*target=10,1*_G13545=11]]))
 Method IMain.main terminates?: YES
-UB for 'IMain.main'(this,n,time,target) = (n+1)*c(condition([[1*time=1,-1*n+1*_G13536=1,-1*target>= -9,1*target>=2,-1*target+1*_G13536>=2],[1*time=1,-1*target+1*n=0,-1*_G13536+1*n= -1,-1*n>= -9,1*n>=2]]))
+UB for &#39;IMain.main&#39;(this,n,time,target) = (n+1)*c(condition([[1*time=1,-1*n+1*_G13536=1,-1*target&gt;= -9,1*target&gt;=2,-1*target+1*_G13536&gt;=2],[1*time=1,-1*target+1*n=0,-1*_G13536+1*n= -1,-1*n&gt;= -9,1*n&gt;=2]]))
 </pre>
 <h4 id="headline-10">
 CoFloCo Backend
@@ -1776,19 +1811,19 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1586114517"></script>
-    <script src="/js/perfect-scrollbar.min.js?1586114517"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1586114517"></script>
-    <script src="/js/jquery.sticky.js?1586114517"></script>
-    <script src="/js/featherlight.min.js?1586114517"></script>
-    <script src="/js/highlight.pack.js?1586114517"></script>
+    <script src="/js/clipboard.min.js?1592585453"></script>
+    <script src="/js/perfect-scrollbar.min.js?1592585453"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1592585453"></script>
+    <script src="/js/jquery.sticky.js?1592585453"></script>
+    <script src="/js/featherlight.min.js?1592585453"></script>
+    <script src="/js/highlight.pack.js?1592585453"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1586114517"></script>
-    <script src="/js/learn.js?1586114517"></script>
-    <script src="/js/hugo-learn.js?1586114517"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1592585453"></script>
+    <script src="/js/learn.js?1592585453"></script>
+    <script src="/js/hugo-learn.js?1592585453"></script>
 
-    <link href="/mermaid/mermaid.css?1586114517" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1586114517"></script>
+    <link href="/mermaid/mermaid.css?1592585453" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1592585453"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
