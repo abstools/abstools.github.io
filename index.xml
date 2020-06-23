@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>The Monty Hall Problem</title>
+      <link>https://abs-models.org/documentation/examples/monty-hall/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://abs-models.org/documentation/examples/monty-hall/</guid>
+      <description>One reason to model systems is to gain insight into and predict complex behavior. Ideally, the components of the system are reasonably easy to understand in isolation, while assembling them together results in surprising behavior that can provide insight or support for a theory about the whole system.
+The Monty Hall Problem The Monty Hall problem (Monty Hall problem - Wikipedia) states:
+ Suppose you&amp;rsquo;re on a game show, and you&amp;rsquo;re given the choice of three doors: Behind one door is a car; behind the others, goats.</description>
+    </item>
+    
+    <item>
       <title>Installing Command-Line Tools</title>
       <link>https://abs-models.org/getting_started/local-install/</link>
       <pubDate>Wed, 15 Aug 2018 09:22:58 +0200</pubDate>

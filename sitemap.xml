@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://abs-models.org/documentation/examples/monty-hall/</loc>
+    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://abs-models.org/getting_started/local-install/</loc>
     <lastmod>2018-08-15T09:22:58+02:00</lastmod>
   </url>
