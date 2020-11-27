@@ -6,10 +6,6 @@
     <description>Recent content in Publications and Workshops on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Feb 2020 12:22:31 +0100</lastBuildDate>
-    
-	<atom:link href="https://abs-models.org/publications/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 04 Feb 2020 12:22:31 +0100</lastBuildDate><atom:link href="https://abs-models.org/publications/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

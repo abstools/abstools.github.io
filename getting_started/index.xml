@@ -6,11 +6,7 @@
     <description>Recent content in Getting Started on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Mar 2018 12:22:10 +0100</lastBuildDate>
-    
-	<atom:link href="https://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 22 Mar 2018 12:22:10 +0100</lastBuildDate><atom:link href="https://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installing Command-Line Tools</title>
       <link>https://abs-models.org/getting_started/local-install/</link>

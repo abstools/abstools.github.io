@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.73.0" />
+    <meta name="generator" content="Hugo 0.78.2" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,21 +12,21 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1592950207" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1592950207" rel="stylesheet">
-    <link href="/css/hybrid.css?1592950207" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1592950207" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1592950207" rel="stylesheet">
-    <link href="/css/auto-complete.css?1592950207" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1592950207" rel="stylesheet">
-    <link href="/css/theme.css?1592950207" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1592950207" rel="stylesheet">
+    <link href="/css/nucleus.css?1606473969" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1606473969" rel="stylesheet">
+    <link href="/css/hybrid.css?1606473969" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1606473969" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1606473969" rel="stylesheet">
+    <link href="/css/auto-complete.css?1606473969" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1606473969" rel="stylesheet">
+    <link href="/css/theme.css?1606473969" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1606473969" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1592950207" rel="stylesheet">
+    <link href="/css/theme-abs.css?1606473969" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1592950207"></script>
+    <script src="/js/jquery-3.3.1.min.js?1606473969"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1592950207"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1592950207"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1606473969"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1606473969"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1592950207"></script>
+<script type="text/javascript" src="/js/search.js?1606473969"></script>
 
     
   </div>
@@ -670,45 +670,43 @@ inferred upper bounds have important applications in the fields of program
 optimization, verification and certification.  CostABS is parametric on the
 cost model, i.e., the type of cost that the user wants to infer (e.g., number
 of steps, amount of memory allocated, amount of data transmitted, etc.), and
-it supports different notions of cost such as sequential, parallel, peak, etc.
-</p>
+it supports different notions of cost such as sequential, parallel, peak, etc.</p>
 <p>
 In this tutorial, we overview the different features of CostABS by example.
 All examples are linked to the collaboratory where you can directly replay the
-steps described in the tutorial.
-</p>
+steps described in the tutorial.</p>
+<div id="outline-container-headline-1" class="outline-3">
 <h3 id="headline-1">
 Resource Analysis with SACO
 </h3>
+<div id="outline-text-headline-1" class="outline-text-3">
 <p>
 In what follows we present how to use EasyInterface with the different
-analyses that CostABS is able to perform with some examples.
-</p>
+analyses that CostABS is able to perform with some examples.</p>
 <p>
 We first show how to start to use CostABS within the ABS collaboratory.  For
 this, we must first select the analysis in the top pull-down menu, and, for
 executing the analysis, we click on <code>Run</code>.  The <code>Clear</code> button (top right)
-removes all previous results.
-</p>
+removes all previous results.</p>
 <p>
 The parameters of the selected analysis can be configured by clicking on the
 <code>Settings</code> button located in the top-left corner of the EasyInterface page.
 The results of the selected analysis are presented in the console at the
 bottom of the screen.  This can be done by means of graphs, text messages,
 markers, highlighters in the code, and interactions among them.  In the
-following, we describe the use of CostABS by analyzing several examples.
-</p>
+following, we describe the use of CostABS by analyzing several examples.</p>
+<div id="outline-container-headline-2" class="outline-4">
 <h4 id="headline-2">
 Basic Resource Analysis
 </h4>
+<div id="outline-text-headline-2" class="outline-text-4">
 <p>
 Let us start by performing the basic resource analysis computed by CostABS and
 described in the paper <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-54862-8_46">“SACO: Static Analyzer for Concurrent Objects”</a>.  To do
 it, open the file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
 
-, which contains the following code:
-</p>
+, which contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">   module VendingMachine_init;
 
@@ -772,116 +770,89 @@ it, open the file
 <p>
 By selecting Resource Analysis and clicking on <code>Settings</code> a pop-up window
 appears and shows the configuration that allows us to set up the parameters
-for the analysis.  The following parameters are available:
-</p>
+for the analysis.  The following parameters are available:</p>
 <dl>
 <dt>
 Cost model
 </dt>
 <dd>
-<p>
-The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).
-</p>
+<p>The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).</p>
 </dd>
 <dt>
 Cost centers
 </dt>
 <dd>
-<p>
-This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.
-</p>
+<p>This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.</p>
 </dd>
 <dt>
 Asymptotic bounds
 </dt>
 <dd>
-<p>
-Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.
-</p>
+<p>Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.</p>
 </dd>
 <dt>
 Symbolic or numeric
 </dt>
 <dd>
-<p>
-Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.
-</p>
+<p>Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.</p>
 </dd>
 <dt>
 Debug
 </dt>
 <dd>
-<p>
-sets the verbosity of the output (the higher the number, the more verbose the output).
-</p>
+<p>sets the verbosity of the output (the higher the number, the more verbose the output).</p>
 </dd>
 <dt>
 Rely Guarantee
 </dt>
 <dd>
-<p>
-performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).
-</p>
+<p>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).</p>
 </dd>
 <dt>
 Peak Cost Analysis
 </dt>
 <dd>
-<p>
-computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2">”Peak Cost Analysis of Distributed Systems”</a>).
-</p>
+<p>computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2">”Peak Cost Analysis of Distributed Systems”</a>).</p>
 </dd>
 <dt>
 Parallel Cost Analysis
 </dt>
 <dd>
-<p>
-computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>).
-</p>
+<p>computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>).</p>
 </dd>
 <dt>
 Non-cumulative Cost Analysis
 </dt>
 <dd>
-<p>
-computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6">“Non-cumulative Resource Analysis”</a>).
-</p>
+<p>computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6">“Non-cumulative Resource Analysis”</a>).</p>
 </dd>
 <dt>
 Backend of the Analysis
 </dt>
 <dd>
-<p>
-SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).
-</p>
+<p>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</p>
 </dd>
 <dt>
 Conditional Upper Bounds
 </dt>
 <dd>
-<p>
-computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).
-</p>
+<p>computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</p>
 </dd>
 <dt>
 Timed Cost Analysis
 </dt>
 <dd>
-<p>
-computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf">this technical report</a>).
-</p>
+<p>computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf">this technical report</a>).</p>
 </dd>
 </dl>
-<p>
-Let us analyze the program 
+<p>Let us analyze the program 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
 
  with the default values, except for the
 <code>Asymptotic bounds</code> parameter that must be set to <code>yes</code>.  Click on <code>Refresh
 Outline</code> and select the entry method (method <code>main</code> of class <code>IMain</code>) in the
 Outline (the region on the right of the page).  Then click on <code>Run</code> to perform
-the analysis.  The result should be shown in the console as follows:
-</p>
+the analysis.  The result should be shown in the console as follows:</p>
 <pre class="example">
 Method IMain.main terminates?: YES
 UB for &#39;IMain.main&#39;(this,n,max(coins)) = nat(n)+nat(max(coins))
@@ -893,14 +864,12 @@ upper bound is linear and it is a function on <code>n</code> (the input paramete
 <code>max(coins)</code>.  Variable <code>n</code> is wrapped by function <code>nat</code> previously defined to
 avoid negative costs.  The upper bound is shown in the console view and also
 at the method’s header when the mouse passes over the marker in line 48 in the
-program.
-</p>
+program.</p>
 <p>
 Now, let us analyze the main method of the file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" target="_blank">VendingMachine.abs</a>
 
-, which contains the following code:
-</p>
+, which contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">  module VendingMachine;
   interface VendingMachine {
@@ -958,33 +927,32 @@ This file is just like the previous example, but includes the <code>await</code>
 Analyze this program with the same configuration as before: default setting
 values, except for the asymptotic bounds parameter set to <code>yes</code>.  Click on
 <code>Refresh Outline</code> and select the entry method (method <code>main</code> of class <code>IMain</code>)
-in the outline. Then click on <code>Run</code> to perform the analysis.  The results will be shown like this:
-</p>
+in the outline. Then click on <code>Run</code> to perform the analysis.  The results will be shown like this:</p>
 <pre class="example">
 Method IMain.main terminates?: UNKOWN
 UB for &#39;IMain.main&#39;(this,n) = nat(n)+c(failed(no_rf,[scc=7,cr=entrywhile_1/4]))
 </pre>
 <p>
-The analyzer shows, by using a warning marker (see line 41), that the resource analysis cannot infer an upper bound nor guarantee the termination of the program.
-</p>
+The analyzer shows, by using a warning marker (see line 41), that the resource analysis cannot infer an upper bound nor guarantee the termination of the program.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-4">
 <h4 id="headline-3">
 Rely-Guarantee Resource Analysis
 </h4>
+<div id="outline-text-headline-3" class="outline-text-4">
 <p>
 
 <div class="notices info" ><p>
-NOTE: this analysis is not currently available.
-</p>
+NOTE: this analysis is not currently available.</p>
 </div>
-
 </p>
 <p>
 Let us now perform the rely-guarantee resource analysis, described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">”Termination and Cost Analysis of Loops with Concurrent Interleavings“</a>, on the main method of the 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&amp;app=cost" target="_blank">VendingMachine.abs</a>
 
  file. To do so, we set the option <code>Rely Guarantee</code> to
-<code>yes</code> and the <code>Cost Model</code> to <code>termination</code>.
-</p>
+<code>yes</code> and the <code>Cost Model</code> to <code>termination</code>.</p>
 <p>
 After applying the analysis, it can be seen on the default console that
 CostABS proves that all methods of the program terminate.  Let us now slightly
@@ -997,30 +965,30 @@ places a marker in the entry line to the SCC.  If the SCC is terminating
 highlighted in yellow. On the other hand, if the SCC is non-terminating (line
 34), by clicking on the marker, CostABS highlights the lines of the SCC in
 blue.  Besides the markers, the list of all SCCs of the program and their
-computed termination results are printed by CostABS on the console.
-</p>
+computed termination results are printed by CostABS on the console.</p>
 <p>
 At this point, let us perform the rely guarantee resource analysis to infer
 the cost of the program.  Restore the original code of line 35, click on
-<code>Settings</code> and select the <code>Steps</code> cost model with the option <code>Rely guarantee</code> set to <code>yes</code>.  Then click on <code>Run</code> to perform the analysis.
-</p>
+<code>Settings</code> and select the <code>Steps</code> cost model with the option <code>Rely guarantee</code> set to <code>yes</code>.  Then click on <code>Run</code> to perform the analysis.</p>
 <p>
 The resulting upper bound obtained is a function in terms on <code>n</code> (the input
 parameter of <code>main</code>) and in terms of the maximum value that field <code>coins</code> can
 take, denoted <code>max(coins)</code>.  We can observe that the cost of <code>main</code> is linear
 with respect to both.  In addition, CostABS shows a marker to the left of each
-method header to display their corresponding upper bounds.
-</p>
+method header to display their corresponding upper bounds.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-4">
 <h4 id="headline-4">
 Load Balance
 </h4>
+<div id="outline-text-headline-4" class="outline-text-4">
 <p>
 At this point, let us use the resource analysis to study the load balance of
 the program 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Performance.abs&amp;app=cost" target="_blank">Performance.abs</a>
 
-, which contains the following code:
-</p>
+, which contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">   module Parallel;
    import * from ABS.StdLib;
@@ -1076,8 +1044,7 @@ centers to assign the cost of each execution step to the object where the step
 is performed.  We start by applying the Resource Analysis and setting the
 option <code>Cost Centers</code> to <code>object</code> in the settings.  Then click on <code>Refresh
 Outline</code> and select the method <code>C.m</code> on the right region of the page. Finally,
-click on <code>Run</code> to perform the analysis.  In the console, we see the following output:
-</p>
+click on <code>Run</code> to perform the analysis.  In the console, we see the following output:</p>
 <pre class="example">
 UB Object Sensitive for C.m(this,n): 6*c([C.m])+nat(n)* (2*c([C.m])+5*c([C.m])+3*c([1,C.m])+nat(n)* (2*c([1,C.m])+5*c([1,C.m])+2*c([1,C.m]))+2*c([1,C.m])+c([1,C.m]))+2*c([C.m])+c([C.m])+c([1,C.m])
 UB for cobox ([13,12],C): 1+nat(n)* (6+9*nat(n))
@@ -1094,8 +1061,7 @@ the <code>Console Graph</code> view at the bottom of the screen.  By clicking on
 <code>[12]</code>, CostABS shows a dialog box with the upper bound on the number of steps
 performed by this node.  Similarly, by clicking on the node <code>[13,12]</code>, it shows
 the number of steps that can be executed by the object identified with
-<code>[13,12]</code>.
-</p>
+<code>[13,12]</code>.</p>
 <p>
 We can observe that the node <code>[12]</code> performs a number of steps that is bounded
 by a linear function on the input parameter <code>n</code>, while in the node <code>[13,12]</code> the number of steps is bounded by a quadratic function on <code>n</code>.  If we analyze
@@ -1103,8 +1069,7 @@ method <code>C.mthis</code>, the cost is distributed in a different way.  In thi
 both nodes <code>[20]</code> and <code>[21,20]</code> have a quadratic upper bound on the number of
 steps performed by each node. The difference between both methods is that the
 call <code>x!q()</code> at line 30 is performed in object <code>[13,12]</code> in the former case,
-and in object <code>[20]</code> in the latter.
-</p>
+and in object <code>[20]</code> in the latter.</p>
 <p>
 We can obtain the number of instances of each object we can have in each node.
 Select <code>C.m2</code> and unselect the previously selected methods on the outline on
@@ -1114,14 +1079,16 @@ the output of CostABS that the number of instances of the object identified by
 <code>[37,35]</code> is bounded by <code>n</code> (the input argument of method <code>m2</code>).  Finally, we
 can apply the resource analysis to <code>C.m2</code> selecting <code>Cost Model</code> to <code>Steps</code> to
 obtain the results of the analysis for this method regarding the number of
-steps.
-</p>
+steps.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
 <h4 id="headline-5">
 Transmission Data Sizes
 </h4>
+<div id="outline-text-headline-5" class="outline-text-4">
 <p>
-Now, let us perform the transmission data size analysis to the following code:
-</p>
+Now, let us perform the transmission data size analysis to the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">  module DemoTraffic;
   import * from ABS.StdLib;
@@ -1167,12 +1134,10 @@ Open the file
 .  To analyze this file with the transmission data
 size analysis, select the analysis <code>Resource Analysis (SACO)</code> and set the
 option <code>Cost Model</code> to <code>Traffic</code>.  Then refresh the outline and apply the
-analysis to the method <code>IMain.main</code>.
-</p>
+analysis to the method <code>IMain.main</code>.</p>
 <p>
 When the analysis is applied, the console will show the upper bound
-expressions for all possible pairs of objects identified by the analysis:
-</p>
+expressions for all possible pairs of objects identified by the analysis:</p>
 <pre class="example">
 UB Object Sensitive for IMain.main(this,l,n): c(o([IMain.main],[2,IMain.main],Master.work))* (1+c(i)+nat(l))+c(o([2,IMain.main],[IMain.main],Master.work))* (1+c(i))+c(o([IMain.main],[2,IMain.main],Master.init))* (1+c(i))+c(o([2,IMain.main],[IMain.main],Master.init))*c(i)+c(o([IMain.main],[1,IMain.main],Slave.init))*c(i)+c(o([1,IMain.main],[IMain.main],Slave.init))*c(i)+nat(n)* (c(o([2,IMain.main],[1,IMain.main],Slave.process))* (c(i)+nat(l+2*n))+c(o([1,IMain.main],[2,IMain.main],Slave.process))* (1+c(i)))
 UB for interactions between ([31],[32,31]): c(i)
@@ -1193,8 +1158,7 @@ input parameter <code>n</code>, which is the number of times the method <code>pr
 invocation contains the list <code>l</code> which is passed as argument to the method
 <code>process</code>.  In this case, the upper bound is a quadratic function on the
 parameter <code>n</code>, as the list passed as argument grows at each iteration of the
-loop at line 16, and this loop iterates <code>n</code> times.
-</p>
+loop at line 16, and this loop iterates <code>n</code> times.</p>
 <p>
 In addition to the console information, the graph in output tab <code>Console
 Graph</code> shows the objects creation.  By clicking on a node in the graph, a
@@ -1207,18 +1171,20 @@ before, the labels of the nodes contain the program lines where the
 corresponding object is created. For instance, the node labeled as <code>[32,31]</code>
 corresponds to the <code>Master</code> object, created at line 32 while executing the
 main method, the object identified by line 31.  In such upper bounds, the cost
-expression <code>c(i)</code> represents the cost of establishing the communication.
-</p>
+expression <code>c(i)</code> represents the cost of establishing the communication.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
 <h4 id="headline-6">
 Non-Cumulative Cost
 </h4>
+<div id="outline-text-headline-6" class="outline-text-4">
 <p>
 We can illustrate the analysis for computing the non-cumulative cost with the
 file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Noncumulative.abs&amp;app=cost" target="_blank">Noncumulative.abs</a>
 
-, which contains the following code:
-</p>
+, which contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">  module Noncumulative;
   import * from ABS.StdLib;
@@ -1240,11 +1206,14 @@ file
   }</code></pre>
 </div>
 <p>
-In <code>Settings</code>, restore the default values and set the option <code>noncumulative_cost</code> to <code>yes</code>.  Then refresh the outline and select the method <code>IMain.main</code>.  The results obtained after clicking <code>Run</code> show that we have two sets of program points that can lead to the maximum on the number of resources acquired, as well as their corresponding upper bound expressions.  The set <code>[L6,L8,L10]</code> corresponds to the acquireinstructions at lines 6, 8 and 10 of the program.  With this set of <code>acquire</code> instructions, we obtain an upper bound of the number of resources that linearly depends on the input parameter <code>s</code> because of the <code>acquire</code> at line 10.  The set <code>[L6,L8,L14]</code> can also lead to the maximum number of resources acquired, if the actual value of the input parameter <code>n</code> is larger than <code>s</code>.
-</p>
+In <code>Settings</code>, restore the default values and set the option <code>noncumulative_cost</code> to <code>yes</code>.  Then refresh the outline and select the method <code>IMain.main</code>.  The results obtained after clicking <code>Run</code> show that we have two sets of program points that can lead to the maximum on the number of resources acquired, as well as their corresponding upper bound expressions.  The set <code>[L6,L8,L10]</code> corresponds to the acquireinstructions at lines 6, 8 and 10 of the program.  With this set of <code>acquire</code> instructions, we obtain an upper bound of the number of resources that linearly depends on the input parameter <code>s</code> because of the <code>acquire</code> at line 10.  The set <code>[L6,L8,L14]</code> can also lead to the maximum number of resources acquired, if the actual value of the input parameter <code>n</code> is larger than <code>s</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-4">
 <h4 id="headline-7">
 Peak Cost Analysis
 </h4>
+<div id="outline-text-headline-7" class="outline-text-4">
 <p>
 Let us continue by performing the peak cost analysis to the program 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
@@ -1253,8 +1222,7 @@ Let us continue by performing the peak cost analysis to the program
 the entry method (method <code>main</code> in class <code>IMain</code>) in the outline view and
 start the Resource Analysis (SACO) with default options, with the exception of
 the option <code>Peak Cost</code>, which must be set to <code>yes</code>.  After clicking <code>Run</code>, the
-peak cost analysis outputs in the console.
-</p>
+peak cost analysis outputs in the console.</p>
 <pre class="example">
 Closure time 2 ms.
 Direct mhp time 0 ms.
@@ -1272,25 +1240,25 @@ UBs for the configurations of queue [50,48]
    -- UB_k for [50,48]-[IVendingMachine.init]): 0
 </pre>
 <p>
-For each identified ABS object, all possible queue configurations are shown. A queue configuration is the set of tasks that can be in the task queue simultaneously. For each queue configuration, the tasks involved in the configuration are shown. In addition, the total cost associated with the configuration is displayed as well.
-</p>
+For each identified ABS object, all possible queue configurations are shown. A queue configuration is the set of tasks that can be in the task queue simultaneously. For each queue configuration, the tasks involved in the configuration are shown. In addition, the total cost associated with the configuration is displayed as well.</p>
 <p>
-The analysis of the program <code>VendingMachine_init.abs</code> shows that there are two possible queue configurations for each object identified in the program.  For example, for the object <code>[49,48]</code> one of the configurations contains tasks for methods <code>showIncome</code> and <code>showCoin</code>, and the number of steps executed by those tasks linearly depends on the value of the field <code>coins</code>.
-</p>
+The analysis of the program <code>VendingMachine_init.abs</code> shows that there are two possible queue configurations for each object identified in the program.  For example, for the object <code>[49,48]</code> one of the configurations contains tasks for methods <code>showIncome</code> and <code>showCoin</code>, and the number of steps executed by those tasks linearly depends on the value of the field <code>coins</code>.</p>
 <p>
-As before, the output tab <code>Console Graph</code> also shows a graph where the labels of the nodes contain the program lines where the corresponding object is created.  For instance, the node labeled as <code>[49,48]</code> corresponds to the <code>PrettyPrinter</code> object, created at line 49 while executing the <code>main</code> method which starts at line 48.  By clicking on a node, the queue configurations that have been identified and their costs are shown in a message.
-</p>
+As before, the output tab <code>Console Graph</code> also shows a graph where the labels of the nodes contain the program lines where the corresponding object is created.  For instance, the node labeled as <code>[49,48]</code> corresponds to the <code>PrettyPrinter</code> object, created at line 49 while executing the <code>main</code> method which starts at line 48.  By clicking on a node, the queue configurations that have been identified and their costs are shown in a message.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-4">
 <h4 id="headline-8">
 Parallel Cost
 </h4>
+<div id="outline-text-headline-8" class="outline-text-4">
 <p>
 Let us perform the parallel cost analysis described in the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>.  To do so,
 we open the file 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Parallel.abs&amp;app=cost" target="_blank">Parallel.abs</a>
 
 ,
-which contains the following code:
-</p>
+which contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">  module Parallel;
   import * from ABS.StdLib;
@@ -1336,8 +1304,7 @@ which contains the following code:
   }</code></pre>
 </div>
 <p>
-Select the entry method <code>IMain.main</code> in the outline and apply the Resource Analysis by restoring the default values and setting the option <code>Parallel Cost</code>  to <code>yes</code>.  The analysis results show the computed upper bound expressions obtained for all paths identified in the DFG (distributed flow graph) of the program.  In addition, the result shows the number of nodes and edges of the computed DFG.
-</p>
+Select the entry method <code>IMain.main</code> in the outline and apply the Resource Analysis by restoring the default values and setting the option <code>Parallel Cost</code>  to <code>yes</code>.  The analysis results show the computed upper bound expressions obtained for all paths identified in the DFG (distributed flow graph) of the program.  In addition, the result shows the number of nodes and edges of the computed DFG.</p>
 <pre class="example">
 Closure time 1 ms.
 Direct mhp time 0 ms.
@@ -1352,9 +1319,13 @@ UB Expression: 14
 UB Expression: 13
 UB Expression: 9
 </pre>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-4">
 <h4 id="headline-9">
 Cost Analysis in Time
 </h4>
+<div id="outline-text-headline-9" class="outline-text-4">
 <p>
 Let us continue by performing the cost analysis in time to the program in 
 
@@ -1365,8 +1336,7 @@ Let us continue by performing the cost analysis in time to the program in
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/Timed.abs&app=cost" target="_blank">Timed.abs</a>
 
 ,
-with the following code:
-</p>
+with the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">module Timed; 
 
@@ -1397,8 +1367,7 @@ class Job implements Job{
 <p>
 Select the entry method <code>IMain.main</code> in the outline of the program.  Then,
 select the Resource Analysis and set the option <code>Timed Cost</code> to <code>yes</code>.  After
-applying the analysis, the output of SACO shows
-</p>
+applying the analysis, the output of SACO shows</p>
 <pre class="example">
 Method IMain.main terminates?: YES
 UB for &#39;IMain.main&#39;(this,n,time,target) = n*c(condition([[1*time=1,-1*n+1*_G13533=1,-1*target&gt;= -9,1*_G13533&gt;=2,-1*_G13533+1*target&gt;=0]]))
@@ -1415,9 +1384,13 @@ UB for &#39;IMain.main&#39;(this,n,time,target) = 11*c(condition([[1*time=1,-1*t
 Method IMain.main terminates?: YES
 UB for &#39;IMain.main&#39;(this,n,time,target) = (n+1)*c(condition([[1*time=1,-1*n+1*_G13536=1,-1*target&gt;= -9,1*target&gt;=2,-1*target+1*_G13536&gt;=2],[1*time=1,-1*target+1*n=0,-1*_G13536+1*n= -1,-1*n&gt;= -9,1*n&gt;=2]]))
 </pre>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-4">
 <h4 id="headline-10">
 CoFloCo Backend
 </h4>
+<div id="outline-text-headline-10" class="outline-text-4">
 <p>
 Finally, let us analyze the program 
 
@@ -1428,8 +1401,7 @@ Finally, let us analyze the program
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/CoFloCoExample.abs&app=cost" target="_blank">CoFloCoExample.abs</a>
 
  by
-using CoFloCo as backend. In this case, the file contains the following code:
-</p>
+using CoFloCo as backend. In this case, the file contains the following code:</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">module Parallel;
 import * from ABS.StdLib;
@@ -1471,8 +1443,11 @@ class C {
 }</code></pre>
 </div>
 <p>
-We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</code> or <code>C.m3</code> and then perform the resource analysis with the default options except the option <code>Backend</code>, which must be set to <code>CoFloCo</code>.  After applying the analysis, SACO shows the results of the analysis of <code>C.m</code> with CoFloCo.
-</p>
+We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</code> or <code>C.m3</code> and then perform the resource analysis with the default options except the option <code>Backend</code>, which must be set to <code>CoFloCo</code>.  After applying the analysis, SACO shows the results of the analysis of <code>C.m</code> with CoFloCo.</p>
+</div>
+</div>
+</div>
+</div>
 
 
 <footer class="footline">
@@ -1848,19 +1823,19 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1592950207"></script>
-    <script src="/js/jquery.sticky.js?1592950207"></script>
-    <script src="/js/featherlight.min.js?1592950207"></script>
-    <script src="/js/highlight.pack.js?1592950207"></script>
+    <script src="/js/clipboard.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1606473969"></script>
+    <script src="/js/jquery.sticky.js?1606473969"></script>
+    <script src="/js/featherlight.min.js?1606473969"></script>
+    <script src="/js/highlight.pack.js?1606473969"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1592950207"></script>
-    <script src="/js/learn.js?1592950207"></script>
-    <script src="/js/hugo-learn.js?1592950207"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1606473969"></script>
+    <script src="/js/learn.js?1606473969"></script>
+    <script src="/js/hugo-learn.js?1606473969"></script>
 
-    <link href="/mermaid/mermaid.css?1592950207" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1592950207"></script>
+    <link href="/mermaid/mermaid.css?1606473969" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1606473969"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

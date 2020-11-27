@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.73.0" />
+    <meta name="generator" content="Hugo 0.78.2" />
     <meta name="description" content="The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.">
 
 
@@ -12,21 +12,21 @@
     <title>May-Happen-in-Parallel Analysis :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1592950207" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1592950207" rel="stylesheet">
-    <link href="/css/hybrid.css?1592950207" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1592950207" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1592950207" rel="stylesheet">
-    <link href="/css/auto-complete.css?1592950207" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1592950207" rel="stylesheet">
-    <link href="/css/theme.css?1592950207" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1592950207" rel="stylesheet">
+    <link href="/css/nucleus.css?1606473969" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1606473969" rel="stylesheet">
+    <link href="/css/hybrid.css?1606473969" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1606473969" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1606473969" rel="stylesheet">
+    <link href="/css/auto-complete.css?1606473969" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1606473969" rel="stylesheet">
+    <link href="/css/theme.css?1606473969" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1606473969" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1592950207" rel="stylesheet">
+    <link href="/css/theme-abs.css?1606473969" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1592950207"></script>
+    <script src="/js/jquery-3.3.1.min.js?1606473969"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1592950207"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1592950207"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1606473969"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1606473969"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1592950207"></script>
+<script type="text/javascript" src="/js/search.js?1606473969"></script>
 
     
   </div>
@@ -651,9 +651,11 @@
 
 
 
+<div id="outline-container-headline-1" class="outline-3">
 <h3 id="headline-1">
 May-Happen-in-Parallel Analysis (MHP)
 </h3>
+<div id="outline-text-headline-1" class="outline-text-3">
 <p>
 ABS is a distributed language where different methods can be invoked
 asynchronously.  Therefore, there can be several tasks executing their code at
@@ -662,8 +664,7 @@ of ABS programs, since (in general) there is a high level of parallelism.  The
 MHP analysis alleviates this situation by computing, for each instruction,
 which other instructions could execute in parallel.  This information can be
 very interesting for developers and testers, but it is crucial for the
-precision of many of the SACO analyses presented in the <a href="../costabs">CostABS tutorial</a>.
-</p>
+precision of many of the SACO analyses presented in the <a href="../costabs">CostABS tutorial</a>.</p>
 <p>
 The result of the MHP analysis, described in the paper <a href="http://dx.doi.org/10.1007/978-3-642-30793-5_3">“Analysis of
 May-Happen-in-Parallel in Concurrent Objects”</a>, is a set of pairs of
@@ -672,38 +673,29 @@ It is important to stress that this analysis computes an <em>overapproximation</
 of the parallelism.  In other words, if a pair of instruction can execute in
 parallel, then they will be detected by the analysis; however, the analysis
 can incorrectly detect pairs of instructions that never execute in parallel
-when executing the program.
-</p>
+when executing the program.</p>
+<div id="outline-container-headline-2" class="outline-4">
 <h4 id="headline-2">
 MHP Analysis in the Collaboratory
 </h4>
+<div id="outline-text-headline-2" class="outline-text-4">
 <p>
-In order to apply the MHP Analysis in the Collaboratory, just:
-</p>
+In order to apply the MHP Analysis in the Collaboratory, just:</p>
 <ul>
 <li>
-<p>
-Open the ABS program to analyze.
-</p>
+<p>Open the ABS program to analyze.</p>
 </li>
 <li>
-<p>
-Select <code>MHP Analysis</code> in the list of analyses.
-</p>
+<p>Select <code>MHP Analysis</code> in the list of analyses.</p>
 </li>
 <li>
-<p>
-Refresh the list of methods in the right side (button <code>Refresh Outline</code>) and select the entry point of the analysis.  Only one method or function can be selected as entry point.  If none is selected then the main block will be considered the entry point.
-</p>
+<p>Refresh the list of methods in the right side (button <code>Refresh Outline</code>) and select the entry point of the analysis.  Only one method or function can be selected as entry point.  If none is selected then the main block will be considered the entry point.</p>
 </li>
 <li>
-<p>
-Press the <code>Run</code> button.
-</p>
+<p>Press the <code>Run</code> button.</p>
 </li>
 </ul>
-<p>
-Let us see the results of the MHP analysis in the 
+<p>Let us see the results of the MHP analysis in the 
 
 
 
@@ -711,8 +703,7 @@ Let us see the results of the MHP analysis in the
 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine.abs&app=mhp" target="_blank">VendingMachine.abs</a>
 
- program selecting the <code>main</code> method from class <code>IMain</code> as the entry point.  The analysis reports its results in two places.  First, all the pairs of instructions that can be executed in parallel are printed in the console. This information is very detailed and verbose, but difficult to understand:
-</p>
+ program selecting the <code>main</code> method from class <code>IMain</code> as the entry point.  The analysis reports its results in two places.  First, all the pairs of instructions that can be executed in parallel are printed in the console. This information is very detailed and verbose, but difficult to understand:</p>
 <pre class="example">
 ...
 L28 (Await)[IVendingMachine.insertCoins(-[2,&#39;IMain.main&#39;]-)]  ||  L37 (Await)[IVendingMachine.retrieveCoins(-[2,&#39;IMain.main&#39;]-)]
@@ -721,51 +712,46 @@ L20 (Entry)[IVendingMachine.insertCoin(-[2,&#39;IMain.main&#39;]-)]  ||  L60 (Ex
 ...
 </pre>
 <p>
-The previous fragment shows that the instruction at L28 (the <code>await</code> instruction in method <code>insertCoins</code>) can happen in parallel with the instruction at L37 (the <code>await</code> instruction in method <code>retrieveCoins</code>), and the same for instructions at L20 and L60.  However, the most comfortable way of inspecting the results of the MHP analysis is by navigating the code.  Every considered instruction will have a blue arrow in its left margin.  When clicking the arrow of an instruction, all the other considered instructions that can happen in parallel with it will be highlighted in yellow.  For example, clicking on the arrow in L37 will show the instructions that can happen in parallel with it, which as expected include L28.  We have mentioned “considered instruction” because, by default, the MHP analysis only takes into account those instructions that are entry/exit points of methods and <code>await</code> or <code>release</code> instructions.  In order to obtain the full list of instructions that may happen in parallel, open the settings window (button <code>Settings</code>, option <code>MHP analysis</code>) and change the option <code>Amount of considered points</code> from <code>Reduced</code> to <code>Full</code>.  With these new settings the analysis obtains the MHP information for all the instructions in the program.
-</p>
+The previous fragment shows that the instruction at L28 (the <code>await</code> instruction in method <code>insertCoins</code>) can happen in parallel with the instruction at L37 (the <code>await</code> instruction in method <code>retrieveCoins</code>), and the same for instructions at L20 and L60.  However, the most comfortable way of inspecting the results of the MHP analysis is by navigating the code.  Every considered instruction will have a blue arrow in its left margin.  When clicking the arrow of an instruction, all the other considered instructions that can happen in parallel with it will be highlighted in yellow.  For example, clicking on the arrow in L37 will show the instructions that can happen in parallel with it, which as expected include L28.  We have mentioned “considered instruction” because, by default, the MHP analysis only takes into account those instructions that are entry/exit points of methods and <code>await</code> or <code>release</code> instructions.  In order to obtain the full list of instructions that may happen in parallel, open the settings window (button <code>Settings</code>, option <code>MHP analysis</code>) and change the option <code>Amount of considered points</code> from <code>Reduced</code> to <code>Full</code>.  With these new settings the analysis obtains the MHP information for all the instructions in the program.</p>
 <p>
-Since the MHP analysis is a sound overapproximation, instructions that cannot execute in parallel are never detected.  For example, due to the <code>await</code> instruction at L57, the task <code>retrieveCoins</code> must be finished before continuing.  Therefore, the <code>await</code> instruction at L37, which is inside <code>retrieveCoins</code>, cannot happen in parallel with the instructions after the <code>await</code> (L58 and L59) or the method <code>showIncome</code> that is invoked at L59.  If we execute a full MHP analysis and select the arrow at L37, those fragments will not be highlighted.
-</p>
+Since the MHP analysis is a sound overapproximation, instructions that cannot execute in parallel are never detected.  For example, due to the <code>await</code> instruction at L57, the task <code>retrieveCoins</code> must be finished before continuing.  Therefore, the <code>await</code> instruction at L37, which is inside <code>retrieveCoins</code>, cannot happen in parallel with the instructions after the <code>await</code> (L58 and L59) or the method <code>showIncome</code> that is invoked at L59.  If we execute a full MHP analysis and select the arrow at L37, those fragments will not be highlighted.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-4">
 <h4 id="headline-3">
 MHP Settings
 </h4>
+<div id="outline-text-headline-3" class="outline-text-4">
 <p>
-In addition to the Amount of considered points to compute all the pairs of instructions that can execute in parallel or only a the most important, the MHP analysis supports other important settings, as shown in the next figure:
-</p>
+In addition to the Amount of considered points to compute all the pairs of instructions that can execute in parallel or only a the most important, the MHP analysis supports other important settings, as shown in the next figure:</p>
 <p>
 <figure class="image main">
     <img src="/images/tutorials/costabs/mhp_settings.png"/> 
 </figure>
-
 </p>
 <p>
-Using these parameters we can adapt the behavior of the analysis:
-</p>
+Using these parameters we can adapt the behavior of the analysis:</p>
 <ul>
 <li>
-<p>
-<code>Debug information</code> (<code>0</code>, <code>1</code>, or <code>2</code>): level of information that is printed in the console, where <code>0</code> is the lowest level.
-</p>
+<p><code>Debug information</code> (<code>0</code>, <code>1</code>, or <code>2</code>): level of information that is printed in the console, where <code>0</code> is the lowest level.</p>
 </li>
 <li>
-<p>
-<code>Points-to analysis precision</code> (<code>1</code>, <code>2</code>, <code>3</code> and <code>4</code>): the precision that will be used in the point-to analysis that approximates the different objects that are created during execution.
-</p>
+<p><code>Points-to analysis precision</code> (<code>1</code>, <code>2</code>, <code>3</code> and <code>4</code>): the precision that will be used in the point-to analysis that approximates the different objects that are created during execution.</p>
 </li>
 <li>
-<p>
-<code>Condition synchronization MHP extension</code> (<code>no</code>, <code>yes</code>): by default, the MHP analysis only considers simple await instructions involving one future variable (<code>await f?;</code>).  When enabling this option, the analysis tries to use the information from <code>await</code> instructions that involve complex conditions like <code>await this.x != null</code>.
-</p>
+<p><code>Condition synchronization MHP extension</code> (<code>no</code>, <code>yes</code>): by default, the MHP analysis only considers simple await instructions involving one future variable (<code>await f?;</code>).  When enabling this option, the analysis tries to use the information from <code>await</code> instructions that involve complex conditions like <code>await this.x != null</code>.</p>
 </li>
 <li>
-<p>
-<code>Inter-Procedural Synchronization</code> (<code>no</code>, <code>yes</code>): enables a refinement of the MHP analysis that obtains finer information about the finished task, thus producing more precise results in programs with inter-procedural synchronization.
-</p>
+<p><code>Inter-Procedural Synchronization</code> (<code>no</code>, <code>yes</code>): enables a refinement of the MHP analysis that obtains finer information about the finished task, thus producing more precise results in programs with inter-procedural synchronization.</p>
 </li>
 </ul>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-4">
 <h4 id="headline-4">
 May-Happen-in-Parallel with Inter-Procedural Synchronization
 </h4>
+<div id="outline-text-headline-4" class="outline-text-4">
 <p>
 Let us analyze with SACO the program 
 
@@ -775,8 +761,7 @@ Let us analyze with SACO the program
 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/InterProcedural.abs&app=mhp" target="_blank">InterProcedural.abs</a>
 
- with the Inter-Procedural Synchronization of the MHP analysis (described in the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_5">May-Happen-in-Parallel Analysis for Asynchronous Programs with Inter-Procedural Synchronization</a>), as mentioned before.
-</p>
+ with the Inter-Procedural Synchronization of the MHP analysis (described in the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_5">May-Happen-in-Parallel Analysis for Asynchronous Programs with Inter-Procedural Synchronization</a>), as mentioned before.</p>
 <div class="src src-abs">
 <pre><code class="language-abs" data-lang="abs">module Parallel;
 import * from ABS.StdLib;
@@ -817,14 +802,16 @@ class O2 implements IO2 {
 If we apply the MHP analysis without inter-procedural synchronization, we
 obtain that L14 can happen in parallel with L34 because the analysis is not
 able to infer that when method <code>g</code> finishes its execution, method <code>f</code> has finished
-too (caused by the await instruction in L21).
-</p>
+too (caused by the await instruction in L21).</p>
 <p>
 To refine the MHP analysis, we set the option <code>Inter-Procedural
 Synchronization</code> to <code>yes</code>.  Using this refinement we obtain that the only
 program points that can happen in parallel with L34 are the end of methods <code>f</code>
-and <code>g</code>, which means that both methods must have finished when L34 is reached.
-</p>
+and <code>g</code>, which means that both methods must have finished when L34 is reached.</p>
+</div>
+</div>
+</div>
+</div>
 
 
 <footer class="footline">
@@ -1200,19 +1187,19 @@ and <code>g</code>, which means that both methods must have finished when L34 is
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1592950207"></script>
-    <script src="/js/jquery.sticky.js?1592950207"></script>
-    <script src="/js/featherlight.min.js?1592950207"></script>
-    <script src="/js/highlight.pack.js?1592950207"></script>
+    <script src="/js/clipboard.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1606473969"></script>
+    <script src="/js/jquery.sticky.js?1606473969"></script>
+    <script src="/js/featherlight.min.js?1606473969"></script>
+    <script src="/js/highlight.pack.js?1606473969"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1592950207"></script>
-    <script src="/js/learn.js?1592950207"></script>
-    <script src="/js/hugo-learn.js?1592950207"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1606473969"></script>
+    <script src="/js/learn.js?1606473969"></script>
+    <script src="/js/hugo-learn.js?1606473969"></script>
 
-    <link href="/mermaid/mermaid.css?1592950207" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1592950207"></script>
+    <link href="/mermaid/mermaid.css?1606473969" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1606473969"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

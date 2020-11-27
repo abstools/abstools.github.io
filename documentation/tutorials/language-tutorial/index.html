@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.73.0" />
+    <meta name="generator" content="Hugo 0.78.2" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,21 +12,21 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1592950207" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1592950207" rel="stylesheet">
-    <link href="/css/hybrid.css?1592950207" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1592950207" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1592950207" rel="stylesheet">
-    <link href="/css/auto-complete.css?1592950207" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1592950207" rel="stylesheet">
-    <link href="/css/theme.css?1592950207" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1592950207" rel="stylesheet">
+    <link href="/css/nucleus.css?1606473969" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1606473969" rel="stylesheet">
+    <link href="/css/hybrid.css?1606473969" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1606473969" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1606473969" rel="stylesheet">
+    <link href="/css/auto-complete.css?1606473969" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1606473969" rel="stylesheet">
+    <link href="/css/theme.css?1606473969" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1606473969" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1592950207" rel="stylesheet">
+    <link href="/css/theme-abs.css?1606473969" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1592950207"></script>
+    <script src="/js/jquery-3.3.1.min.js?1606473969"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1592950207"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1592950207"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1606473969"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1606473969"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1592950207"></script>
+<script type="text/javascript" src="/js/search.js?1606473969"></script>
 
     
   </div>
@@ -1400,29 +1400,29 @@ example is the rewrite rule that realizes <em>creation of a new COG</em>:</p>
 <p>where:</p>
 <ul>
 <li>
-<p>\(b&rsquo;, o&rsquo;, n&rsquo;\) new;</p>
+<p>\(b', o', n'\) new;</p>
 </li>
 <li>
-<p>\(\overline{T f}; s&rsquo;\) init block of class \(C\) and \(\sigma&rsquo;_{init}\) binds constructor parameters \(v&rsquo;\);</p>
+<p>\(\overline{T f}; s'\) init block of class \(C\) and \(\sigma'_{init}\) binds constructor parameters \(v'\);</p>
 </li>
 <li>
-<p>\(\sigma&rsquo;_{init} = \overline{T f}\);</p>
+<p>\(\sigma'_{init} = \overline{T f}\);</p>
 </li>
 <li>
-<p>\(s_{task} = s&rsquo;\{\mathbf{this}\, / o&rsquo;;\mathbf{suspend}\}\).</p>
+<p>\(s_{task} = s'\{\mathbf{this}\, / o';\mathbf{suspend}\}\).</p>
 </li>
 </ul>
 <p>The rule matches a new cog statement in task \(n\), COG \(b\),
 current object \(o\), and subsequent statements <code>s</code>.  First we
-need to create a new COG with a fresh name \(b&rsquo;\) and a new object
-\(o&rsquo;\) of class \(C\).  The new COG starts immediately to execute
-the initialization code of its class \(C\) in a new task \(n&rsquo;\),
-therefore, the lock of \(b&rsquo;\) is set to ⊤.  Note that the current
-object this must be instantiated now to the actual object \(o&rsquo;\).  After
+need to create a new COG with a fresh name \(b'\) and a new object
+\(o'\) of class \(C\).  The new COG starts immediately to execute
+the initialization code of its class \(C\) in a new task \(n'\),
+therefore, the lock of \(b'\) is set to ⊤.  Note that the current
+object this must be instantiated now to the actual object \(o'\).  After
 initialization, execution is suspended.  The original task \(n\)
 immediately continues to execute the remaining code <code>s</code> as there is no
 release point here.  The value of the object reference <code>z</code> is replaced
-with the new object \(o&rsquo;\).</p>
+with the new object \(o'\).</p>
 <h2 id="7-extensions">7 Extensions</h2>
 <h3 id="71-pluggable-type-system">7.1 Pluggable Type System</h3>
 <p>All declarations (fields, methods, classes, interfaces) in ABS can carry
@@ -2223,19 +2223,19 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.min.js?1592950207"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1592950207"></script>
-    <script src="/js/jquery.sticky.js?1592950207"></script>
-    <script src="/js/featherlight.min.js?1592950207"></script>
-    <script src="/js/highlight.pack.js?1592950207"></script>
+    <script src="/js/clipboard.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.min.js?1606473969"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1606473969"></script>
+    <script src="/js/jquery.sticky.js?1606473969"></script>
+    <script src="/js/featherlight.min.js?1606473969"></script>
+    <script src="/js/highlight.pack.js?1606473969"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1592950207"></script>
-    <script src="/js/learn.js?1592950207"></script>
-    <script src="/js/hugo-learn.js?1592950207"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1606473969"></script>
+    <script src="/js/learn.js?1606473969"></script>
+    <script src="/js/hugo-learn.js?1606473969"></script>
 
-    <link href="/mermaid/mermaid.css?1592950207" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1592950207"></script>
+    <link href="/mermaid/mermaid.css?1606473969" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1606473969"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -5,10 +5,6 @@
     <link>https://abs-models.org/tags/</link>
     <description>Recent content in Tags on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="https://abs-models.org/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="https://abs-models.org/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

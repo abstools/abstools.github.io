@@ -6,10 +6,6 @@
     <description>Recent content in The Collaboratory on The ABS Modeling Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2019 13:34:28 +0200</lastBuildDate>
-    
-	<atom:link href="https://abs-models.org/laboratory/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 01 May 2019 13:34:28 +0200</lastBuildDate><atom:link href="https://abs-models.org/laboratory/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
