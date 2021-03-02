@@ -1,113 +1,69 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://abs-models.org/documentation/examples/monty-hall/</loc>
     <lastmod>2020-06-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/getting_started/local-install/</loc>
     <lastmod>2018-08-15T09:22:58+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/overview/</loc>
     <lastmod>2018-03-22T12:22:19+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/language-tutorial/</loc>
     <lastmod>2018-03-22T12:22:10+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/getting_started/docker/</loc>
     <lastmod>2018-08-15T09:20:37+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/getting_started/</loc>
     <lastmod>2018-03-22T12:22:10+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/resources/</loc>
     <lastmod>2017-07-04T09:31:38+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/</loc>
     <lastmod>2019-05-03T09:16:13+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/getting_started/editor-support/</loc>
     <lastmod>2018-09-05T09:46:58+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/costabs/</loc>
     <lastmod>2018-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/examples/</loc>
     <lastmod>2020-04-05T20:21:00+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/publications/</loc>
     <lastmod>2020-02-04T12:22:31+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/mhp/</loc>
     <lastmod>2018-06-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/</loc>
     <lastmod>2018-03-22T12:21:52+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/examples/time-and-date/</loc>
     <lastmod>2020-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/documentation/tutorials/sra/</loc>
     <lastmod>2019-03-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/contact/</loc>
     <lastmod>2018-03-22T12:22:25+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/acknowledgments/</loc>
     <lastmod>2018-12-19T17:41:18+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/laboratory/</loc>
     <lastmod>2019-05-01T13:34:28+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/</loc>
     <lastmod>2018-03-22T12:21:59+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://abs-models.org/tags/</loc>
   </url>
-  
 </urlset>
