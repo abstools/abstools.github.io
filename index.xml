@@ -111,5 +111,16 @@ Modeling Time in ABS The following short ABS model creates a list of values toge
       <description>General Overview We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS, called vml, whose syntax will be covered by the examples in this tutorial, with explicit acquire and release operations of virtual machines. In our language it is possible to delegate other (ad-hoc or third party) concurrent code to release virtual machines (by passing them as arguments of invocations). Our technique is modular and consists of (i) a type system associating programs with behavioural types that records relevant information for resource usage (creations, releases, and concurrent operations), (ii) a translation function that takes behavioural types and return cost equations.</description>
     </item>
     
+    <item>
+      <title>Modeling and Visualizing A Water Tank Controller</title>
+      <link>https://abs-models.org/documentation/examples/single-watertank/</link>
+      <pubDate>Tue, 06 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://abs-models.org/documentation/examples/single-watertank/</guid>
+      <description>This example shows a model of a small cyber-physical system consisting of a water tank with faucet and drain, and a controller opening and closing the exit valve of the drain. The model illustrates discrete-event simulation, timed semantics, and custom visualization in ABS.
+The complete code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/
+Modeling a Water Tank The following class shows the model of a water tank. The field level holds the current water level, the field valve_open records the status of an exit valve (open or not open).</description>
+    </item>
+    
   </channel>
 </rss>

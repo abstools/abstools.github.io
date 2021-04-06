@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.82.0" />
-    <meta name="description" content="">
+    <meta name="description" content="An example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.">
 
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tutorials :: The ABS Modeling Language</title>
+    <title>Modeling and Visualizing A Water Tank Controller :: The ABS Modeling Language</title>
 
     
     <link href="/css/nucleus.css?1617727847" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/documentation/tutorials/">
+  <body class="" data-url="/documentation/examples/single-watertank/">
     <nav id="sidebar" class="">
 
 
@@ -241,7 +241,7 @@
   
     
     <li data-nav-id="/documentation/examples/" title="Examples" class="dd-item
-        
+        parent
         
         
         ">
@@ -309,7 +309,7 @@
  
   
     
-      <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
+      <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item active">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
         
@@ -340,8 +340,8 @@
   
     
     <li data-nav-id="/documentation/tutorials/" title="Tutorials" class="dd-item
-        parent
-        active
+        
+        
         
         ">
       <a href="/documentation/tutorials/">
@@ -625,7 +625,13 @@
             
           
           
-            <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > Tutorials
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > <a href='/documentation/examples/'>Examples</a> > Modeling and Visualizing A Water Tank Controller
+          
+        
           
         
           
@@ -640,8 +646,10 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#converted-tutorials">Converted Tutorials</a></li>
-    <li><a href="#envisage--hats-tutorials">Envisage / HATS Tutorials</a></li>
+    <li><a href="#modeling-a-water-tank">Modeling a Water Tank</a></li>
+    <li><a href="#modeling-the-controller">Modeling the Controller</a></li>
+    <li><a href="#visualizing-the-water-level-over-time">Visualizing the Water Level over Time</a></li>
+    <li><a href="#running-the-example">Running the Example</a></li>
   </ul>
 </nav>
     </div>
@@ -659,146 +667,141 @@
           
             <h1>
               
-              Tutorials
+              Modeling and Visualizing A Water Tank Controller
             </h1>
           
 
         
 
 
+<p>This example shows a model of a small cyber-physical system consisting
+of a water tank with faucet and drain, and a controller opening
+and closing the exit valve of the drain.  The model illustrates discrete-event simulation, timed semantics, and custom visualization in ABS.</p>
+<p>The complete code can be found at <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/</a></p>
+<h2 id="modeling-a-water-tank">Modeling a Water Tank</h2>
+<p>The following class shows the model of a water tank.  The field
+<code>level</code> holds the current water level, the field <code>valve_open</code> records
+the status of an exit valve (open or not open).</p>
+<p>The water tank has <em>active behavior</em>.  The <code>run</code> method calculates the
+new water level on every time tick: <code>fillrate</code> is always added to the
+current level (water is always flowing in), and the level decreases by
+<code>drainrate * level</code> in case the valve is open, since water pressure is
+proportional to the water level.</p>
+<pre><code class="language-abs" data-lang="abs">module SingleWaterTank;
 
-	<p>This page features a list of tutorials for most tools that work with the ABS
-language.</p>
-<h2 id="converted-tutorials">Converted Tutorials</h2>
-<p>Conversion from old tutorials is on-going and help is most welcome.</p>
+data ValveCommand = Open | Close;
 
+interface WaterTank {
+    Float getLevel();
+    Unit valvecontrol(ValveCommand command);
+    [HTTPCallable] List&lt;Pair&lt;Int, Float&gt;&gt; getValveAndLevelHistory();
+}
 
+class WaterTank(Float fillrate, Float drainrate) implements WaterTank {
+    Float level = 0.0;
+    Bool valve_open = False;
+    List&lt;Pair&lt;Int, Float&gt;&gt; history = list[];
 
+    List&lt;Pair&lt;Int, Float&gt;&gt; getValveAndLevelHistory() { return reverse(history); }
 
+    Float getLevel() { return level; }
+    Unit valvecontrol(ValveCommand command) {
+        valve_open = command == Open;
+    }
 
+    Unit run() {
+        while (True) {
+            await duration(1, 1);
+            // Water inflow is constant, water outflow is
+            // proportional to the current tank level
+            level = level + fillrate;
+            if (valve_open) {
+                level = max(0.0, level - drainrate * level);
+            }
+            history = Cons(Pair(when valve_open then 1 else 0, level), history);
+        }
+    }
+}
+</code></pre><p>The tank also holds the history of current level and valve status in
+the field <code>history</code>.  The method <code>getValveAndLevelHistory</code> is
+annotated to be callable via the <a href="https://abs-models.org/manual/#-the-model-api">Model
+API</a>, and will be used
+to visualize the tank level over time.</p>
+<h2 id="modeling-the-controller">Modeling the Controller</h2>
+<p>The task of the controller is to open and close a tank&rsquo;s valve to keep the water level in a safe range.  The controller object does not have any methods but is an active object as well.  Its <code>run</code> method checks the tank&rsquo;s water level once per clock cycle, and sends <code>Open</code> and <code>Close</code> commands as necessary.</p>
+<pre><code class="language-abs" data-lang="abs">interface Controller { }
 
+class Controller(WaterTank tank, Float minlevel, Float maxlevel) implements Controller {
+    Unit run() {
+        while (True) {
+            Float level = await tank!getLevel();
+            if (level &gt;= maxlevel) {
+                tank!valvecontrol(Open);
+            } else if (level &lt;= minlevel) {
+                tank!valvecontrol(Close);
+            }
+            await duration(1, 1);
+        }
+    }
+}
 
-<ul class="children children-li">
-	
+{
+    [HTTPName: &quot;watertank&quot;] WaterTank tank = new WaterTank(1.0, 0.2);
+    Controller controller = new Controller(tank, 5.0, 10.0);
+}
+</code></pre><p>We also see, at the bottom, the main block that creates a water tank
+object, makes it visible to the Model API, and creates a controller
+object.</p>
+<h2 id="visualizing-the-water-level-over-time">Visualizing the Water Level over Time</h2>
+<p>The visualization uses the <a href="https://www.highcharts.com">Highcharts</a>
+visualization library, so needs an online connection to work.</p>
+<p>When connecting e.g. to <code>localhost:8080</code>, the browser will make a
+connection to <code>/call/watertank/getValveAndLevelHistory</code>, which results
+in a call to the <code>getValveAndLevelHistory</code> method of the water tank.  The returned data is then converted into two lists of values which are passed to Highchart to be plotted.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+  &lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;Watertank&lt;/<span style="color:#f92672">title</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/highcharts.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/exporting.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/export-data.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+  &lt;/<span style="color:#f92672">head</span>&gt;
+  &lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;Watertank&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  &lt;/<span style="color:#f92672">body</span>&gt;
+  &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+    <span style="color:#e6db74">&#39;use strict&#39;</span>;
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawChart</span>() {
+        <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;/call/watertank/getValveAndLevelHistory&#34;</span>)
+            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
+            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {
+                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">valvestatus</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fst</span>);
+                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">waterlevel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">snd</span>);
+                <span style="color:#a6e22e">Highcharts</span>.<span style="color:#a6e22e">chart</span>(<span style="color:#e6db74">&#39;chart-container&#39;</span>, {
+                    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
+                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Watertank&#39;</span> },
+                    <span style="color:#a6e22e">series</span><span style="color:#f92672">:</span> [
+                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;valve status&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">valvestatus</span>, <span style="color:#a6e22e">step</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;right&#39;</span> },
+                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;water level&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">waterlevel</span> }
+                    ]
+                });
+            });
+    }
 
-	
-		
-	
-
-	
-
-	
-		
-	
-		
-			
-				
-<li>
-<a href="/documentation/tutorials/language-tutorial/" >Language Tutorial</a>
-</li>
-				
-
-				
-					
-<p>This tutorial gives an overview of the ABS language.</p>
-					
-				
-			
-			
-		
-	
-		
-			
-				
-<li>
-<a href="/documentation/tutorials/resources/" >Resource Modeling Tutorial</a>
-</li>
-				
-
-				
-					
-<p>An introduction to time and resource modeling in ABS.</p>
-					
-				
-			
-			
-		
-	
-		
-			
-				
-<li>
-<a href="/documentation/tutorials/costabs/" >Resource Analysis with CostABS</a>
-</li>
-				
-
-				
-					
-<p>CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.</p>
-					
-				
-			
-			
-		
-	
-		
-			
-				
-<li>
-<a href="/documentation/tutorials/mhp/" >May-Happen-in-Parallel Analysis</a>
-</li>
-				
-
-				
-					
-<p>The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.</p>
-					
-				
-			
-			
-		
-	
-		
-			
-				
-<li>
-<a href="/documentation/tutorials/sra/" >Resource Analysis with SRA</a>
-</li>
-				
-
-				
-					
-<p>We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS called vml.</p>
-					
-				
-			
-			
-		
-	
-
-	
-</ul>
-
-
-<h2 id="envisage--hats-tutorials">Envisage / HATS Tutorials</h2>
-<p>These tutorials were written during the Envisage and HaTS projects.  The pdfs are provided as-is and might contain outdated information.</p>
-<p><a href="/tutorial_pdfs/Installation.pdf">Installation Tutorial</a></p>
-<p><a href="/tutorial_pdfs/easyinterface.pdf">EasyInterface Tutorial</a></p>
-<p><a href="/tutorial_pdfs/resource-tutorial.html">Resource Tutorial</a></p>
-<p><a href="/tutorial_pdfs/saco.pdf">Resource Analysis (SACO) Tutorial</a></p>
-<p><a href="/tutorial_pdfs/SRA.pdf">Resource Analysis (SRA) Tutorial</a></p>
-<p><a href="/tutorial_pdfs/deadlock-saco.pdf">Deadlock Analysis (SACO) Tutorial</a></p>
-<p><a href="/tutorial_pdfs/DSA.pdf">Deadlock Analysis (SRA) Tutorial</a></p>
-<p><a href="/tutorial_pdfs/aPETAndSyco.pdf">Systematic Testing (SYCO) &amp; Test Case Generation (aPET) Tutorial</a></p>
-<p><a href="/tutorial_pdfs/SmartDepl.pdf">Smart Deployer Tutorial</a></p>
-<p><a href="/tutorial_pdfs/KeY-ABS.pdf">KeY-ABS Tutorial</a></p>
-<p><a href="/tutorial_pdfs/scaling.pdf">Modelling Auto-scalable Services Tutorial</a></p>
+    document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;DOMContentLoaded&#34;</span>, <span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">drawChart</span>();
+    });
+  &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><h2 id="running-the-example">Running the Example</h2>
+<p>As mentioned, the code of this example resides at <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/</a>.  Place the files <code>Watertank.abs</code>, <code>index.html</code> and <code>Makefile</code> into the same directory and run the command <code>make</code> to compile and start the model.  Then, connect a browser to the URL <code>http://localhost:8080/</code> to see the resulting graph.  The resulting plot shows the water level decreasing when the valve is open, and increasing again when the valve is closed.</p>
+<p><img src="/images/examples-single-watertank.png" alt="Plot of water level and valve status over time"></p>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -932,8 +935,6 @@ language.</p>
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -947,6 +948,9 @@ language.</p>
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -980,6 +984,7 @@ language.</p>
             
                 
                     
+                    
                 
                 
 
@@ -999,6 +1004,8 @@ language.</p>
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -1012,9 +1019,6 @@ language.</p>
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1170,10 +1174,10 @@ language.</p>
 	 
 	 
 		
-			<a class="nav nav-prev" href="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/documentation/tutorials/language-tutorial/" title="Language Tutorial" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/documentation/tutorials/" title="Tutorials" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1207,3 +1211,4 @@ language.</p>
 
   </body>
 </html>
+
