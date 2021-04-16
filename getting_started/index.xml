@@ -14,9 +14,9 @@
       
       <guid>https://abs-models.org/getting_started/local-install/</guid>
       <description>Many of the tools can be run from the command line. This page describes how to run various tools on a local machine.
-Installing the ABS Compiler The ABS compiler is contained in a single file called absfrontend.jar.
-Running the ABS compiler requires Java (version 8 or greater) and Erlang (version 22 or greater) installed. Java can be downloaded, e.g., from https://adoptopenjdk.net. Erlang is available at https://www.erlang-solutions.com/resources/download.html.
-On macOS, the homebrew package manager can be used to install the dependencies.</description>
+Installing Dependencies The ABS compiler is contained in a single file called absfrontend.jar.
+Running the ABS compiler requires Java (version 11 or greater) and Erlang (version 23 or greater) installed. Java can be downloaded, e.g., from https://adoptopenjdk.net. Erlang is available at https://www.erlang-solutions.com/resources/download.html.
+Installing dependencies on MacOS On MacOS, the homebrew package manager can be used to install the dependencies.</description>
     </item>
     
     <item>
