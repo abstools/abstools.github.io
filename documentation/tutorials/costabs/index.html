@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,21 +12,22 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -738,7 +739,7 @@ it, open the file
 
 , which contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">   module VendingMachine_init;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">   module VendingMachine_init;
 
    interface VendingMachine {
     Unit insertCoin();
@@ -901,7 +902,7 @@ Now, let us analyze the main method of the file
 
 , which contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">  module VendingMachine;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">  module VendingMachine;
   interface VendingMachine {
       Unit insertCoin();
       Unit insertCoins( Int nCoins );
@@ -1020,7 +1021,7 @@ the program
 
 , which contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">   module Parallel;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">   module Parallel;
    import * from ABS.StdLib;
 
   interface I {
@@ -1120,7 +1121,7 @@ Transmission Data Sizes
 <p>
 Now, let us perform the transmission data size analysis to the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">  module DemoTraffic;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">  module DemoTraffic;
   import * from ABS.StdLib;
 
   interface II {
@@ -1216,7 +1217,7 @@ file
 
 , which contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">  module Noncumulative;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">  module Noncumulative;
   import * from ABS.StdLib;
   class IMain {
       Unit main (Int s, Int n) {
@@ -1290,7 +1291,7 @@ we open the file
 ,
 which contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">  module Parallel;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">  module Parallel;
   import * from ABS.StdLib;
 
   interface IX {
@@ -1368,7 +1369,7 @@ Let us continue by performing the cost analysis in time to the program in
 ,
 with the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">module Timed; 
+<pre tabindex="0"><code class="language-abs" data-lang="abs">module Timed; 
 
 interface Job{
     Unit start(Int dur);
@@ -1433,7 +1434,7 @@ Finally, let us analyze the program
  by
 using CoFloCo as backend. In this case, the file contains the following code:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">module Parallel;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">module Parallel;
 import * from ABS.StdLib;
 
 class C {
@@ -1869,19 +1870,19 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

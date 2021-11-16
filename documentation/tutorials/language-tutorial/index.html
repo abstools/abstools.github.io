@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,21 +12,22 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -891,7 +892,7 @@ creates a new file named CustomerData.abs in the workspace, which can be
 edited in the usual way. The running example of this tutorial has a
 banking theme. Let us create some datatypes related to customers. <em>All
 type and constructor names must be upper-case</em>.</p>
-<pre><code>data Level = Standard | Silver | Gold;
+<pre tabindex="0"><code>data Level = Standard | Silver | Gold;
 data Customer = Test | Person(Int, Level) | Company(Int);
 </code></pre><p>There are three kind of customers defined by three different type
 constructors: a test customer, individual customers, and corporate
@@ -900,16 +901,16 @@ possess a status level while corporate customers are identified by
 their vat number. We can make this more explicit and, at the same,
 automatically create selector functions for the arguments of each type
 constructor by the following alternative definition:</p>
-<pre><code>data Customer = Test | Person(Int pid, Level) | Company(Int vat);
+<pre tabindex="0"><code>data Customer = Test | Person(Int pid, Level) | Company(Int vat);
 </code></pre><p>Assume now that we want to define lists of customers. For this we can
 use the following built-in parametric list type, which provides a
 convenient concrete syntax for lists:</p>
-<pre><code>data List&lt;T&gt; = Nil | Cons(T, List&lt;T&gt;);
+<pre tabindex="0"><code>data List&lt;T&gt; = Nil | Cons(T, List&lt;T&gt;);
 List&lt;Int&gt; l = [1,2,3];
 </code></pre><p>The definition of parametric lists demonstrates that type definitions
 may be recursive. Let us instantiate parametric lists with <strong>Customer</strong>
 and, at the same time, create a <em>type synonym</em>:</p>
-<pre><code>type CustomerList = List&lt;Customer&gt;;
+<pre tabindex="0"><code>type CustomerList = List&lt;Customer&gt;;
 </code></pre><p>Type synonyms do not add new types or functionality, but can greatly en-
 hance readability.</p>
 <h3 id="42-functions">4.2 Functions</h3>
@@ -917,7 +918,7 @@ hance readability.</p>
 language with definitions by case distinction and pattern matching. All
 function names must be lower-case. Let us begin by defining a function
 that computes the length of a list of customers:</p>
-<pre><code>def Int length(CustomerList list) =
+<pre tabindex="0"><code>def Int length(CustomerList list) =
     case list {
        Nil =&gt; 0 ;
        Cons(n, ls) =&gt; 1 + length(ls) ;
@@ -933,7 +934,7 @@ a parametric version of <strong>Int length(List&lt;T&gt; list)</strong>. This is
 an exercise to the reader. Here is another example illustrating the
 remaining patterns, that is, the literal pattern and the bound variable
 pattern:</p>
-<pre><code>def Int sign(Int n) =
+<pre tabindex="0"><code>def Int sign(Int n) =
     case n {
        0 =&gt; 0 ;
        n =&gt; if (n &gt; 0) then 1 else -1 ;
@@ -944,7 +945,7 @@ error results. It is up to the modeler to prevent this situation (in the
 near future, ABS will be equipped with the possibility of failure
 handling). Similarly, it is perfectly possible to define the following
 function:</p>
-<pre><code>def Int getPid(Customer c) = pid(c);
+<pre tabindex="0"><code>def Int getPid(Customer c) = pid(c);
 </code></pre><p>However, if c has any other type than <strong>Person(Int,Level)</strong> at runtime,
 an error will result. We close this section by illustrating a piece of
 syntactic sugar for associative collection types such as sets, bags,
@@ -954,7 +955,7 @@ typically needs to iterate several binary constructors, such as
 following idiom defines an n-ary constructor that uses concrete list
 syntax as its argument. By convention, the constructor should have the
 same name as the type it is derived from, but in lower-case.</p>
-<pre><code>data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
+<pre tabindex="0"><code>data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
 def Set&lt;A&gt; set&lt;A&gt;(List&lt;A&gt; l) =
     case l {
        Nil =&gt; EmptySet;
@@ -963,7 +964,7 @@ def Set&lt;A&gt; set&lt;A&gt;(List&lt;A&gt; l) =
 </code></pre><p><img src="/images/tutorials/language-tutorial/ABSProblemReporting.jpg" alt="Parser error in the ABS Eclipse editor" title="Parser error in the ABS Eclipse editor"></p>
 <p>Errors are highlighted on the editor line where they
 occur as well as in the <strong>Problems</strong> tab of the messages subwindow</p>
-<pre><code>Set&lt;Int&gt; s = set[1,2,3];
+<pre tabindex="0"><code>Set&lt;Int&gt; s = set[1,2,3];
 </code></pre><h3 id="43-modules">4.3 Modules</h3>
 <p>If you tried to type in the previous examples into the ABS Eclipse
 editor you got parser errors despite the definitions being syntactically
@@ -973,7 +974,7 @@ ABS is equipped with a simple syntactic module system that is inspired
 by that of Haskell <a href="http://haskell.org/">[33]</a>. To make the examples
 of the previous section work, simply add a <em>module declaration</em> like
 this as the first line of the file:</p>
-<pre><code>module CustomerData;
+<pre tabindex="0"><code>module CustomerData;
 </code></pre><p>Module names must be upper-case and define a syntactic scope until the
 end of the file or until the next module declaration, whatever comes
 first. Module names can also be part of qualified type names. Module
@@ -982,7 +983,7 @@ former lists the types, type constructors, and functions that are
 visible to other modules, the latter lists the entities from other
 modules that can be used in the current module. With the type
 definitions of the previous section we might write:</p>
-<pre><code>module CustomerData;
+<pre tabindex="0"><code>module CustomerData;
 export Standard, Customer, Company, getPid;
 ...
 module Test;
@@ -996,7 +997,7 @@ former. The definition of <strong>c1</strong> is correct, but the definition of
 because <strong>Person</strong> is not exported. The <strong>from</strong> clause constitutes an
 <em>unqualified import</em>. Instead, it is also possible to make <em>qualified</em>
 imports. For example, we could have written:</p>
-<pre><code>import CustomerData.Company, CustomerData.Customer;
+<pre tabindex="0"><code>import CustomerData.Company, CustomerData.Customer;
 def CustomerData.Customer c1() = CustomerData.Company(2);
 </code></pre><p>In this case, however, one must also use qualified type names in the
 definitions as illustrated above. The ABS compiler knows one predefined
@@ -1021,7 +1022,7 @@ course, one then needs to supply suitable constructor functions,
 otherwise, no new elements can be created at all. In the example of the
 previous section we might decide to expose only the types and
 constructor functions as follows:</p>
-<pre><code>module CustomerData;
+<pre tabindex="0"><code>module CustomerData;
 export Customer, Level, createCustomer, createLevel;
 def Customer createCustomer(Int id, String kind) = ... ;
 def Level createLevel() = ... ;
@@ -1042,7 +1043,7 @@ and objects. Instead of static elements the ABS modeler should consider
 to use ADTs and functions.) but subinterfaces, even multiple
 subinterfaces, are permitted. Let us give an example that models the
 Customer type from previous sections in an object-oriented fashion:</p>
-<pre><code>module CustomerIF;
+<pre tabindex="0"><code>module CustomerIF;
 export Customer;
 import Level, createLevel from CustomerData;
 interface Customer { Int getId(); }
@@ -1054,7 +1055,7 @@ possible to mix object and data types: data types may occur anywhere
 within classes and interfaces as long as they are well-typed. Less
 obviously, reference types may also occur inside algebraic data types.
 As seen earlier, it is perfectly possible to declare the following type:</p>
-<pre><code>type CustomerList = List&lt;Customer&gt;;
+<pre tabindex="0"><code>type CustomerList = List&lt;Customer&gt;;
 </code></pre><p>Keep in mind, though, that it is not allowed to call methods in function
 definitions. The reason is that method calls might have side effects. It
 was mentioned already that classes do not provide type names. They are
@@ -1070,7 +1071,7 @@ larations that implicitly define corresponding fields and a constructor.
 Class definitions then consist of field declarations, followed by an
 initialization block and method implementations. Any of these elements
 may be missing. Hence, we can continue the example as follows:</p>
-<pre><code>class CorpIndvCustomerImpl(Int id) implements IndvCustomer, CorpCustomer {
+<pre tabindex="0"><code>class CorpIndvCustomerImpl(Int id) implements IndvCustomer, CorpCustomer {
     Level lv = createLevel();
     // no initialization block
     Level getLevel() { return lv; }
@@ -1104,7 +1105,7 @@ To illustrate all of these, one can look at the implementation of
 method <strong>findCustomer( CustomerList)</strong> in class <strong>CorpIndvCustomerImpl</strong>
 (don&rsquo;t forget to add it to the implemented interfaces as well to
 render it visible!).</p>
-<pre><code>Customer findCustomer(CustomerList cl) {
+<pre tabindex="0"><code>Customer findCustomer(CustomerList cl) {
     Customer result;
     Int i = 0;
     while (i&lt;length(cl)) {
@@ -1139,7 +1140,7 @@ encapsulation</em> of objects: it is only possible to view or change the
 state of another object via getter- and setter-methods. For example, it
 is not possible to change the second line in the body of the while-loop
 of <strong>findCustomer(CustomerList)</strong> as follows:</p>
-<pre><code>Int curId = curCust.id;
+<pre tabindex="0"><code>Int curId = curCust.id;
 </code></pre><p>The designers of ABS consider object encapsulation not as a restriction,
 but as a virtue: it makes all cross references between objects
 syntactically explicit. This avoids errors that can be hard to find. In
@@ -1173,7 +1174,7 @@ target via the Eclipse <strong>Run Configurations ...</strong> dialog or simply 
 right clicking on the desired module in the explorer and selection of
 <strong>Run As</strong>. We might complete the example by specifying the following
 main block for module <strong>CustomerIF</strong>:</p>
-<pre><code>{
+<pre tabindex="0"><code>{
     Customer c = new CorpIndvCustomerImpl(17); // create some customers
     Customer d = new CorpIndvCustomerImpl(16);
     CustomerList l = Cons(c,Cons(d,Nil)); // create list of customers
@@ -1256,7 +1257,7 @@ variable declared with type <strong>Fut&lt;T&gt;</strong> serves as a reference 
 future result of an asynchronous call and allows to retrieve it once it
 will have been computed. For example, the final line of the example on
 p. 15 can be rewritten to:</p>
-<pre><code>Fut&lt;Customer&gt; e = c!findCustomer(l);
+<pre tabindex="0"><code>Fut&lt;Customer&gt; e = c!findCustomer(l);
 // do something else ...
 </code></pre><p>Now the call creates a new task in the current COG and declares <strong>e</strong> as
 a future reference to its final result. The following code is executed
@@ -1275,7 +1276,7 @@ later the task is scheduled gain, the guard is re-evaluated, and so on,
 until it finally becomes true. We call this a <em>conditional scheduling
 point</em> or <em>conditional release point</em>. To continue the previous example
 we could write:</p>
-<pre><code>await e?;
+<pre tabindex="0"><code>await e?;
 </code></pre><p>If the asynchronous call to <strong>findCustomer(l)</strong> has finished, then
 execution simply continues. Otherwise, the lock of the current COG is
 set to ⊥ and the processor is free to proceed with another task. For
@@ -1284,10 +1285,10 @@ conjunctive composition. Once the result from an asynchronous call is
 available, it can be retrieved with a <strong>get</strong>-expression that has a
 future variable as its argument. In the example this may look as
 follows:</p>
-<pre><code>Customer f = e.get;
+<pre tabindex="0"><code>Customer f = e.get;
 </code></pre><p>In summary, the following programming idiom for asynchronous calls and
 retrieving their results is common in ABS:</p>
-<pre><code>Fut&lt;T&gt; v = o!m(e); ... ; await v?; r = v.get;
+<pre tabindex="0"><code>Fut&lt;T&gt; v = o!m(e); ... ; await v?; r = v.get;
 </code></pre><p><img src="/images/tutorials/language-tutorial/fig7.png" alt="Illustration of object and COG creation (gray boundaries represent COGs)" title="Illustration of object and COG creation; gray boundaries represent COGs"></p>
 <p>ABS does not attempt to check that each <strong>get</strong> expression is guarded
 by an <strong>await</strong> statement. So what happens when the result of an
@@ -1318,7 +1319,7 @@ consequence, it is not possible to re-enter via recursive calls into the
 same execution thread. This is the reason why a simple binary lock for
 each COG is sufficient. Let us extend our running example with an
 <strong>Account</strong> class and COG creation:</p>
-<pre><code>module Account;
+<pre tabindex="0"><code>module Account;
 interface Account {
     Int getAid();
     Int deposit(Int x);
@@ -1388,7 +1389,7 @@ needs to obtain the lock of cog_c , but this is not possible, because
 progress. Deadlocks are very difficult to avoid in general.
 Deadlock-free concurrent languages tend to be too restrictive to be
 usable and, unlike data race-freeness, are not a practical option.</p>
-<pre><code>class C {
+<pre tabindex="0"><code>class C {
     C m1(C b, C c) { Fut&lt;C&gt; r = b!m2(c); return r.get; }
     C m2(C c) { Fut&lt;C&gt; r = c!m3(); return r.get; }
     C m3() { return new C(); }
@@ -1467,7 +1468,7 @@ easily in ABS via meta annotations. The special annotation
 following it to be a definition for type annotations and makes the
 parser aware of it. For example, the location type system is declared as
 follows:</p>
-<pre><code>[TypeAnnotation]
+<pre tabindex="0"><code>[TypeAnnotation]
 data LocationType = Far | Near | Somewhere | Infer;
 // usage
 [LocationType: Near] T n;
@@ -1486,7 +1487,7 @@ be implemented in Java needs three ingredients:</p>
 <li>default ABS implementations of all interface methods.</li>
 </ol>
 <p>A simple example can look as follows:</p>
-<pre><code>import * from ABS.FLI;
+<pre tabindex="0"><code>import * from ABS.FLI;
 interface Hello { String hello(String msg); }
 [Foreign]
 class HelloImpl implements Hello {
@@ -1503,7 +1504,7 @@ details of how this is done are explained at the HATS tools site.
 Basically, one extends the Java class HelloImpl_c that was generated by
 the ABS Java backend with a new implementation of the Java method
 hello(String). By convention, the Java methods carry the prefix fli.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> abs.backend.java.lib.types.ABSString<span style="color:#f92672">;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> abs.backend.java.lib.types.ABSString<span style="color:#f92672">;</span>
 <span style="color:#f92672">import</span> abs.backend.java.lib.runtime.FLIHelper<span style="color:#f92672">;</span>
 <span style="color:#f92672">import</span> Test.HelloImpl_c<span style="color:#f92672">;</span>
 <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloImpl_fli</span> <span style="color:#66d9ef">extends</span> HelloImpl_c <span style="color:#f92672">{</span>
@@ -1591,7 +1592,7 @@ count (but not a saving account) may permit an overdraft or incur fees
 for transactions. A graphical representation of the Account feature
 model is in <a href="fig12.png">Fig. 12</a>. The textual rendering in μTVL looks as
 follows:</p>
-<pre><code>root Account {
+<pre tabindex="0"><code>root Account {
    group allof {
       Type {
          group oneof {
@@ -1676,7 +1677,7 @@ while <code>super()</code>-calls occur at runtime. As a consequence, there is a
 runtime penalty for the latter. Assume we have the following
 implementation of the withdraw(Int) method of the Account interface,
 which ensures that we cannot withdraw more than the current balance:</p>
-<pre><code>class AccountImpl(Int aid, Int balance, Customer owner)
+<pre tabindex="0"><code>class AccountImpl(Int aid, Int balance, Customer owner)
 implements Account {
    Int withdraw(Int x) {
       if (balance - x &gt;= 0) { balance = balance - x; }
@@ -1686,7 +1687,7 @@ implements Account {
 </code></pre><p>Now we would like to create a delta module that realizes the feature
 Fee. We need to modify withdraw(Int), which can be achieved by the
 following delta:</p>
-<pre><code>delta DFee(Int fee); // Implements feature Fee
+<pre tabindex="0"><code>delta DFee(Int fee); // Implements feature Fee
 uses Account;
 modifies class AccountImpl {
    modifies Int withdraw(Int x) {
@@ -1710,7 +1711,7 @@ interest rate is set to 0. ABS deltas at this time do not support to add
 or modify class initialization blocks. To change the initial value of a
 field, we simply remove the field declaration and add it again with a
 suitable initial value:</p>
-<pre><code>delta DSave(Int i); // Implements feature Save
+<pre tabindex="0"><code>delta DSave(Int i); // Implements feature Save
 uses Account;
 modifies class AccountImpl {
    removes Int interest;
@@ -1755,7 +1756,7 @@ of the delta modules.</li>
 following file (again, use file extension .abs) defines a product line
 named Accounts based on the five features of the feature model in <a href="fig12.png">Fig.
 12</a>.</p>
-<pre><code>productline Accounts;
+<pre tabindex="0"><code>productline Accounts;
 features Type, Fee, Overdraft, Check, Save;
 delta DType (Type.i) when Type;
 delta DFee (Fee.amount) when Fee;
@@ -1792,7 +1793,7 @@ with concrete values. The syntax is very simple and self-explaining. As
 any other ABS file, product selection files have the .abs extension and
 there is Eclipse support for syntax and parse error highlighting. Some
 examples for the Accounts product line are as follows:</p>
-<pre><code>product CheckingAccount (Type{i=0},Check);
+<pre tabindex="0"><code>product CheckingAccount (Type{i=0},Check);
 product AccountWithFee (Type{i=0},Check,Fee{amount=1});
 product AccountWithOverdraft (Type{i=0},Check,Overdraft);
 product SavingWithOverdraft (Type{i=1},Save,Overdraft);
@@ -2269,19 +2270,19 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

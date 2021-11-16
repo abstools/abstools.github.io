@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.">
 
 
@@ -12,21 +12,22 @@
     <title>Installing Command-Line Tools :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -650,6 +651,7 @@
     <li><a href="#using-a-pre-built-abs-compiler">Using a pre-built ABS compiler</a></li>
     <li><a href="#using-docker-to-run-the-abs-compiler">Using Docker to run the ABS compiler</a></li>
     <li><a href="#compiling-the-abs-compiler-from-source">Compiling the ABS compiler from source</a></li>
+    <li><a href="#installing-crowbar">Installing Crowbar</a></li>
     <li><a href="#installing-key-abs">Installing KeY-ABS</a></li>
   </ul>
 </nav>
@@ -688,18 +690,21 @@ instructions).</p>
 <p>On MacOS, the <a href="https://brew.sh/">homebrew</a> package manager can be used
 to install the dependencies.  After installing homebrew, run the
 following commands in a terminal:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew tap adoptopenjdk/openjdk
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">brew tap adoptopenjdk/openjdk
 brew install erlang git adoptopenjdk11
 </code></pre></div><h3 id="installing-dependencies-on-windows">Installing dependencies on Windows</h3>
 <p>On windows, the <a href="https://chocolatey.org/">chocolatey</a> package manager
 can be used to install the dependencies.  First install chocolatey
 following the instructions at <a href="https://chocolatey.org/install">https://chocolatey.org/install</a>, then
 run the following command in a terminal with Administrator rights:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">choco install AdoptOpenJDK11 erlang git
-</code></pre></div><h3 id="installing-dependencies-on-linux">Installing dependencies on Linux</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">choco install openjdk11 git erlang visualstudio2019buildtools
+</code></pre></div><p>To compile the ABS toolchain, make sure to run the command <code>./gradlew build</code>
+from a developer shell (Start -&gt; Visual Studio 2019 -&gt; Developer PowerShell
+for VS 2019).</p>
+<h3 id="installing-dependencies-on-linux">Installing dependencies on Linux</h3>
 <p>On Linux, check if your distribution offers the necessary programs
-pre-packaged in the version needed (JDK11, Erlang 23); otherwise
-download from the distribution pages linked above.</p>
+pre-packaged in the version needed (JDK11, Erlang &gt;= 23, a C compiler);
+otherwise download from the distribution pages linked above.</p>
 <h2 id="using-a-pre-built-abs-compiler">Using a pre-built ABS compiler</h2>
 <p>A pre-built <code>absfrontend.jar</code> of the current release of ABS is always linked
 from <a href="https://github.com/abstools/abstools/releases/latest">https://github.com/abstools/abstools/releases/latest</a>.  It can be
@@ -715,42 +720,57 @@ via your operating system&rsquo;s package manager.</p>
 <p>To install or update the docker image of the ABS compiler, run <code>docker pull abslang/absc:latest</code>.  Then, run <code>docker run --rm abslang/absc:latest --help</code> &ndash; you should see the help output of the ABS compiler.</p>
 <p>To compile an ABS model <code>model.abs</code> in the current directory, invoke
 the compiler with the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src abslang/absc:latest --erlang model.abs
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src abslang/absc:latest --erlang model.abs
 </code></pre></div><p>To run the model after compiling, either run <code>./gen/erl/run</code> (if the
 host machine has erlang installed), or run the model inside docker
 with the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc
 </code></pre></div><p>Note that using the Model API of a model running inside a docker
 container requires additional parameters to make the listening port
 visible on the host system.  To run the Model API on port 8080, use
 the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -p 8080:8080 -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc -p <span style="color:#ae81ff">8080</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -p 8080:8080 -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc -p <span style="color:#ae81ff">8080</span>
 </code></pre></div><h2 id="compiling-the-abs-compiler-from-source">Compiling the ABS compiler from source</h2>
 <p>To compile the ABS compiler from source, clone the git repository and run
 gradle (after installing the necessary dependencies):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># on Linux, macOS</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># on Linux, macOS</span>
 git clone https://github.com/abstools/abstools.git
 cd abstools
 ./gradlew assemble
-frontend/bin/bash/absc --help
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># on Windows</span>
+frontend/bin/absc --help
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># on Windows</span>
 git clone <span style="color:#e6db74">&#34;https://github.com/abstools/abstools.git&#34;</span>
 cd abstools
 .\gradlew assemble
-frontend\bin\win\absc --help
+frontend\bin\absc.bat --help
 </code></pre></div><p>At the end of these commands, you should see the help output of the ABS
 compiler.</p>
-<p>The directory <code>abstools/frontend/bin/bash</code> (for Linux, macOS, other Unix
-systems) or <code>abstools\frontend\bin\win</code> contains a convenience script for
-invoking the ABS compiler; this directory can be added to the PATH environment
-variable if desired.</p>
+<p>The directory <code>abstools/frontend/bin</code> contains convenience scripts <code>absc</code> (for
+Linux, macOS, other Unix systems) and <code>absc.bat</code> (for Windows) that invoke the
+ABS compiler.  This directory can be added to the <code>PATH</code> environment variable
+if desired.</p>
 <p>To compile an ABS model <code>model.abs</code>, invoke the compiler with <code>absc --erlang model.abs</code>, then run the model with <code>./gen/erl/run</code>.</p>
-<h2 id="installing-key-abs">Installing KeY-ABS</h2>
+<h2 id="installing-crowbar">Installing Crowbar</h2>
+<p>For a local installation of the Crowbar verification systems, either download a <a href="https://github.com/Edkamb/crowbar-tool/releases/">prepackaged jar file</a>, or compile the code locally.
+Crowbar requires Java &gt;= 1.8 and an SMT-Solver to run.
+On an Ubuntu machine, run the following to install Crowbar and run it on an example file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install z3
+mkdir crowbar
+cd crowbar
+git clone https://github.com/Edkamb/crowbar-tool.git .
+./gradlew assemble
+java -jar build/libs/crowbar.jar --full examples/account.abs
+</code></pre></div><p>The expected output should end in the lines</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+Crowbar  : Final verification result: true
+Crowbar  : Verification time: ...
+Crowbar  : Total number of branches: <span style="color:#ae81ff">6</span>
+</code></pre></div><h2 id="installing-key-abs">Installing KeY-ABS</h2>
 <p>For a local installation of the KeY-ABS theorem prover, install Java 8.  Then,
 download KeY-ABS from <a href="http://i12www.ira.uka.de/key/key-abs/key-abs.zip">http://i12www.ira.uka.de/key/key-abs/key-abs.zip</a>.
 Unzipping that downloaded file and double-clicking on the key.jar file should
 start KeY-ABS.  To start from the command line, use:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -jar key.jar
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -jar key.jar
 </code></pre></div>
 
 <footer class="footline">
@@ -1135,19 +1155,19 @@ start KeY-ABS.  To start from the command line, use:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

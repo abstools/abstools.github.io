@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="Modeling simple behavior, getting complex results.">
 
 
@@ -12,21 +12,22 @@
     <title>The Monty Hall Problem :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -719,7 +720,7 @@ sequenceDiagram
 <p>For simplicity, we model the three doors as the numbers <code>0..2</code>.  The host has
 two methods: <code>guess</code>, which takes a door and returns another door that is
 definitely the wrong answer (the host is trustworthy).  The method <code>open</code> takes a door and returns its content: <code>Car</code> or <code>Goat</code>.</p>
-<pre><code class="language-abs" data-lang="abs">data Prize = Car | Goat;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">data Prize = Car | Goat;
 
 interface Host {
     Int guess(Int door_guess);
@@ -745,7 +746,7 @@ it to the host, receives information about another door, and finally asks the
 host to open the chosen door.  Each contestant keeps track of the number of
 rounds and wins they have played.</p>
 <p>The code below shows the contestant that switches their guess after shown the incorrect door; the non-switching contestant is similar except for one line.</p>
-<pre><code class="language-abs" data-lang="abs">interface Contestant {
+<pre tabindex="0"><code class="language-abs" data-lang="abs">interface Contestant {
     Unit play(Host host);
     Unit printSummary();
 }
@@ -767,7 +768,7 @@ class SwitchingContestant implements Contestant {
 }
 </code></pre><h2 id="running-the-example">Running the Example</h2>
 <p>Since we want to investigate whether the results for switching and non-switching strategies are different, we create one participant of each type and let them play against 1000 hosts:</p>
-<pre><code class="language-abs" data-lang="abs">{
+<pre tabindex="0"><code class="language-abs" data-lang="abs">{
     Int nRounds = 1000;
     Contestant swc = new SwitchingContestant();
     Contestant nsc = new NonSwitchingContestant();
@@ -1173,19 +1174,19 @@ modeling a system.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

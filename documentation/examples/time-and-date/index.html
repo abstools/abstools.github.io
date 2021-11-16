@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
 
 
@@ -12,21 +12,22 @@
     <title>Modeling and Visualizing Calendar Time :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -680,7 +681,7 @@
 <p>The following short ABS model creates a list of values together with the time when the value was produced.  The results are stored in a <code>Calendar</code> object that is accessible via <a href="https://abs-models.org/manual/#-the-model-api">the ABS Model API</a>.</p>
 <p>During the simulation, the method <code>addValue</code> is called with random values.  The calendar object keeps track of the value and the time when it was added.</p>
 <p>The calendar also makes two methods callable via the Model API: <code>getValues</code> returns a list of pairs of recorded time and value.  The method <code>getStartDate</code> returns a string containing a date in ISO 8601 notation; this is the “real” start date that will be used in the simulation.  The time values in the list returned by <code>getValues</code> will be interpreted as <em>offset</em> from that point in time.</p>
-<pre><code class="language-abs" data-lang="abs">module CalendarTime;
+<pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
 
 def String start_date() = &quot;2020-04-01&quot;;
 
@@ -717,7 +718,7 @@ class Calendar implements Calendar {
 <p>To visualize times properly, they must be converted to a format that the visualization library expects.</p>
 <p>In addition to the chosen offset (2020-04-01 in our case), we also need a <em>scaling factor</em> to convert the logical clock values of ABS to real date and time values.  We choose to represent each day by an increment of <code>1</code>; fractional values of the clock represent the time of day.  Since  our model advances the clock by <code>1/4</code> sixteen times, the values are recorded at 6am, 12pm, 6pm and midnight for four days.</p>
 <p>As an example, here is a Javascript function that takes the startdate (as a string parseable via <code>new Date</code>) and offset (as a floating point number, with the integer part the number of days and the fractional part the time of day, with <code>0.5</code> exactly noon) and returns a Javascript <code>Date</code> object.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
@@ -727,7 +728,7 @@ class Calendar implements Calendar {
 }
 </code></pre></div><h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
 <p>The following is a complete HTML file that uses the <a href="https://www.highcharts.com/blog/products/highcharts/">Highcharts</a> library to draw a line diagram of the random values generated by ABS.  The function <code>drawChart</code> retrieves the starting offset and value list via the Model API, then creates a Highcharts chart with the downloaded values.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
 &lt;<span style="color:#f92672">html</span>&gt;
   &lt;<span style="color:#f92672">head</span>&gt;
     &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
@@ -780,7 +781,7 @@ class Calendar implements Calendar {
 &lt;/<span style="color:#f92672">html</span>&gt;
 </code></pre></div><h2 id="running-the-example">Running the Example</h2>
 <p>The following small Makefile can be used to compile and start the model.  Make sure to store the ABS model in a file <code>CalendarTime.abs</code> and the html in a file <code>index.html</code>, then type <code>make run</code> and connect the browser to http://localhost:8080.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
 <span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> run			<span style="color:#75715e">## Generate data and start model (default)
 </span><span style="color:#75715e"></span>
 <span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
@@ -1182,19 +1183,19 @@ class Calendar implements Calendar {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

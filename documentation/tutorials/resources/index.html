@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.83.1" />
+    <meta name="generator" content="Hugo 0.89.3" />
     <meta name="description" content="An introduction to time and resource modeling in ABS.">
 
 
@@ -12,21 +12,22 @@
     <title>Resource Modeling Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1621343926" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1621343926" rel="stylesheet">
-    <link href="/css/hybrid.css?1621343926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1621343926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1621343926" rel="stylesheet">
-    <link href="/css/auto-complete.css?1621343926" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1621343926" rel="stylesheet">
-    <link href="/css/theme.css?1621343926" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1621343926" rel="stylesheet">
+    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
+    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
+    <link href="/css/theme.css?1637068469" rel="stylesheet">
+    <link href="/css/tabs.css?1637068469" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1621343926" rel="stylesheet">
+    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1621343926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1621343926"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1621343926"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1621343926"></script>
+<script type="text/javascript" src="/js/search.js?1637068469"></script>
 
     
   </div>
@@ -722,7 +723,7 @@ can define polymorphic sets using a type variable <code>A</code> and two constru
 <code>EmptySet</code> and <code>Insert</code>, and a function contains which checks whether an
 element <code>el</code> is in a set <code>ss</code> recursively by pattern matching over <code>ss</code>:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
+<pre tabindex="0"><code class="language-abs" data-lang="abs">data Set&lt;A&gt; = EmptySet | Insert(A, Set&lt;A&gt;);
 def Bool contains&lt;A&gt;(Set&lt;A&gt; ss, A el) =
   case ss {
     EmptySet      =&gt; False ;
@@ -809,7 +810,7 @@ deadline to <code>m</code> will also be unlimited.  The function <code>scale(d,r
 a duration <code>d</code> by a rational number <code>r</code> (the definition of <code>scale</code> is
 straightforward).</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }</code></pre>
+<pre tabindex="0"><code class="language-abs" data-lang="abs">Int n (T x){ [Deadline: scale(deadline(),0.9)] return o.m(x); }</code></pre>
 </div>
 </div>
 </div>
@@ -833,7 +834,7 @@ between a duration <code>0.5*size(x)</code> and a duration <code>4*size(x)</code
 which provides the method <code>m</code> and a class <code>C</code> which implements <code>I</code>, including the
 execution time for <code>m</code> using the explicit time model, are specified as follows:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">interface I {
+<pre tabindex="0"><code class="language-abs" data-lang="abs">interface I {
   Int m(T x)
 }
 class C implements I {
@@ -858,7 +859,7 @@ interface <code>J</code> with a method <code>p</code> which, given a value of ty
 value of type <code>Duration</code>, and implement <code>p</code> in a class <code>D</code> such that <code>p</code>
 measures the time needed to call the method <code>m</code> above, as follows:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">interface J {
+<pre tabindex="0"><code class="language-abs" data-lang="abs">interface J {
   Duration p (T x)
 }
 class D implements J (I o) {
@@ -923,7 +924,7 @@ no resource restrictions).  The local variables <code>server1</code>, <code>serv
 Objects are explicitly allocated to the servers by annotations; below,
 <code>object1</code> is allocated to <code>Server1</code>, etc.</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">{ // This main block initializes a static deployment architecture:
+<pre tabindex="0"><code class="language-abs" data-lang="abs">{ // This main block initializes a static deployment architecture:
   DC server1 = new DeploymentComponent(&#34;Server1&#34;,set[CPUCapacity(6)]);
   DC server2 = new DeploymentComponent(&#34;Server2&#34;,set[CPUCapacity(3)]);
   DC clientServer = new DeploymentComponent(&#34;ClientServer&#34;, EmptySet);
@@ -979,7 +980,7 @@ we may redefine the implementation of interface <code>I</code> above to be
 resource-sensitive instead of having a predefined duration as in the explicit
 time model.  The resulting class <code>C2</code> can be defined as follows:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">class C2 implements I {
+<pre tabindex="0"><code class="language-abs" data-lang="abs">class C2 implements I {
   Int m (T x){ [Cost: g(size(x))] return f(x);
   }
 }</code></pre>
@@ -1000,7 +1001,7 @@ remains to be fully specified.  For example, the class <code>C3</code> below rep
 draft version of our method <code>m</code> in which the worst-case cost of the computation
 is specified although the function <code>f</code> has yet to be introduced:</p>
 <div class="src src-abs">
-<pre><code class="language-abs" data-lang="abs">class C3 implements I {
+<pre tabindex="0"><code class="language-abs" data-lang="abs">class C3 implements I {
   Int m (T x){ [Cost: size(x)*size(x)] return 0;
   }
 }</code></pre>
@@ -1402,19 +1403,19 @@ is specified although the function <code>f</code> has yet to be introduced:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1621343926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1621343926"></script>
-    <script src="/js/jquery.sticky.js?1621343926"></script>
-    <script src="/js/featherlight.min.js?1621343926"></script>
-    <script src="/js/highlight.pack.js?1621343926"></script>
+    <script src="/js/clipboard.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
+    <script src="/js/jquery.sticky.js?1637068469"></script>
+    <script src="/js/featherlight.min.js?1637068469"></script>
+    <script src="/js/highlight.pack.js?1637068469"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1621343926"></script>
-    <script src="/js/learn.js?1621343926"></script>
-    <script src="/js/hugo-learn.js?1621343926"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
+    <script src="/js/learn.js?1637068469"></script>
+    <script src="/js/hugo-learn.js?1637068469"></script>
     
         
-            <script src="/mermaid/mermaid.js?1621343926"></script>
+            <script src="/mermaid/mermaid.js?1637068469"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
