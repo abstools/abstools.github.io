@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="generator" content="Hugo 0.93.0" />
     <meta name="description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
 
 
@@ -12,22 +12,22 @@
     <title>Modeling and Visualizing Calendar Time :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
-    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
-    <link href="/css/theme.css?1637068469" rel="stylesheet">
-    <link href="/css/tabs.css?1637068469" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
+    <link href="/css/nucleus.css?1646219168" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646219168" rel="stylesheet">
+    <link href="/css/hybrid.css?1646219168" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646219168" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646219168" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646219168" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1646219168" rel="stylesheet">
+    <link href="/css/theme.css?1646219168" rel="stylesheet">
+    <link href="/css/tabs.css?1646219168" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1646219168" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
+    <link href="/css/theme-abs.css?1646219168" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
+    <script src="/js/jquery-3.3.1.min.js?1646219168"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1646219168"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1646219168"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1637068469"></script>
+<script type="text/javascript" src="/js/search.js?1646219168"></script>
 
     
   </div>
@@ -313,6 +313,27 @@
       <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+        <a href="/documentation/examples/multicore_memory/">
+        ABS Model of a Multicore Memory System
         
         </a>
     </li>
@@ -683,7 +704,7 @@
 <p>The calendar also makes two methods callable via the Model API: <code>getValues</code> returns a list of pairs of recorded time and value.  The method <code>getStartDate</code> returns a string containing a date in ISO 8601 notation; this is the “real” start date that will be used in the simulation.  The time values in the list returned by <code>getValues</code> will be interpreted as <em>offset</em> from that point in time.</p>
 <pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
 
-def String start_date() = &quot;2020-04-01&quot;;
+def String start_date() = &#34;2020-04-01&#34;;
 
 interface Calendar {
     [HTTPCallable] String getStartDate();
@@ -704,7 +725,7 @@ class Calendar implements Calendar {
 }
 
 {
-    [HTTPName: &quot;Calendar&quot;] Calendar c = new Calendar();
+    [HTTPName: &#34;Calendar&#34;] Calendar c = new Calendar();
     Int nRounds = 16;
     while (nRounds &gt; 0) {
         c!addValue(random(50));
@@ -718,84 +739,84 @@ class Calendar implements Calendar {
 <p>To visualize times properly, they must be converted to a format that the visualization library expects.</p>
 <p>In addition to the chosen offset (2020-04-01 in our case), we also need a <em>scaling factor</em> to convert the logical clock values of ABS to real date and time values.  We choose to represent each day by an increment of <code>1</code>; fractional values of the clock represent the time of day.  Since  our model advances the clock by <code>1/4</code> sixteen times, the values are recorded at 6am, 12pm, 6pm and midnight for four days.</p>
 <p>As an example, here is a Javascript function that takes the startdate (as a string parseable via <code>new Date</code>) and offset (as a floating point number, with the integer part the number of days and the fractional part the time of day, with <code>0.5</code> exactly noon) and returns a Javascript <code>Date</code> object.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
-    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setDate</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span>);
-    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setTime</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">date</span>;
-}
-</code></pre></div><h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setDate</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setTime</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">date</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
 <p>The following is a complete HTML file that uses the <a href="https://www.highcharts.com/blog/products/highcharts/">Highcharts</a> library to draw a line diagram of the random values generated by ABS.  The function <code>drawChart</code> retrieves the starting offset and value list via the Model API, then creates a Highcharts chart with the downloaded values.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-  &lt;<span style="color:#f92672">head</span>&gt;
-    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
-    &lt;<span style="color:#f92672">title</span>&gt;Date and Time in ABS&lt;/<span style="color:#f92672">title</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/highcharts.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/exporting.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/export-data.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-  &lt;/<span style="color:#f92672">head</span>&gt;
-  &lt;<span style="color:#f92672">body</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;Date and Time in ABS&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-    <span style="color:#e6db74">&#39;use strict&#39;</span>;
-    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
-        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
-        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
-        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
-        <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setDate</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span>);
-        <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setTime</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>(); <span style="color:#75715e">// number of milliseconds, as needed by Highcharts
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawChart</span>(){
-        <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">when</span>(
-            <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#34;/call/Calendar/getStartDate&#34;</span>),
-            <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#34;/call/Calendar/getValues&#34;</span>)
-        ).<span style="color:#a6e22e">done</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resstartdate</span>, <span style="color:#a6e22e">resvalues</span>) {
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">startdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resstartdate</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">result</span>;
-            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resvalues</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; [<span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fst</span>), <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">snd</span>]);
-            <span style="color:#a6e22e">Highcharts</span>.<span style="color:#a6e22e">chart</span>(<span style="color:#e6db74">&#39;chart-container&#39;</span>, {
-                <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
-                <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Dates and values from ABS&#39;</span> },
-                <span style="color:#a6e22e">xAxis</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;datetime&#39;</span> },
-                <span style="color:#a6e22e">yAxis</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Value (random number)&#39;</span> } },
-                <span style="color:#a6e22e">series</span><span style="color:#f92672">:</span> [{
-                     <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;random value&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>
-                 }]
-            });
-        });
-    }
-
-    <span style="color:#a6e22e">$</span>(document).<span style="color:#a6e22e">ready</span>(<span style="color:#66d9ef">function</span>(){
-        <span style="color:#a6e22e">drawChart</span>();
-    });
-    
-    &lt;/<span style="color:#f92672">script</span>&gt;
-  &lt;/<span style="color:#f92672">body</span>&gt;
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><h2 id="running-the-example">Running the Example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Date and Time in ABS&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/highcharts.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/exporting.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/export-data.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;Date and Time in ABS&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;use strict&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setDate</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setTime</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>(); <span style="color:#75715e">// number of milliseconds, as needed by Highcharts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawChart</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">when</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#34;/call/Calendar/getStartDate&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">getJSON</span>(<span style="color:#e6db74">&#34;/call/Calendar/getValues&#34;</span>)
+</span></span><span style="display:flex;"><span>        ).<span style="color:#a6e22e">done</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resstartdate</span>, <span style="color:#a6e22e">resvalues</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">startdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resstartdate</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resvalues</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; [<span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fst</span>), <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">snd</span>]);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Highcharts</span>.<span style="color:#a6e22e">chart</span>(<span style="color:#e6db74">&#39;chart-container&#39;</span>, {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Dates and values from ABS&#39;</span> },
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">xAxis</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;datetime&#39;</span> },
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">yAxis</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Value (random number)&#39;</span> } },
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">series</span><span style="color:#f92672">:</span> [{
+</span></span><span style="display:flex;"><span>                     <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;random value&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>                 }]
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">$</span>(document).<span style="color:#a6e22e">ready</span>(<span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">drawChart</span>();
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h2 id="running-the-example">Running the Example</h2>
 <p>The following small Makefile can be used to compile and start the model.  Make sure to store the ABS model in a file <code>CalendarTime.abs</code> and the html in a file <code>index.html</code>, then type <code>make run</code> and connect the browser to http://localhost:8080.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
-<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> run			<span style="color:#75715e">## Generate data and start model (default)
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
-<span style="color:#a6e22e">compile</span><span style="color:#f92672">:</span> CalendarTime.abs index.html <span style="color:#75715e">## Compile the model
-</span><span style="color:#75715e"></span>	absc --erlang CalendarTime.abs --modelapi-index-file index.html
-
-<span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
-<span style="color:#a6e22e">run</span><span style="color:#f92672">:</span> compile			<span style="color:#75715e">## Execute the model
-</span><span style="color:#75715e"></span>	gen/erl/run -p <span style="color:#ae81ff">8080</span> -v
-
-<span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> help
-<span style="color:#a6e22e">help</span><span style="color:#f92672">:</span>				<span style="color:#75715e">## Display this message
-</span><span style="color:#75715e"></span>	@grep -E <span style="color:#e6db74">&#39;^[a-zA-Z_-]+:.*?## .*$$&#39;</span> <span style="color:#66d9ef">$(</span>MAKEFILE_LIST<span style="color:#66d9ef">)</span> | sort | awk <span style="color:#e6db74">&#39;BEGIN {FS = &#34;:.*?## &#34;}; {printf &#34;\033[36m%-30s\033[0m %s\n&#34;, $$1, $$2}&#39;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-make" data-lang="make"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> run			<span style="color:#75715e">## Generate data and start model (default)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">compile</span><span style="color:#f92672">:</span> CalendarTime.abs index.html <span style="color:#75715e">## Compile the model
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	absc --erlang CalendarTime.abs --modelapi-index-file index.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">run</span><span style="color:#f92672">:</span> compile			<span style="color:#75715e">## Execute the model
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	gen/erl/run -p <span style="color:#ae81ff">8080</span> -v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> help
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">help</span><span style="color:#f92672">:</span>				<span style="color:#75715e">## Display this message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	@grep -E <span style="color:#e6db74">&#39;^[a-zA-Z_-]+:.*?## .*$$&#39;</span> <span style="color:#66d9ef">$(</span>MAKEFILE_LIST<span style="color:#66d9ef">)</span> | sort | awk <span style="color:#e6db74">&#39;BEGIN {FS = &#34;:.*?## &#34;}; {printf &#34;\033[36m%-30s\033[0m %s\n&#34;, $$1, $$2}&#39;</span>
+</span></span></code></pre></div>
 
 <footer class="footline">
 	
@@ -983,6 +1004,22 @@ class Calendar implements Calendar {
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1183,19 +1220,19 @@ class Calendar implements Calendar {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
-    <script src="/js/jquery.sticky.js?1637068469"></script>
-    <script src="/js/featherlight.min.js?1637068469"></script>
-    <script src="/js/highlight.pack.js?1637068469"></script>
+    <script src="/js/clipboard.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1646219168"></script>
+    <script src="/js/jquery.sticky.js?1646219168"></script>
+    <script src="/js/featherlight.min.js?1646219168"></script>
+    <script src="/js/highlight.pack.js?1646219168"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
-    <script src="/js/learn.js?1637068469"></script>
-    <script src="/js/hugo-learn.js?1637068469"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646219168"></script>
+    <script src="/js/learn.js?1646219168"></script>
+    <script src="/js/hugo-learn.js?1646219168"></script>
     
         
-            <script src="/mermaid/mermaid.js?1637068469"></script>
+            <script src="/mermaid/mermaid.js?1646219168"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

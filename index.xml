@@ -121,5 +121,14 @@ The complete code can be found at https://github.com/abstools/absexamples/tree/m
 Modeling a Water Tank The following class shows the model of a water tank. The field level holds the current water level, the field valve_open records the status of an exit valve (open or not open).</description>
     </item>
     
+    <item>
+      <title>ABS Model of a Multicore Memory System</title>
+      <link>https://abs-models.org/documentation/examples/multicore_memory/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://abs-models.org/documentation/examples/multicore_memory/</guid>
+      <description>A multicore memory system consists of cores that contain tasks to be executed, the data layout in main memory (indicating where data is allocated), and a system architecture consisting of cores with private multi-level caches and shared memory (see Figure 1). Such a system is parametric in the number of cores, the number and size of caches, and the associativity and replacement policy. Data is organised in blocks that move between the caches and the main memory.</description>
+    </item>
+    
   </channel>
 </rss>

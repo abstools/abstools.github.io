@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="generator" content="Hugo 0.93.0" />
     <meta name="description" content="An example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.">
 
 
@@ -12,22 +12,22 @@
     <title>Modeling and Visualizing A Water Tank Controller :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
-    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
-    <link href="/css/theme.css?1637068469" rel="stylesheet">
-    <link href="/css/tabs.css?1637068469" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
+    <link href="/css/nucleus.css?1646219168" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646219168" rel="stylesheet">
+    <link href="/css/hybrid.css?1646219168" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646219168" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646219168" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646219168" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1646219168" rel="stylesheet">
+    <link href="/css/theme.css?1646219168" rel="stylesheet">
+    <link href="/css/tabs.css?1646219168" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1646219168" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
+    <link href="/css/theme-abs.css?1646219168" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
+    <script src="/js/jquery-3.3.1.min.js?1646219168"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1646219168"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1646219168"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1637068469"></script>
+<script type="text/javascript" src="/js/search.js?1646219168"></script>
 
     
   </div>
@@ -313,6 +313,27 @@
       <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item active">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+        <a href="/documentation/examples/multicore_memory/">
+        ABS Model of a Multicore Memory System
         
         </a>
     </li>
@@ -747,7 +768,7 @@ class Controller(WaterTank tank, Float minlevel, Float maxlevel) implements Cont
 }
 
 {
-    [HTTPName: &quot;watertank&quot;] WaterTank tank = new WaterTank(1.0, 0.2);
+    [HTTPName: &#34;watertank&#34;] WaterTank tank = new WaterTank(1.0, 0.2);
     Controller controller = new Controller(tank, 5.0, 10.0);
 }
 </code></pre><p>We also see, at the bottom, the main block that creates a water tank
@@ -759,47 +780,47 @@ visualization library, so needs an online connection to work.</p>
 <p>When connecting e.g. to <code>localhost:8080</code>, the browser will make a
 connection to <code>/call/watertank/getValveAndLevelHistory</code>, which results
 in a call to the <code>getValveAndLevelHistory</code> method of the water tank.  The returned data is then converted into two lists of values which are passed to Highchart to be plotted.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-  &lt;<span style="color:#f92672">head</span>&gt;
-    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
-    &lt;<span style="color:#f92672">title</span>&gt;Watertank&lt;/<span style="color:#f92672">title</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/highcharts.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/exporting.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/export-data.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
-  &lt;/<span style="color:#f92672">head</span>&gt;
-  &lt;<span style="color:#f92672">body</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;Watertank&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  &lt;/<span style="color:#f92672">body</span>&gt;
-  &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-    <span style="color:#e6db74">&#39;use strict&#39;</span>;
-    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawChart</span>() {
-        <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;/call/watertank/getValveAndLevelHistory&#34;</span>)
-            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
-            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {
-                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">valvestatus</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fst</span>);
-                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">waterlevel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">snd</span>);
-                <span style="color:#a6e22e">Highcharts</span>.<span style="color:#a6e22e">chart</span>(<span style="color:#e6db74">&#39;chart-container&#39;</span>, {
-                    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
-                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Watertank&#39;</span> },
-                    <span style="color:#a6e22e">series</span><span style="color:#f92672">:</span> [
-                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;valve status&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">valvestatus</span>, <span style="color:#a6e22e">step</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;right&#39;</span> },
-                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;water level&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">waterlevel</span> }
-                    ]
-                });
-            });
-    }
-
-    document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;DOMContentLoaded&#34;</span>, <span style="color:#66d9ef">function</span> () {
-        <span style="color:#a6e22e">drawChart</span>();
-    });
-  &lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><h2 id="running-the-example">Running the Example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Watertank&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/highcharts.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/exporting.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://code.highcharts.com/modules/export-data.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;Watertank&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chart-container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;use strict&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawChart</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;/call/watertank/getValveAndLevelHistory&#34;</span>)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">valvestatus</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fst</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">waterlevel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">snd</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">Highcharts</span>.<span style="color:#a6e22e">chart</span>(<span style="color:#e6db74">&#39;chart-container&#39;</span>, {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;line&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Watertank&#39;</span> },
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">series</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;valve status&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">valvestatus</span>, <span style="color:#a6e22e">step</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;right&#39;</span> },
+</span></span><span style="display:flex;"><span>                        { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;water level&#39;</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">waterlevel</span> }
+</span></span><span style="display:flex;"><span>                    ]
+</span></span><span style="display:flex;"><span>                });
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;DOMContentLoaded&#34;</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">drawChart</span>();
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h2 id="running-the-example">Running the Example</h2>
 <p>As mentioned, the code of this example resides at <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/</a>.  Place the files <code>Watertank.abs</code>, <code>index.html</code> and <code>Makefile</code> into the same directory and run the command <code>make</code> to compile and start the model.  Then, connect a browser to the URL <code>http://localhost:8080/</code> to see the resulting graph.  The resulting plot shows the water level decreasing when the valve is open, and increasing again when the valve is closed.</p>
-<p><img src="/images/examples-single-watertank.png" alt="Plot of water level and valve status over time"></p>
+<p><img src="/images/examples/single-watertank/single-watertank.png" alt="Plot of water level and valve status over time"></p>
 
 
 <footer class="footline">
@@ -997,9 +1018,6 @@ in a call to the <code>getValveAndLevelHistory</code> method of the water tank. 
             
         
                     
-            
-        
-                    
                         
             
             
@@ -1007,6 +1025,25 @@ in a call to the <code>getValveAndLevelHistory</code> method of the water tank. 
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1178,7 +1215,7 @@ in a call to the <code>getValveAndLevelHistory</code> method of the water tank. 
 			<a class="nav nav-prev" href="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/documentation/tutorials/" title="Tutorials" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1188,19 +1225,19 @@ in a call to the <code>getValveAndLevelHistory</code> method of the water tank. 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
-    <script src="/js/jquery.sticky.js?1637068469"></script>
-    <script src="/js/featherlight.min.js?1637068469"></script>
-    <script src="/js/highlight.pack.js?1637068469"></script>
+    <script src="/js/clipboard.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1646219168"></script>
+    <script src="/js/jquery.sticky.js?1646219168"></script>
+    <script src="/js/featherlight.min.js?1646219168"></script>
+    <script src="/js/highlight.pack.js?1646219168"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
-    <script src="/js/learn.js?1637068469"></script>
-    <script src="/js/hugo-learn.js?1637068469"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646219168"></script>
+    <script src="/js/learn.js?1646219168"></script>
+    <script src="/js/hugo-learn.js?1646219168"></script>
     
         
-            <script src="/mermaid/mermaid.js?1637068469"></script>
+            <script src="/mermaid/mermaid.js?1646219168"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

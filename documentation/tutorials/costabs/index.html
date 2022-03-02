@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="generator" content="Hugo 0.93.0" />
     <meta name="description" content="CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.">
 
 
@@ -12,22 +12,22 @@
     <title>Resource Analysis with CostABS :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
-    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
-    <link href="/css/theme.css?1637068469" rel="stylesheet">
-    <link href="/css/tabs.css?1637068469" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
+    <link href="/css/nucleus.css?1646219168" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646219168" rel="stylesheet">
+    <link href="/css/hybrid.css?1646219168" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646219168" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646219168" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646219168" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1646219168" rel="stylesheet">
+    <link href="/css/theme.css?1646219168" rel="stylesheet">
+    <link href="/css/tabs.css?1646219168" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1646219168" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
+    <link href="/css/theme-abs.css?1646219168" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
+    <script src="/js/jquery-3.3.1.min.js?1646219168"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1646219168"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1646219168"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1637068469"></script>
+<script type="text/javascript" src="/js/search.js?1646219168"></script>
 
     
   </div>
@@ -313,6 +313,27 @@
       <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+        <a href="/documentation/examples/multicore_memory/">
+        ABS Model of a Multicore Memory System
         
         </a>
     </li>
@@ -806,75 +827,51 @@ for the analysis.  The following parameters are available:</p>
 <dt>
 Cost model
 </dt>
-<dd>
-<p>The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).</p>
-</dd>
+<dd>The cost model indicates the type of resource that we are interested in measuring. The user can select among the following cost metrics: termination (only termination is proved), steps (counts the number of executed instructions), objects (counts the number of executed new instructions), tasks (counts the number of asynchronous calls to methods), memory (measures the size of the created data structures), data transmitted (measures the amount of data transmitted among the distributed objects), user-defined model (allows to write annotations in the code of the form <code>[cost == expr]</code> and the analysis accumulates the cost specified by the user in <code>expr</code> every time this program point is visited).</dd>
 <dt>
 Cost centers
 </dt>
-<dd>
-<p>This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.</p>
-</dd>
+<dd>This option allows us to decide whether we want to obtain the cost per cost center (i.e., for each of the abstract objects inferred by the analysis) or a monolithic expression that accumulates the whole computation in the distributed system. The value no refers to the latter case. If we want to separate the cost per cost center, we have again two possibilities. The option class shows the cost of all objects of the same class together, while objectindicates the cost attributed to each abstract object.</dd>
 <dt>
 Asymptotic bounds
 </dt>
-<dd>
-<p>Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.</p>
-</dd>
+<dd>Upper bounds can be displayed in asymptotic or non-asymptotic form. The former one is obtained by removing all constants and subsumed expressions from the non-asymptotic cost, only showing the complexity order.</dd>
 <dt>
 Symbolic or numeric
 </dt>
-<dd>
-<p>Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.</p>
-</dd>
+<dd>Next, if the cost model is memory or objects, the upper bounds can be shown either symbolically, in terms of symbolic sizes (we use <code>size(A)</code> to refer to the size of an object of type <code>A</code>), or numeric, by assigning a predefined measure to them.</dd>
 <dt>
 Debug
 </dt>
-<dd>
-<p>sets the verbosity of the output (the higher the number, the more verbose the output).</p>
-</dd>
+<dd>sets the verbosity of the output (the higher the number, the more verbose the output).</dd>
 <dt>
 Rely Guarantee
 </dt>
-<dd>
-<p>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).</p>
-</dd>
+<dd>performs the resource analysis taking into account the possible interleavings in the tasks execution (as described in the paper <a href="http://dx.doi.org/10.1007/978-3-319-02444-8_25">“Termination and Cost Analysis of Loops with Concurrent Interleavings”</a>).</dd>
 <dt>
 Peak Cost Analysis
 </dt>
-<dd>
-<p>computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2">”Peak Cost Analysis of Distributed Systems”</a>).</p>
-</dd>
+<dd>computes the peak cost analysis for all objects which are identified (see the paper <a href="http://dx.doi.org/10.1007/978-3-319-10936-7_2">”Peak Cost Analysis of Distributed Systems”</a>).</dd>
 <dt>
 Parallel Cost Analysis
 </dt>
-<dd>
-<p>computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>).</p>
-</dd>
+<dd>computes the parallel cost analysis of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-48288-9_16">“Parallel Cost Analysis of Distributed Systems”</a>).</dd>
 <dt>
 Non-cumulative Cost Analysis
 </dt>
-<dd>
-<p>computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6">“Non-cumulative Resource Analysis”</a>).</p>
-</dd>
+<dd>computes the non-cumulative cost of the program (see the paper <a href="http://dx.doi.org/10.1007/978-3-662-46681-0_6">“Non-cumulative Resource Analysis”</a>).</dd>
 <dt>
 Backend of the Analysis
 </dt>
-<dd>
-<p>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</p>
-</dd>
+<dd>SACO uses PUBS or CoFloCo as backend to solve the cost equations (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</dd>
 <dt>
 Conditional Upper Bounds
 </dt>
-<dd>
-<p>computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</p>
-</dd>
+<dd>computes a set of conditional upper bounds (UBs) according to some conditions on the input parameters (see the technical report <a href="http://envisage-project.eu/wp-content/uploads/2013/09/APLAS14techReport.pdf">“Resource Analysis of Complex Programs with Cost Equations”</a>).</dd>
 <dt>
 Timed Cost Analysis
 </dt>
-<dd>
-<p>computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf">this technical report</a>).</p>
-</dd>
+<dd>computes the cost analysis in time (see <a href="https://www.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_SE/Page_Content/Group_Members/Antonio_Flores-Montoya/ResourceAnalysisTime_TechReport.pdf">this technical report</a>).</dd>
 </dl>
 <p>Let us analyze the program 
 <a href="http://ei.abs-models.org:8082/clients/web/index.html?file=/collaboratory/deliverables/D3.3.2/VendingMachine_init.abs&amp;app=cost" target="_blank">VendingMachine_init.abs</a>
@@ -1674,6 +1671,22 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1870,19 +1883,19 @@ We can select the method of interest, that is, <code>C.m</code>, <code>C.m2</cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
-    <script src="/js/jquery.sticky.js?1637068469"></script>
-    <script src="/js/featherlight.min.js?1637068469"></script>
-    <script src="/js/highlight.pack.js?1637068469"></script>
+    <script src="/js/clipboard.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1646219168"></script>
+    <script src="/js/jquery.sticky.js?1646219168"></script>
+    <script src="/js/featherlight.min.js?1646219168"></script>
+    <script src="/js/highlight.pack.js?1646219168"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
-    <script src="/js/learn.js?1637068469"></script>
-    <script src="/js/hugo-learn.js?1637068469"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646219168"></script>
+    <script src="/js/learn.js?1646219168"></script>
+    <script src="/js/hugo-learn.js?1646219168"></script>
     
         
-            <script src="/mermaid/mermaid.js?1637068469"></script>
+            <script src="/mermaid/mermaid.js?1646219168"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

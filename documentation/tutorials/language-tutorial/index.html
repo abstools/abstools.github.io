@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="generator" content="Hugo 0.93.0" />
     <meta name="description" content="This tutorial gives an overview of the ABS language.">
 
 
@@ -12,22 +12,22 @@
     <title>Language Tutorial :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
-    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
-    <link href="/css/theme.css?1637068469" rel="stylesheet">
-    <link href="/css/tabs.css?1637068469" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
+    <link href="/css/nucleus.css?1646219168" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646219168" rel="stylesheet">
+    <link href="/css/hybrid.css?1646219168" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646219168" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646219168" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646219168" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1646219168" rel="stylesheet">
+    <link href="/css/theme.css?1646219168" rel="stylesheet">
+    <link href="/css/tabs.css?1646219168" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1646219168" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
+    <link href="/css/theme-abs.css?1646219168" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
+    <script src="/js/jquery-3.3.1.min.js?1646219168"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1646219168"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1646219168"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1637068469"></script>
+<script type="text/javascript" src="/js/search.js?1646219168"></script>
 
     
   </div>
@@ -313,6 +313,27 @@
       <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+        <a href="/documentation/examples/multicore_memory/">
+        ABS Model of a Multicore Memory System
         
         </a>
     </li>
@@ -1431,29 +1452,29 @@ example is the rewrite rule that realizes <em>creation of a new COG</em>:</p>
 <p>where:</p>
 <ul>
 <li>
-<p>\(b', o', n'\) new;</p>
+<p>\(b&rsquo;, o&rsquo;, n&rsquo;\) new;</p>
 </li>
 <li>
-<p>\(\overline{T f}; s'\) init block of class \(C\) and \(\sigma'_{init}\) binds constructor parameters \(v'\);</p>
+<p>\(\overline{T f}; s&rsquo;\) init block of class \(C\) and \(\sigma&rsquo;_{init}\) binds constructor parameters \(v&rsquo;\);</p>
 </li>
 <li>
-<p>\(\sigma'_{init} = \overline{T f}\);</p>
+<p>\(\sigma&rsquo;_{init} = \overline{T f}\);</p>
 </li>
 <li>
-<p>\(s_{task} = s'\{\mathbf{this}\, / o';\mathbf{suspend}\}\).</p>
+<p>\(s_{task} = s&rsquo;\{\mathbf{this}\, / o&rsquo;;\mathbf{suspend}\}\).</p>
 </li>
 </ul>
 <p>The rule matches a new cog statement in task \(n\), COG \(b\),
 current object \(o\), and subsequent statements <code>s</code>.  First we
-need to create a new COG with a fresh name \(b'\) and a new object
-\(o'\) of class \(C\).  The new COG starts immediately to execute
-the initialization code of its class \(C\) in a new task \(n'\),
-therefore, the lock of \(b'\) is set to ⊤.  Note that the current
-object this must be instantiated now to the actual object \(o'\).  After
+need to create a new COG with a fresh name \(b&rsquo;\) and a new object
+\(o&rsquo;\) of class \(C\).  The new COG starts immediately to execute
+the initialization code of its class \(C\) in a new task \(n&rsquo;\),
+therefore, the lock of \(b&rsquo;\) is set to ⊤.  Note that the current
+object this must be instantiated now to the actual object \(o&rsquo;\).  After
 initialization, execution is suspended.  The original task \(n\)
 immediately continues to execute the remaining code <code>s</code> as there is no
 release point here.  The value of the object reference <code>z</code> is replaced
-with the new object \(o'\).</p>
+with the new object \(o&rsquo;\).</p>
 <h2 id="7-extensions">7 Extensions</h2>
 <h3 id="71-pluggable-type-system">7.1 Pluggable Type System</h3>
 <p>All declarations (fields, methods, classes, interfaces) in ABS can carry
@@ -1491,11 +1512,11 @@ be implemented in Java needs three ingredients:</p>
 interface Hello { String hello(String msg); }
 [Foreign]
 class HelloImpl implements Hello {
-    String hello(String msg) { return &quot;default implementation&quot;; }
+    String hello(String msg) { return &#34;default implementation&#34;; }
 }
 {
     Hello h = new HelloImpl();
-    h.hello(&quot;Hi there&quot;);
+    h.hello(&#34;Hi there&#34;);
 }
 </code></pre><p>The default implementation is used for simulation of ABS code without
 Java. It is now possible to implement a Java version of the HelloImpl
@@ -1504,17 +1525,17 @@ details of how this is done are explained at the HATS tools site.
 Basically, one extends the Java class HelloImpl_c that was generated by
 the ABS Java backend with a new implementation of the Java method
 hello(String). By convention, the Java methods carry the prefix fli.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> abs.backend.java.lib.types.ABSString<span style="color:#f92672">;</span>
-<span style="color:#f92672">import</span> abs.backend.java.lib.runtime.FLIHelper<span style="color:#f92672">;</span>
-<span style="color:#f92672">import</span> Test.HelloImpl_c<span style="color:#f92672">;</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloImpl_fli</span> <span style="color:#66d9ef">extends</span> HelloImpl_c <span style="color:#f92672">{</span>
-   <span style="color:#a6e22e">@Override</span>
-   <span style="color:#66d9ef">public</span> ABSString <span style="color:#a6e22e">fli_hello</span><span style="color:#f92672">(</span>ABSString msg<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-      FLIHelper<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;I got &#34;</span><span style="color:#f92672">+</span>msg<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34; from ABS&#34;</span><span style="color:#f92672">);</span>
-      <span style="color:#66d9ef">return</span> ABSString<span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello ABS, this is Java&#34;</span><span style="color:#f92672">);</span>
-   <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>On the Java side any Java construct can be used. ABS provides a Java
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> abs.backend.java.lib.types.ABSString<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> abs.backend.java.lib.runtime.FLIHelper<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> Test.HelloImpl_c<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloImpl_fli</span> <span style="color:#66d9ef">extends</span> HelloImpl_c <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> ABSString <span style="color:#a6e22e">fli_hello</span><span style="color:#f92672">(</span>ABSString msg<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      FLIHelper<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;I got &#34;</span><span style="color:#f92672">+</span>msg<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34; from ABS&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> ABSString<span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello ABS, this is Java&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>On the Java side any Java construct can be used. ABS provides a Java
 package abs.backend.java.lib.types containing declarations of the
 built-in ABS types usable in Java such as ABSString. Execution of the
 ABS main block above will now cause the Java output &ldquo;I got Hi there from
@@ -2077,6 +2098,22 @@ general discussion of verification of concurrent open systems.</p>
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -2270,19 +2307,19 @@ general discussion of verification of concurrent open systems.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
-    <script src="/js/jquery.sticky.js?1637068469"></script>
-    <script src="/js/featherlight.min.js?1637068469"></script>
-    <script src="/js/highlight.pack.js?1637068469"></script>
+    <script src="/js/clipboard.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1646219168"></script>
+    <script src="/js/jquery.sticky.js?1646219168"></script>
+    <script src="/js/featherlight.min.js?1646219168"></script>
+    <script src="/js/highlight.pack.js?1646219168"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
-    <script src="/js/learn.js?1637068469"></script>
-    <script src="/js/hugo-learn.js?1637068469"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646219168"></script>
+    <script src="/js/learn.js?1646219168"></script>
+    <script src="/js/hugo-learn.js?1646219168"></script>
     
         
-            <script src="/mermaid/mermaid.js?1637068469"></script>
+            <script src="/mermaid/mermaid.js?1646219168"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

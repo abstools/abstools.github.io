@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.93.0" />
-    <meta name="description" content="">
+    <meta name="description" content="A model of the MSI cache coherency protocol.">
 
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Acknowledgments :: The ABS Modeling Language</title>
+    <title>ABS Model of a Multicore Memory System :: The ABS Modeling Language</title>
 
     
     <link href="/css/nucleus.css?1646219168" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/acknowledgments/">
+  <body class="" data-url="/documentation/examples/multicore_memory/">
     <nav id="sidebar" class="">
 
 
@@ -213,7 +213,7 @@
   
     
     <li data-nav-id="/documentation/" title="Documentation" class="dd-item
-        
+        parent
         
         
         ">
@@ -242,7 +242,7 @@
   
     
     <li data-nav-id="/documentation/examples/" title="Examples" class="dd-item
-        
+        parent
         
         
         ">
@@ -331,7 +331,7 @@
  
   
     
-      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item active">
         <a href="/documentation/examples/multicore_memory/">
         ABS Model of a Multicore Memory System
         
@@ -558,8 +558,8 @@
   
     
     <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item
-        parent
-        active
+        
+        
         
         ">
       <a href="/acknowledgments/">
@@ -643,7 +643,19 @@
             
           
           
-            <a href='/'>The ABS Language</a> > Acknowledgments
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > <a href='/documentation/examples/'>Examples</a> > ABS Model of a Multicore Memory System
+          
+        
+          
+        
           
         
           
@@ -656,8 +668,9 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contributors">Contributors</a></li>
+    <li><a href="#model-configurations">Model configurations</a></li>
+    <li><a href="#running-the-simulation-with-penalties">Running the simulation with penalties</a></li>
+    <li><a href="#running-the-simulation-without-penalties">Running the simulation without penalties</a></li>
   </ul>
 </nav>
     </div>
@@ -675,84 +688,125 @@
           
             <h1>
               
-              Acknowledgments
+              ABS Model of a Multicore Memory System
             </h1>
           
 
         
 
 
-
-	<h2 id="projects">Projects</h2>
-<p>The development of the ABS language and tools has been supported by a number of European FP7 and H2020 research projects.</p>
+<p>A multicore memory system consists of cores that contain tasks to be executed,
+the data layout in main memory (indicating where data is allocated), and a
+system architecture consisting of cores with private multi-level caches and
+shared memory (see Figure 1). Such a system is parametric in the number of
+cores, the number and size of caches, and the associativity and replacement
+policy.  Data is organised in blocks that move between the caches and the main
+memory.  For simplicity, we abstract from the data content of the memory
+blocks, assume that the size of cache lines and memory blocks in main memory
+coincide and transfer memory blocks from the caches of one core to the caches
+of another core via the main memory. As a consequence, the tasks executed in
+the cores are represented as data access patterns, abstracting from their
+computational content.</p>
+<p>The complete code can be found at
+<a href="https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/">https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/images/examples/multicore_memory/cores.png" alt="Figure cores.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><!-- raw HTML omitted -->Figure 1<!-- raw HTML omitted -->: System memory architecture</td>
+</tr>
+</tbody>
+</table>
+<p>Task execution on a core requires memory blocks to be transferred from the
+main memory to the closest cache.  Each cache has a pool of instructions to
+move memory blocks among caches and between caches and main memory. Memory
+blocks may exist in multiple copies in the memory system.  Consistency between
+different copies of a memory block is ensured using the standard <a href="https://en.wikipedia.org/wiki/MSI_protocol">cache
+coherence protocol MSI</a>, with
+which a cache line can be either modified, shared or invalid.  A modified
+cache line has the most recent value of the memory block, therefore all other
+copies are invalid (including the one in main memory). A shared cache line
+indicates that all copies of the block are consistent.  The protocol&rsquo;s
+messages are broadcasted to the cores.  Following standard nomenclature, <code>Rd</code>
+messages request read access and <code>RdX</code> messages read exclusive access to a
+memory block. The latter invalidates other copies of the same block in other
+caches to provide write access.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/images/examples/multicore_memory/initialConfiguration.png" alt="Figure initialConfiguration.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><!-- raw HTML omitted -->Figure 2<!-- raw HTML omitted -->: ABS model structure</td>
+</tr>
+</tbody>
+</table>
+<p>This use-case contains a distributed implementation of this model in ABS (see
+Figure 2). A transition system specification of this model can be found at
+<a href="https://doi.org/10.1016/j.scico.2019.04.003">https://doi.org/10.1016/j.scico.2019.04.003</a></p>
+<p>We have two versions of the model which can run with different initial
+configurations:</p>
+<ul>
+<li><code>withoutPenaltiesSimplified</code>:  no collection of penalties</li>
+<li><code>withPenaltiesSimplified</code>: collection of hits and penalties. Hits count the
+number of times a memory block was found in the caches.  Penalties vary
+(from 1,10, 100, etc.) depending from where in the memory system the memory
+block was accessed.  The further down the data is accessed in the memory
+system, the higher the penalty.</li>
+</ul>
+<h2 id="model-configurations">Model configurations</h2>
+<p>All the configurations have 4 cores with three levels of caches,
+but they are varying in the number, size and access patterns of the tasks.</p>
 <ul>
 <li>
-<p><a href="https://web.archive.org/web/20181127101833/http://www.hats-project.eu/">HATS</a>: Highly Adaptive and Trustworthy Software using Formal Methods</p>
+<p><strong>Config1</strong>:</p>
+<p>Contains 10 tasks with 100 read/write instructions each.  It has one access
+per memory block, where all the tasks do not share any block during
+execution.</p>
 </li>
 <li>
-<p><a href="http://envisage-project.eu">Envisage</a>: Engineering Virtualized Services</p>
+<p><strong>Config2</strong>:</p>
+<p>Contains 10 tasks with 100 read/write instructions each.  Tasks interleaves
+between a read and a write with one access per memory block.  Each task
+shares with the next task 1/4 of its blocks.</p>
 </li>
 <li>
-<p><a href="http://hyvar-project.eu/hyvar/">HyVar</a>: Scalable Hybrid Variability</p>
+<p><strong>Config3</strong>:</p>
+<p>Contains 10 tasks with 100 read/write instructions each.  Task interleaves
+between a read and a write to the same memory block, therefore each task has
+two accesses read/write per memory block.  All the tasks do not share any
+block between them during execution.</p>
+</li>
+<li>
+<p><strong>Config4</strong>:</p>
+<p>Contains 10 identical tasks with a loop accessing one memory block many
+times. Since all the cores access a single memory block many times, the
+execution generates congestion.</p>
 </li>
 </ul>
-<p><img src="/images/hats-logo.jpg?width=5pc" alt="HATS"> <img src="/images/envisage-logo.jpg?width=5pc" alt="Envisage"> <img src="/images/hyvar-logo.png?width=5pc" alt="HyVar"></p>
-<h2 id="contributors">Contributors</h2>
-<p>The following people have contributed to the ABS language and tools so far:</p>
-<ul>
-<li>Elvira Albert</li>
-<li>Ade Azurat</li>
-<li>Nikolaos Bezirgiannis</li>
-<li>Joakim Bjørk</li>
-<li>Frank de Boer</li>
-<li>Richard Bubel</li>
-<li>Dave Clarke</li>
-<li>Jesús Correas</li>
-<li>Ferruccio Damiani</li>
-<li>Crystal Chang Din</li>
-<li>Antonio Flores-Montoya</li>
-<li>Abel Garcia</li>
-<li>Samir Genaim</li>
-<li>Elena Giachino</li>
-<li>Miguel Gómez-Zamalloa</li>
-<li>Georg Göri</li>
-<li>Stijn de Gouw</li>
-<li>Reiner Hähnle</li>
-<li>Einar Broch Johnsen</li>
-<li>Eduard Kamburjan</li>
-<li>Ivan Lanese</li>
-<li>Cosimo Laneve</li>
-<li>Michael Lienhardt</li>
-<li>Kelly Lin</li>
-<li>Enrique Martin-Martin</li>
-<li>Jacopo Mauro</li>
-<li>Radu Muschevici</li>
-<li>Behrooz Nobakht</li>
-<li>Olaf Owe</li>
-<li>Björn Petersen</li>
-<li>Germán Puebla</li>
-<li>Violet Ka I Pun</li>
-<li>Guillermo Román-Díez</li>
-<li>Ina Schaefer</li>
-<li>Rudi Schlatte</li>
-<li>Vlad Serbanescu</li>
-<li>Faiza Shehzad</li>
-<li>Oliver Stahl</li>
-<li>Martin Steffen</li>
-<li>Volker Stolz</li>
-<li>S. Lizeth Tapia Tarifa</li>
-<li>Lars Tveito</li>
-<li>Peter Y.H. Wong</li>
-<li>Ingrid Chieh Yu</li>
-<li>Miky Zamalloa</li>
-<li>Gianluigi Zavatarro</li>
-</ul>
+<h2 id="running-the-simulation-with-penalties">Running the simulation with penalties</h2>
+<pre tabindex="0"><code>absc --erlang common/*.abs  withPenalties/*.abs  configs/ConfigX.abs
+./gen/erl/run
+</code></pre><p>Where <code>X</code> correspond to which initial configuration is chosen.</p>
+<p>Example output of running <strong>Config4</strong>:</p>
+<pre tabindex="0"><code>C1: hits = 10; penalties = 120
+C2: hits = 10; penalties = 1220
+C3: hits = 10; penalties = 2210
+C4: hits = 10; penalties = 3090
+</code></pre><h2 id="running-the-simulation-without-penalties">Running the simulation without penalties</h2>
+<pre tabindex="0"><code>absc --erlang common/*.abs  withoutPenalties/*.abs  configs/ConfigX.abs
+./gen/erl/run
+</code></pre><p>Example output of running <strong>Config1</strong>:</p>
+<pre tabindex="0"><code>Execution has terminated
+</code></pre>
 
-
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -870,6 +924,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -884,6 +939,94 @@
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -957,86 +1100,6 @@
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
             
             
@@ -1096,7 +1159,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1112,9 +1174,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1136,10 +1195,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/contact/" title="Contact"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/laboratory/" title="The Collaboratory" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/documentation/tutorials/" title="Tutorials" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1173,3 +1232,4 @@
 
   </body>
 </html>
+

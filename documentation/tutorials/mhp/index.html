@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.89.3" />
+    <meta name="generator" content="Hugo 0.93.0" />
     <meta name="description" content="The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.">
 
 
@@ -12,22 +12,22 @@
     <title>May-Happen-in-Parallel Analysis :: The ABS Modeling Language</title>
 
     
-    <link href="/css/nucleus.css?1637068469" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1637068469" rel="stylesheet">
-    <link href="/css/hybrid.css?1637068469" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637068469" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637068469" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637068469" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1637068469" rel="stylesheet">
-    <link href="/css/theme.css?1637068469" rel="stylesheet">
-    <link href="/css/tabs.css?1637068469" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1637068469" rel="stylesheet">
+    <link href="/css/nucleus.css?1646219168" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646219168" rel="stylesheet">
+    <link href="/css/hybrid.css?1646219168" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646219168" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646219168" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646219168" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1646219168" rel="stylesheet">
+    <link href="/css/theme.css?1646219168" rel="stylesheet">
+    <link href="/css/tabs.css?1646219168" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1646219168" rel="stylesheet">
     
-    <link href="/css/theme-abs.css?1637068469" rel="stylesheet">
+    <link href="/css/theme-abs.css?1646219168" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1637068469"></script>
+    <script src="/js/jquery-3.3.1.min.js?1646219168"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1637068469"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1637068469"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1646219168"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1646219168"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/abs-models.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1637068469"></script>
+<script type="text/javascript" src="/js/search.js?1646219168"></script>
 
     
   </div>
@@ -313,6 +313,27 @@
       <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
         <a href="/documentation/examples/single-watertank/">
         Modeling and Visualizing A Water Tank Controller
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
+        <a href="/documentation/examples/multicore_memory/">
+        ABS Model of a Multicore Memory System
         
         </a>
     </li>
@@ -713,18 +734,10 @@ MHP Analysis in the Collaboratory
 <p>
 In order to apply the MHP Analysis in the Collaboratory, just:</p>
 <ul>
-<li>
-<p>Open the ABS program to analyze.</p>
-</li>
-<li>
-<p>Select <code>MHP Analysis</code> in the list of analyses.</p>
-</li>
-<li>
-<p>Refresh the list of methods in the right side (button <code>Refresh Outline</code>) and select the entry point of the analysis.  Only one method or function can be selected as entry point.  If none is selected then the main block will be considered the entry point.</p>
-</li>
-<li>
-<p>Press the <code>Run</code> button.</p>
-</li>
+<li>Open the ABS program to analyze.</li>
+<li>Select <code>MHP Analysis</code> in the list of analyses.</li>
+<li>Refresh the list of methods in the right side (button <code>Refresh Outline</code>) and select the entry point of the analysis.  Only one method or function can be selected as entry point.  If none is selected then the main block will be considered the entry point.</li>
+<li>Press the <code>Run</code> button.</li>
 </ul>
 <p>Let us see the results of the MHP analysis in the 
 
@@ -762,15 +775,9 @@ In addition to the Amount of considered points to compute all the pairs of instr
 <p>
 Using these parameters we can adapt the behavior of the analysis:</p>
 <ul>
-<li>
-<p><code>Debug information</code> (<code>0</code>, <code>1</code>, or <code>2</code>): level of information that is printed in the console, where <code>0</code> is the lowest level.</p>
-</li>
-<li>
-<p><code>Points-to analysis precision</code> (<code>1</code>, <code>2</code>, <code>3</code> and <code>4</code>): the precision that will be used in the point-to analysis that approximates the different objects that are created during execution.</p>
-</li>
-<li>
-<p><code>Condition synchronization MHP extension</code> (<code>no</code>, <code>yes</code>): by default, the MHP analysis only considers simple await instructions involving one future variable (<code>await f?;</code>).  When enabling this option, the analysis tries to use the information from <code>await</code> instructions that involve complex conditions like <code>await this.x != null</code>.</p>
-</li>
+<li><code>Debug information</code> (<code>0</code>, <code>1</code>, or <code>2</code>): level of information that is printed in the console, where <code>0</code> is the lowest level.</li>
+<li><code>Points-to analysis precision</code> (<code>1</code>, <code>2</code>, <code>3</code> and <code>4</code>): the precision that will be used in the point-to analysis that approximates the different objects that are created during execution.</li>
+<li><code>Condition synchronization MHP extension</code> (<code>no</code>, <code>yes</code>): by default, the MHP analysis only considers simple await instructions involving one future variable (<code>await f?;</code>).  When enabling this option, the analysis tries to use the information from <code>await</code> instructions that involve complex conditions like <code>await this.x != null</code>.</li>
 <li>
 <p><code>Inter-Procedural Synchronization</code> (<code>no</code>, <code>yes</code>): enables a refinement of the MHP analysis that obtains finer information about the finished task, thus producing more precise results in programs with inter-procedural synchronization.</p>
 </li>
@@ -1037,6 +1044,22 @@ and <code>g</code>, which means that both methods must have finished when L34 is
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1233,19 +1256,19 @@ and <code>g</code>, which means that both methods must have finished when L34 is
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637068469"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637068469"></script>
-    <script src="/js/jquery.sticky.js?1637068469"></script>
-    <script src="/js/featherlight.min.js?1637068469"></script>
-    <script src="/js/highlight.pack.js?1637068469"></script>
+    <script src="/js/clipboard.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646219168"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1646219168"></script>
+    <script src="/js/jquery.sticky.js?1646219168"></script>
+    <script src="/js/featherlight.min.js?1646219168"></script>
+    <script src="/js/highlight.pack.js?1646219168"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637068469"></script>
-    <script src="/js/learn.js?1637068469"></script>
-    <script src="/js/hugo-learn.js?1637068469"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646219168"></script>
+    <script src="/js/learn.js?1646219168"></script>
+    <script src="/js/hugo-learn.js?1646219168"></script>
     
         
-            <script src="/mermaid/mermaid.js?1637068469"></script>
+            <script src="/mermaid/mermaid.js?1646219168"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
