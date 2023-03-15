@@ -36,7 +36,7 @@ Running the ABS compiler requires Java (version 11 or greater) and Erlang (versi
       
       <guid>https://abs-models.org/documentation/tutorials/language-tutorial/</guid>
       <description>This tutorial is partially adapted but needs updating to the newest language and tool features
-1 Installation of the ABS Eclipse Plugin ABS fills a gap in the landscape of software modeling languages. It is situated between architectural, design-oriented, foundational, and implementation-oriented languages [25] For trying out the examples provided in this tutorial you will need the ABS Eclipse plugin. To install it, follow the simple instructions at http://tools. hats-project.eu/eclipseplugin/installation.html. You will need at least Eclipse version 3.</description>
+1 Installation of the ABS Eclipse Plugin ABS fills a gap in the landscape of software modeling languages. It is situated between architectural, design-oriented, foundational, and implementation-oriented languages [25] For trying out the examples provided in this tutorial you will need the ABS Eclipse plugin. To install it, follow the simple instructions at http://tools.hats-project.eu/eclipseplugin/installation.html. You will need at least Eclipse version 3.</description>
     </item>
     
     <item>
