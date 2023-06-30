@@ -69,7 +69,7 @@ docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest 
 Emacs The abs-mode package provides support for ABS in the Emacs editor.
 Installation instructions are at https://github.com/abstools/abs-mode.
 Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code is at https://github.</description>
+Visual Studio Code ABS editing support for Visual Studio Code can be installed as a .</description>
     </item>
     
     <item>
