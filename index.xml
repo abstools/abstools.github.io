@@ -1,134 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The ABS Language on The ABS Modeling Language</title>
-    <link>https://abs-models.org/</link>
-    <description>Recent content in The ABS Language on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>The ABS Language :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/index.html</link>
+    <description>The ABS Language ABS is a language for Abstract Behavioral Specification, which combines implementation-level specifications with verifiability, high-level design with executablity, and formal semantics with practical usability. ABS is a concurrent, object-oriented, modeling language that features functional data-types.&#xA;ABS is designed to develop executable models with an object-oriented program flow ABS targets distributed and concurrent systems by means of concurrent object groups and asynchronous method calls ABS supports model variability based on delta-oriented specifications ABS supports deployment modelling based on high-level deployment models ABS supports a range of techniques for model exploration and analysis, based on formal semantics Overview</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Mar 2018 12:21:59 +0100</lastBuildDate><atom:link href="https://abs-models.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Feb 2020 12:22:31 +0100</lastBuildDate>
+    <atom:link href="https://abs-models.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The Monty Hall Problem</title>
-      <link>https://abs-models.org/documentation/examples/monty-hall/</link>
-      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/monty-hall/</guid>
-      <description>One reason to model systems is to gain insight into and predict complex behavior. Ideally, the components of the system are reasonably easy to understand in isolation, while assembling them together results in surprising behavior that can provide insight or support for a theory about the whole system.
-The Monty Hall Problem The Monty Hall problem (Monty Hall problem - Wikipedia) states:
-Suppose you&amp;rsquo;re on a game show, and you&amp;rsquo;re given the choice of three doors: Behind one door is a car; behind the others, goats.</description>
+      <title>Overview</title>
+      <link>https://abs-models.org/overview/index.html</link>
+      <pubDate>Thu, 22 Mar 2018 12:22:19 +0100</pubDate>
+      <guid>https://abs-models.org/overview/index.html</guid>
+      <description>DESIGN PRINCIPLES OF ABS ABS targets the modeling of software systems that are concurrent, distributed, object-oriented, built from components, and highly reusable. To achieve the latter, we follow the arguably most successful software reuse methodology in practice: software product families or software product lines [35], see also the Product Line Hall of Fame. ABS supports the modeling of variability in terms of feature models as a first-class language concept. ABS thus provides language-based support for product line engineering (PLE).</description>
     </item>
-    
     <item>
-      <title>Installing Command-Line Tools</title>
-      <link>https://abs-models.org/getting_started/local-install/</link>
-      <pubDate>Wed, 15 Aug 2018 09:22:58 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/local-install/</guid>
-      <description>Many of the tools can be run from the command line. This page describes how to run various tools on a local machine.
-Installing Dependencies The ABS compiler is contained in a single file called absfrontend.jar.
-Running the ABS compiler requires Java (version 11 or greater) and Erlang (version 23 or greater) installed. Java can be downloaded, e.g., from https://adoptopenjdk.net. Erlang is available at https://www.erlang.org/downloads (but also check below for platform-specific instructions).</description>
-    </item>
-    
-    <item>
-      <title>Language Tutorial</title>
-      <link>https://abs-models.org/documentation/tutorials/language-tutorial/</link>
+      <title>Getting Started</title>
+      <link>https://abs-models.org/getting_started/index.html</link>
       <pubDate>Thu, 22 Mar 2018 12:22:10 +0100</pubDate>
-      
-      <guid>https://abs-models.org/documentation/tutorials/language-tutorial/</guid>
-      <description>This tutorial is partially adapted but needs updating to the newest language and tool features
-1 Installation of the ABS Eclipse Plugin ABS fills a gap in the landscape of software modeling languages. It is situated between architectural, design-oriented, foundational, and implementation-oriented languages [25] For trying out the examples provided in this tutorial you will need the ABS Eclipse plugin. To install it, follow the simple instructions at http://tools.hats-project.eu/eclipseplugin/installation.html. You will need at least Eclipse version 3.</description>
+      <guid>https://abs-models.org/getting_started/index.html</guid>
+      <description>There are various ways of running ABS models.&#xA;Use On-Line Tools The simplest way to use the ABS tools is on-line, in the collaboratory. This means you only need a modern browser to start experimenting with ABS. The tools work best with Firefox and Chrome.&#xA;An introduction and link to the collaboratory can be found at http://abs-models.org/laboratory/.&#xA;Installing Command-Line ToolsMany of the tools can be run from the command line. This page describes how to run various tools on a local machine.</description>
     </item>
-    
     <item>
-      <title>Running a Browser-Based IDE</title>
-      <link>https://abs-models.org/getting_started/docker/</link>
-      <pubDate>Wed, 15 Aug 2018 09:20:37 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/docker/</guid>
-      <description>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
-Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
-docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</description>
+      <title>Documentation</title>
+      <link>https://abs-models.org/documentation/index.html</link>
+      <pubDate>Fri, 03 May 2019 09:16:13 +0200</pubDate>
+      <guid>https://abs-models.org/documentation/index.html</guid>
+      <description>The ABS language reference is the authoritative guide to what constitutes a legal ABS model, how to specify a Software Product Line, and how to use annotations to model time and resources.&#xA;There are some examples that walk through a small but complete ABS model to illustrate various modeling techniques.&#xA;We offer tutorials for the ABS language itself, as well as most tools that use ABS as an input language.</description>
     </item>
-    
     <item>
-      <title>Resource Modeling Tutorial</title>
-      <link>https://abs-models.org/documentation/tutorials/resources/</link>
-      <pubDate>Tue, 04 Jul 2017 09:31:38 +0200</pubDate>
-      
-      <guid>https://abs-models.org/documentation/tutorials/resources/</guid>
-      <description>Core ABS ABS is a modeling language which combines functional and imperative programming styles to develop high-level executable models. Concurrent object groups execute in parallel and communicate through asynchronous method calls. To intuitively capture internal computation inside a method, we use a simple functional language based on user-defined algebraic data types and functions. Thus, the modeler may abstract from the details of low-level imperative implementations of data structures, and still maintain an overall object-oriented design which is close to the target system.</description>
+      <title>Publications and Workshops</title>
+      <link>https://abs-models.org/publications/index.html</link>
+      <pubDate>Tue, 04 Feb 2020 12:22:31 +0100</pubDate>
+      <guid>https://abs-models.org/publications/index.html</guid>
+      <description>This page links ABS workshops, as well as selected research papers on the development and usage of the ABS modeling language and analysis tools.&#xA;ABS Workshops 2017 First International ABS Workshop: May 31–June 2, 2017, Oslo, Norway.&#xA;2018 Second International ABS Workshop: May 28–May 30, 2018, Darmstadt, Germany. https://formbar.raillab.de/en/abs2018/&#xA;2019 Third International ABS Workshop: May 13–May 15, 2019, Amsterdam, The Netherlands. https://www.cwi.nl/research/groups/formal-methods/events/third-international-workshop-on-the-abs-modeling-language-and-tools&#xA;2021 Fourth International ABS Workshop: August 26–August 27, 2021, Virtual.</description>
     </item>
-    
     <item>
-      <title>Installing Editor Support</title>
-      <link>https://abs-models.org/getting_started/editor-support/</link>
-      <pubDate>Wed, 05 Sep 2018 09:46:58 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/editor-support/</guid>
-      <description>We provide support for Emacs, Atom and Visual Studio Code.
-Emacs The abs-mode package provides support for ABS in the Emacs editor.
-Installation instructions are at https://github.com/abstools/abs-mode.
-Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code can be installed as a .</description>
+      <title>Contact</title>
+      <link>https://abs-models.org/contact/index.html</link>
+      <pubDate>Thu, 22 Mar 2018 12:22:25 +0100</pubDate>
+      <guid>https://abs-models.org/contact/index.html</guid>
+      <description>We welcome bug reports and feature requests submitted via github at https://github.com/abstools/abstools/issues.&#xA;To contact the maintainers, post on the discussion form at https://github.com/abstools/abstools/discussions or write to abs-info@abs-models.org.&#xA;You can subscribe to the developers’ mailing list at the developer list manager page, or subscribe to a low-traffic announcement-only list at the announcement list manager page.</description>
     </item>
-    
     <item>
-      <title>Resource Analysis with CostABS</title>
-      <link>https://abs-models.org/documentation/tutorials/costabs/</link>
-      <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/tutorials/costabs/</guid>
-      <description>CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs. The inferred upper bounds have important applications in the fields of program optimization, verification and certification. CostABS is parametric on the cost model, i.e., the type of cost that the user wants to infer (e.g., number of steps, amount of memory allocated, amount of data transmitted, etc.), and it supports different notions of cost such as sequential, parallel, peak, etc.</description>
+      <title>Acknowledgments</title>
+      <link>https://abs-models.org/acknowledgments/index.html</link>
+      <pubDate>Wed, 19 Dec 2018 17:41:18 +0100</pubDate>
+      <guid>https://abs-models.org/acknowledgments/index.html</guid>
+      <description>Projects The development of the ABS language and tools has been supported by a number of research projects supported by the European Commission and the Research Council of Norway:&#xA;HATS: Highly Adaptive and Trustworthy Software using Formal Methods Envisage: Engineering Virtualized Services HyVar: Scalable Hybrid Variability SIRIUS: Enabling digitalization in and beyond the oil and gas industry Contributors The following people have contributed to the ABS language and tools so far:</description>
     </item>
-    
     <item>
-      <title>May-Happen-in-Parallel Analysis</title>
-      <link>https://abs-models.org/documentation/tutorials/mhp/</link>
-      <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/tutorials/mhp/</guid>
-      <description>May-Happen-in-Parallel Analysis (MHP) ABS is a distributed language where different methods can be invoked asynchronously. Therefore, there can be several tasks executing their code at the same time. This simultaneity complicates the analysis and understanding of ABS programs, since (in general) there is a high level of parallelism. The MHP analysis alleviates this situation by computing, for each instruction, which other instructions could execute in parallel. This information can be very interesting for developers and testers, but it is crucial for the precision of many of the SACO analyses presented in the CostABS tutorial.</description>
+      <title>The Collaboratory</title>
+      <link>https://abs-models.org/laboratory/index.html</link>
+      <pubDate>Wed, 01 May 2019 13:34:28 +0200</pubDate>
+      <guid>https://abs-models.org/laboratory/index.html</guid>
+      <description>The Collaboratory is a browser-based IDE for ABS that offers an online, zero install version of the ABS toolchain. Use it to experiment with the language in a risk-free environment.&#xA;Load our ready-made examples or run your own ABS models. The editor has many features of an IDE, including showing you an outline of the code, and of course reporting syntax- and type errors.&#xA;The collaboratory also supports many of the analysis tools that we have developed, like COSTA and SACO.</description>
     </item>
-    
-    <item>
-      <title>Modeling and Visualizing Calendar Time</title>
-      <link>https://abs-models.org/documentation/examples/time-and-date/</link>
-      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/time-and-date/</guid>
-      <description>ABS provides a logical clock, a rational-valued global counter starting at 0 &amp;ndash; see the Timed ABS chapter of the manual for details. This example shows how to use ABS to run simulations modeling real (calendar) time and visualize the resulting data in a timeline.
-The code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/
-Modeling Time in ABS The following short ABS model creates a list of values together with the time when the value was produced.</description>
-    </item>
-    
-    <item>
-      <title>Resource Analysis with SRA</title>
-      <link>https://abs-models.org/documentation/tutorials/sra/</link>
-      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/tutorials/sra/</guid>
-      <description>General Overview We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS, called vml, whose syntax will be covered by the examples in this tutorial, with explicit acquire and release operations of virtual machines. In our language it is possible to delegate other (ad-hoc or third party) concurrent code to release virtual machines (by passing them as arguments of invocations). Our technique is modular and consists of (i) a type system associating programs with behavioural types that records relevant information for resource usage (creations, releases, and concurrent operations), (ii) a translation function that takes behavioural types and return cost equations.</description>
-    </item>
-    
-    <item>
-      <title>Modeling and Visualizing A Water Tank Controller</title>
-      <link>https://abs-models.org/documentation/examples/single-watertank/</link>
-      <pubDate>Tue, 06 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/single-watertank/</guid>
-      <description>This example shows a model of a small cyber-physical system consisting of a water tank with faucet and drain, and a controller opening and closing the exit valve of the drain. The model illustrates discrete-event simulation, timed semantics, and custom visualization in ABS.
-The complete code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/
-Modeling a Water Tank The following class shows the model of a water tank. The field level holds the current water level, the field valve_open records the status of an exit valve (open or not open).</description>
-    </item>
-    
-    <item>
-      <title>ABS Model of a Multicore Memory System</title>
-      <link>https://abs-models.org/documentation/examples/multicore_memory/</link>
-      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/multicore_memory/</guid>
-      <description>A multicore memory system consists of cores that contain tasks to be executed, the data layout in main memory (indicating where data is allocated), and a system architecture consisting of cores with private multi-level caches and shared memory (see Figure 1). Such a system is parametric in the number of cores, the number and size of caches, and the associativity and replacement policy. Data is organised in blocks that move between the caches and the main memory.</description>
-    </item>
-    
   </channel>
 </rss>

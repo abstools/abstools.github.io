@@ -1,672 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.116.1">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.127.0">
+    <meta name="generator" content="Relearn 6.0.0+tip">
     <meta name="description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
-
-
-    <link rel="icon" href="/images/favicon.png" type="image/png">
-
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Modeling and Visualizing Calendar Time :: The ABS Modeling Language">
+    <meta name="twitter:description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
+    <meta property="og:url" content="https://abs-models.org/documentation/examples/time-and-date/index.html">
+    <meta property="og:site_name" content="The ABS Modeling Language">
+    <meta property="og:title" content="Modeling and Visualizing Calendar Time :: The ABS Modeling Language">
+    <meta property="og:description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Documentation">
+    <meta property="article:published_time" content="2020-04-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-04-01T00:00:00+00:00">
+    <meta itemprop="name" content="Modeling and Visualizing Calendar Time :: The ABS Modeling Language">
+    <meta itemprop="description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
+    <meta itemprop="datePublished" content="2020-04-01T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2020-04-01T00:00:00+00:00">
+    <meta itemprop="wordCount" content="761">
     <title>Modeling and Visualizing Calendar Time :: The ABS Modeling Language</title>
-
-    
-    <link href="/css/nucleus.css?1691417820" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1691417820" rel="stylesheet">
-    <link href="/css/hybrid.css?1691417820" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1691417820" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1691417820" rel="stylesheet">
-    <link href="/css/auto-complete.css?1691417820" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1691417820" rel="stylesheet">
-    <link href="/css/theme.css?1691417820" rel="stylesheet">
-    <link href="/css/tabs.css?1691417820" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1691417820" rel="stylesheet">
-    
-    <link href="/css/theme-abs.css?1691417820" rel="stylesheet">
-    
-    
-
-    <script src="/js/jquery-3.3.1.min.js?1691417820"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-    </style>
-    
+    <link href="/css/fontawesome-all.min.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1718276995" rel="stylesheet">
+    <link href="/css/auto-complete.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1718276995" rel="stylesheet">
+    <link href="/css/fonts.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1718276995" rel="stylesheet">
+    <link href="/css/theme-abs.css?1718276995" rel="stylesheet" id="R-variant-style">
+    <link href="/css/chroma-relearn-light.css?1718276995" rel="stylesheet" id="R-variant-chroma-style">
+    <link href="/css/variant.css?1718276995" rel="stylesheet">
+    <link href="/css/print.css?1718276995" rel="stylesheet" media="print">
+    <script src="/js/variant.js?1718276995"></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/abs-models.org';
+      window.index_js_url="/index.search.js";
+      // variant stuff
+      window.variants && variants.init( [ 'abs' ] );
+      // translations
+      window.T_Copy_to_clipboard = `Copy to clipboard`;
+      window.T_Copied_to_clipboard = `Copied to clipboard!`;
+      window.T_Copy_link_to_clipboard = `Copy link to clipboard`;
+      window.T_Link_copied_to_clipboard = `Copied link to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+    </script>
   </head>
-  <body class="" data-url="/documentation/examples/time-and-date/">
-    <nav id="sidebar" class="">
-
-
-
-  <div id="header-wrapper">
-    <div id="header">
-      <a id="logo" href="https://abs-models.org/" >
-  <img src='/images/ABS_logo_colors.png' width="80%">
-  </img>
-</a>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/js/lunr.min.js?1691417820"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1691417820"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/abs-models.org\/";
-    
-</script>
-<script type="text/javascript" src="/js/search.js?1691417820"></script>
-
-    
-  </div>
-  
-    <section id="homelinks">
-      <ul>
-        <li>
-            <a class="padding" href='/'><i class='fas fa-home'></i> Home</a>
-        </li>
-      </ul>
-    </section>
-  
-
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/overview/" title="Overview" class="dd-item
-        
-        
-        
-        ">
-      <a href="/overview/">
-          Overview
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item
-        
-        
-        
-        ">
-      <a href="/getting_started/">
-          Getting Started
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item ">
-        <a href="/getting_started/local-install/">
-        Installing Command-Line Tools
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
-        <a href="/getting_started/docker/">
-        Running a Browser-Based IDE
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
-        <a href="/getting_started/editor-support/">
-        Installing Editor Support
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/" title="Documentation" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/documentation/">
-          Documentation
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/examples/" title="Examples" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/documentation/examples/">
-          Examples
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/monty-hall/" title="The Monty Hall Problem" class="dd-item ">
-        <a href="/documentation/examples/monty-hall/">
-        The Monty Hall Problem
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time" class="dd-item active">
-        <a href="/documentation/examples/time-and-date/">
-        Modeling and Visualizing Calendar Time
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
-        <a href="/documentation/examples/single-watertank/">
-        Modeling and Visualizing A Water Tank Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
-        <a href="/documentation/examples/multicore_memory/">
-        ABS Model of a Multicore Memory System
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/tutorials/" title="Tutorials" class="dd-item
-        
-        
-        
-        ">
-      <a href="/documentation/tutorials/">
-          Tutorials
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/language-tutorial/" title="Language Tutorial" class="dd-item ">
-        <a href="/documentation/tutorials/language-tutorial/">
-        Language Tutorial
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/resources/" title="Resource Modeling Tutorial" class="dd-item ">
-        <a href="/documentation/tutorials/resources/">
-        Resource Modeling Tutorial
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/costabs/" title="Resource Analysis with CostABS" class="dd-item ">
-        <a href="/documentation/tutorials/costabs/">
-        Resource Analysis with CostABS
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/mhp/" title="May-Happen-in-Parallel Analysis" class="dd-item ">
-        <a href="/documentation/tutorials/mhp/">
-        May-Happen-in-Parallel Analysis
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
-        <a href="/documentation/tutorials/sra/">
-        Resource Analysis with SRA
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/publications/" title="Publications and Workshops" class="dd-item
-        
-        
-        
-        ">
-      <a href="/publications/">
-          Publications and Workshops
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/contact/" title="Contact" class="dd-item
-        
-        
-        
-        ">
-      <a href="/contact/">
-          Contact
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item
-        
-        
-        
-        ">
-      <a href="/acknowledgments/">
-          Acknowledgments
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item
-        
-        
-        
-        ">
-      <a href="/laboratory/">
-          The Collaboratory
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-        
-    </ul>
-
-    
-    
-
-    
-    <section id="footer">
-      <ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
-<br/>
-<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>The ABS Language</a> > <a href='/documentation/'>Documentation</a> > <a href='/documentation/examples/'>Examples</a> > Modeling and Visualizing Calendar Time
-          
-        
-          
-        
-          
-        
-          
-        
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
+  <body class="mobile-support html" data-url="/documentation/examples/time-and-date/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"><nav class="TableOfContents">
   <ul>
     <li><a href="#modeling-time-in-abs">Modeling Time in ABS</a></li>
     <li><a href="#converting-time-values">Converting Time Values</a></li>
@@ -674,35 +74,48 @@
     <li><a href="#running-the-example">Running the Example</a></li>
   </ul>
 </nav>
-    </div>
-</div>
-
-                
+                </div>
               </div>
             </div>
-            
-        <div id="head-tags">
-        
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/index.html"><span itemprop="name">The ABS Language</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/index.html"><span itemprop="name">Documentation</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/examples/index.html"><span itemprop="name">Examples</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">Modeling and Visualizing Calendar Time</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/documentation/examples/monty-hall/index.html" title="The Monty Hall Problem (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/documentation/examples/single-watertank/index.html" title="Modeling and Visualizing A Water Tank Controller (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              Modeling and Visualizing Calendar Time
-            </h1>
-          
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable default" tabindex="-1">
+        <div class="flex-block-wrapper">
+          <article class="default">
+            <header class="headline">
+            </header>
 
-        
+<h1 id="modeling-and-visualizing-calendar-time">Modeling and Visualizing Calendar Time</h1>
 
-
-<p>ABS provides a logical clock, a rational-valued global counter starting at 0 &ndash; see <a href="https://abs-models.org/manual/#sec:timed-abs">the Timed ABS chapter</a> of the manual for details.  This example shows how to use ABS to run simulations modeling real (calendar) time and visualize the resulting data in a timeline.</p>
-<p>The code can be found at <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/</a></p>
+<p>ABS provides a logical clock, a rational-valued global counter starting at 0 &ndash; see <a href="https://abs-models.org/manual/#sec:timed-abs" rel="external" target="_blank">the Timed ABS chapter</a> of the manual for details.  This example shows how to use ABS to run simulations modeling real (calendar) time and visualize the resulting data in a timeline.</p>
+<p>The code can be found at <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/" rel="external" target="_blank">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/</a></p>
 <h2 id="modeling-time-in-abs">Modeling Time in ABS</h2>
-<p>The following short ABS model creates a list of values together with the time when the value was produced.  The results are stored in a <code>Calendar</code> object that is accessible via <a href="https://abs-models.org/manual/#-the-model-api">the ABS Model API</a>.</p>
+<p>The following short ABS model creates a list of values together with the time when the value was produced.  The results are stored in a <code>Calendar</code> object that is accessible via <a href="https://abs-models.org/manual/#-the-model-api" rel="external" target="_blank">the ABS Model API</a>.</p>
 <p>During the simulation, the method <code>addValue</code> is called with random values.  The calendar object keeps track of the value and the time when it was added.</p>
 <p>The calendar also makes two methods callable via the Model API: <code>getValues</code> returns a list of pairs of recorded time and value.  The method <code>getStartDate</code> returns a string containing a date in ISO 8601 notation; this is the “real” start date that will be used in the simulation.  The time values in the list returned by <code>getValues</code> will be interpreted as <em>offset</em> from that point in time.</p>
-<pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
 
 def String start_date() = &#34;2020-04-01&#34;;
 
@@ -733,23 +146,21 @@ class Calendar implements Calendar {
         nRounds = nRounds - 1;
     }
     println(`Finished at $now()$`);
-}
-</code></pre><p>The main block records in-between advancing the clock by 1/4 (0.25).</p>
+}</code></pre></div><p>The main block records in-between advancing the clock by 1/4 (0.25).</p>
 <h2 id="converting-time-values">Converting Time Values</h2>
 <p>To visualize times properly, they must be converted to a format that the visualization library expects.</p>
 <p>In addition to the chosen offset (2020-04-01 in our case), we also need a <em>scaling factor</em> to convert the logical clock values of ABS to real date and time values.  We choose to represent each day by an increment of <code>1</code>; fractional values of the clock represent the time of day.  Since  our model advances the clock by <code>1/4</code> sixteen times, the values are recorded at 6am, 12pm, 6pm and midnight for four days.</p>
 <p>As an example, here is a Javascript function that takes the startdate (as a string parseable via <code>new Date</code>) and offset (as a floating point number, with the integer part the number of days and the fractional part the time of day, with <code>0.5</code> exactly noon) and returns a Javascript <code>Date</code> object.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setDate</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">days</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">setTime</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">date</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
-<p>The following is a complete HTML file that uses the <a href="https://www.highcharts.com/blog/products/highcharts/">Highcharts</a> library to draw a line diagram of the random values generated by ABS.  The function <code>drawChart</code> retrieves the starting offset and value list via the Model API, then creates a Highcharts chart with the downloaded values.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
+<p>The following is a complete HTML file that uses the <a href="https://www.highcharts.com/blog/products/highcharts/" rel="external" target="_blank">Highcharts</a> library to draw a line diagram of the random values generated by ABS.  The function <code>drawChart</code> retrieves the starting offset and value list via the Model API, then creates a Highcharts chart with the downloaded values.</p>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
@@ -799,10 +210,9 @@ class Calendar implements Calendar {
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><h2 id="running-the-example">Running the Example</h2>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;</span></span></code></pre></div><h2 id="running-the-example">Running the Example</h2>
 <p>The following small Makefile can be used to compile and start the model.  Make sure to store the ABS model in a file <code>CalendarTime.abs</code> and the html in a file <code>index.html</code>, then type <code>make run</code> and connect the browser to http://localhost:8080.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-make" data-lang="make"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-make" data-lang="make"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> run			<span style="color:#75715e">## Generate data and start model (default)
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
@@ -817,431 +227,130 @@ class Calendar implements Calendar {
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">help</span><span style="color:#f92672">:</span>				<span style="color:#75715e">## Display this message
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	@grep -E <span style="color:#e6db74">&#39;^[a-zA-Z_-]+:.*?## .*$$&#39;</span> <span style="color:#66d9ef">$(</span>MAKEFILE_LIST<span style="color:#66d9ef">)</span> | sort | awk <span style="color:#e6db74">&#39;BEGIN {FS = &#34;:.*?## &#34;}; {printf &#34;\033[36m%-30s\033[0m %s\n&#34;, $$1, $$2}&#39;</span>
 </span></span></code></pre></div>
-
-<footer class="footline">
-	
-</footer>
-
-        
+            <footer class="footline">
+            </footer>
+          </article>
         </div>
-        
-
-      </div>
-
-    <div id="navigation">
-        
-        
-
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/documentation/examples/monty-hall/" title="The Monty Hall Problem"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
+      </main>
     </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+<a id="logo" href="https://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
 
-    </section>
+        </div>
 
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/js/clipboard.min.js?1691417820"></script>
-    <script src="/js/perfect-scrollbar.min.js?1691417820"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1691417820"></script>
-    <script src="/js/jquery.sticky.js?1691417820"></script>
-    <script src="/js/featherlight.min.js?1691417820"></script>
-    <script src="/js/highlight.pack.js?1691417820"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1691417820"></script>
-    <script src="/js/learn.js?1691417820"></script>
-    <script src="/js/hugo-learn.js?1691417820"></script>
-    
-        
-            <script src="/mermaid/mermaid.js?1691417820"></script>
-        
+        <search><form action="/search.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
         <script>
-            mermaid.initialize({ startOnLoad: true });
+          var contentLangs=['en'];
         </script>
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        <script src="/js/auto-complete.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1718276995" defer></script>
+        <script src="/js/search.js?1718276995" defer></script>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div id="R-topics">
+          <ul class="enlarge morespace collapsible-menu">
+          <li data-nav-id="/overview/index.html" class=""><a class="padding" href="/overview/index.html">Overview</a></li>
+          <li data-nav-id="/getting_started/index.html" class=""><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-12968618919479dba8e044963700d17c" class="morespace collapsible-menu">
+          <li data-nav-id="/getting_started/local-install/index.html" class=""><a class="padding" href="/getting_started/local-install/index.html">Installing Command-Line Tools</a></li>
+          <li data-nav-id="/getting_started/docker/index.html" class=""><a class="padding" href="/getting_started/docker/index.html">Running a Browser-Based IDE</a></li>
+          <li data-nav-id="/getting_started/editor-support/index.html" class=""><a class="padding" href="/getting_started/editor-support/index.html">Installing Editor Support</a></li></ul></li>
+          <li data-nav-id="/documentation/index.html" class="parent "><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-b09e01ebd33a1df0b856f4f59680ad9e" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/index.html" class="parent alwaysopen"><a class="padding" href="/documentation/examples/index.html">Examples</a><ul id="R-subsections-bb00d787ce348f2fb642751cd88a26f3" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/monty-hall/index.html" class=""><a class="padding" href="/documentation/examples/monty-hall/index.html">The Monty Hall Problem</a></li>
+          <li data-nav-id="/documentation/examples/time-and-date/index.html" class="active"><a class="padding" href="/documentation/examples/time-and-date/index.html">Modeling and Visualizing Calendar Time</a></li>
+          <li data-nav-id="/documentation/examples/single-watertank/index.html" class=""><a class="padding" href="/documentation/examples/single-watertank/index.html">Modeling and Visualizing A Water Tank Controller</a></li>
+          <li data-nav-id="/documentation/examples/multicore_memory/index.html" class=""><a class="padding" href="/documentation/examples/multicore_memory/index.html">ABS Model of a Multicore Memory System</a></li></ul></li>
+          <li data-nav-id="/documentation/tutorials/index.html" class="alwaysopen"><a class="padding" href="/documentation/tutorials/index.html">Tutorials</a><ul id="R-subsections-7d2dfc594c432b3a82a4e4b9e2508b2d" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/tutorials/language-tutorial/index.html" class=""><a class="padding" href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/resources/index.html" class=""><a class="padding" href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/costabs/index.html" class=""><a class="padding" href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a></li>
+          <li data-nav-id="/documentation/tutorials/mhp/index.html" class=""><a class="padding" href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a></li>
+          <li data-nav-id="/documentation/tutorials/sra/index.html" class=""><a class="padding" href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a></li></ul></li></ul></li>
+          <li data-nav-id="/publications/index.html" class=""><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
+          <li data-nav-id="/contact/index.html" class=""><a class="padding" href="/contact/index.html">Contact</a></li>
+          <li data-nav-id="/acknowledgments/index.html" class=""><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
+          <li data-nav-id="/laboratory/index.html" class=""><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
+          </ul>
+        </div>
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="R-menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="R-select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-language"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-language">Language</label>
+                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
+                      <option id="R-select-language-en" value="#R-select-language-en" data-url="/documentation/examples/time-and-date/index.html" lang="en-us" selected></option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="R-select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-paint-brush"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-variant">Theme</label>
+                    <select id="R-select-variant" onchange="window.variants && variants.changeVariant( this.value );">
+                      <option id="R-select-variant-abs" value="abs" selected>Abs</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.variants && variants.markSelectedVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-history"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Clear History</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="R-footer" class="footerFooter showFooter"><ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
+<br/>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1718276995" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1718276995" defer></script>
+    <script src="/js/theme.js?1718276995" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
   </body>
 </html>
-

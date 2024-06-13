@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Contact on The ABS Modeling Language</title>
-    <link>https://abs-models.org/contact/</link>
-    <description>Recent content in Contact on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Contact :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/contact/index.html</link>
+    <description>We welcome bug reports and feature requests submitted via github at https://github.com/abstools/abstools/issues.&#xA;To contact the maintainers, post on the discussion form at https://github.com/abstools/abstools/discussions or write to abs-info@abs-models.org.&#xA;You can subscribe to the developers’ mailing list at the developer list manager page, or subscribe to a low-traffic announcement-only list at the announcement list manager page.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Mar 2018 12:22:25 +0100</lastBuildDate><atom:link href="https://abs-models.org/contact/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="https://abs-models.org/contact/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

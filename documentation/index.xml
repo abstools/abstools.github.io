@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Documentation on The ABS Modeling Language</title>
-    <link>https://abs-models.org/documentation/</link>
-    <description>Recent content in Documentation on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Documentation :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/documentation/index.html</link>
+    <description>The ABS language reference is the authoritative guide to what constitutes a legal ABS model, how to specify a Software Product Line, and how to use annotations to model time and resources.&#xA;There are some examples that walk through a small but complete ABS model to illustrate various modeling techniques.&#xA;We offer tutorials for the ABS language itself, as well as most tools that use ABS as an input language.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 May 2019 09:16:13 +0200</lastBuildDate><atom:link href="https://abs-models.org/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Apr 2020 20:21:00 +0100</lastBuildDate>
+    <atom:link href="https://abs-models.org/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Examples</title>
+      <link>https://abs-models.org/documentation/examples/index.html</link>
+      <pubDate>Sun, 05 Apr 2020 20:21:00 +0100</pubDate>
+      <guid>https://abs-models.org/documentation/examples/index.html</guid>
+      <description>This page features a list of examples – small and large complete ABS models that illustrate various modeling techniques.&#xA;The Monty Hall ProblemModeling simple behavior, getting complex results.&#xA;Modeling and Visualizing Calendar TimeAn example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.&#xA;Modeling and Visualizing A Water Tank ControllerAn example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.</description>
+    </item>
+    <item>
+      <title>Tutorials</title>
+      <link>https://abs-models.org/documentation/tutorials/index.html</link>
+      <pubDate>Thu, 22 Mar 2018 12:21:52 +0100</pubDate>
+      <guid>https://abs-models.org/documentation/tutorials/index.html</guid>
+      <description>This page features a list of tutorials for most tools that work with the ABS language.&#xA;Converted Tutorials Conversion from old tutorials is on-going and help is most welcome.&#xA;Language TutorialThis tutorial gives an overview of the ABS language.&#xA;Resource Modeling TutorialAn introduction to time and resource modeling in ABS.&#xA;Resource Analysis with CostABSCostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.</description>
+    </item>
   </channel>
 </rss>

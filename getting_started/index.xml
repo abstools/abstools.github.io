@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Getting Started on The ABS Modeling Language</title>
-    <link>https://abs-models.org/getting_started/</link>
-    <description>Recent content in Getting Started on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Getting Started :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/getting_started/index.html</link>
+    <description>There are various ways of running ABS models.&#xA;Use On-Line Tools The simplest way to use the ABS tools is on-line, in the collaboratory. This means you only need a modern browser to start experimenting with ABS. The tools work best with Firefox and Chrome.&#xA;An introduction and link to the collaboratory can be found at http://abs-models.org/laboratory/.&#xA;Installing Command-Line ToolsMany of the tools can be run from the command line. This page describes how to run various tools on a local machine.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Mar 2018 12:22:10 +0100</lastBuildDate><atom:link href="https://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Sep 2018 09:46:58 +0200</lastBuildDate>
+    <atom:link href="https://abs-models.org/getting_started/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installing Command-Line Tools</title>
-      <link>https://abs-models.org/getting_started/local-install/</link>
+      <link>https://abs-models.org/getting_started/local-install/index.html</link>
       <pubDate>Wed, 15 Aug 2018 09:22:58 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/local-install/</guid>
-      <description>Many of the tools can be run from the command line. This page describes how to run various tools on a local machine.
-Installing Dependencies The ABS compiler is contained in a single file called absfrontend.jar.
-Running the ABS compiler requires Java (version 11 or greater) and Erlang (version 23 or greater) installed. Java can be downloaded, e.g., from https://adoptopenjdk.net. Erlang is available at https://www.erlang.org/downloads (but also check below for platform-specific instructions).</description>
+      <guid>https://abs-models.org/getting_started/local-install/index.html</guid>
+      <description>Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.</description>
     </item>
-    
     <item>
       <title>Running a Browser-Based IDE</title>
-      <link>https://abs-models.org/getting_started/docker/</link>
+      <link>https://abs-models.org/getting_started/docker/index.html</link>
       <pubDate>Wed, 15 Aug 2018 09:20:37 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/docker/</guid>
-      <description>The collaboratory is a browser-based development environment for ABS. It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.
-Running the Collaboratory using Docker To run the collaboratory, first install docker from https://www.docker.com. Then, run the following command in a terminal window:
-docker run -d --rm -p 8080:80 --name collaboratory abslang/collaboratory:latest When the command has finished, connect a browser to http://localhost:8080 and start using ABS!</description>
+      <guid>https://abs-models.org/getting_started/docker/index.html</guid>
+      <description>The collaboratory is a browser-based development environment for ABS.  It integrates an editor, the syntax checker and simulator, and the SACO resource analysis tool.</description>
     </item>
-    
     <item>
       <title>Installing Editor Support</title>
-      <link>https://abs-models.org/getting_started/editor-support/</link>
+      <link>https://abs-models.org/getting_started/editor-support/index.html</link>
       <pubDate>Wed, 05 Sep 2018 09:46:58 +0200</pubDate>
-      
-      <guid>https://abs-models.org/getting_started/editor-support/</guid>
-      <description>We provide support for Emacs, Atom and Visual Studio Code.
-Emacs The abs-mode package provides support for ABS in the Emacs editor.
-Installation instructions are at https://github.com/abstools/abs-mode.
-Atom The Atom editor support can be found at https://github.com/abstools/language-abs. ABS support for Atom currently cannot be installed from the offical Package repository and has to be installed manually; see https://github.com/abstools/language-abs for instructions.
-Visual Studio Code ABS editing support for Visual Studio Code can be installed as a .</description>
+      <guid>https://abs-models.org/getting_started/editor-support/index.html</guid>
+      <description>We provide support for Emacs, Atom and Visual Studio Code.</description>
     </item>
-    
   </channel>
 </rss>

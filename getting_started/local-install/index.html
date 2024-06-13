@@ -1,666 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.116.1">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.127.0">
+    <meta name="generator" content="Relearn 6.0.0+tip">
     <meta name="description" content="Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.">
-
-
-    <link rel="icon" href="/images/favicon.png" type="image/png">
-
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Installing Command-Line Tools :: The ABS Modeling Language">
+    <meta name="twitter:description" content="Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.">
+    <meta property="og:url" content="https://abs-models.org/getting_started/local-install/index.html">
+    <meta property="og:site_name" content="The ABS Modeling Language">
+    <meta property="og:title" content="Installing Command-Line Tools :: The ABS Modeling Language">
+    <meta property="og:description" content="Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Getting Started">
+    <meta property="article:published_time" content="2018-08-15T09:22:58+02:00">
+    <meta property="article:modified_time" content="2018-08-15T09:22:58+02:00">
+    <meta itemprop="name" content="Installing Command-Line Tools :: The ABS Modeling Language">
+    <meta itemprop="description" content="Many of the tools can be run from the command line.  This page describes how to run various tools on a local machine.">
+    <meta itemprop="datePublished" content="2018-08-15T09:22:58+02:00">
+    <meta itemprop="dateModified" content="2018-08-15T09:22:58+02:00">
+    <meta itemprop="wordCount" content="707">
     <title>Installing Command-Line Tools :: The ABS Modeling Language</title>
-
-    
-    <link href="/css/nucleus.css?1691417820" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1691417820" rel="stylesheet">
-    <link href="/css/hybrid.css?1691417820" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1691417820" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1691417820" rel="stylesheet">
-    <link href="/css/auto-complete.css?1691417820" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1691417820" rel="stylesheet">
-    <link href="/css/theme.css?1691417820" rel="stylesheet">
-    <link href="/css/tabs.css?1691417820" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1691417820" rel="stylesheet">
-    
-    <link href="/css/theme-abs.css?1691417820" rel="stylesheet">
-    
-    
-
-    <script src="/js/jquery-3.3.1.min.js?1691417820"></script>
-
-    <style>
-      :root #header + #content > #left > #rlblock_left{
-          display:none !important;
-      }
-      
-    </style>
-    
+    <link href="/css/fontawesome-all.min.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1718276995" rel="stylesheet">
+    <link href="/css/auto-complete.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1718276995" rel="stylesheet">
+    <link href="/css/fonts.css?1718276995" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1718276995" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1718276995" rel="stylesheet">
+    <link href="/css/theme-abs.css?1718276995" rel="stylesheet" id="R-variant-style">
+    <link href="/css/chroma-relearn-light.css?1718276995" rel="stylesheet" id="R-variant-chroma-style">
+    <link href="/css/variant.css?1718276995" rel="stylesheet">
+    <link href="/css/print.css?1718276995" rel="stylesheet" media="print">
+    <script src="/js/variant.js?1718276995"></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/abs-models.org';
+      window.index_js_url="/index.search.js";
+      // variant stuff
+      window.variants && variants.init( [ 'abs' ] );
+      // translations
+      window.T_Copy_to_clipboard = `Copy to clipboard`;
+      window.T_Copied_to_clipboard = `Copied to clipboard!`;
+      window.T_Copy_link_to_clipboard = `Copy link to clipboard`;
+      window.T_Link_copied_to_clipboard = `Copied link to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+    </script>
   </head>
-  <body class="" data-url="/getting_started/local-install/">
-    <nav id="sidebar" class="">
-
-
-
-  <div id="header-wrapper">
-    <div id="header">
-      <a id="logo" href="https://abs-models.org/" >
-  <img src='/images/ABS_logo_colors.png' width="80%">
-  </img>
-</a>
-
-    </div>
-    
-        <div class="searchbox">
-    <label for="search-by"><i class="fas fa-search"></i></label>
-    <input data-search-input id="search-by" type="search" placeholder="Search...">
-    <span data-search-clear=""><i class="fas fa-times"></i></span>
-</div>
-
-<script type="text/javascript" src="/js/lunr.min.js?1691417820"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1691417820"></script>
-<script type="text/javascript">
-    
-        var baseurl = "https:\/\/abs-models.org\/";
-    
-</script>
-<script type="text/javascript" src="/js/search.js?1691417820"></script>
-
-    
-  </div>
-  
-    <section id="homelinks">
-      <ul>
-        <li>
-            <a class="padding" href='/'><i class='fas fa-home'></i> Home</a>
-        </li>
-      </ul>
-    </section>
-  
-
-    <div class="highlightable">
-    <ul class="topics">
-
-        
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/overview/" title="Overview" class="dd-item
-        
-        
-        
-        ">
-      <a href="/overview/">
-          Overview
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/getting_started/" title="Getting Started" class="dd-item
-        parent
-        
-        
-        ">
-      <a href="/getting_started/">
-          Getting Started
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/local-install/" title="Installing Command-Line Tools" class="dd-item active">
-        <a href="/getting_started/local-install/">
-        Installing Command-Line Tools
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/docker/" title="Running a Browser-Based IDE" class="dd-item ">
-        <a href="/getting_started/docker/">
-        Running a Browser-Based IDE
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/getting_started/editor-support/" title="Installing Editor Support" class="dd-item ">
-        <a href="/getting_started/editor-support/">
-        Installing Editor Support
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/" title="Documentation" class="dd-item
-        
-        
-        
-        ">
-      <a href="/documentation/">
-          Documentation
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-            
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/examples/" title="Examples" class="dd-item
-        
-        
-        
-        ">
-      <a href="/documentation/examples/">
-          Examples
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/monty-hall/" title="The Monty Hall Problem" class="dd-item ">
-        <a href="/documentation/examples/monty-hall/">
-        The Monty Hall Problem
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/time-and-date/" title="Modeling and Visualizing Calendar Time" class="dd-item ">
-        <a href="/documentation/examples/time-and-date/">
-        Modeling and Visualizing Calendar Time
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/single-watertank/" title="Modeling and Visualizing A Water Tank Controller" class="dd-item ">
-        <a href="/documentation/examples/single-watertank/">
-        Modeling and Visualizing A Water Tank Controller
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/examples/multicore_memory/" title="ABS Model of a Multicore Memory System" class="dd-item ">
-        <a href="/documentation/examples/multicore_memory/">
-        ABS Model of a Multicore Memory System
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/documentation/tutorials/" title="Tutorials" class="dd-item
-        
-        
-        
-        ">
-      <a href="/documentation/tutorials/">
-          Tutorials
-          
-      </a>
-      
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/language-tutorial/" title="Language Tutorial" class="dd-item ">
-        <a href="/documentation/tutorials/language-tutorial/">
-        Language Tutorial
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/resources/" title="Resource Modeling Tutorial" class="dd-item ">
-        <a href="/documentation/tutorials/resources/">
-        Resource Modeling Tutorial
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/costabs/" title="Resource Analysis with CostABS" class="dd-item ">
-        <a href="/documentation/tutorials/costabs/">
-        Resource Analysis with CostABS
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/mhp/" title="May-Happen-in-Parallel Analysis" class="dd-item ">
-        <a href="/documentation/tutorials/mhp/">
-        May-Happen-in-Parallel Analysis
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/documentation/tutorials/sra/" title="Resource Analysis with SRA" class="dd-item ">
-        <a href="/documentation/tutorials/sra/">
-        Resource Analysis with SRA
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/publications/" title="Publications and Workshops" class="dd-item
-        
-        
-        
-        ">
-      <a href="/publications/">
-          Publications and Workshops
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/contact/" title="Contact" class="dd-item
-        
-        
-        
-        ">
-      <a href="/contact/">
-          Contact
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/acknowledgments/" title="Acknowledgments" class="dd-item
-        
-        
-        
-        ">
-      <a href="/acknowledgments/">
-          Acknowledgments
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-          
-
-
-
-
- 
-  
-    
-    <li data-nav-id="/laboratory/" title="The Collaboratory" class="dd-item
-        
-        
-        
-        ">
-      <a href="/laboratory/">
-          The Collaboratory
-          
-      </a>
-      
-      
-    </li>
-  
- 
-
-          
-        
-    </ul>
-
-    
-    
-
-    
-    <section id="footer">
-      <ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
-<br/>
-<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
-
-    </section>
-  </div>
-</nav>
-
-
-
-
-        <section id="body">
-        <div id="overlay"></div>
-        <div class="padding highlightable">
-              
-              <div>
-                <div id="top-bar">
-                
-                
-                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <span id="sidebar-toggle-span">
-                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
-                          <i class="fas fa-bars"></i>
-                        </a>
-                    </span>
-                  
-                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                  
-                  <span class="links">
-                 
-                 
-                    
-          
-          
-            
-            
-          
-          
-            
-            
-          
-          
-            <a href='/'>The ABS Language</a> > <a href='/getting_started/'>Getting Started</a> > Installing Command-Line Tools
-          
-        
-          
-        
-          
-        
-                 
-                  </span>
-                </div>
-                
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
+  <body class="mobile-support html" data-url="/getting_started/local-install/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"><nav class="TableOfContents">
   <ul>
     <li><a href="#installing-dependencies">Installing Dependencies</a>
       <ul>
@@ -676,59 +82,70 @@
     <li><a href="#installing-key-abs">Installing KeY-ABS</a></li>
   </ul>
 </nav>
-    </div>
-</div>
-
-                
+                </div>
               </div>
             </div>
-            
-        <div id="head-tags">
-        
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/index.html"><span itemprop="name">The ABS Language</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/getting_started/index.html"><span itemprop="name">Getting Started</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">Installing Command-Line Tools</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/getting_started/index.html" title="Getting Started (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/getting_started/docker/index.html" title="Running a Browser-Based IDE (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div id="body-inner">
-          
-            <h1>
-              
-              Installing Command-Line Tools
-            </h1>
-          
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable default" tabindex="-1">
+        <div class="flex-block-wrapper">
+          <article class="default">
+            <header class="headline">
+            </header>
 
-        
-
+<h1 id="installing-command-line-tools">Installing Command-Line Tools</h1>
 
 <p>Many of the tools can be run from the command line.  This page describes
 how to run various tools on a local machine.</p>
 <h2 id="installing-dependencies">Installing Dependencies</h2>
 <p>The ABS compiler is contained in a single file called <code>absfrontend.jar</code>.</p>
-<p>Running the ABS compiler requires Java (version 11 or greater) and Erlang
-(version 23 or greater) installed.  Java can be downloaded, e.g., from
-<a href="https://adoptopenjdk.net">https://adoptopenjdk.net</a>.  Erlang is available at
-<a href="https://www.erlang.org/downloads">https://www.erlang.org/downloads</a> (but also check below for platform-specific
+<p>Running the ABS compiler requires Java (version 21 or greater) and Erlang
+(version 26 or greater) installed.  Java can be downloaded, e.g., from
+<a href="https://adoptopenjdk.net" rel="external" target="_blank">https://adoptopenjdk.net</a>.  Erlang is available at
+<a href="https://www.erlang.org/downloads" rel="external" target="_blank">https://www.erlang.org/downloads</a> (but also check below for platform-specific
 instructions).</p>
 <h3 id="installing-dependencies-on-macos">Installing dependencies on MacOS</h3>
-<p>On MacOS, the <a href="https://brew.sh/">homebrew</a> package manager can be used
+<p>On MacOS, the <a href="https://brew.sh/" rel="external" target="_blank">homebrew</a> package manager can be used
 to install the dependencies.  After installing homebrew, run the
 following commands in a terminal:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew tap adoptopenjdk/openjdk
-</span></span><span style="display:flex;"><span>brew install erlang git adoptopenjdk11
-</span></span></code></pre></div><h3 id="installing-dependencies-on-windows">Installing dependencies on Windows</h3>
-<p>On windows, the <a href="https://chocolatey.org/">chocolatey</a> package manager
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install erlang git openjdk
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/homebrew/opt/openjdk/bin:</span>$PATH<span style="color:#e6db74">&#34;</span></span></span></code></pre></div><h3 id="installing-dependencies-on-windows">Installing dependencies on Windows</h3>
+<p>On windows, the <a href="https://chocolatey.org/" rel="external" target="_blank">chocolatey</a> package manager
 can be used to install the dependencies.  First install chocolatey
-following the instructions at <a href="https://chocolatey.org/install">https://chocolatey.org/install</a>, then
+following the instructions at <a href="https://chocolatey.org/install" rel="external" target="_blank">https://chocolatey.org/install</a>, then
 run the following command in a terminal with Administrator rights:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>choco install openjdk11 git erlang visualstudio2019buildtools
-</span></span></code></pre></div><p>To compile the ABS toolchain, make sure to run the command <code>./gradlew build</code>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>choco install openjdk21 git erlang visualstudio2019buildtools</span></span></code></pre></div><p>To compile the ABS toolchain, make sure to run the command <code>./gradlew build</code>
 from a developer shell (Start -&gt; Visual Studio 2019 -&gt; Developer PowerShell
 for VS 2019).</p>
 <h3 id="installing-dependencies-on-linux">Installing dependencies on Linux</h3>
 <p>On Linux, check if your distribution offers the necessary programs
-pre-packaged in the version needed (JDK11, Erlang &gt;= 23, a C compiler);
-otherwise download from the distribution pages linked above.</p>
+pre-packaged in the version needed (JDK21, Erlang &gt;= 26, a C
+compiler); otherwise download from the distribution pages linked
+above.</p>
 <h2 id="using-a-pre-built-abs-compiler">Using a pre-built ABS compiler</h2>
 <p>A pre-built <code>absfrontend.jar</code> of the current release of ABS is always linked
-from <a href="https://github.com/abstools/abstools/releases/latest">https://github.com/abstools/abstools/releases/latest</a>.  It can be
+from <a href="https://github.com/abstools/abstools/releases/latest" rel="external" target="_blank">https://github.com/abstools/abstools/releases/latest</a>.  It can be
 invoked with <code>java -jar absfrontend.jar --help</code>.  (Java and Erlang still need
 to be installed to run ABS, as above.)</p>
 <p>To compile an ABS model <code>model.abs</code>, invoke the compiler with <code>java -jar absfrontend.jar --erlang model.abs</code>, then run the model with
@@ -736,35 +153,30 @@ to be installed to run ABS, as above.)</p>
 <h2 id="using-docker-to-run-the-abs-compiler">Using Docker to run the ABS compiler</h2>
 <p>The latest released ABS compiler is always published as a docker image
 called <code>abslang/absc:latest</code>.  To use this image, first install the
-docker tool from <a href="https://www.docker.com/products/docker-desktop">https://www.docker.com/products/docker-desktop</a> or
+docker tool from <a href="https://www.docker.com/products/docker-desktop" rel="external" target="_blank">https://www.docker.com/products/docker-desktop</a> or
 via your operating system&rsquo;s package manager.</p>
 <p>To install or update the docker image of the ABS compiler, run <code>docker pull abslang/absc:latest</code>.  Then, run <code>docker run --rm abslang/absc:latest --help</code> &ndash; you should see the help output of the ABS compiler.</p>
 <p>To compile an ABS model <code>model.abs</code> in the current directory, invoke
 the compiler with the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src abslang/absc:latest --erlang model.abs
-</span></span></code></pre></div><p>To run the model after compiling, either run <code>./gen/erl/run</code> (if the
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src abslang/absc:latest --erlang model.abs</span></span></code></pre></div><p>To run the model after compiling, either run <code>./gen/erl/run</code> (if the
 host machine has erlang installed), or run the model inside docker
 with the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc
-</span></span></code></pre></div><p>Note that using the Model API of a model running inside a docker
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc</span></span></code></pre></div><p>Note that using the Model API of a model running inside a docker
 container requires additional parameters to make the listening port
 visible on the host system.  To run the Model API on port 8080, use
 the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -p 8080:8080 -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc -p <span style="color:#ae81ff">8080</span>
-</span></span></code></pre></div><h2 id="compiling-the-abs-compiler-from-source">Compiling the ABS compiler from source</h2>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -v <span style="color:#e6db74">&#34;</span>$PWD<span style="color:#e6db74">&#34;</span>:/usr/src -p 8080:8080 -w /usr/src --entrypoint /usr/src/gen/erl/run abslang/absc -p <span style="color:#ae81ff">8080</span></span></span></code></pre></div><h2 id="compiling-the-abs-compiler-from-source">Compiling the ABS compiler from source</h2>
 <p>To compile the ABS compiler from source, clone the git repository and run
 gradle (after installing the necessary dependencies):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># on Linux, macOS</span>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># on Linux, macOS</span>
 </span></span><span style="display:flex;"><span>git clone https://github.com/abstools/abstools.git
 </span></span><span style="display:flex;"><span>cd abstools
 </span></span><span style="display:flex;"><span>./gradlew assemble
-</span></span><span style="display:flex;"><span>frontend/bin/absc --help
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># on Windows</span>
+</span></span><span style="display:flex;"><span>frontend/bin/absc --help</span></span></code></pre></div><div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># on Windows</span>
 </span></span><span style="display:flex;"><span>git clone <span style="color:#e6db74">&#34;https://github.com/abstools/abstools.git&#34;</span>
 </span></span><span style="display:flex;"><span>cd abstools
 </span></span><span style="display:flex;"><span>.\gradlew assemble
-</span></span><span style="display:flex;"><span>frontend\bin\absc.bat --help
-</span></span></code></pre></div><p>At the end of these commands, you should see the help output of the ABS
+</span></span><span style="display:flex;"><span>frontend\bin\absc.bat --help</span></span></code></pre></div><p>At the end of these commands, you should see the help output of the ABS
 compiler.</p>
 <p>The directory <code>abstools/frontend/bin</code> contains convenience scripts <code>absc</code> (for
 Linux, macOS, other Unix systems) and <code>absc.bat</code> (for Windows) that invoke the
@@ -772,448 +184,148 @@ ABS compiler.  This directory can be added to the <code>PATH</code> environment 
 if desired.</p>
 <p>To compile an ABS model <code>model.abs</code>, invoke the compiler with <code>absc --erlang model.abs</code>, then run the model with <code>./gen/erl/run</code>.</p>
 <h2 id="installing-crowbar">Installing Crowbar</h2>
-<p>For a local installation of the Crowbar verification systems, either download a <a href="https://github.com/Edkamb/crowbar-tool/releases/">prepackaged jar file</a>, or compile the code locally.
+<p>For a local installation of the Crowbar verification systems, either download a <a href="https://github.com/Edkamb/crowbar-tool/releases/" rel="external" target="_blank">prepackaged jar file</a>, or compile the code locally.
 Crowbar requires Java &gt;= 1.8 and an SMT-Solver to run.
 On an Ubuntu machine, run the following to install Crowbar and run it on an example file:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install z3
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install z3
 </span></span><span style="display:flex;"><span>mkdir crowbar
 </span></span><span style="display:flex;"><span>cd crowbar
 </span></span><span style="display:flex;"><span>git clone https://github.com/Edkamb/crowbar-tool.git .
 </span></span><span style="display:flex;"><span>./gradlew assemble
-</span></span><span style="display:flex;"><span>java -jar build/libs/crowbar.jar --full examples/account.abs
-</span></span></code></pre></div><p>The expected output should end in the lines</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>java -jar build/libs/crowbar.jar --full examples/account.abs</span></span></code></pre></div><p>The expected output should end in the lines</p>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>...
 </span></span><span style="display:flex;"><span>Crowbar  : Final verification result: true
 </span></span><span style="display:flex;"><span>Crowbar  : Verification time: ...
-</span></span><span style="display:flex;"><span>Crowbar  : Total number of branches: <span style="color:#ae81ff">6</span>
-</span></span></code></pre></div><h2 id="installing-key-abs">Installing KeY-ABS</h2>
+</span></span><span style="display:flex;"><span>Crowbar  : Total number of branches: <span style="color:#ae81ff">6</span></span></span></code></pre></div><h2 id="installing-key-abs">Installing KeY-ABS</h2>
 <p>For a local installation of the KeY-ABS theorem prover, install Java 8.  Then,
-download KeY-ABS from <a href="http://i12www.ira.uka.de/key/key-abs/key-abs.zip">http://i12www.ira.uka.de/key/key-abs/key-abs.zip</a>.
+download KeY-ABS from <a href="http://i12www.ira.uka.de/key/key-abs/key-abs.zip" rel="external" target="_blank">http://i12www.ira.uka.de/key/key-abs/key-abs.zip</a>.
 Unzipping that downloaded file and double-clicking on the key.jar file should
 start KeY-ABS.  To start from the command line, use:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -jar key.jar
-</span></span></code></pre></div>
-
-<footer class="footline">
-	
-</footer>
-
-        
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -jar key.jar</span></span></code></pre></div>
+            <footer class="footline">
+            </footer>
+          </article>
         </div>
-        
-
-      </div>
-
-    <div id="navigation">
-        
-        
-
-        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-
-        
-
-
-	 
-	 
-		
-			<a class="nav nav-prev" href="/getting_started/" title="Getting Started"> <i class="fa fa-chevron-left"></i></a>
-		
-		
-			<a class="nav nav-next" href="/getting_started/docker/" title="Running a Browser-Based IDE" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
-		
-	
+      </main>
     </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+<a id="logo" href="https://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
 
-    </section>
+        </div>
 
-    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
-      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <script src="/js/clipboard.min.js?1691417820"></script>
-    <script src="/js/perfect-scrollbar.min.js?1691417820"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1691417820"></script>
-    <script src="/js/jquery.sticky.js?1691417820"></script>
-    <script src="/js/featherlight.min.js?1691417820"></script>
-    <script src="/js/highlight.pack.js?1691417820"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1691417820"></script>
-    <script src="/js/learn.js?1691417820"></script>
-    <script src="/js/hugo-learn.js?1691417820"></script>
-    
-        
-            <script src="/mermaid/mermaid.js?1691417820"></script>
-        
+        <search><form action="/search.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
         <script>
-            mermaid.initialize({ startOnLoad: true });
+          var contentLangs=['en'];
         </script>
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        <script src="/js/auto-complete.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1718276995" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1718276995" defer></script>
+        <script src="/js/search.js?1718276995" defer></script>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div id="R-topics">
+          <ul class="enlarge morespace collapsible-menu">
+          <li data-nav-id="/overview/index.html" class=""><a class="padding" href="/overview/index.html">Overview</a></li>
+          <li data-nav-id="/getting_started/index.html" class="parent "><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-12968618919479dba8e044963700d17c" class="morespace collapsible-menu">
+          <li data-nav-id="/getting_started/local-install/index.html" class="active"><a class="padding" href="/getting_started/local-install/index.html">Installing Command-Line Tools</a></li>
+          <li data-nav-id="/getting_started/docker/index.html" class=""><a class="padding" href="/getting_started/docker/index.html">Running a Browser-Based IDE</a></li>
+          <li data-nav-id="/getting_started/editor-support/index.html" class=""><a class="padding" href="/getting_started/editor-support/index.html">Installing Editor Support</a></li></ul></li>
+          <li data-nav-id="/documentation/index.html" class=""><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-b09e01ebd33a1df0b856f4f59680ad9e" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/index.html" class="alwaysopen"><a class="padding" href="/documentation/examples/index.html">Examples</a><ul id="R-subsections-bb00d787ce348f2fb642751cd88a26f3" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/monty-hall/index.html" class=""><a class="padding" href="/documentation/examples/monty-hall/index.html">The Monty Hall Problem</a></li>
+          <li data-nav-id="/documentation/examples/time-and-date/index.html" class=""><a class="padding" href="/documentation/examples/time-and-date/index.html">Modeling and Visualizing Calendar Time</a></li>
+          <li data-nav-id="/documentation/examples/single-watertank/index.html" class=""><a class="padding" href="/documentation/examples/single-watertank/index.html">Modeling and Visualizing A Water Tank Controller</a></li>
+          <li data-nav-id="/documentation/examples/multicore_memory/index.html" class=""><a class="padding" href="/documentation/examples/multicore_memory/index.html">ABS Model of a Multicore Memory System</a></li></ul></li>
+          <li data-nav-id="/documentation/tutorials/index.html" class="alwaysopen"><a class="padding" href="/documentation/tutorials/index.html">Tutorials</a><ul id="R-subsections-7d2dfc594c432b3a82a4e4b9e2508b2d" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/tutorials/language-tutorial/index.html" class=""><a class="padding" href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/resources/index.html" class=""><a class="padding" href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/costabs/index.html" class=""><a class="padding" href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a></li>
+          <li data-nav-id="/documentation/tutorials/mhp/index.html" class=""><a class="padding" href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a></li>
+          <li data-nav-id="/documentation/tutorials/sra/index.html" class=""><a class="padding" href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a></li></ul></li></ul></li>
+          <li data-nav-id="/publications/index.html" class=""><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
+          <li data-nav-id="/contact/index.html" class=""><a class="padding" href="/contact/index.html">Contact</a></li>
+          <li data-nav-id="/acknowledgments/index.html" class=""><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
+          <li data-nav-id="/laboratory/index.html" class=""><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
+          </ul>
+        </div>
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="R-menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="R-select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-language"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-language">Language</label>
+                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
+                      <option id="R-select-language-en" value="#R-select-language-en" data-url="/getting_started/local-install/index.html" lang="en-us" selected></option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="R-select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-paint-brush"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-variant">Theme</label>
+                    <select id="R-select-variant" onchange="window.variants && variants.changeVariant( this.value );">
+                      <option id="R-select-variant-abs" value="abs" selected>Abs</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.variants && variants.markSelectedVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-history"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Clear History</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="R-footer" class="footerFooter showFooter"><ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
+<br/>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1718276995" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1718276995" defer></script>
+    <script src="/js/theme.js?1718276995" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
   </body>
 </html>
-

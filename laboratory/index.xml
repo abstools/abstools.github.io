@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Collaboratory on The ABS Modeling Language</title>
-    <link>https://abs-models.org/laboratory/</link>
-    <description>Recent content in The Collaboratory on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>The Collaboratory :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/laboratory/index.html</link>
+    <description>The Collaboratory is a browser-based IDE for ABS that offers an online, zero install version of the ABS toolchain. Use it to experiment with the language in a risk-free environment.&#xA;Load our ready-made examples or run your own ABS models. The editor has many features of an IDE, including showing you an outline of the code, and of course reporting syntax- and type errors.&#xA;The collaboratory also supports many of the analysis tools that we have developed, like COSTA and SACO.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 May 2019 13:34:28 +0200</lastBuildDate><atom:link href="https://abs-models.org/laboratory/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="https://abs-models.org/laboratory/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

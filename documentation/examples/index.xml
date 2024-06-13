@@ -1,53 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Examples on The ABS Modeling Language</title>
-    <link>https://abs-models.org/documentation/examples/</link>
-    <description>Recent content in Examples on The ABS Modeling Language</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Examples :: The ABS Modeling Language</title>
+    <link>https://abs-models.org/documentation/examples/index.html</link>
+    <description>This page features a list of examples – small and large complete ABS models that illustrate various modeling techniques.&#xA;The Monty Hall ProblemModeling simple behavior, getting complex results.&#xA;Modeling and Visualizing Calendar TimeAn example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.&#xA;Modeling and Visualizing A Water Tank ControllerAn example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Apr 2020 20:21:00 +0100</lastBuildDate><atom:link href="https://abs-models.org/documentation/examples/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://abs-models.org/documentation/examples/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Monty Hall Problem</title>
-      <link>https://abs-models.org/documentation/examples/monty-hall/</link>
+      <link>https://abs-models.org/documentation/examples/monty-hall/index.html</link>
       <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/monty-hall/</guid>
-      <description>One reason to model systems is to gain insight into and predict complex behavior. Ideally, the components of the system are reasonably easy to understand in isolation, while assembling them together results in surprising behavior that can provide insight or support for a theory about the whole system.
-The Monty Hall Problem The Monty Hall problem (Monty Hall problem - Wikipedia) states:
-Suppose you&amp;rsquo;re on a game show, and you&amp;rsquo;re given the choice of three doors: Behind one door is a car; behind the others, goats.</description>
+      <guid>https://abs-models.org/documentation/examples/monty-hall/index.html</guid>
+      <description>Modeling simple behavior, getting complex results.</description>
     </item>
-    
     <item>
       <title>Modeling and Visualizing Calendar Time</title>
-      <link>https://abs-models.org/documentation/examples/time-and-date/</link>
+      <link>https://abs-models.org/documentation/examples/time-and-date/index.html</link>
       <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/time-and-date/</guid>
-      <description>ABS provides a logical clock, a rational-valued global counter starting at 0 &amp;ndash; see the Timed ABS chapter of the manual for details. This example shows how to use ABS to run simulations modeling real (calendar) time and visualize the resulting data in a timeline.
-The code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/
-Modeling Time in ABS The following short ABS model creates a list of values together with the time when the value was produced.</description>
+      <guid>https://abs-models.org/documentation/examples/time-and-date/index.html</guid>
+      <description>An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.</description>
     </item>
-    
     <item>
       <title>Modeling and Visualizing A Water Tank Controller</title>
-      <link>https://abs-models.org/documentation/examples/single-watertank/</link>
+      <link>https://abs-models.org/documentation/examples/single-watertank/index.html</link>
       <pubDate>Tue, 06 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/single-watertank/</guid>
-      <description>This example shows a model of a small cyber-physical system consisting of a water tank with faucet and drain, and a controller opening and closing the exit valve of the drain. The model illustrates discrete-event simulation, timed semantics, and custom visualization in ABS.
-The complete code can be found at https://github.com/abstools/absexamples/tree/master/collaboratory/examples/single-watertank/
-Modeling a Water Tank The following class shows the model of a water tank. The field level holds the current water level, the field valve_open records the status of an exit valve (open or not open).</description>
+      <guid>https://abs-models.org/documentation/examples/single-watertank/index.html</guid>
+      <description>An example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.</description>
     </item>
-    
     <item>
       <title>ABS Model of a Multicore Memory System</title>
-      <link>https://abs-models.org/documentation/examples/multicore_memory/</link>
+      <link>https://abs-models.org/documentation/examples/multicore_memory/index.html</link>
       <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://abs-models.org/documentation/examples/multicore_memory/</guid>
-      <description>A multicore memory system consists of cores that contain tasks to be executed, the data layout in main memory (indicating where data is allocated), and a system architecture consisting of cores with private multi-level caches and shared memory (see Figure 1). Such a system is parametric in the number of cores, the number and size of caches, and the associativity and replacement policy. Data is organised in blocks that move between the caches and the main memory.</description>
+      <guid>https://abs-models.org/documentation/examples/multicore_memory/index.html</guid>
+      <description>A model of the MSI cache coherency protocol.</description>
     </item>
-    
   </channel>
 </rss>
