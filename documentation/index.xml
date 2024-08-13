@@ -13,7 +13,7 @@
       <link>https://abs-models.org/documentation/examples/index.html</link>
       <pubDate>Sun, 05 Apr 2020 20:21:00 +0100</pubDate>
       <guid>https://abs-models.org/documentation/examples/index.html</guid>
-      <description>This page features a list of examples – small and large complete ABS models that illustrate various modeling techniques.&#xA;The Monty Hall ProblemModeling simple behavior, getting complex results.&#xA;Modeling and Visualizing Calendar TimeAn example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.&#xA;Modeling and Visualizing A Water Tank ControllerAn example for discrete-time simulation of a simple physical system and controller using Real-Time ABS.</description>
+      <description>This page features a list of examples – small and large complete ABS models that illustrate various modeling techniques.&#xA;The Monty Hall ProblemModeling simple behavior, getting complex results.&#xA;Modeling and Visualizing Calendar TimeAn example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.&#xA;Displaying geo-annotated informationAn example on how to display data from ABS on a map via the Model API</description>
     </item>
     <item>
       <title>Tutorials</title>
