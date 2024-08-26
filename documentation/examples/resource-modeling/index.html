@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.133.0">
+    <meta name="generator" content="Relearn 6.0.0+tip">
+    <meta name="description" content="An example on how to model distributed application deployments">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Modeling Resources :: The ABS Modeling Language">
+    <meta name="twitter:description" content="An example on how to model distributed application deployments">
+    <meta property="og:url" content="https://abs-models.org/documentation/examples/resource-modeling/index.html">
+    <meta property="og:site_name" content="The ABS Modeling Language">
+    <meta property="og:title" content="Modeling Resources :: The ABS Modeling Language">
+    <meta property="og:description" content="An example on how to model distributed application deployments">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Documentation">
+    <meta property="article:published_time" content="2024-08-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-13T00:00:00+00:00">
+    <meta itemprop="name" content="Modeling Resources :: The ABS Modeling Language">
+    <meta itemprop="description" content="An example on how to model distributed application deployments">
+    <meta itemprop="datePublished" content="2024-08-13T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2024-08-13T00:00:00+00:00">
+    <meta itemprop="wordCount" content="1411">
+    <title>Modeling Resources :: The ABS Modeling Language</title>
+    <link href="/css/fontawesome-all.min.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1724684476" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1724684476" rel="stylesheet">
+    <link href="/css/auto-complete.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1724684476" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1724684476" rel="stylesheet">
+    <link href="/css/fonts.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1724684476" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1724684476" rel="stylesheet">
+    <link href="/css/theme-abs.css?1724684476" rel="stylesheet" id="R-variant-style">
+    <link href="/css/chroma-relearn-light.css?1724684476" rel="stylesheet" id="R-variant-chroma-style">
+    <link href="/css/variant.css?1724684476" rel="stylesheet">
+    <link href="/css/print.css?1724684476" rel="stylesheet" media="print">
+    <script src="/js/variant.js?1724684476"></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/abs-models.org';
+      window.index_js_url="/index.search.js";
+      // variant stuff
+      window.variants && variants.init( [ 'abs' ] );
+      // translations
+      window.T_Copy_to_clipboard = `Copy to clipboard`;
+      window.T_Copied_to_clipboard = `Copied to clipboard!`;
+      window.T_Copy_link_to_clipboard = `Copy link to clipboard`;
+      window.T_Link_copied_to_clipboard = `Copied link to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+    </script>
+  </head>
+  <body class="mobile-support html" data-url="/documentation/examples/resource-modeling/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"><nav class="TableOfContents">
+  <ul>
+    <li><a href="#functional-model-without-resources">Functional Model without Resources</a></li>
+    <li><a href="#adding-resources-to-the-model">Adding Resources to the Model</a></li>
+    <li><a href="#changing-load-balancing-strategies">Changing Load Balancing Strategies</a></li>
+    <li><a href="#changing-the-client-load-scenario">Changing the Client Load Scenario</a></li>
+    <li><a href="#further-possibilities-for-resource-modeling">Further Possibilities for Resource Modeling</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/index.html"><span itemprop="name">The ABS Language</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/index.html"><span itemprop="name">Documentation</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/examples/index.html"><span itemprop="name">Examples</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">Modeling Resources</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/documentation/examples/single-watertank/index.html" title="Modeling and Visualizing A Water Tank Controller (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/documentation/examples/multicore_memory/index.html" title="ABS Model of a Multicore Memory System (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable default" tabindex="-1">
+        <div class="flex-block-wrapper">
+          <article class="default">
+            <header class="headline">
+            </header>
+
+<h1 id="modeling-resources">Modeling Resources</h1>
+
+<p>This example shows a high-level model of a typical three-layer system
+serving client requests.  The components are one load balancer,
+multiple web workers and an underlying database server.  The model
+also contains one or more clients, which send requests to the load balancer.</p>
+<p>The complete code to this example can be found here: <a href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/" rel="external" target="_blank">https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/</a></p>
+<p>The basic architecture is as follows:</p>
+<figure><img src="/images/examples/resource-modeling/basic-model-no-resources.png"><figcaption>
+      <h4>Example structure</h4>
+    </figcaption>
+</figure>
+
+<p>The <code>Loadbalancer</code> class receives incoming messages from clients,
+chooses a <code>Webworker</code> object and routes the request to it.  The
+worker, in turn, calls the <code>query</code> method of the <code>Database</code> instance,
+then returns a result to the client via the load balancer.</p>
+<h2 id="functional-model-without-resources">Functional Model without Resources</h2>
+<p>The ABS model discussed in this section is here:
+<a href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-no-resources.abs" rel="external" target="_blank">basic-model-no-resources.abs</a></p>
+<p>We use a basic model to implement the control flow of a typical web
+request, skipping any application logic.  Clients access the service
+by calling <code>processRequest()</code> on a <code>LoadBalancer</code> isntance which keeps
+a pool of <code>Webworker</code> components.  All of them access the same
+<code>Database</code> object.  The interface structure is as follows:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">interface Database {
+    String query();
+}
+
+interface Webworker {
+    String processRequest();
+}
+
+interface Loadbalancer {
+    String processRequest();
+}</code></pre></div><p>Note that there is no interface for clients, since they do not expose
+any methods to call from the outside.</p>
+<p>We abstract away from most of the processing and are only concerned
+with control flow, so the <code>Database</code> implementation returns a constant string:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Database implements Database {
+    String query() {
+        return &#34;Result&#34;;
+    }
+}</code></pre></div><p>In the same vein, the <code>Webworker</code> class models database communication
+and local processing:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Webworker(Database db) implements Webworker {
+    String processRequest() {
+        String result = await db!query();
+        return result + &#34; from &#34; + toString(this);
+    }
+}</code></pre></div><p>The class <code>LoadBalancer</code> fills its pool of <code>Webworker</code> instances on
+startup, and routes requests to a free webworker:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Loadbalancer(Int nWorkers, Database db) implements Loadbalancer {
+    List&lt;Webworker&gt; workers = Nil;
+
+    Unit run() {
+        Int i = 0;
+        while (i &lt; nWorkers) {
+            Webworker w = new Webworker(db);
+            workers = Cons(w, workers);
+            i = i + 1;
+        }
+    }
+
+    String processRequest() {
+        await length(workers) &gt; 0;
+        Webworker w = head(workers);
+        workers = tail(workers);
+        String result = await w!processRequest();
+        workers = appendright(workers, w);
+        return result;
+    }
+}</code></pre></div><p>Each <code>Client</code> instance sends one request per time unit to the
+<code>LoadBalancer</code> from its <code>run</code> method:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Client (Loadbalancer lb) {
+    Unit run() {
+        while (timeValue(now()) &lt; 100) {
+            String s = await lb!processRequest();
+            println(s + &#34; at &#34; + toString(now()));
+            await duration(1, 1);
+        }
+    }
+}</code></pre></div><p>Finally, the main block sets up and starts the model.</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">{
+    Database db = new Database();
+    Loadbalancer lb = new Loadbalancer(5, db);
+    new Client(lb);
+    await duration(100, 100);
+}</code></pre></div><h2 id="adding-resources-to-the-model">Adding Resources to the Model</h2>
+<p>The ABS model discussed in this section is here:
+<a href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v1.abs" rel="external" target="_blank">basic-model-resources-v1.abs</a></p>
+<p>We now add resource locations and resource consumption to the model of
+the previous section.</p>
+<p>The basic idea is to create objects at resource-carrying <em>locations</em>
+(see <a href="https://abs-models.org/manual/#sec:deployment-components" rel="external" target="_blank">Deployment
+Components</a>).
+<code>DeploymentComponent</code> is a pre-defined ABS class that models a virtual
+machine, or in general a location that supplies computation resources
+to the cogs running on it.</p>
+<p>Specific parts of the code are annotated with <em>resource costs</em>.
+Executing these code parts consumes resources, and execution is
+delayed when the location has run out of resources.  Resources are
+refreshed periodically.</p>
+<p>The interesting point is that adding deployment and cost information
+to an ABS model can be done piecemeal, and is minimally invasive.</p>
+<figure><img src="/images/examples/resource-modeling/basic-model-resources.png"><figcaption>
+      <h4>Example structure, with deployment components</h4>
+    </figcaption>
+</figure>
+
+<p>In the updated example, we deploy the <code>Webworker</code> and <code>Database</code>
+objects on a deployment component each.  Note that we do not have to
+add a deployment component to every new object; we can leave some
+parts unspecified or abstract.  Note that in the example, we make use
+of the <code>CloudProvider</code> class from the standard library, but deployment
+components can be directly created as well.</p>
+<p>In the main block, we create a <code>CloudProvider</code> instance, tell it which
+instance types are available, and use it to create a deployment
+component for running the database on.  The <code>[DC: database_c]</code>
+annotation creates the fresh <code>Database</code> object on that deployment
+component.</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">{
+    CloudProvider provider = new CloudProvider(&#34;Amazon&#34;);
+    provider!setInstanceDescriptions(map[Pair(&#34;Small&#34;, map[Pair(Cores, 1), Pair(Speed, 15)])]);
+    DeploymentComponent database_c = await provider!launchInstanceNamed(&#34;Small&#34;);
+    [DC: database_c] Database db = new Database();
+    Loadbalancer lb = new Loadbalancer(5, db, provider);
+    new Client(lb);
+    await duration(100, 100);
+    provider!shutdown();
+}</code></pre></div><p>The <code>LoadBalancer</code> uses the same <code>CloudProvider</code> instance to create
+the web workers:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Loadbalancer(Int nWorkers, Database db, CloudProvider provider) implements Loadbalancer {
+    List&lt;Webworker&gt; workers = Nil;
+
+    Unit run() {
+        Int i = 0;
+        while (i &lt; nWorkers) {
+            DeploymentComponent dc = await provider!launchInstanceNamed(&#34;Small&#34;);
+            [DC: dc] Webworker w = new Webworker(db);
+            workers = Cons(w, workers);
+            i = i + 1;
+        }
+    }
+    
+    // All other code unchanged ...
+}</code></pre></div><p>The <code>Database</code> and <code>Webworker</code> classes now consume resources when
+processing requests.  Each <code>query</code> call consumes a constant 3 <code>Speed</code>
+resources from the database&rsquo;s deployment component, each
+<code>processRequest</code> call to a web worker consumes 16 resources from the
+web worker&rsquo;s deployment component.</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">class Database implements Database {
+    String query() {
+        [Cost: 3] return &#34;Result&#34;;
+    }
+}
+
+class Webworker(Database db) implements Webworker {
+    String processRequest() {
+        [Cost: 16] String result = await db!query();
+        return result + &#34; from &#34; + toString(this);
+    }
+}</code></pre></div><p>To run the model on the Java backend, execute the following:</p>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>absc --java basic-model-resources-v1.abs -o basic-model-resources-v1.jar
+</span></span><span style="display:flex;"><span>java -jar basic-model-resources-v1.jar -p <span style="color:#ae81ff">8080</span></span></span></code></pre></div><p>Then, open a browser to the address http://localhost:8080.  The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure><img src="/images/examples/resource-modeling/basic-model-resources-v1-diagram.png"><figcaption>
+      <h4>Screenshot of resource consumption over time of the database and 3 webworkers, round-robin scheduling</h4>
+    </figcaption>
+</figure>
+
+<p>We can see that all deployment components are lightly loaded, and that
+the load balancer distributes tasks in a round-robin strategy.  Since
+the deployment component has a Speed capacity of 15 but the cost of
+one processRequest execution is 16, each request takes two time units.</p>
+<h2 id="changing-load-balancing-strategies">Changing Load Balancing Strategies</h2>
+<p>The ABS model discussed in this section is here:
+<a href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v2.abs" rel="external" target="_blank">basic-model-resources-v2.abs</a></p>
+<p>With a one-line change in the load balancer, we can model a different load
+balancing strategy: we switch from round-robin to a LIFO (stack-based) strategy.</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">String processRequest() {
+    await length(workers) &gt; 0;
+    Webworker w = head(workers);
+    workers = tail(workers);
+    String result = await w!processRequest();
+    workers = Cons(w, workers);
+    return result;
+}</code></pre></div><p>To run the model on the Java backend, execute the following:</p>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>absc --java basic-model-resources-v2.abs -o basic-model-resources-v2.jar
+</span></span><span style="display:flex;"><span>java -jar basic-model-resources-v2.jar -p <span style="color:#ae81ff">8080</span></span></span></code></pre></div><p>Then, open a browser to the address http://localhost:8080.  The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure><img src="/images/examples/resource-modeling/basic-model-resources-v2-diagram.png"><figcaption>
+      <h4>Screenshot of resource consumption over time of the database and 2 webworkers, with LIFO scheduling of the load balancer</h4>
+    </figcaption>
+</figure>
+
+<p>It can be seen that one web worker is enough to carry the load
+of the given client scenario; all web workers except the first one are
+idle over the course of the simulation.</p>
+<h2 id="changing-the-client-load-scenario">Changing the Client Load Scenario</h2>
+<p>The ABS model discussed in this section is here:
+<a href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v3.abs" rel="external" target="_blank">basic-model-resources-v3.abs</a></p>
+<p>The previous examples showed a load scenario where most machines are idle.  We can add more
+clients to simulate a higher load, with the following main block:</p>
+<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">{
+    CloudProvider provider = new CloudProvider(&#34;Amazon&#34;);
+    provider!setInstanceDescriptions(map[Pair(&#34;Small&#34;, map[Pair(Cores, 1), Pair(Speed, 15)])]);
+    DeploymentComponent database_c = await provider!launchInstanceNamed(&#34;Small&#34;);
+    [DC: database_c] Database db = new Database();
+    Loadbalancer lb = new Loadbalancer(5, db, provider);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    await duration(100, 100);
+    provider!shutdown();
+}</code></pre></div><p>To run the model on the Java backend, execute the following:</p>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>absc --java basic-model-resources-v3.abs -o basic-model-resources-v3.jar
+</span></span><span style="display:flex;"><span>java -jar basic-model-resources-v3.jar -p <span style="color:#ae81ff">8080</span></span></span></code></pre></div><p>Then, open a browser to the address http://localhost:8080.  The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure><img src="/images/examples/resource-modeling/basic-model-resources-v3-diagram.png"><figcaption>
+      <h4>Screenshot of resource consumption over time of the database and 2 webworkers, with increased client load</h4>
+    </figcaption>
+</figure>
+
+<p>In this last example, the database server is running at approximately
+50% load, and all 5 web workers are running near capacity.</p>
+<h2 id="further-possibilities-for-resource-modeling">Further Possibilities for Resource Modeling</h2>
+<p>Note that the scenarios presented above are somewhat static, but that
+does not need to be the case:</p>
+<ul>
+<li>We can dynamically add deployment components and add and remove
+worker objects; this can be used to model redeployment at runtime</li>
+<li>Cost annotations can be any ABS expression over local variables and
+class fields that produces a number; this can be used to model
+varying costs of message processing, either stochastic or as a
+function of the message payload</li>
+<li>The resources available to a deployment component can be increased
+and decreased; this can be used to model stochastic machine
+performance decrease, or resource transfer between machines</li>
+</ul>
+
+            <footer class="footline">
+            </footer>
+          </article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+<a id="logo" href="https://abs-models.org/" >
+  <img src='/images/ABS_logo_colors.png' width="80%">
+  </img>
+</a>
+
+        </div>
+
+        <search><form action="/search.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+        <script>
+          var contentLangs=['en'];
+        </script>
+        <script src="/js/auto-complete.js?1724684476" defer></script>
+        <script src="/js/lunr/lunr.min.js?1724684476" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1724684476" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1724684476" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1724684476" defer></script>
+        <script src="/js/search.js?1724684476" defer></script>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div id="R-topics">
+          <ul class="enlarge morespace collapsible-menu">
+          <li data-nav-id="/overview/index.html" class=""><a class="padding" href="/overview/index.html">Overview</a></li>
+          <li data-nav-id="/getting_started/index.html" class=""><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-12968618919479dba8e044963700d17c" class="morespace collapsible-menu">
+          <li data-nav-id="/getting_started/local-install/index.html" class=""><a class="padding" href="/getting_started/local-install/index.html">Installing Command-Line Tools</a></li>
+          <li data-nav-id="/getting_started/docker/index.html" class=""><a class="padding" href="/getting_started/docker/index.html">Running a Browser-Based IDE</a></li>
+          <li data-nav-id="/getting_started/editor-support/index.html" class=""><a class="padding" href="/getting_started/editor-support/index.html">Installing Editor Support</a></li></ul></li>
+          <li data-nav-id="/documentation/index.html" class="parent "><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-b09e01ebd33a1df0b856f4f59680ad9e" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/index.html" class="parent alwaysopen"><a class="padding" href="/documentation/examples/index.html">Examples</a><ul id="R-subsections-bb00d787ce348f2fb642751cd88a26f3" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/examples/monty-hall/index.html" class=""><a class="padding" href="/documentation/examples/monty-hall/index.html">The Monty Hall Problem</a></li>
+          <li data-nav-id="/documentation/examples/time-and-date/index.html" class=""><a class="padding" href="/documentation/examples/time-and-date/index.html">Modeling and Visualizing Calendar Time</a></li>
+          <li data-nav-id="/documentation/examples/gis-modeling/index.html" class=""><a class="padding" href="/documentation/examples/gis-modeling/index.html">Displaying geo-annotated information</a></li>
+          <li data-nav-id="/documentation/examples/single-watertank/index.html" class=""><a class="padding" href="/documentation/examples/single-watertank/index.html">Modeling and Visualizing A Water Tank Controller</a></li>
+          <li data-nav-id="/documentation/examples/resource-modeling/index.html" class="active"><a class="padding" href="/documentation/examples/resource-modeling/index.html">Modeling Resources</a></li>
+          <li data-nav-id="/documentation/examples/multicore_memory/index.html" class=""><a class="padding" href="/documentation/examples/multicore_memory/index.html">ABS Model of a Multicore Memory System</a></li></ul></li>
+          <li data-nav-id="/documentation/tutorials/index.html" class="alwaysopen"><a class="padding" href="/documentation/tutorials/index.html">Tutorials</a><ul id="R-subsections-7d2dfc594c432b3a82a4e4b9e2508b2d" class="morespace collapsible-menu">
+          <li data-nav-id="/documentation/tutorials/language-tutorial/index.html" class=""><a class="padding" href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/resources/index.html" class=""><a class="padding" href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a></li>
+          <li data-nav-id="/documentation/tutorials/costabs/index.html" class=""><a class="padding" href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a></li>
+          <li data-nav-id="/documentation/tutorials/mhp/index.html" class=""><a class="padding" href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a></li>
+          <li data-nav-id="/documentation/tutorials/sra/index.html" class=""><a class="padding" href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a></li></ul></li></ul></li>
+          <li data-nav-id="/publications/index.html" class=""><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
+          <li data-nav-id="/contact/index.html" class=""><a class="padding" href="/contact/index.html">Contact</a></li>
+          <li data-nav-id="/acknowledgments/index.html" class=""><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
+          <li data-nav-id="/laboratory/index.html" class=""><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
+          </ul>
+        </div>
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="R-menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="R-select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-language"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-language">Language</label>
+                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
+                      <option id="R-select-language-en" value="#R-select-language-en" data-url="/documentation/examples/resource-modeling/index.html" lang="en-us" selected></option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="R-select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-paint-brush"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-variant">Theme</label>
+                    <select id="R-select-variant" onchange="window.variants && variants.changeVariant( this.value );">
+                      <option id="R-select-variant-abs" value="abs" selected>Abs</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.variants && variants.markSelectedVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-history"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Clear History</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="R-footer" class="footerFooter showFooter"><ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
+<br/>
+<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1724684476" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1724684476" defer></script>
+    <script src="/js/theme.js?1724684476" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </body>
+</html>
