@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.133.0">
+    <meta name="generator" content="Hugo 0.135.0">
     <meta name="generator" content="Relearn 6.0.0+tip">
     <meta name="description" content="A model of the MSI cache coherency protocol.">
     <meta name="author" content="">
@@ -25,17 +25,17 @@
     <meta itemprop="dateModified" content="2022-03-02T00:00:00+00:00">
     <meta itemprop="wordCount" content="647">
     <title>ABS Model of a Multicore Memory System :: The ABS Modeling Language</title>
-    <link href="/css/fontawesome-all.min.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1724684476" rel="stylesheet"></noscript>
-    <link href="/css/nucleus.css?1724684476" rel="stylesheet">
-    <link href="/css/auto-complete.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1724684476" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1724684476" rel="stylesheet">
-    <link href="/css/fonts.css?1724684476" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1724684476" rel="stylesheet"></noscript>
-    <link href="/css/theme.css?1724684476" rel="stylesheet">
-    <link href="/css/theme-abs.css?1724684476" rel="stylesheet" id="R-variant-style">
-    <link href="/css/chroma-relearn-light.css?1724684476" rel="stylesheet" id="R-variant-chroma-style">
-    <link href="/css/variant.css?1724684476" rel="stylesheet">
-    <link href="/css/print.css?1724684476" rel="stylesheet" media="print">
-    <script src="/js/variant.js?1724684476"></script>
+    <link href="/css/fontawesome-all.min.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1727707514" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1727707514" rel="stylesheet">
+    <link href="/css/auto-complete.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1727707514" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1727707514" rel="stylesheet">
+    <link href="/css/fonts.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1727707514" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1727707514" rel="stylesheet">
+    <link href="/css/theme-abs.css?1727707514" rel="stylesheet" id="R-variant-style">
+    <link href="/css/chroma-relearn-light.css?1727707514" rel="stylesheet" id="R-variant-chroma-style">
+    <link href="/css/variant.css?1727707514" rel="stylesheet">
+    <link href="/css/print.css?1727707514" rel="stylesheet" media="print">
+    <script src="/js/variant.js?1727707514"></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..\/..';
@@ -123,17 +123,17 @@ computational content.</p>
 <p>The complete code can be found at
 <a href="https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/" rel="external" target="_blank">https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/</a></p>
 <table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="#R-image-b39d56c1b223ab817a5f02b5d47f656c" class="lightbox-link"><img alt="Figure cores.png" class="noborder lazy lightbox noshadow figure-image" loading="lazy" src="/images/examples/multicore_memory/cores.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-b39d56c1b223ab817a5f02b5d47f656c"><img alt="Figure cores.png" class="noborder lazy lightbox noshadow lightbox-image" loading="lazy" src="/images/examples/multicore_memory/cores.png"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><!-- raw HTML omitted -->Figure 1<!-- raw HTML omitted -->: System memory architecture</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center"><a href="#R-image-9bf8e9d6169af2e40106e5c36888d26a" class="lightbox-link"><img alt="Figure cores.png" class="noborder lazy lightbox noshadow figure-image" loading="lazy" src="/images/examples/multicore_memory/cores.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-9bf8e9d6169af2e40106e5c36888d26a"><img alt="Figure cores.png" class="noborder lazy lightbox noshadow lightbox-image" loading="lazy" src="/images/examples/multicore_memory/cores.png"></a></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><!-- raw HTML omitted -->Figure 1<!-- raw HTML omitted -->: System memory architecture</td>
+      </tr>
+  </tbody>
 </table>
 <p>Task execution on a core requires memory blocks to be transferred from the
 main memory to the closest cache.  Each cache has a pool of instructions to
@@ -150,17 +150,17 @@ messages request read access and <code>RdX</code> messages read exclusive access
 memory block. The latter invalidates other copies of the same block in other
 caches to provide write access.</p>
 <table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="#R-image-43699419a6922f588e720c3698dd4816" class="lightbox-link"><img alt="Figure initialConfiguration.png" class="noborder lazy lightbox noshadow figure-image" loading="lazy" src="/images/examples/multicore_memory/initialConfiguration.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-43699419a6922f588e720c3698dd4816"><img alt="Figure initialConfiguration.png" class="noborder lazy lightbox noshadow lightbox-image" loading="lazy" src="/images/examples/multicore_memory/initialConfiguration.png"></a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><!-- raw HTML omitted -->Figure 2<!-- raw HTML omitted -->: ABS model structure</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center"><a href="#R-image-0ecd6296d61b1c19d7313503c76aff06" class="lightbox-link"><img alt="Figure initialConfiguration.png" class="noborder lazy lightbox noshadow figure-image" loading="lazy" src="/images/examples/multicore_memory/initialConfiguration.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-0ecd6296d61b1c19d7313503c76aff06"><img alt="Figure initialConfiguration.png" class="noborder lazy lightbox noshadow lightbox-image" loading="lazy" src="/images/examples/multicore_memory/initialConfiguration.png"></a></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><!-- raw HTML omitted -->Figure 2<!-- raw HTML omitted -->: ABS model structure</td>
+      </tr>
+  </tbody>
 </table>
 <p>This use-case contains a distributed implementation of this model in ABS (see
 Figure 2). A transition system specification of this model can be found at
@@ -244,12 +244,12 @@ C4: hits = 10; penalties = 3090</code></pre></div><h2 id="running-the-simulation
         <script>
           var contentLangs=['en'];
         </script>
-        <script src="/js/auto-complete.js?1724684476" defer></script>
-        <script src="/js/lunr/lunr.min.js?1724684476" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1724684476" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1724684476" defer></script>
-        <script src="/js/lunr/lunr.en.min.js?1724684476" defer></script>
-        <script src="/js/search.js?1724684476" defer></script>
+        <script src="/js/auto-complete.js?1727707514" defer></script>
+        <script src="/js/lunr/lunr.min.js?1727707514" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1727707514" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1727707514" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1727707514" defer></script>
+        <script src="/js/search.js?1727707514" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -337,9 +337,9 @@ C4: hits = 10; penalties = 3090</code></pre></div><h2 id="running-the-simulation
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1724684476" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1724684476" defer></script>
-    <script src="/js/theme.js?1724684476" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script src="/js/clipboard.min.js?1727707514" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1727707514" defer></script>
+    <script src="/js/theme.js?1727707514" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 

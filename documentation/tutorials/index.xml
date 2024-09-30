@@ -3,7 +3,7 @@
   <channel>
     <title>Tutorials :: The ABS Modeling Language</title>
     <link>https://abs-models.org/documentation/tutorials/index.html</link>
-    <description>This page features a list of tutorials for most tools that work with the ABS language.&#xA;Converted Tutorials Conversion from old tutorials is on-going and help is most welcome.&#xA;Language TutorialThis tutorial gives an overview of the ABS language.&#xA;Resource Modeling TutorialAn introduction to time and resource modeling in ABS.&#xA;Resource Analysis with CostABSCostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.</description>
+    <description>This page features a list of tutorials for most tools that work with the ABS language.&#xA;Converted Tutorials Conversion from old tutorials is on-going and help is most welcome.&#xA;Language TutorialThis tutorial gives an overview of the ABS language.&#xA;Resource Modeling TutorialAn introduction to time and resource modeling in ABS.&#xA;Resource Analysis with CostABSCostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs. In this tutorial, we overview the different features of CostABS by example.</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 31 Mar 2019 00:00:00 +0000</lastBuildDate>

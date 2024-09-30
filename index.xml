@@ -34,7 +34,7 @@
       <link>https://abs-models.org/publications/index.html</link>
       <pubDate>Tue, 04 Feb 2020 12:22:31 +0100</pubDate>
       <guid>https://abs-models.org/publications/index.html</guid>
-      <description>This page links ABS workshops, as well as selected research papers on the development and usage of the ABS modeling language and analysis tools.&#xA;ABS Workshops 2017 First International ABS Workshop: May 31–June 2, 2017, Oslo, Norway.&#xA;2018 Second International ABS Workshop: May 28–May 30, 2018, Darmstadt, Germany. https://formbar.raillab.de/en/abs2018/&#xA;2019 Third International ABS Workshop: May 13–May 15, 2019, Amsterdam, The Netherlands. https://www.cwi.nl/research/groups/formal-methods/events/third-international-workshop-on-the-abs-modeling-language-and-tools&#xA;2021 Fourth International ABS Workshop: August 26–August 27, 2021, Virtual.</description>
+      <description>This page links ABS workshops, as well as selected research papers on the development and usage of the ABS modeling language and analysis tools.&#xA;ABS Workshops 2017 First International ABS Workshop: May 31–June 2, 2017, Oslo, Norway.&#xA;2018 Second International ABS Workshop: May 28–May 30, 2018, Darmstadt, Germany. https://formbar.raillab.de/en/abs2018/&#xA;2019 Third International ABS Workshop: May 13–May 15, 2019, Amsterdam, The Netherlands. https://www.cwi.nl/research/groups/formal-methods/events/third-international-workshop-on-the-abs-modeling-language-and-tools&#xA;2021 Fourth International ABS Workshop: August 26–August 27, 2021, Virtual. https://formbar.raillab.de/en/abs-workshop-2021/</description>
     </item>
     <item>
       <title>Contact</title>
@@ -48,7 +48,7 @@
       <link>https://abs-models.org/acknowledgments/index.html</link>
       <pubDate>Wed, 19 Dec 2018 17:41:18 +0100</pubDate>
       <guid>https://abs-models.org/acknowledgments/index.html</guid>
-      <description>Projects The development of the ABS language and tools has been supported by a number of research projects supported by the European Commission and the Research Council of Norway:&#xA;HATS: Highly Adaptive and Trustworthy Software using Formal Methods Envisage: Engineering Virtualized Services HyVar: Scalable Hybrid Variability SIRIUS: Enabling digitalization in and beyond the oil and gas industry Contributors The following people have contributed to the ABS language and tools so far:</description>
+      <description>Projects The development of the ABS language and tools has been supported by a number of research projects supported by the European Commission and the Research Council of Norway:</description>
     </item>
     <item>
       <title>The Collaboratory</title>
