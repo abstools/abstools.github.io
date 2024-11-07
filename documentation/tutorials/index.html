@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.135.0">
-    <meta name="generator" content="Relearn 6.0.0+tip">
+    <meta name="generator" content="Hugo 0.138.0">
+    <meta name="generator" content="Relearn 7.1.1">
     <meta name="description" content="This page features a list of tutorials for most tools that work with the ABS language.
 Converted Tutorials Conversion from old tutorials is on-going and help is most welcome.
 Language TutorialThis tutorial gives an overview of the ABS language.
@@ -39,23 +39,23 @@ Resource Analysis with CostABSCostABS is a a static analyzer for automatically i
     <meta itemprop="wordCount" content="190">
     <title>Tutorials :: The ABS Modeling Language</title>
     <link href="/documentation/tutorials/index.xml" rel="alternate" type="application/rss+xml" title="Tutorials :: The ABS Modeling Language">
-    <link href="/css/fontawesome-all.min.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1727707514" rel="stylesheet"></noscript>
-    <link href="/css/nucleus.css?1727707514" rel="stylesheet">
-    <link href="/css/auto-complete.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1727707514" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1727707514" rel="stylesheet">
-    <link href="/css/fonts.css?1727707514" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1727707514" rel="stylesheet"></noscript>
-    <link href="/css/theme.css?1727707514" rel="stylesheet">
-    <link href="/css/theme-abs.css?1727707514" rel="stylesheet" id="R-variant-style">
-    <link href="/css/chroma-relearn-light.css?1727707514" rel="stylesheet" id="R-variant-chroma-style">
-    <link href="/css/variant.css?1727707514" rel="stylesheet">
-    <link href="/css/print.css?1727707514" rel="stylesheet" media="print">
-    <script src="/js/variant.js?1727707514"></script>
+    <link href="/css/fontawesome-all.min.css?1730990902" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1730990902" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1730990902" rel="stylesheet">
+    <link href="/css/auto-complete.css?1730990902" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1730990902" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1730990902" rel="stylesheet">
+    <link href="/css/fonts.css?1730990902" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1730990902" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1730990902" rel="stylesheet">
+    <link href="/css/theme-abs.css?1730990902" rel="stylesheet" id="R-variant-style">
+    <link href="/css/chroma-relearn-light.css?1730990902" rel="stylesheet" id="R-variant-chroma-style">
+    <link href="/css/print.css?1730990902" rel="stylesheet" media="print">
+    <script src="/js/variant.js?1730990902"></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/abs-models.org';
-      window.index_js_url="/index.search.js";
+      window.relearn.disableAnchorCopy=false;
+      window.relearn.disableAnchorScrolling=false;
       // variant stuff
       window.variants && variants.init( [ 'abs' ] );
       // translations
@@ -80,7 +80,8 @@ Resource Analysis with CostABSCostABS is a a static analyzer for automatically i
             </div>
             <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
               <div class="topbar-content">
-                <div class="topbar-content-wrapper"><nav class="TableOfContents">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
   <ul>
     <li><a href="#converted-tutorials">Converted Tutorials</a></li>
     <li><a href="#envisage--hats-tutorials">Envisage / HATS Tutorials</a></li>
@@ -112,11 +113,11 @@ Resource Analysis with CostABSCostABS is a a static analyzer for automatically i
         </div>
       </nav>
       <div id="R-main-overlay"></div>
-      <main id="R-body-inner" class="highlightable default" tabindex="-1">
+      <main id="R-body-inner" class="highlightable documentation" tabindex="-1">
         <div class="flex-block-wrapper">
-          <article class="default">
-            <header class="headline">
-            </header>
+<article class="default">
+  <header class="headline">
+  </header>
 
 <h1 id="tutorials">Tutorials</h1>
 
@@ -124,14 +125,12 @@ Resource Analysis with CostABSCostABS is a a static analyzer for automatically i
 language.</p>
 <h2 id="converted-tutorials">Converted Tutorials</h2>
 <p>Conversion from old tutorials is on-going and help is most welcome.</p>
-
 <ul class="children children-li children-sort-">
-	
-<li><a href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a><p>This tutorial gives an overview of the ABS language.</p></li>
-<li><a href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a><p>An introduction to time and resource modeling in ABS.</p></li>
-<li><a href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a><p>CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.</p></li>
-<li><a href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a><p>The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.</p></li>
-<li><a href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a><p>We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS called vml.</p></li>
+  <li><a href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a><p>This tutorial gives an overview of the ABS language.</p></li>
+  <li><a href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a><p>An introduction to time and resource modeling in ABS.</p></li>
+  <li><a href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a><p>CostABS is a a static analyzer for automatically inferring upper/lower bounds on the worst/best-case Resource usage (a.k.a. cost) of ABS programs.  In this tutorial, we overview the different features of CostABS by example.</p></li>
+  <li><a href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a><p>The maypar static analysis tool finds pairs of program statements that possibly execute in parallel.</p></li>
+  <li><a href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a><p>We prototype a static analysis technique that computes upper bounds of virtual machine usages in a dialect of ABS called vml.</p></li>
 </ul>
 <h2 id="envisage--hats-tutorials">Envisage / HATS Tutorials</h2>
 <p>These tutorials were written during the Envisage and HaTS projects.  The pdfs are provided as-is and might contain outdated information.</p>
@@ -147,9 +146,9 @@ language.</p>
 <p><a href="/tutorial_pdfs/KeY-ABS.pdf">KeY-ABS Tutorial</a></p>
 <p><a href="/tutorial_pdfs/scaling.pdf">Modelling Auto-scalable Services Tutorial</a></p>
 
-            <footer class="footline">
-            </footer>
-          </article>
+  <footer class="footline">
+  </footer>
+</article>
         </div>
       </main>
     </div>
@@ -163,8 +162,10 @@ language.</p>
 </a>
 
         </div>
-
-        <search><form action="/search.html" method="get">
+        <script>
+          window.index_js_url="/searchindex.en.js?1730990902";
+        </script>
+        <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
             <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
             <label class="a11y-only" for="R-search-by">Search</label>
@@ -175,12 +176,12 @@ language.</p>
         <script>
           var contentLangs=['en'];
         </script>
-        <script src="/js/auto-complete.js?1727707514" defer></script>
-        <script src="/js/lunr/lunr.min.js?1727707514" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1727707514" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1727707514" defer></script>
-        <script src="/js/lunr/lunr.en.min.js?1727707514" defer></script>
-        <script src="/js/search.js?1727707514" defer></script>
+        <script src="/js/auto-complete.js?1730990902" defer></script>
+        <script src="/js/lunr/lunr.min.js?1730990902" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1730990902" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1730990902" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1730990902" defer></script>
+        <script src="/js/search.js?1730990902" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -189,33 +190,25 @@ language.</p>
         <hr class="padding">
       </div>
       <div id="R-content-wrapper" class="highlightable">
-        <div id="R-topics">
+        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
           <ul class="enlarge morespace collapsible-menu">
-          <li data-nav-id="/overview/index.html" class=""><a class="padding" href="/overview/index.html">Overview</a></li>
-          <li data-nav-id="/getting_started/index.html" class=""><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-12968618919479dba8e044963700d17c" class="morespace collapsible-menu">
-          <li data-nav-id="/getting_started/local-install/index.html" class=""><a class="padding" href="/getting_started/local-install/index.html">Installing Command-Line Tools</a></li>
-          <li data-nav-id="/getting_started/docker/index.html" class=""><a class="padding" href="/getting_started/docker/index.html">Running a Browser-Based IDE</a></li>
-          <li data-nav-id="/getting_started/editor-support/index.html" class=""><a class="padding" href="/getting_started/editor-support/index.html">Installing Editor Support</a></li></ul></li>
-          <li data-nav-id="/documentation/index.html" class="parent "><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-b09e01ebd33a1df0b856f4f59680ad9e" class="morespace collapsible-menu">
-          <li data-nav-id="/documentation/examples/index.html" class="alwaysopen"><a class="padding" href="/documentation/examples/index.html">Examples</a><ul id="R-subsections-bb00d787ce348f2fb642751cd88a26f3" class="morespace collapsible-menu">
-          <li data-nav-id="/documentation/examples/monty-hall/index.html" class=""><a class="padding" href="/documentation/examples/monty-hall/index.html">The Monty Hall Problem</a></li>
-          <li data-nav-id="/documentation/examples/time-and-date/index.html" class=""><a class="padding" href="/documentation/examples/time-and-date/index.html">Modeling and Visualizing Calendar Time</a></li>
-          <li data-nav-id="/documentation/examples/gis-modeling/index.html" class=""><a class="padding" href="/documentation/examples/gis-modeling/index.html">Displaying geo-annotated information</a></li>
-          <li data-nav-id="/documentation/examples/single-watertank/index.html" class=""><a class="padding" href="/documentation/examples/single-watertank/index.html">Modeling and Visualizing A Water Tank Controller</a></li>
-          <li data-nav-id="/documentation/examples/resource-modeling/index.html" class=""><a class="padding" href="/documentation/examples/resource-modeling/index.html">Modeling Resources</a></li>
-          <li data-nav-id="/documentation/examples/multicore_memory/index.html" class=""><a class="padding" href="/documentation/examples/multicore_memory/index.html">ABS Model of a Multicore Memory System</a></li></ul></li>
-          <li data-nav-id="/documentation/tutorials/index.html" class="active parent alwaysopen"><a class="padding" href="/documentation/tutorials/index.html">Tutorials</a><ul id="R-subsections-7d2dfc594c432b3a82a4e4b9e2508b2d" class="morespace collapsible-menu">
-          <li data-nav-id="/documentation/tutorials/language-tutorial/index.html" class=""><a class="padding" href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a></li>
-          <li data-nav-id="/documentation/tutorials/resources/index.html" class=""><a class="padding" href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a></li>
-          <li data-nav-id="/documentation/tutorials/costabs/index.html" class=""><a class="padding" href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a></li>
-          <li data-nav-id="/documentation/tutorials/mhp/index.html" class=""><a class="padding" href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a></li>
-          <li data-nav-id="/documentation/tutorials/sra/index.html" class=""><a class="padding" href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a></li></ul></li></ul></li>
-          <li data-nav-id="/publications/index.html" class=""><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
-          <li data-nav-id="/contact/index.html" class=""><a class="padding" href="/contact/index.html">Contact</a></li>
-          <li data-nav-id="/acknowledgments/index.html" class=""><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
-          <li data-nav-id="/laboratory/index.html" class=""><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
+            <li class="" data-nav-id="/overview/index.html"><a class="padding" href="/overview/index.html">Overview</a></li>
+            <li class="" data-nav-id="/getting_started/index.html"><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-d1738ab40ac858ee010dd1d061d67a7f" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-id="/documentation/index.html"><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-916c6c190c00564c28a689ed3cba8d7e" class="collapsible-menu">
+            <li class="alwaysopen " data-nav-id="/documentation/examples/index.html"><a class="padding" href="/documentation/examples/index.html">Examples</a><ul id="R-subsections-c16c04532c669b01d8d704b22d9ad761" class="collapsible-menu"></ul></li>
+            <li class="active parent alwaysopen " data-nav-id="/documentation/tutorials/index.html"><a class="padding" href="/documentation/tutorials/index.html">Tutorials</a><ul id="R-subsections-f3ff0d2b15a01e774f13e6465a310d07" class="collapsible-menu">
+            <li class="" data-nav-id="/documentation/tutorials/language-tutorial/index.html"><a class="padding" href="/documentation/tutorials/language-tutorial/index.html">Language Tutorial</a></li>
+            <li class="" data-nav-id="/documentation/tutorials/resources/index.html"><a class="padding" href="/documentation/tutorials/resources/index.html">Resource Modeling Tutorial</a></li>
+            <li class="" data-nav-id="/documentation/tutorials/costabs/index.html"><a class="padding" href="/documentation/tutorials/costabs/index.html">Resource Analysis with CostABS</a></li>
+            <li class="" data-nav-id="/documentation/tutorials/mhp/index.html"><a class="padding" href="/documentation/tutorials/mhp/index.html">May-Happen-in-Parallel Analysis</a></li>
+            <li class="" data-nav-id="/documentation/tutorials/sra/index.html"><a class="padding" href="/documentation/tutorials/sra/index.html">Resource Analysis with SRA</a></li></ul></li></ul></li>
+            <li class="" data-nav-id="/publications/index.html"><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
+            <li class="" data-nav-id="/contact/index.html"><a class="padding" href="/contact/index.html">Contact</a></li>
+            <li class="" data-nav-id="/acknowledgments/index.html"><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
+            <li class="" data-nav-id="/laboratory/index.html"><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
           </ul>
         </div>
+    
         <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
         <div id="R-menu-footer">
           <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
@@ -268,9 +261,9 @@ language.</p>
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1727707514" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1727707514" defer></script>
-    <script src="/js/theme.js?1727707514" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script src="/js/clipboard.min.js?1730990902" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1730990902" defer></script>
+    <script src="/js/theme.js?1730990902" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
