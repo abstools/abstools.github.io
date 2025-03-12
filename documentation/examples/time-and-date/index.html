@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article">
+<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.142.0">
-    <meta name="generator" content="Relearn 7.1.1">
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="generator" content="Relearn 7.5.0+5797d81e8e09fdde6f433378d55f780e27684f56">
     <meta name="description" content="An example for using Real-Time ABS to calculate with real (calendar) dates and times and visualize them on a graphical timeline.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
@@ -25,25 +25,59 @@
     <meta itemprop="dateModified" content="2020-04-01T00:00:00+00:00">
     <meta itemprop="wordCount" content="764">
     <title>Modeling and Visualizing Calendar Time :: The ABS Modeling Language</title>
-    <link href="/css/fontawesome-all.min.css?1738081754" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1738081754" rel="stylesheet"></noscript>
-    <link href="/css/nucleus.css?1738081754" rel="stylesheet">
-    <link href="/css/auto-complete.css?1738081754" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1738081754" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1738081754" rel="stylesheet">
-    <link href="/css/fonts.css?1738081754" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1738081754" rel="stylesheet"></noscript>
-    <link href="/css/theme.css?1738081754" rel="stylesheet">
-    <link href="/css/theme-abs.css?1738081754" rel="stylesheet" id="R-variant-style">
-    <link href="/css/chroma-relearn-light.css?1738081754" rel="stylesheet" id="R-variant-chroma-style">
-    <link href="/css/print.css?1738081754" rel="stylesheet" media="print">
-    <script src="/js/variant.js?1738081754"></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1741788003" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1741788003" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1741788003" rel="stylesheet">
+    <link href="/css/theme.min.css?1741788003" rel="stylesheet">
+    <link href="/css/format-html.min.css?1741788003" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1741788003" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1741788003" defer></script>
+    <script src="/js/lunr/lunr.min.js?1741788003" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1741788003" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1741788003" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1741788003" defer></script>
+    <script src="/js/search.min.js?1741788003" defer></script>
     <script>
       window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
       window.relearn.relBasePath='..\/..\/..';
       window.relearn.relBaseUri='..\/..\/..';
       window.relearn.absBaseUri='https:\/\/abs-models.org';
+      window.relearn.contentLangs=['en'];
+      window.relearn.index_js_url="/searchindex.en.js?1741788003";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
       // variant stuff
-      window.variants && variants.init( [ 'abs' ] );
+      window.relearn.themevariants = [ 'abs' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        var select = document.querySelector("#R-select-variant");
+        if (select) {
+          select.value = variant;
+        }
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
       // translations
       window.T_Copy_to_clipboard = `Copy to clipboard`;
       window.T_Copied_to_clipboard = `Copied to clipboard!`;
@@ -79,11 +113,11 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/index.html"><span itemprop="name">The ABS Language</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/index.html"><span itemprop="name">Documentation</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/documentation/examples/index.html"><span itemprop="name">Examples</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">Modeling and Visualizing Calendar Time</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">The ABS Language</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/documentation/index.html"><span itemprop="name">Documentation</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/documentation/examples/index.html"><span itemprop="name">Examples</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Modeling and Visualizing Calendar Time</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/documentation/examples/monty-hall/index.html" title="The Monty Hall Problem (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
@@ -116,7 +150,7 @@
 <p>The following short ABS model creates a list of values together with the time when the value was produced.  The results are stored in a <code>Calendar</code> object that is accessible via <a href="https://abs-models.org/manual/#-the-model-api" rel="external" target="_blank">the ABS Model API</a>.</p>
 <p>During the simulation, the method <code>addValue</code> is called with random values.  The calendar object keeps track of the value and the time when it was added.</p>
 <p>The calendar also makes two methods callable via the Model API: <code>getValues</code> returns a list of pairs of recorded time and value.  The method <code>getStartDate</code> returns a string containing a date in ISO 8601 notation; this is the “real” start date that will be used in the simulation.  The time values in the list returned by <code>getValues</code> will be interpreted as <em>offset</em> from that point in time.</p>
-<div class="highlight wrap-code"><pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
+<div class="highlight wrap-code" dir="auto"><pre tabindex="0"><code class="language-abs" data-lang="abs">module CalendarTime;
 
 def String start_date() = &#34;2020-04-01&#34;;
 
@@ -153,7 +187,7 @@ class Calendar implements Calendar {
 <p>To visualize times properly, they must be converted to a format that the visualization library expects.</p>
 <p>In addition to the chosen offset (2020-04-01 in our case), we also need a <em>scaling factor</em> to convert the logical clock values of ABS to real date and time values.  We choose to represent each day by an increment of <code>1</code>; fractional values of the clock represent the time of day.  Since  our model advances the clock by <code>1/4</code> sixteen times, the values are recorded at 6am, 12pm, 6pm and midnight for four days.</p>
 <p>As an example, here is a Javascript function that takes the startdate (as a string parseable via <code>new Date</code>) and offset (as a floating point number, with the integer part the number of days and the fractional part the time of day, with <code>0.5</code> exactly noon) and returns a Javascript <code>Date</code> object.</p>
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
+<div class="highlight wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">absolute_date</span>(<span style="color:#a6e22e">startdate</span>, <span style="color:#a6e22e">offset</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">days</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">offset</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">offset</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">days</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">startdate</span>);
@@ -163,7 +197,7 @@ class Calendar implements Calendar {
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <h2 id="visualizing-the-time-series">Visualizing the Time Series</h2>
 <p>The following is a complete HTML file that uses the <a href="https://www.highcharts.com/blog/products/highcharts/" rel="external" target="_blank">Highcharts</a> library to draw a line diagram of the random values generated by ABS.  The function <code>drawChart</code> retrieves the starting offset and value list via the Model API, then creates a Highcharts chart with the downloaded values.</p>
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+<div class="highlight wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
@@ -216,7 +250,7 @@ class Calendar implements Calendar {
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;</span></span></code></pre></div>
 <h2 id="running-the-example">Running the Example</h2>
 <p>The following small Makefile can be used to compile and start the model.  Make sure to store the ABS model in a file <code>CalendarTime.abs</code> and the html in a file <code>index.html</code>, then type <code>make run</code> and connect the browser to http://localhost:8080.</p>
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-make" data-lang="make"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
+<div class="highlight wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-make" data-lang="make"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> all
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> run			<span style="color:#75715e">## Generate data and start model (default)
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> compile
@@ -233,6 +267,7 @@ class Calendar implements Calendar {
 </span></span></code></pre></div>
 
   <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Apr 1, 2020
   </footer>
 </article>
         </div>
@@ -248,9 +283,6 @@ class Calendar implements Calendar {
 </a>
 
         </div>
-        <script>
-          window.index_js_url="/searchindex.en.js?1738081754";
-        </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
             <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
@@ -259,15 +291,6 @@ class Calendar implements Calendar {
             <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
           </div>
         </form></search>
-        <script>
-          var contentLangs=['en'];
-        </script>
-        <script src="/js/auto-complete.js?1738081754" defer></script>
-        <script src="/js/lunr/lunr.min.js?1738081754" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1738081754" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1738081754" defer></script>
-        <script src="/js/lunr/lunr.en.min.js?1738081754" defer></script>
-        <script src="/js/search.js?1738081754" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -295,7 +318,6 @@ class Calendar implements Calendar {
             <li class="" data-nav-id="/laboratory/index.html"><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
           </ul>
         </div>
-    
         <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
         <div id="R-menu-footer">
           <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
@@ -320,13 +342,13 @@ class Calendar implements Calendar {
                   <span>&nbsp;</span>
                   <div class="control-style">
                     <label class="a11y-only" for="R-select-variant">Theme</label>
-                    <select id="R-select-variant" onchange="window.variants && variants.changeVariant( this.value );">
+                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
                       <option id="R-select-variant-abs" value="abs" selected>Abs</option>
                     </select>
                   </div>
                   <div class="clear"></div>
                 </div>
-                <script>window.variants && variants.markSelectedVariant();</script>
+                <script>window.relearn.markVariant();</script>
               </li>
               <li class="footerVisitedLinks">
                 <div class="padding menu-control">
@@ -348,9 +370,9 @@ class Calendar implements Calendar {
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1738081754" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1738081754" defer></script>
-    <script src="/js/theme.js?1738081754" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script src="/js/clipboard/clipboard.min.js?1741788003" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1741788003" defer></script>
+    <script src="/js/theme.min.js?1741788003" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
