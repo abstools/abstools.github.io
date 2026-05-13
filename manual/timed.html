@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Timed ABS &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/timed.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deployment and resource modeling" href="deployment.html" />
+    <link rel="prev" title="Semantic lifting" href="semantic-lifting.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="timed-abs">
+<span id="sec-timed-abs"></span><h1>Timed ABS<a class="headerlink" href="#timed-abs" title="Link to this heading">¶</a></h1>
+<p>Timed ABS is an extension to the core ABS language that introduces a
+notion of <em>abstract time</em>.  Timed ABS can be used to model not only
+the functional behavior but also the timing-related behavior of real
+systems running on real hardware.  In contrast to real systems, time
+in an ABS model does not advance by itself.  The time model of Timed
+ABS takes inspiration from formalisms such as <a class="reference external" href="http://uppaal.org">Timed Automata</a> and <a class="reference external" href="http://heim.ifi.uio.no/~peterol/RealTimeMaude/">Real-Time Maude</a>.</p>
+<p>The ABS notion of time is <em>dense time</em> with <em>run-to-completion semantics</em>.
+Timed ABS adds a clock to the language semantics that advances in response to
+certain language constructs.  Time is expressed as a rational number, so the
+clock can advance in infinitesimally small steps.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All untimed ABS models are valid in Timed ABS.  An ABS model
+that contains no time-influencing statements will run
+without influencing the clock and will finish at time zero.</p>
+</div>
+<p>It is possible to assign <em>deadlines</em> to method calls.  Deadlines are expressed
+in terms of a duration value relative to the current time and decrease as the
+clock advances.  The current deadline of a method is available via the
+function <code class="docutils literal notranslate"><span class="pre">deadline</span></code> and decreases down to zero.</p>
+<section id="semantics-of-time-advancement">
+<h2>Semantics of time advancement<a class="headerlink" href="#semantics-of-time-advancement" title="Link to this heading">¶</a></h2>
+<p>Time only advances when all processes are blocked or suspended and no process
+is ready to run.  This means that for time to advance, all processes are in
+one of the following states:</p>
+<ul class="simple">
+<li><p>the process is awaiting for a guard that is not enabled (see
+<a class="reference internal" href="statements.html#await-stmt"><span class="std std-ref">Await (statement)</span></a>)</p></li>
+<li><p>the process is blocked on a future that is not available (see
+<a class="reference internal" href="expressions.html#get-expression"><span class="std std-ref">Get</span></a>)</p></li>
+<li><p>the process is suspended waiting for time to advance</p></li>
+<li><p>the process is waiting for some resources</p></li>
+</ul>
+<p>In practice this means that all processes run as long as there is
+“work to be done.”</p>
+<p>The simulated clock advances such that it makes the least amount of
+“jumps” without missing any point of interest.  This means that when a
+process waits or blocks for an interval <em>(min, max)</em>, the clock will
+not advance more than <em>max</em>, since otherwise it would miss unblocking
+the process.  On the other hand, the clock will advance by the highest
+amount allowed by the model.  This means that if only one process
+waits for <em>(min, max)</em>, the clock will advance by <em>max</em>.</p>
+<figure class="align-default" id="id1">
+<span id="fig-time-advance"></span><img alt="Big-step time advance" src="../_images/ABS-time-advance.png" />
+<figcaption>
+<p><span class="caption-text">Big-step time advance</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Figure <a class="reference internal" href="#fig-time-advance"><span class="std std-ref">Big-step time advance</span></a> shows a timeline with two process,
+<code class="docutils literal notranslate"><span class="pre">P1</span></code> and <code class="docutils literal notranslate"><span class="pre">P2</span></code>.  At time <span class="math notranslate nohighlight">\(N\)</span>, both suspend themselves waiting
+for time advance: <code class="docutils literal notranslate"><span class="pre">P1</span></code> waits for <span class="math notranslate nohighlight">\(4-6\)</span> time units, <code class="docutils literal notranslate"><span class="pre">P2</span></code>
+waits for <span class="math notranslate nohighlight">\(3-5\)</span> units, respectively.  Assuming that no other
+process is ready to run, the clock will advance the maximum amount
+that still hits the earliest interval, in this case 5.  Since the
+clock is now within both requested intervals, both processes are
+unblocked and ready to run.</p>
+</section>
+<section id="datatypes-and-constructors">
+<h2>Datatypes and constructors<a class="headerlink" href="#datatypes-and-constructors" title="Link to this heading">¶</a></h2>
+<p>Time is expressed as a datatype <code class="docutils literal notranslate"><span class="pre">Time</span></code>, durations are expressed
+using the datatype <code class="docutils literal notranslate"><span class="pre">Duration</span></code>, which can be infinite.  These
+datatypes are defined in the standard library as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">Rat</span> <span class="n">timeValue</span><span class="p">);</span>
+<span class="n">data</span> <span class="n">Duration</span> <span class="o">=</span> <span class="n">Duration</span><span class="p">(</span><span class="n">Rat</span> <span class="n">durationValue</span><span class="p">)</span> <span class="o">|</span> <span class="n">InfDuration</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<section id="now">
+<h3>now<a class="headerlink" href="#now" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">now</span></code> always returns the current time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Time</span> <span class="n">now</span><span class="p">()</span>
+<span class="o">=&gt;</span> <span class="n">Time</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that since ABS uses simulated time, two calls to <code class="docutils literal notranslate"><span class="pre">now</span></code> can
+return the same value.  Specifically, the result of <code class="docutils literal notranslate"><span class="pre">now()</span></code> changes
+only by executing <code class="docutils literal notranslate"><span class="pre">duration</span></code> or <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration</span></code> statements, or by
+waiting for resources to become available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Time t1 = now();
+Int i = pow(2, 50);
+Time t2 = now();
+assert (t1 == t2); ①
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This assertion will not fail, since no time has passed in the
+model.  Time advance in ABS is explicit and can only occur at
+suspension points.</div>
+</div>
+</section>
+<section id="deadline">
+<h3>deadline<a class="headerlink" href="#deadline" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">deadline</span></code> returns the deadline of the current process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Duration</span> <span class="n">deadline</span><span class="p">()</span>
+<span class="o">=&gt;</span> <span class="n">InfDuration</span>
+</pre></div>
+</div>
+<p>The initial value of a deadline is set via a <code class="docutils literal notranslate"><span class="pre">Deadline</span></code> annotation
+at the caller site:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Unit m() {
+  [Deadline: Duration(10)] this!n(); ①
+}
+
+Unit n() {
+  Duration d1 = deadline(); ②
+  await duration(2, 2);
+  Duration d2 = deadline(); ③
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The <code class="docutils literal notranslate"><span class="pre">Deadline</span></code> annotation assigns a deadline to the process
+started by the asynchronous method call</div>
+<div class="line">② The process can query its current deadline; if no deadline is
+given, <code class="docutils literal notranslate"><span class="pre">deadline</span></code> returns <code class="docutils literal notranslate"><span class="pre">InfDuration</span></code></div>
+<div class="line">③ <code class="docutils literal notranslate"><span class="pre">d2</span></code> will be two time units less than <code class="docutils literal notranslate"><span class="pre">d1</span></code></div>
+</div>
+</section>
+<section id="timevalue">
+<h3>timeValue<a class="headerlink" href="#timevalue" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">timeValue</span></code> returns the value of its argument as a rational number:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Rat</span> <span class="n">timeValue</span><span class="p">(</span><span class="n">Time</span> <span class="n">t</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="timedifference">
+<h3>timeDifference<a class="headerlink" href="#timedifference" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">timeDifference</span></code> returns the absolute value of the
+difference between its two arguments, i.e., a value greater or equal
+to <code class="docutils literal notranslate"><span class="pre">0</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Rat</span> <span class="n">timeDifference</span><span class="p">(</span><span class="n">Time</span> <span class="n">t1</span><span class="p">,</span> <span class="n">Time</span> <span class="n">t2</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="timelessthan">
+<h3>timeLessThan<a class="headerlink" href="#timelessthan" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">timeLessThan</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the value of its first argument
+is less than the value of its second argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Bool</span> <span class="n">timeLessThan</span><span class="p">(</span><span class="n">Time</span> <span class="n">t1</span><span class="p">,</span> <span class="n">Time</span> <span class="n">t2</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="durationvalue">
+<h3>durationValue<a class="headerlink" href="#durationvalue" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">durationValue</span></code> returns the value of its argument as a
+rational number:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Rat</span> <span class="n">durationValue</span><span class="p">(</span><span class="n">Duration</span> <span class="n">t</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="isdurationinfinite">
+<h3>isDurationInfinite<a class="headerlink" href="#isdurationinfinite" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">isDurationInfinite</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if its argument
+is <code class="docutils literal notranslate"><span class="pre">InfDuration</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code> if its argument is <code class="docutils literal notranslate"><span class="pre">Duration(x)</span></code> for
+some value <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Bool</span> <span class="n">isDurationInfinite</span><span class="p">(</span><span class="n">Duration</span> <span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="addduration">
+<h3>addDuration<a class="headerlink" href="#addduration" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">addDuration</span></code> adds a duration to a time, returning a
+new value of type <code class="docutils literal notranslate"><span class="pre">Time</span></code>.  It is an error to pass <code class="docutils literal notranslate"><span class="pre">InfDuration</span></code> as
+an argument to this function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Time</span> <span class="n">addDuration</span><span class="p">(</span><span class="n">Time</span> <span class="n">t</span><span class="p">,</span> <span class="n">Duration</span> <span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="subtractduration">
+<h3>subtractDuration<a class="headerlink" href="#subtractduration" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">subtractDuration</span></code> subtracts a duration from a time,
+returning a new value of type <code class="docutils literal notranslate"><span class="pre">Time</span></code>.  It is an error to pass
+<code class="docutils literal notranslate"><span class="pre">InfDuration</span></code> as an argument to this function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Time</span> <span class="n">subtractDuration</span><span class="p">(</span><span class="n">Time</span> <span class="n">t</span><span class="p">,</span> <span class="n">Duration</span> <span class="n">d</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="durationlessthan">
+<h3>durationLessThan<a class="headerlink" href="#durationlessthan" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">durationLessThan</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the value of its
+first argument is less than the value of its second argument.  In case
+both arguments are <code class="docutils literal notranslate"><span class="pre">InfDuration</span></code>, <code class="docutils literal notranslate"><span class="pre">durationLessThan</span></code> returns
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Bool</span> <span class="n">durationLessThan</span><span class="p">(</span><span class="n">Duration</span> <span class="n">d1</span><span class="p">,</span> <span class="n">Duration</span> <span class="n">d2</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="subtractfromduration">
+<h3>subtractFromDuration<a class="headerlink" href="#subtractfromduration" title="Link to this heading">¶</a></h3>
+<p>The function <code class="docutils literal notranslate"><span class="pre">subtractFromDuration</span></code> subtracts a value <code class="docutils literal notranslate"><span class="pre">v</span></code> from a
+duration, returning a new value of type <code class="docutils literal notranslate"><span class="pre">Duration</span></code>.  In case its
+first argument is <code class="docutils literal notranslate"><span class="pre">InfDuration</span></code>, the result will also be
+<code class="docutils literal notranslate"><span class="pre">InfDuration</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Duration</span> <span class="n">subtractFromDuration</span><span class="p">(</span><span class="n">Duration</span> <span class="n">d</span><span class="p">,</span> <span class="n">Rat</span> <span class="n">v</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="statements">
+<h2>Statements<a class="headerlink" href="#statements" title="Link to this heading">¶</a></h2>
+<p>Timed ABS introduces one statements and adds one additional guard to
+the <code class="docutils literal notranslate"><span class="pre">await</span></code> statement, as described in this section.</p>
+<p>The difference between <code class="docutils literal notranslate"><span class="pre">duration</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration</span></code> is that in the latter
+case other processes in the same cog can execute while the awaiting process is
+suspended.  In the case of the blocking <code class="docutils literal notranslate"><span class="pre">duration</span></code> statement, no other process
+in the same cog can execute.  Note that processes in other cogs are not
+influenced by <code class="docutils literal notranslate"><span class="pre">duration</span></code> or <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration</span></code>, except when they attempt to
+synchronize with that process.</p>
+<section id="duration">
+<h3>duration<a class="headerlink" href="#duration" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">duration(min,</span> <span class="pre">max)</span></code> statement <em>blocks</em> the cog of the executing
+process until at least <code class="docutils literal notranslate"><span class="pre">min</span></code> and at most <code class="docutils literal notranslate"><span class="pre">max</span></code> time units have
+passed.  The second argument to the <code class="docutils literal notranslate"><span class="pre">duration</span></code> statement can be
+omitted; <code class="docutils literal notranslate"><span class="pre">duration(x)</span></code> is interpreted the same as <code class="docutils literal notranslate"><span class="pre">duration(x,</span>
+<span class="pre">x)</span></code>.</p>
+<table class="syntax docutils align-left" id="id2">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>DurationStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">duration</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> [ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> ] <code class="docutils literal notranslate"><span class="pre">)</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Time t = now();
+duration(1/2, 5); ①
+Time t2 = now(); ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Here the cog blocks for 1/2-5 time units</div>
+<div class="line">② <code class="docutils literal notranslate"><span class="pre">t2</span></code> will be between 1/2 and 5 time units larger than <code class="docutils literal notranslate"><span class="pre">t</span></code></div>
+</div>
+</section>
+<section id="await-duration">
+<h3>await duration<a class="headerlink" href="#await-duration" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">duration(min,</span> <span class="pre">max)</span></code> guard for the <code class="docutils literal notranslate"><span class="pre">await</span></code> statement (see
+<a class="reference internal" href="statements.html#await-stmt"><span class="std std-ref">Await (statement)</span></a>) <em>suspends</em> the current process until at least <code class="docutils literal notranslate"><span class="pre">min</span></code>
+and at most <code class="docutils literal notranslate"><span class="pre">max</span></code> time units have passed.  The second argument to
+the <code class="docutils literal notranslate"><span class="pre">duration</span></code> guard can be omitted; <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration(x)</span></code> is
+interpreted the same as <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration(x,</span> <span class="pre">x)</span></code>.</p>
+<table class="syntax docutils align-left" id="id3">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AwaitStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">await</span></code> <em>Guard</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Guard</em> ::=</p></td>
+<td><p>… | <em>DurationGuard</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>DurationGuard</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">duration</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> [ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A subtle difference between <code class="docutils literal notranslate"><span class="pre">duration</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span>
+<span class="pre">duration</span></code> is that in the latter case, the suspended process
+becomes eligible for scheduling after the specified time,
+but there is no guarantee that it will actually be scheduled
+at that point.  This means that more time might pass than
+expressed in the <code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">duration</span></code> guard!</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Time t = now();
+await duration(1/2, 5); ①
+Time t2 = now(); ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Here the task suspends for 1/2-5 time units</div>
+<div class="line">② <code class="docutils literal notranslate"><span class="pre">t2</span></code> will be at least 1/2 time units larger than <code class="docutils literal notranslate"><span class="pre">t</span></code></div>
+</div>
+</section>
+</section>
+<section id="timed-abs-and-the-model-api">
+<span id="timed-abs-and-model-api"></span><h2>Timed ABS and the model API<a class="headerlink" href="#timed-abs-and-the-model-api" title="Link to this heading">¶</a></h2>
+<p>By default, the clock will advance when all processes within the model
+are waiting for the clock.  However, it is sometimes desirable to
+synchronize the internal clock with some external event or system, and
+therefore to temporarily block it from advancing beyond a certain
+value.</p>
+<p>When a model is started with the a parameter <code class="docutils literal notranslate"><span class="pre">-l</span> <span class="pre">x</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--clock-limit</span> <span class="pre">x</span></code>, the clock is stopped at the given value <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+This makes it possible to model infinite systems up to a certain clock
+value.  When the clock limit is reached, the model will terminate even
+if there are processes which would be enabled by further clock
+advancement.</p>
+<p>When starting a model with both the <code class="docutils literal notranslate"><span class="pre">-l</span></code> and <code class="docutils literal notranslate"><span class="pre">-p</span></code> parameters
+(i.e., with both the model api and a clock limit), a request to the
+model api of the form <code class="docutils literal notranslate"><span class="pre">/clock/advance?by=x</span></code> will increase the clock
+limit by <code class="docutils literal notranslate"><span class="pre">x</span></code>, thereby causing waiting processes to run until the new
+limit is reached.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Timed ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#semantics-of-time-advancement">Semantics of time advancement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#now">now</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deadline">deadline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timevalue">timeValue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timedifference">timeDifference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#timelessthan">timeLessThan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#durationvalue">durationValue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#isdurationinfinite">isDurationInfinite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#addduration">addDuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subtractduration">subtractDuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#durationlessthan">durationLessThan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subtractfromduration">subtractFromDuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#statements">Statements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#duration">duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#await-duration">await duration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#timed-abs-and-the-model-api">Timed ABS and the model API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="semantic-lifting.html" title="previous chapter">Semantic lifting</a></li>
+      <li>Next: <a href="deployment.html" title="next chapter">Deployment and resource modeling</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/timed.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

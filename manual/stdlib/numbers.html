@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Numbers &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/stdlib/numbers.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Strings" href="strings.html" />
+    <link rel="prev" title="Boolean values" href="bool.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="numbers">
+<span id="type-numbers"></span><h1>Numbers<a class="headerlink" href="#numbers" title="Link to this heading">¶</a></h1>
+<section id="datatypes-and-constructors">
+<h2>Datatypes and constructors<a class="headerlink" href="#datatypes-and-constructors" title="Link to this heading">¶</a></h2>
+<p>The numeric datatypes of ABS are <code class="docutils literal notranslate"><span class="pre">Int</span></code> (arbitrary-length integers),
+<code class="docutils literal notranslate"><span class="pre">Rat</span></code> (arbitrary-precision rational numbers) and <code class="docutils literal notranslate"><span class="pre">Float</span></code> (64-bit
+floating point).  See <a class="reference internal" href="../types.html#sec-builtin-types"><span class="std std-ref">Built-in types</span></a> for their syntax.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for floating-point calculations is under
+development; calculations resulting in <code class="docutils literal notranslate"><span class="pre">Inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code>
+currently have unspecified runtime behavior.</p>
+</div>
+</section>
+<section id="operators">
+<h2>Operators<a class="headerlink" href="#operators" title="Link to this heading">¶</a></h2>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Expression</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Associativity</p></th>
+<th class="head"><p>Result type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">==</span> <span class="pre">e2</span></code></p></td>
+<td><p>equality</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">!=</span> <span class="pre">e2</span></code></p></td>
+<td><p>inequality</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&lt;</span> <span class="pre">e2</span></code></p></td>
+<td><p>less than</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">\&lt;=</span> <span class="pre">e2</span></code></p></td>
+<td><p>less or equal</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&gt;</span> <span class="pre">e2</span></code></p></td>
+<td><p>greater than</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&gt;=</span> <span class="pre">e2</span></code></p></td>
+<td><p>greater or equal</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">+</span> <span class="pre">e2</span></code></p></td>
+<td><p>addition</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">-</span> <span class="pre">e2</span></code></p></td>
+<td><p>subtraction</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">*</span> <span class="pre">e2</span></code></p></td>
+<td><p>multiplication</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">/</span> <span class="pre">e2</span></code></p></td>
+<td><p>division</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Rat</span></code> or <code class="docutils literal notranslate"><span class="pre">Float</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">%</span> <span class="pre">e2</span></code></p></td>
+<td><p>modulo</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<section id="min-max">
+<h3>min, max<a class="headerlink" href="#min-max" title="Link to this heading">¶</a></h3>
+<p>These functions calculate the maximum and minimum of their two
+arguments.  Since ABS datatypes are ordered, they can be applied to
+arguments of all types.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">5</span>
+
+<span class="nb">min</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">1.5</span>
+</pre></div>
+</div>
+</section>
+<section id="abs">
+<h3>abs<a class="headerlink" href="#abs" title="Link to this heading">¶</a></h3>
+<p>This function calculates the absolute (positive) value of its
+argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</section>
+<section id="truncate">
+<h3>truncate<a class="headerlink" href="#truncate" title="Link to this heading">¶</a></h3>
+<p>Converts a rational number to an integer by truncating towards zero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">truncate</span><span class="p">(</span><span class="mi">7</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="float">
+<h3>float<a class="headerlink" href="#float" title="Link to this heading">¶</a></h3>
+<p>Converts an integer or rational number into a floating-point number.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">1.0</span>
+<span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Very large integers and some rational numbers cannot be
+converted exactly into floating-point numbers.  More in
+general, <code class="docutils literal notranslate"><span class="pre">rat(float(x))</span> <span class="pre">==</span> <span class="pre">x</span></code> might not be true.</p>
+</div>
+</section>
+<section id="rat">
+<h3>rat<a class="headerlink" href="#rat" title="Link to this heading">¶</a></h3>
+<p>Converts a floating-point number into a rational number.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rat</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conversion from floating-point to rational numbers is
+inexact and backend-specific.  In general, <code class="docutils literal notranslate"><span class="pre">float(rat(x))</span>
+<span class="pre">==</span> <span class="pre">x</span></code> might not be true.</p>
+</div>
+</section>
+<section id="floor">
+<h3>floor<a class="headerlink" href="#floor" title="Link to this heading">¶</a></h3>
+<p>Returns the largest integer smaller or equal to the floating-point
+argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">floor</span><span class="p">(</span><span class="mf">5.3</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</section>
+<section id="ceil">
+<h3>ceil<a class="headerlink" href="#ceil" title="Link to this heading">¶</a></h3>
+<p>Returns the smallest integer larger or equal to the floating-point
+argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceil</span><span class="p">(</span><span class="mf">5.3</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</section>
+<section id="numerator">
+<h3>numerator<a class="headerlink" href="#numerator" title="Link to this heading">¶</a></h3>
+<p>Returns the numerator of a rational number, or the number itself for
+an integer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numerator</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="denominator">
+<h3>denominator<a class="headerlink" href="#denominator" title="Link to this heading">¶</a></h3>
+<p>Returns the denominator of a rational number, or <code class="docutils literal notranslate"><span class="pre">1</span></code> for an integer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">denominator</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</section>
+<section id="pow">
+<h3>pow<a class="headerlink" href="#pow" title="Link to this heading">¶</a></h3>
+<p>This function calculates <span class="math notranslate nohighlight">\(b^n\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">/</span><span class="mi">16</span>
+</pre></div>
+</div>
+</section>
+<section id="sqrt-newton">
+<h3>sqrt_newton<a class="headerlink" href="#sqrt-newton" title="Link to this heading">¶</a></h3>
+<p>This function approximates <span class="math notranslate nohighlight">\(\sqrt{x}\)</span>; it stops when two
+subsequent estimates (as per Newton’s algorithm) differ by less than
+<code class="docutils literal notranslate"><span class="pre">epsilon</span></code>, its third argument.  The second argument is an initial
+estimate of the square root.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt_newton</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</section>
+<section id="exp-newton">
+<h3>exp_newton<a class="headerlink" href="#exp-newton" title="Link to this heading">¶</a></h3>
+<p>This function approximates <span class="math notranslate nohighlight">\(e^x\)</span>; it stops when two subsequent
+estimates (as per Newton’s algorithm) differ by less than its second
+argument <code class="docutils literal notranslate"><span class="pre">epsilon</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exp_newton</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">163</span><span class="o">/</span><span class="mi">60</span>
+</pre></div>
+</div>
+</section>
+<section id="sqrt">
+<h3>sqrt<a class="headerlink" href="#sqrt" title="Link to this heading">¶</a></h3>
+<p>This function returns <span class="math notranslate nohighlight">\(\sqrt{x}\)</span>.  It is an error if its
+argument is negative.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">2.0</span>
+</pre></div>
+</div>
+</section>
+<section id="log">
+<h3>log<a class="headerlink" href="#log" title="Link to this heading">¶</a></h3>
+<p>This function returns <span class="math notranslate nohighlight">\(ln(x)\)</span>, the natural logarithm of its argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</section>
+<section id="exp">
+<h3>exp<a class="headerlink" href="#exp" title="Link to this heading">¶</a></h3>
+<p>This function returns <span class="math notranslate nohighlight">\(e^x\)</span>, Euler’s number <span class="math notranslate nohighlight">\(e\)</span> raised to
+the power of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exp</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mf">2.7182818284590455</span>
+</pre></div>
+</div>
+</section>
+<section id="random">
+<h3>random<a class="headerlink" href="#random" title="Link to this heading">¶</a></h3>
+<p>Returns an integer between 0 (inclusive) and its argument (exclusive).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">=&gt;</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The standard library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bool.html">Boolean values</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Numbers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#operators">Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#min-max">min, max</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#abs">abs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#truncate">truncate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#float">float</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#rat">rat</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#floor">floor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ceil">ceil</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#numerator">numerator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#denominator">denominator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pow">pow</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#sqrt-newton">sqrt_newton</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#exp-newton">exp_newton</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#sqrt">sqrt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#log">log</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#exp">exp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#random">random</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="strings.html">Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit.html">Unit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="object.html">Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="futures.html">The future type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">Predefined exceptions in the standard library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lists.html">Lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sets.html">Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maps.html">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pairs.html">Pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triples.html">Triples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optionals.html">Optionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">ABS language manual</a><ul>
+  <li><a href="index.html">The standard library</a><ul>
+      <li>Previous: <a href="bool.html" title="previous chapter">Boolean values</a></li>
+      <li>Next: <a href="strings.html" title="next chapter">Strings</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/manual/stdlib/numbers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

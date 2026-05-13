@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The future type &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/stdlib/futures.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Predefined exceptions in the standard library" href="exceptions.html" />
+    <link rel="prev" title="Object" href="object.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-future-type">
+<span id="type-future"></span><h1>The future type<a class="headerlink" href="#the-future-type" title="Link to this heading">¶</a></h1>
+<p>Futures are placeholders for return values of asynchronous methods
+calls.</p>
+<p>Future values are produced by asynchronous method calls (see
+<a class="reference internal" href="../expressions.html#async-call-expression"><span class="std std-ref">Asynchronous method calls</span></a>).  The current process can suspend itself
+until a future is resolved, i.e., until the return value of the
+asynchronous method call is available (see <a class="reference internal" href="../statements.html#await-stmt"><span class="std std-ref">Await (statement)</span></a>).  The get
+expression returns the value of a future (see <a class="reference internal" href="../expressions.html#get-expression"><span class="std std-ref">Get</span></a>).  In
+case the future is not yet resolved, the get expression blocks the
+current cog.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;Int&gt; f = o!add(2, 3); ①
+await f?; ②
+Int result = f.get; ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This statement defines a future variable <code class="docutils literal notranslate"><span class="pre">f</span></code> to hold the integer
+result of the method call to <code class="docutils literal notranslate"><span class="pre">add</span></code>.</div>
+<div class="line">② The <code class="docutils literal notranslate"><span class="pre">await</span></code> statement suspends the current process until <code class="docutils literal notranslate"><span class="pre">f</span></code>
+is resolved.</div>
+<div class="line">③ The <code class="docutils literal notranslate"><span class="pre">get</span></code> expression returns the value computed by the <code class="docutils literal notranslate"><span class="pre">add</span></code>
+call.</div>
+</div>
+<p>Futures are first-class values that can be stored and passed around.
+In case only the return value of the method call is needed and not the
+future itself, a shorthand can be used that combines the above three
+statements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Int result = await o!add(2, 3); ①
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This statement invokes <code class="docutils literal notranslate"><span class="pre">add</span></code>, suspends the current process until
+the result is available, then stores it in <code class="docutils literal notranslate"><span class="pre">result</span></code>.</div>
+</div>
+<section id="the-destiny-type">
+<span id="type-destiny"></span><h2>The destiny type<a class="headerlink" href="#the-destiny-type" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is currently only available in the Erlang
+backend.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> type is the type of the <code class="docutils literal notranslate"><span class="pre">destiny</span></code> expression, see
+<a class="reference internal" href="../expressions.html#destiny-expression"><span class="std std-ref">Destiny (expression)</span></a>.  Thus, its values are also futures:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unit</span> <span class="n">myMethod</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Destiny</span> <span class="n">x</span> <span class="o">=</span> <span class="n">destiny</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> type is a supertype of all future types.  For example,
+values of any future type <code class="docutils literal notranslate"><span class="pre">Fut&lt;T&gt;</span></code> can implicitly be cast to the
+<code class="docutils literal notranslate"><span class="pre">Destiny</span></code> type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Destiny f = this!myMethod();
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> type supports all boolean comparisons that <code class="docutils literal notranslate"><span class="pre">Fut&lt;T&gt;</span></code>
+types support. Thus, one can use it to compare futures even across
+different future types to identify asynchronous method calls:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Destiny f = this!myMethod();
+Fut&lt;Int&gt; g = this!myMethod();
+assert(f == f &amp;&amp; f != g);
+</pre></div>
+</div>
+<p>The Get-Expression of a <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> value is typed by the internal
+type <code class="docutils literal notranslate"><span class="pre">Bottom</span></code> that has no values.  Thus, it is permitted to
+synchronize on a future typed by <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> but one can not extract
+its result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Int myMethod() {
+    Destiny f = destiny;
+    f.get; ①
+    await f?; ②
+    Int x = f.get; ③
+    return 42;
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This is permitted but results in a deadlock, as the method is now
+synchronizing on its own completion.</div>
+<div class="line">② Applying <code class="docutils literal notranslate"><span class="pre">await</span></code> to a <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> value is also permitted but in
+this case it has the same deadlock problem.</div>
+<div class="line">③ This will result in a compile-time error.</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The standard library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="bool.html">Boolean values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numbers.html">Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="strings.html">Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unit.html">Unit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="object.html">Object</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The future type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-destiny-type">The destiny type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">Predefined exceptions in the standard library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lists.html">Lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sets.html">Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maps.html">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pairs.html">Pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triples.html">Triples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optionals.html">Optionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">Others</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">ABS language manual</a><ul>
+  <li><a href="index.html">The standard library</a><ul>
+      <li>Previous: <a href="object.html" title="previous chapter">Object</a></li>
+      <li>Next: <a href="exceptions.html" title="next chapter">Predefined exceptions in the standard library</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/manual/stdlib/futures.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

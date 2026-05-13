@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Modeling time in ABS &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://abs-models.org/examples/time-and-date.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Geodata in ABS" href="gis-modeling.html" />
+    <link rel="prev" title="The Monty Hall problem" href="monty-hall.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="modeling-time-in-abs">
+<h1>Modeling time in ABS<a class="headerlink" href="#modeling-time-in-abs" title="Link to this heading">¶</a></h1>
+<p>ABS provides a logical clock, a rational-valued global counter
+starting at 0 –- see <a class="reference internal" href="../manual/timed.html#sec-timed-abs"><span class="std std-ref">Timed ABS</span></a> in the language manual for
+details. This example shows how to use ABS to run simulations modeling
+real (calendar) time and visualize the resulting data in a timeline.</p>
+<p>The code can be found at
+<a class="reference external" href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/time-and-date/</a>.</p>
+<p>The following short ABS model creates a list of values together with
+the time when the value was produced. The results are stored in a
+<code class="docutils literal notranslate"><span class="pre">Calendar</span></code> object that is accessible via the ABS Model API (see
+<a class="reference internal" href="../manual/modelapi.html#sec-model-api"><span class="std std-ref">The model API</span></a>).</p>
+<p>During the simulation, the method <code class="docutils literal notranslate"><span class="pre">addValue</span></code> is called with random
+values. The calendar object keeps track of the value and the time when
+it was added.</p>
+<p>The calendar also makes two methods callable via the Model API:
+<code class="docutils literal notranslate"><span class="pre">getValues</span></code> returns a list of pairs of recorded time and value. The
+method <code class="docutils literal notranslate"><span class="pre">getStartDate</span></code> returns a string containing a date in ISO 8601
+notation; this is the “real” start date that will be used in the
+simulation. The time values in the list returned by <code class="docutils literal notranslate"><span class="pre">getValues</span></code> will
+be interpreted as <em>offset</em> from that point in time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module CalendarTime;
+
+def String start_date() = &quot;2020-04-01&quot;;
+
+interface Calendar {
+    [HTTPCallable] String getStartDate();
+    [HTTPCallable] List&lt;Pair&lt;Rat, Int&gt;&gt; getValues();
+
+    Unit addValue(Int value);
+}
+
+class Calendar implements Calendar {
+    List&lt;Pair&lt;Rat, Int&gt;&gt; values = list[];
+
+    String getStartDate() { return start_date(); }
+    List&lt;Pair&lt;Rat, Int&gt;&gt; getValues() { return reverse(values); }
+
+    Unit addValue(Int value) {
+        values = Cons(Pair(timeValue(now()), value), values);
+    }
+}
+
+{
+    [HTTPName: &quot;Calendar&quot;] Calendar c = new Calendar();
+    Int nRounds = 16;
+    while (nRounds &gt; 0) {
+        c!addValue(random(50));
+        await duration(1/4, 1/4);
+        nRounds = nRounds - 1;
+    }
+    println(`Finished at $now()$`);
+}
+</pre></div>
+</div>
+<p>The main block records in-between advancing the clock by ¼ (0.25).</p>
+<section id="converting-time-values">
+<h2>Converting time values<a class="headerlink" href="#converting-time-values" title="Link to this heading">¶</a></h2>
+<p>To visualize times properly, they must be converted to a format that
+the visualization library expects.</p>
+<p>In addition to the chosen offset (2020-04-01 in our case), we also
+need a <em>scaling factor</em> to convert the logical clock values of ABS to
+real date and time values. We choose to represent each day by an
+increment of <span class="math notranslate nohighlight">\(1\)</span>; fractional values of the clock represent the
+time of day. Since our model advances the clock by ¼ sixteen times,
+the values are recorded at 6am, 12pm, 6pm and midnight for four days.</p>
+<p>As an example, here is a Javascript function that takes the startdate
+(as a string parseable via <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date</span></code>) and offset (as a floating
+point number, with the integer part the number of days and the
+fractional part the time of day, with <code class="docutils literal notranslate"><span class="pre">0.5</span></code> exactly noon) and
+returns a Javascript <code class="docutils literal notranslate"><span class="pre">Date</span></code> object:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">absolute_date</span><span class="p">(</span><span class="nx">startdate</span><span class="p">,</span><span class="w"> </span><span class="nx">offset</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">offset</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">days</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">startdate</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">date</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">days</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">date</span><span class="p">.</span><span class="nx">setTime</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">24</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">date</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-the-time-series">
+<h2>Visualizing the time series<a class="headerlink" href="#visualizing-the-time-series" title="Link to this heading">¶</a></h2>
+<p>The following is a complete HTML file that uses the <a class="reference external" href="https://www.highcharts.com/blog/products/highcharts/">Highcharts
+library</a> to
+draw a line diagram of the random values generated by ABS.  The
+function <code class="docutils literal notranslate"><span class="pre">drawChart</span></code> retrieves the starting offset and value list
+via the Model API, then creates a Highcharts chart with the downloaded
+values.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Date and Time in ABS<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.highcharts.com/highcharts.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.highcharts.com/modules/exporting.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://code.highcharts.com/modules/export-data.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Date and Time in ABS<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;chart-container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">absolute_date</span><span class="p">(</span><span class="nx">startdate</span><span class="p">,</span><span class="w"> </span><span class="nx">offset</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">offset</span><span class="p">);</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">days</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">startdate</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">date</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">days</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">date</span><span class="p">.</span><span class="nx">setTime</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">24</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">getTime</span><span class="p">();</span><span class="w"> </span><span class="c1">// number of milliseconds, as needed by Highcharts</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">drawChart</span><span class="p">(){</span>
+<span class="w">        </span><span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;/call/Calendar/getStartDate&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;/call/Calendar/getValues&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resstartdate</span><span class="p">,</span><span class="w"> </span><span class="nx">resvalues</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">startdate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resstartdate</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resvalues</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">result</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="nx">absolute_date</span><span class="p">(</span><span class="nx">startdate</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">fst</span><span class="p">),</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">snd</span><span class="p">]);</span>
+<span class="w">            </span><span class="nx">Highcharts</span><span class="p">.</span><span class="nx">chart</span><span class="p">(</span><span class="s1">&#39;chart-container&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;line&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Dates and values from ABS&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">xAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;datetime&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">yAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Value (random number)&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">series</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">                     </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;random value&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">data</span>
+<span class="w">                 </span><span class="p">}]</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="w">        </span><span class="nx">drawChart</span><span class="p">();</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-example">
+<h2>Running the example<a class="headerlink" href="#running-the-example" title="Link to this heading">¶</a></h2>
+<p>The following small Makefile can be used to compile and start the model.
+Make sure to store the ABS model in a file <code class="docutils literal notranslate"><span class="pre">CalendarTime.abs</span></code> and the
+html in a file <code class="docutils literal notranslate"><span class="pre">index.html</span></code>, then type <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">run</span></code> and connect the
+browser to <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>:</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">all</span>
+<span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">run</span>            <span class="c">## Generate data and start model (default)</span>
+
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">compile</span>
+<span class="nf">compile</span><span class="o">:</span><span class="w"> </span><span class="n">CalendarTime</span>.<span class="n">abs</span> <span class="n">index</span>.<span class="n">html</span> <span class="c">## Compile the model</span>
+<span class="w">    </span>absc<span class="w"> </span>--erlang<span class="w"> </span>CalendarTime.abs<span class="w"> </span>--modelapi-index-file<span class="w"> </span>index.html
+
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">compile</span>
+<span class="nf">run</span><span class="o">:</span><span class="w"> </span><span class="n">compile</span>            <span class="c">## Execute the model</span>
+<span class="w">    </span>gen/erl/run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span><span class="w"> </span>-v
+
+<span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">help</span>
+<span class="nf">help</span><span class="o">:</span><span class="w">               </span><span class="c">## Display this message</span>
+<span class="w">    </span>@grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;^[a-zA-Z_-]+:.*?## .*$$&#39;</span><span class="w"> </span><span class="k">$(</span>MAKEFILE_LIST<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;BEGIN {FS = &quot;:.*?## &quot;}; {printf &quot;\033[36m%-30s\033[0m %s\n&quot;, $$1, $$2}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="monty-hall.html">The Monty Hall problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modeling time in ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#converting-time-values">Converting time values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualizing-the-time-series">Visualizing the time series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gis-modeling.html">Geodata in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-watertank.html">Modeling a water tank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resource-modeling.html">Modeling resources in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multicore_memory.html">ABS model of a multicore memory system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Examples</a><ul>
+      <li>Previous: <a href="monty-hall.html" title="previous chapter">The Monty Hall problem</a></li>
+      <li>Next: <a href="gis-modeling.html" title="next chapter">Geodata in ABS</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/examples/time-and-date.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Modeling resources in ABS &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/examples/resource-modeling.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ABS model of a multicore memory system" href="multicore_memory.html" />
+    <link rel="prev" title="Modeling a water tank" href="single-watertank.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="modeling-resources-in-abs">
+<h1>Modeling resources in ABS<a class="headerlink" href="#modeling-resources-in-abs" title="Link to this heading">¶</a></h1>
+<p>This example shows a high-level model of a typical three-layer system
+serving client requests. The components are one load balancer,
+multiple web workers and an underlying database server. The model also
+contains one or more clients, which send requests to the load
+balancer.</p>
+<p>The complete code to this example is here:
+<a class="reference external" href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/">https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/</a>.</p>
+<p>The basic architecture is as follows:</p>
+<figure class="align-default" id="id1">
+<img alt="Three-layer web app model" src="../_images/basic-model-no-resources.png" />
+<figcaption>
+<p><span class="caption-text">Three-layer web app model</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <code class="docutils literal notranslate"><span class="pre">Loadbalancer</span></code> class receives incoming messages from clients,
+chooses a <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> object and routes the request to it. The
+worker, in turn, calls the <code class="docutils literal notranslate"><span class="pre">query</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Database</span></code>
+instance, then returns a result to the client via the load balancer.</p>
+<section id="functional-model-without-resources">
+<h2>Functional model without resources<a class="headerlink" href="#functional-model-without-resources" title="Link to this heading">¶</a></h2>
+<p>The ABS model discussed in this section is here:
+<a class="reference external" href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-no-resources.abs">basic-model-no-resources.abs</a>.</p>
+<p>We use a basic model to implement the control flow of a typical web
+request, skipping any application logic. Clients access the service by
+calling <code class="docutils literal notranslate"><span class="pre">processRequest()</span></code> on a <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> isntance which
+keeps a pool of <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> components. All of them access the same
+<code class="docutils literal notranslate"><span class="pre">Database</span></code> object. The interface structure is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="n">Database</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">query</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">interface</span> <span class="n">Webworker</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">processRequest</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">interface</span> <span class="n">Loadbalancer</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">processRequest</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that there is no interface for clients, since they do not expose
+any methods to call from the outside.</p>
+<p>We abstract away from most of the processing and are only concerned with
+control flow, so the <code class="docutils literal notranslate"><span class="pre">Database</span></code> implementation returns a constant
+string:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Database</span> <span class="n">implements</span> <span class="n">Database</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">query</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">&quot;Result&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the same vein, the <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> class models database communication
+and local processing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Webworker(Database db) implements Webworker {
+    String processRequest() {
+        String result = await db!query();
+        return result + &quot; from &quot; + toString(this);
+    }
+}
+</pre></div>
+</div>
+<p>The class <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> fills its pool of <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> instances on
+startup, and routes requests to a free webworker:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Loadbalancer(Int nWorkers, Database db) implements Loadbalancer {
+    List&lt;Webworker&gt; workers = Nil;
+
+    Unit run() {
+        Int i = 0;
+        while (i &lt; nWorkers) {
+            Webworker w = new Webworker(db);
+            workers = Cons(w, workers);
+            i = i + 1;
+        }
+    }
+
+    String processRequest() {
+        await length(workers) &gt; 0;
+        Webworker w = head(workers);
+        workers = tail(workers);
+        String result = await w!processRequest();
+        workers = appendright(workers, w);
+        return result;
+    }
+}
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">Client</span></code> instance sends one request per time unit to the
+<code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> from its <code class="docutils literal notranslate"><span class="pre">run</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Client (Loadbalancer lb) {
+    Unit run() {
+        while (timeValue(now()) &lt; 100) {
+            String s = await lb!processRequest();
+            println(s + &quot; at &quot; + toString(now()));
+            await duration(1, 1);
+        }
+    }
+}
+</pre></div>
+</div>
+<p>Finally, the main block sets up and starts the model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">Database</span> <span class="n">db</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Database</span><span class="p">();</span>
+    <span class="n">Loadbalancer</span> <span class="n">lb</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Loadbalancer</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">db</span><span class="p">);</span>
+    <span class="n">new</span> <span class="n">Client</span><span class="p">(</span><span class="n">lb</span><span class="p">);</span>
+    <span class="k">await</span> <span class="n">duration</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-resources-to-the-model">
+<h2>Adding resources to the model<a class="headerlink" href="#adding-resources-to-the-model" title="Link to this heading">¶</a></h2>
+<p>We now add resource locations and resource consumption to the model of
+the previous section.</p>
+<p>The ABS model discussed in this section is here:
+<a class="reference external" href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v1.abs">basic-model-resources-v1.abs</a>.</p>
+<p>The basic idea is to create objects at resource-carrying <em>locations</em>
+(see <a class="reference internal" href="../manual/deployment.html#sec-deployment-components"><span class="std std-ref">Deployment components</span></a>).  <code class="docutils literal notranslate"><span class="pre">DeploymentComponent</span></code> is a
+predefined ABS class that models a virtual machine, or in general a
+location that supplies computation resources to the cogs running on
+it.</p>
+<p>Specific parts of the code are annotated with <em>resource costs</em>.
+Executing these code parts consumes resources, and execution is
+delayed when the location has run out of resources. Resources are
+refreshed periodically.</p>
+<p>The interesting point is that adding deployment and cost information
+to an ABS model can be done piecemeal, and is minimally invasive.</p>
+<figure class="align-default" id="id2">
+<img alt="Three-layer web app model, with deployment components" src="../_images/basic-model-resources.png" />
+<figcaption>
+<p><span class="caption-text">Three-layer web app model, with deployment components</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In the updated example, we deploy the <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> and <code class="docutils literal notranslate"><span class="pre">Database</span></code>
+objects on a deployment component each.  Note that we do not have to
+add a deployment component to every new object; we can leave some
+parts unspecified or abstract.  In the example, we make use of the
+<code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> class from the standard library, but deployment
+components can be directly created as well.</p>
+<p>In the main block, we create a <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> instance, tell it the
+instance types that are available, and use it to create a deployment
+component for running the database on. The <code class="docutils literal notranslate"><span class="pre">[DC:</span> <span class="pre">database_c]</span></code>
+annotation creates the fresh <code class="docutils literal notranslate"><span class="pre">Database</span></code> object on that deployment
+component:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    CloudProvider provider = new CloudProvider(&quot;Amazon&quot;);
+    provider!setInstanceDescriptions(map[Pair(&quot;Small&quot;, map[Pair(Cores, 1), Pair(Speed, 15)])]);
+    DeploymentComponent database_c = await provider!launchInstanceNamed(&quot;Small&quot;);
+    [DC: database_c] Database db = new Database();
+    Loadbalancer lb = new Loadbalancer(5, db, provider);
+    new Client(lb);
+    await duration(100, 100);
+    provider!shutdown();
+}
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> uses the same <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> instance to create
+the web workers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Loadbalancer(Int nWorkers, Database db, CloudProvider provider) implements Loadbalancer {
+    List&lt;Webworker&gt; workers = Nil;
+
+    Unit run() {
+        Int i = 0;
+        while (i &lt; nWorkers) {
+            DeploymentComponent dc = await provider!launchInstanceNamed(&quot;Small&quot;);
+            [DC: dc] Webworker w = new Webworker(db);
+            workers = Cons(w, workers);
+            i = i + 1;
+        }
+    }
+
+    // All other code unchanged ...
+}
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Database</span></code> and <code class="docutils literal notranslate"><span class="pre">Webworker</span></code> classes now consume resources when
+processing requests. Each <code class="docutils literal notranslate"><span class="pre">query</span></code> call consumes a constant 3 <code class="docutils literal notranslate"><span class="pre">Speed</span></code>
+resources from the database’s deployment component, each
+<code class="docutils literal notranslate"><span class="pre">processRequest</span></code> call to a web worker consumes 16 resources from the
+web worker’s deployment component:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Database implements Database {
+    String query() {
+        [Cost: 3] return &quot;Result&quot;;
+    }
+}
+
+class Webworker(Database db) implements Webworker {
+    String processRequest() {
+        [Cost: 16] String result = await db!query();
+        return result + &quot; from &quot; + toString(this);
+    }
+}
+</pre></div>
+</div>
+<p>To run the model on the Java backend, use the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>absc<span class="w"> </span>--java<span class="w"> </span>basic-model-resources-v1.abs<span class="w"> </span>-o<span class="w"> </span>basic-model-resources-v1.jar
+java<span class="w"> </span>-jar<span class="w"> </span>basic-model-resources-v1.jar<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
+</pre></div>
+</div>
+<p>Then, open a browser to the address <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>. The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure class="align-default" id="id3">
+<img alt="Screenshot of resource consumption over time of the database and 3 webworkers, round-robin scheduling" src="../_images/basic-model-resources-v1-diagram.png" />
+<figcaption>
+<p><span class="caption-text">Screenshot of resource consumption over time of the database and 3
+webworkers, round-robin scheduling</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>We can see that all deployment components are lightly loaded, and that
+the load balancer distributes tasks in a round-robin strategy. Since the
+deployment component has a Speed capacity of 15 but the cost of one
+processRequest execution is 16, each request takes two time units.</p>
+</section>
+<section id="changing-load-balancing-strategies">
+<h2>Changing load balancing strategies<a class="headerlink" href="#changing-load-balancing-strategies" title="Link to this heading">¶</a></h2>
+<p>The ABS model discussed in this section is here:
+<a class="reference external" href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v2.abs">basic-model-resources-v2.abs</a>.</p>
+<p>With a one-line change in the load balancer, we can model a different
+load balancing strategy: we switch from round-robin to a LIFO
+(stack-based) strategy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>String processRequest() {
+    await length(workers) &gt; 0;
+    Webworker w = head(workers);
+    workers = tail(workers);
+    String result = await w!processRequest();
+    workers = Cons(w, workers);
+    return result;
+}
+</pre></div>
+</div>
+<p>To run the model on the Java backend, run the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>absc<span class="w"> </span>--java<span class="w"> </span>basic-model-resources-v2.abs<span class="w"> </span>-o<span class="w"> </span>basic-model-resources-v2.jar
+java<span class="w"> </span>-jar<span class="w"> </span>basic-model-resources-v2.jar<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
+</pre></div>
+</div>
+<p>Then, open a browser to the address <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>. The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure class="align-default" id="id4">
+<img alt="Screenshot of resource consumption over time of the database and 2 webworkers, with LIFO scheduling of the load balancer" src="../_images/basic-model-resources-v2-diagram.png" />
+<figcaption>
+<p><span class="caption-text">Screenshot of resource consumption over time of the database and 2
+webworkers, with LIFO scheduling of the load balancer</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The output shows that one web worker is enough to carry the load of
+the given client scenario: all web workers except the first one are
+idle over the course of the simulation.</p>
+</section>
+<section id="changing-the-client-load-scenario">
+<h2>Changing the client load scenario<a class="headerlink" href="#changing-the-client-load-scenario" title="Link to this heading">¶</a></h2>
+<p>The ABS model discussed in this section is here:
+<a class="reference external" href="https://github.com/abstools/absexamples/blob/master/collaboratory/examples/resource-modeling/basic-model-resources-v3.abs">basic-model-resources-v3.abs</a>.</p>
+<p>The previous examples showed a load scenario where most machines are
+idle.  We can add more clients to simulate a higher load, with the
+following main block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    CloudProvider provider = new CloudProvider(&quot;Amazon&quot;);
+    provider!setInstanceDescriptions(map[Pair(&quot;Small&quot;, map[Pair(Cores, 1), Pair(Speed, 15)])]);
+    DeploymentComponent database_c = await provider!launchInstanceNamed(&quot;Small&quot;);
+    [DC: database_c] Database db = new Database();
+    Loadbalancer lb = new Loadbalancer(5, db, provider);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    new Client(lb);
+    await duration(100, 100);
+    provider!shutdown();
+}
+</pre></div>
+</div>
+<p>To run the model on the Java backend, run the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>absc<span class="w"> </span>--java<span class="w"> </span>basic-model-resources-v3.abs<span class="w"> </span>-o<span class="w"> </span>basic-model-resources-v3.jar
+java<span class="w"> </span>-jar<span class="w"> </span>basic-model-resources-v3.jar<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
+</pre></div>
+</div>
+<p>Then, open a browser to the address <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>. The output
+will look similar to this (scroll down in the model API browser output
+to see more deployment components):</p>
+<figure class="align-default" id="id5">
+<img alt="Screenshot of resource consumption over time of the database and 2 webworkers, with increased client load" src="../_images/basic-model-resources-v3-diagram.png" />
+<figcaption>
+<p><span class="caption-text">Screenshot of resource consumption over time of the database and 2
+webworkers, with increased client load</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In this last example, the database server is running at approximately
+50% load, and all 5 web workers are running near capacity.</p>
+</section>
+<section id="further-possibilities-for-resource-modeling">
+<h2>Further possibilities for resource modeling<a class="headerlink" href="#further-possibilities-for-resource-modeling" title="Link to this heading">¶</a></h2>
+<p>Note that the scenarios presented in this chapter are somewhat static, but that
+does not need to be the case:</p>
+<ul class="simple">
+<li><p>We can dynamically add deployment components and add and remove
+worker objects; this can be used to model redeployment at runtime</p></li>
+<li><p>Cost annotations can be any ABS expression over local variables and
+class fields that produces a number; this can be used to model
+varying costs of message processing, either stochastic or as a
+function of the message payload</p></li>
+<li><p>The resources available to a deployment component can be increased
+and decreased; this can be used to model stochastic machine
+performance decrease, or resource transfer between machines</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="monty-hall.html">The Monty Hall problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time-and-date.html">Modeling time in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gis-modeling.html">Geodata in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-watertank.html">Modeling a water tank</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modeling resources in ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functional-model-without-resources">Functional model without resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-resources-to-the-model">Adding resources to the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-load-balancing-strategies">Changing load balancing strategies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-client-load-scenario">Changing the client load scenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-possibilities-for-resource-modeling">Further possibilities for resource modeling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multicore_memory.html">ABS model of a multicore memory system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Examples</a><ul>
+      <li>Previous: <a href="single-watertank.html" title="previous chapter">Modeling a water tank</a></li>
+      <li>Next: <a href="multicore_memory.html" title="next chapter">ABS model of a multicore memory system</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/examples/resource-modeling.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

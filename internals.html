@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ABS compiler internals &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=3cb1bcfc" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/internals.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="abs-compiler-internals">
+<h1>ABS compiler internals<a class="headerlink" href="#abs-compiler-internals" title="Link to this heading">¶</a></h1>
+<section id="about-this-guide">
+<h2>About this guide<a class="headerlink" href="#about-this-guide" title="Link to this heading">¶</a></h2>
+<p>This guide helps document how absc – the ABS compiler – works, and
+helps new contributors get involved in development and use ABS as
+basis for their own research.  It is a high-level overview, presenting
+the kinds of things that (ideally) do not change often.</p>
+<p>Part 1 contains general information that should be useful no matter
+how you are contributing.  Part 2 contains information about how
+various parts of the compiler work.</p>
+<p>This guide is currently a work-in-progress.  Contributions and
+corrections to this guide are very welcome!</p>
+</section>
+<section id="building-debugging-and-contributing-to-absc">
+<h2>Building, debugging, and contributing to absc<a class="headerlink" href="#building-debugging-and-contributing-to-absc" title="Link to this heading">¶</a></h2>
+<section id="about-the-compiler-team">
+<h3>About the compiler team<a class="headerlink" href="#about-the-compiler-team" title="Link to this heading">¶</a></h3>
+</section>
+<section id="how-to-build-and-run-absc">
+<h3>How to build and run absc<a class="headerlink" href="#how-to-build-and-run-absc" title="Link to this heading">¶</a></h3>
+</section>
+<section id="the-testing-framework">
+<h3>The testing framework<a class="headerlink" href="#the-testing-framework" title="Link to this heading">¶</a></h3>
+</section>
+<section id="debugging-the-compiler">
+<h3>Debugging the compiler<a class="headerlink" href="#debugging-the-compiler" title="Link to this heading">¶</a></h3>
+</section>
+<section id="profiling-the-compiler">
+<h3>Profiling the compiler<a class="headerlink" href="#profiling-the-compiler" title="Link to this heading">¶</a></h3>
+</section>
+<section id="coding-conventions">
+<h3>Coding conventions<a class="headerlink" href="#coding-conventions" title="Link to this heading">¶</a></h3>
+</section>
+<section id="emitting-errors-and-other-diagnostics">
+<h3>Emitting errors and other diagnostics<a class="headerlink" href="#emitting-errors-and-other-diagnostics" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<section id="how-absc-works">
+<h2>How absc works<a class="headerlink" href="#how-absc-works" title="Link to this heading">¶</a></h2>
+<section id="high-level-overview-of-the-compiler-source">
+<h3>High-level overview of the compiler source<a class="headerlink" href="#high-level-overview-of-the-compiler-source" title="Link to this heading">¶</a></h3>
+</section>
+<section id="the-command-line-parser-and-dispatcher">
+<h3>The command-line parser and dispatcher<a class="headerlink" href="#the-command-line-parser-and-dispatcher" title="Link to this heading">¶</a></h3>
+<p>The main entry point of the compiler is the class
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.Absc</span></code>.  This class parses command-line arguments,
+parses the files given on the command line and dispatches to the
+desired backend.  There is also a possibility to register
+<em>sub-commands</em> for distinct functionality; for example, software
+product line type checking is done by invoking the <code class="docutils literal notranslate"><span class="pre">checkspl</span></code>
+subcommand.  Subcommands have their own command-line options and help
+output.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Absc</span></code> class uses <a class="reference external" href="https://picocli.info">the picocli library</a>
+for command-line parsing.</p>
+</section>
+<section id="lexing-and-parsing">
+<h3>Lexing and parsing<a class="headerlink" href="#lexing-and-parsing" title="Link to this heading">¶</a></h3>
+<p>We currently use antlr4 for parsing ABS source code.  The grammar is
+at
+<a class="reference external" href="frontend/src/main/antlr/org/abs_models/frontend/antlr/parser/ABS.g4">frontend/src/main/antlr/org/abs_models/frontend/antlr/parser/ABS.g4</a>.</p>
+</section>
+<section id="abstract-syntax-tree-rewriting">
+<h3>Abstract syntax tree rewriting<a class="headerlink" href="#abstract-syntax-tree-rewriting" title="Link to this heading">¶</a></h3>
+<p>We use <a class="reference external" href="http://jastadd.org/web/">JastAdd</a> for the AST.  The AST
+node definitions for Core ABS are in
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/ast/CoreAbs.ast</span></code>;
+AST node definitions for Full ABS are in
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/ast/FullAbs.ast</span></code>.</p>
+<p>The antlr parse tree is converted into JastAdd by the class
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.frontend.antlr.parser.CreateJastAddASTListener</span></code>.</p>
+<p>Tree attributes and aspects (for type checking, code generation etc.)
+are added via <code class="docutils literal notranslate"><span class="pre">.jadd</span></code> and <code class="docutils literal notranslate"><span class="pre">.jrag</span></code> files; these files can be added in
+any directory below <code class="docutils literal notranslate"><span class="pre">frontend/src/main/java</span></code>.</p>
+</section>
+<section id="typechecking">
+<h3>Typechecking<a class="headerlink" href="#typechecking" title="Link to this heading">¶</a></h3>
+<p>Code below <code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/typechecker/</span></code>.</p>
+<p>Type checking is done in
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.frontend.parser:analyzeFlattenAndRewriteModel</span></code>,
+which should be called by all backends.  For historical reasons, there
+are two passes of type checking: <code class="docutils literal notranslate"><span class="pre">Model.getErrors</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Main.typeCheckModel</span></code>.  The latter method relies on some errors not
+being present that are detected by the former one, so they should
+always be called in the same sequence as in
+<code class="docutils literal notranslate"><span class="pre">analyzeFlattenAndRewriteModel</span></code>.</p>
+<p>Types are represented as their own class hierarchy, separate from the
+AST node classes.  See
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/typechecker/Type.java</span></code>
+and its subclasses.</p>
+<p>Many AST nodes can calculate information about their type, via the
+<code class="docutils literal notranslate"><span class="pre">getType</span></code> method that returns a <code class="docutils literal notranslate"><span class="pre">Type</span></code> object.  This is
+implemented in
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/typechecker/Typing.jrag</span></code>.</p>
+<p>Type checking itself uses <code class="docutils literal notranslate"><span class="pre">Type</span></code> objects and the <code class="docutils literal notranslate"><span class="pre">getType</span></code> method to
+collect type errors.  The methods <code class="docutils literal notranslate"><span class="pre">typeCheck</span></code> fill a
+<code class="docutils literal notranslate"><span class="pre">SemanticConditionList</span></code> with <code class="docutils literal notranslate"><span class="pre">SemanticCondition</span></code> objects.</p>
+</section>
+<section id="type-checker-extensions">
+<h3>Type checker extensions<a class="headerlink" href="#type-checker-extensions" title="Link to this heading">¶</a></h3>
+<p>Note the possibility to write type checker extensions; see the
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/java/org/abs_models/frontend/typechecker/ext/</span></code>
+directory.</p>
+<p>To implement a new type system extension, inherit from
+<code class="docutils literal notranslate"><span class="pre">DefaultTypeSystemExtension</span></code> and override some of its methods.
+Then, register the extension by adding it to the
+<code class="docutils literal notranslate"><span class="pre">registerDefaultExtensions</span></code> method of the <code class="docutils literal notranslate"><span class="pre">TypeExtensionHelper</span></code>
+class.</p>
+</section>
+</section>
+<section id="the-erlang-backend">
+<h2>The Erlang backend<a class="headerlink" href="#the-erlang-backend" title="Link to this heading">¶</a></h2>
+<section id="code-generation">
+<h3>Code Generation<a class="headerlink" href="#code-generation" title="Link to this heading">¶</a></h3>
+<p>The main entry point of the Erlang code generation system is the
+method <code class="docutils literal notranslate"><span class="pre">org.abs_models.backend.erlang.ErlangBackend.doMain</span></code>, which
+will be invoked by the <code class="docutils literal notranslate"><span class="pre">Absc</span></code> class.  Given a type-checked and
+preprocessed AST, the Erlang backend generates code in a subdirectory
+(by default <code class="docutils literal notranslate"><span class="pre">gen/erl/</span></code>) and then invokes the Erlang compiler.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">gen/erl/</span></code> directory is pre-populated with the contents of
+<code class="docutils literal notranslate"><span class="pre">frontend/src/main/resources/erlang</span></code>, which includes both ABS
+runtime files in the subdirectory <code class="docutils literal notranslate"><span class="pre">absmodel/src/</span></code> and third-party
+support libraries below <code class="docutils literal notranslate"><span class="pre">absmodel/deps/</span></code>.</p>
+</section>
+</section>
+<section id="the-java-backend">
+<h2>The Java backend<a class="headerlink" href="#the-java-backend" title="Link to this heading">¶</a></h2>
+<section id="abs-classes-datatypes-in-java">
+<h3>ABS Classes, Datatypes in Java<a class="headerlink" href="#abs-classes-datatypes-in-java" title="Link to this heading">¶</a></h3>
+<p>The ABS standard library pre-defines various functions, classes,
+datatypes etc.  Depending on the usage pattern, there are various ways
+of making them available to the Java backend at compile time.</p>
+<ul class="simple">
+<li><p>Built-in functions: These functions must be defined per backend.
+The Java backend defines these functions in the file
+<code class="docutils literal notranslate"><span class="pre">ABSBuiltInFunctions.java</span></code>.</p></li>
+<li><p>Primitive datatypes: <code class="docutils literal notranslate"><span class="pre">Bool</span></code>, <code class="docutils literal notranslate"><span class="pre">String</span></code> and <code class="docutils literal notranslate"><span class="pre">Float</span></code> are
+translated to their Java counterparts.  <code class="docutils literal notranslate"><span class="pre">Int</span></code> and <code class="docutils literal notranslate"><span class="pre">Rat</span></code> are
+translated to types from the <a class="reference external" href="https://apfloat.org/apfloat_java/">Apfloat</a> library.  The other types
+(<code class="docutils literal notranslate"><span class="pre">Unit</span></code>, <code class="docutils literal notranslate"><span class="pre">Fut&lt;A&gt;</span></code>) are implemented as subclasses of
+<code class="docutils literal notranslate"><span class="pre">ABSBuiltinDatatype</span></code>.</p></li>
+<li><p>Algebraic datatypes: implemented as Java record classes.</p></li>
+<li><p>Using other ABS functions, datatypes, classes etc. from Java: This can be
+done via reflection; see <code class="docutils literal notranslate"><span class="pre">ABSDCMirror.java</span></code> for an example.</p></li>
+</ul>
+</section>
+<section id="task-scheduling-and-execution">
+<h3>Task Scheduling and Execution<a class="headerlink" href="#task-scheduling-and-execution" title="Link to this heading">¶</a></h3>
+<p>A running ABS model has a singleton class of type
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.backend.java.lib.runtime.ABSRuntime</span></code> or one of its
+subclasses.</p>
+<p>Each cog is an instance of
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.backend.java.lib.runtime.COG</span></code>.  Each cog has one
+associated instance of type
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.backend.java.scheduling.TaskScheduler</span></code>, by default
+this is
+<code class="docutils literal notranslate"><span class="pre">org.abs_models.backend.java.scheduling.DefaultTaskScheduler</span></code> but
+this is customizable by the user when starting a model.</p>
+<p>In the following, we describe the behavior of
+<code class="docutils literal notranslate"><span class="pre">DefaultTaskScheduler</span></code>; reverse-engineering <code class="docutils literal notranslate"><span class="pre">SimpleTaskScheduler</span></code>
+remains to be done.</p>
+<p><code class="docutils literal notranslate"><span class="pre">DefaultTaskScheduler</span></code> contains an inner class <code class="docutils literal notranslate"><span class="pre">SchedulerThread</span></code>.
+Instances of this class run ABS tasks, each running ABS process is
+handled by a Java virtual thread.  <code class="docutils literal notranslate"><span class="pre">SchedulerThread</span></code> instances
+<code class="docutils literal notranslate"><span class="pre">wait</span></code> on the enclosing DefaultTaskScheduler instance when they are
+ready to run.  <code class="docutils literal notranslate"><span class="pre">SchedulerThread</span></code> instances are responsible for
+calling <code class="docutils literal notranslate"><span class="pre">notifyAll</span></code> when they suspend or exit.</p>
+<p>A virtual thread running a <code class="docutils literal notranslate"><span class="pre">SchedulerThread</span></code> instance is created by
+the method <code class="docutils literal notranslate"><span class="pre">SchedulerThread.addTaskToScheduler</span></code>.</p>
+<p>The “token” or lock of the cog is the field <code class="docutils literal notranslate"><span class="pre">runningThread</span></code>.  This
+field contains the running thread, or <code class="docutils literal notranslate"><span class="pre">null</span></code> if the cog has no
+running thread.  When encountering a scheduling point, the running
+thread sets this field to <code class="docutils literal notranslate"><span class="pre">null</span></code> and notifies all threads, which
+race to check if the lock <code class="docutils literal notranslate"><span class="pre">runningThread</span></code> is available and their
+guard evaluates to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</section>
+<section id="timed-semantics">
+<h3>Timed Semantics<a class="headerlink" href="#timed-semantics" title="Link to this heading">¶</a></h3>
+<p>Each cog contains a counter <code class="docutils literal notranslate"><span class="pre">activeThreads</span></code> that is increased and
+decreased as processes suspend and wake up via the cog methods
+<code class="docutils literal notranslate"><span class="pre">notifyAwait</span></code>, <code class="docutils literal notranslate"><span class="pre">notifyWakeup</span></code>.  A guard’s <code class="docutils literal notranslate"><span class="pre">await</span></code> method will
+call these methods let the cog know about the task’s status (runnable
+or not).  Care must be taken to only call <code class="docutils literal notranslate"><span class="pre">await</span></code> on a guard when
+actually awaiting for the purpose of making a scheduling decision, and
+call the method <code class="docutils literal notranslate"><span class="pre">isTrue</span></code> when checking for a guard’s status outside
+of scheduling.</p>
+<p>A cog deems itself to be inactive in two cases when receiving
+<code class="docutils literal notranslate"><span class="pre">notifyAwait</span></code>:</p>
+<ul class="simple">
+<li><p>Its <code class="docutils literal notranslate"><span class="pre">activeThreads</span></code> counter is <code class="docutils literal notranslate"><span class="pre">0</span></code> (all tasks are suspended)</p></li>
+<li><p>Its scheduler returns non-<code class="docutils literal notranslate"><span class="pre">null</span></code> from <code class="docutils literal notranslate"><span class="pre">getActiveTask</span></code> (the
+active task is blocked).</p></li>
+</ul>
+<p>Upon becoming inactive, the cog will signal the <code class="docutils literal notranslate"><span class="pre">ABSRuntime</span></code>
+singleton via the methods <code class="docutils literal notranslate"><span class="pre">notifyCogActive</span></code>, <code class="docutils literal notranslate"><span class="pre">notifyCogInactive</span></code>.
+The runtime keeps track of the amount to increase the clock in the
+variable <code class="docutils literal notranslate"><span class="pre">wake_time</span></code>.  When the number of active cogs reaches zero,
+the runtime will try to increase the clock; this happens only when one
+or more <code class="docutils literal notranslate"><span class="pre">ABSDurationGuard</span></code> guards have registered themselves via
+<code class="docutils literal notranslate"><span class="pre">addDurationGuard</span></code>.  If so, the runtime increases the clock and
+notifies (as with <code class="docutils literal notranslate"><span class="pre">Object.notify</span></code>) the guards whose <code class="docutils literal notranslate"><span class="pre">min_time</span></code> is
+less than or equal to the current clock.  A duration guard, once
+notified, will notify its cog that the task is ready to run and return
+from its <code class="docutils literal notranslate"><span class="pre">await</span></code> method (which was called from the
+<code class="docutils literal notranslate"><span class="pre">SchedulerThread</span></code> running the ABS task).</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/internals.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Expressions &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/expressions.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Function definitions" href="functions.html" />
+    <link rel="prev" title="Types" href="types.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="expressions">
+<h1>Expressions<a class="headerlink" href="#expressions" title="Link to this heading">¶</a></h1>
+<p>This chapter specifies all ABS expressions.  Expressions are usually evaluated
+for their value, although they can be used inside annotations as purely
+syntactic constructs that do not need to follow standard evaluation rules.</p>
+<p>ABS expressions can either be pure or have side effects. <em>Pure expressions</em>
+only refer to entities in the functional and expression layer.  They can be
+evaluated multiple times without influencing the execution of the imperative
+and object oriented layers of ABS.  Pure expressions can be sub-expressions of
+other expressions and can be used as function bodies.  <em>Side-effect
+expressions</em>, on the other hand, refer to semantic entities “above” the
+functional layer (objects and futures).  They are only legal “stand-alone”
+(i.e., not as a sub-expression of another expression) and in certain places,
+mostly in the right-hand side of an assignment.  This strict separation of
+pure and side-effect expressions simplifies the language, for
+example wrt. using expressions inside annotations and reasoning about
+expressions in static analysis tools.</p>
+<table class="syntax docutils align-left" id="id3">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Exp</em> ::=</p></td>
+<td><p><em>PureExp</em> | <em>EffExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>PureExp</em> ::=</p></td>
+<td><p><em>SimpleIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">this</span></code> <code class="docutils literal notranslate"><span class="pre">.</span></code> <em>SimpleIdentifier</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">this</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">destiny</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>Literal</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>TemplateString</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>LetExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>DataConstrExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>FnAppExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>FnAppListExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ParFnAppExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>WhenExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>CaseExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>OperatorExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>TypeCheckExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>TypeCastExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>EffExp</em> ::=</p></td>
+<td><p><em>NewExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>SyncCall</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AsyncCall</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>GetExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AwaitExp</em></p></td>
+</tr>
+</tbody>
+</table>
+<section id="literals">
+<h2>Literals<a class="headerlink" href="#literals" title="Link to this heading">¶</a></h2>
+<p>Literals, as defined in <a class="reference internal" href="lexical.html#sec-literals"><span class="std std-ref">Literals</span></a>, are expressions.</p>
+</section>
+<section id="template-strings">
+<h2>Template strings<a class="headerlink" href="#template-strings" title="Link to this heading">¶</a></h2>
+<p>Template strings are strings allowing embedded expressions.  In
+contrast to normal string literals, template strings can contain
+linebreaks and other special characters.</p>
+<p>A template string starts and ends with a backtick (<code class="docutils literal notranslate"><span class="pre">`</span></code>) character.
+A template string can contain zero or more pure expressions enclosed
+by dollar signs (<code class="docutils literal notranslate"><span class="pre">$</span></code>).  These expressions will be replaced by their
+string representation (as with the function <code class="docutils literal notranslate"><span class="pre">toString</span></code>) every time
+the template string is evaluated.</p>
+<p>The only characters that need to be escaped by a backslash (<code class="docutils literal notranslate"><span class="pre">\</span></code>) in
+a template string are the backtick itself (<code class="docutils literal notranslate"><span class="pre">`</span></code>) and the dollar sign
+(<code class="docutils literal notranslate"><span class="pre">$</span></code>).  All other characters, including line breaks and the
+backslash itself, do not need to be specially treated when writing a
+template string.</p>
+<table class="syntax docutils align-left" id="id4">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>TemplateString</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">`</span></code> { ? <em>Valid String Character</em> ? }</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>{ <code class="docutils literal notranslate"><span class="pre">$</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">$</span></code> { ? <em>Valid String Character</em> ? } } <code class="docutils literal notranslate"><span class="pre">`</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`Hello $name$!
+The price is \$$price$.`
+</pre></div>
+</div>
+<p>(Note that the template string spans two lines.)  The result of this
+expression will be a string with two lines, and with the values of the
+local variables <cite>name</cite> and <cite>price</cite> in place.</p>
+</section>
+<section id="operator-expressions">
+<span id="sec-operator-expressions"></span><h2>Operator expressions<a class="headerlink" href="#operator-expressions" title="Link to this heading">¶</a></h2>
+<p>ABS has a range of unary and binary operators working on pre-defined
+datatypes.  All operators are pure (side effect-free).</p>
+<table class="syntax docutils align-left" id="id5">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id5" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>OperatorExp</em> ::=</p></td>
+<td><p><em>UnaryExp</em> | <em>BinaryExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>UnaryExp</em> ::=</p></td>
+<td><p><em>UnaryOp</em> <em>PureExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>UnaryOp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!</span></code> | <code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>BinaryExp</em> ::=</p></td>
+<td><p><em>PureExp</em> <em>BinaryOp</em> <em>PureExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>BinaryOp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">||</span></code> | <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> | <code class="docutils literal notranslate"><span class="pre">==</span></code> | <code class="docutils literal notranslate"><span class="pre">!=</span></code> | <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> | <code class="docutils literal notranslate"><span class="pre">\&lt;=</span></code> | <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> | <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> | <code class="docutils literal notranslate"><span class="pre">+</span></code> | <code class="docutils literal notranslate"><span class="pre">-</span></code> | <code class="docutils literal notranslate"><span class="pre">*</span></code> | <code class="docutils literal notranslate"><span class="pre">/</span></code> | <code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the meaning as well as the associativity
+and the precedence of the different operators. The list is sorted from
+low precedence to high precedence.</p>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">ABS Operators</span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Expression</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Associativity</p></th>
+<th class="head"><p>Argument types</p></th>
+<th class="head"><p>Result type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">||</span> <span class="pre">e2</span></code></p></td>
+<td><p>logical or</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&amp;&amp;</span> <span class="pre">e2</span></code></p></td>
+<td><p>logical and</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">==</span> <span class="pre">e2</span></code></p></td>
+<td><p>equality</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">!=</span> <span class="pre">e2</span></code></p></td>
+<td><p>inequality</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&lt;</span> <span class="pre">e2</span></code></p></td>
+<td><p>less than</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">\&lt;=</span> <span class="pre">e2</span></code></p></td>
+<td><p>less or equal</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&gt;</span> <span class="pre">e2</span></code></p></td>
+<td><p>greater than</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">&gt;=</span> <span class="pre">e2</span></code></p></td>
+<td><p>greater or equal</p></td>
+<td><p>left</p></td>
+<td><p>compatible</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">+</span> <span class="pre">e2</span></code></p></td>
+<td><p>concatenation</p></td>
+<td><p>left</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">String</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">String</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">+</span> <span class="pre">e2</span></code></p></td>
+<td><p>addition</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">-</span> <span class="pre">e2</span></code></p></td>
+<td><p>subtraction</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">*</span> <span class="pre">e2</span></code></p></td>
+<td><p>multiplication</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">/</span> <span class="pre">e2</span></code></p></td>
+<td><p>division</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Rat</span></code> or <code class="docutils literal notranslate"><span class="pre">Float</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e1</span> <span class="pre">%</span> <span class="pre">e2</span></code></p></td>
+<td><p>modulo</p></td>
+<td><p>left</p></td>
+<td><p>number</p></td>
+<td><p>number</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">!e</span></code></p></td>
+<td><p>logical negation</p></td>
+<td><p>right</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-e</span></code></p></td>
+<td><p>integer negation</p></td>
+<td><p>right</p></td>
+<td><p>number</p></td>
+<td><p>number</p></td>
+</tr>
+</tbody>
+</table>
+<section id="semantics-of-comparison-operators">
+<h3>Semantics of comparison operators<a class="headerlink" href="#semantics-of-comparison-operators" title="Link to this heading">¶</a></h3>
+<p>ABS has generic equality and less-than comparison between two values
+of the same type.</p>
+<p>Equality and inequality comparison is standard: by value for functional
+datatypes and by reference for objects and futures.  I.e., two strings
+<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code> compare as identical via <code class="docutils literal notranslate"><span class="pre">==</span></code>, as do two sets containing identical
+values.  Two references to objects or futures compare as identical via <code class="docutils literal notranslate"><span class="pre">==</span></code> if
+they point to the same object or future.  The inequality operator <code class="docutils literal notranslate"><span class="pre">!=</span></code>
+evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> for any two values that compare to <code class="docutils literal notranslate"><span class="pre">False</span></code> under <code class="docutils literal notranslate"><span class="pre">==</span></code> and
+vice versa.</p>
+<p>For the comparison operator <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, an ordering is defined in the following way.</p>
+<ul>
+<li><p>Numbers compare as usual.</p></li>
+<li><p>Strings compare lexicographically.</p></li>
+<li><p>Algebraic datatypes (including Boolean) compare first by constructor
+name, then by comparing constructor arguments left to right.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cons</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Nil</span>
+<span class="n">Cons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Cons</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Objects and futures are compared by identity, in an
+implementation-specific but stable way.  This means that for any two
+variables <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> that point to different objects, the value of
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code> does not change as long as <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are not
+re-assigned.footnote:[This ordering is not guaranteed to be stable
+between two invocations of a program.  If ABS ever develops object
+serialization, care must be taken to uphold any datatype invariants
+across program invocations, e.g., when reading back an ordered list
+of objects.]  The value <code class="docutils literal notranslate"><span class="pre">null</span></code> compares less than any other object
+reference.</p></li>
+</ul>
+</section>
+</section>
+<section id="let">
+<h2>Let<a class="headerlink" href="#let" title="Link to this heading">¶</a></h2>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">T</span> <span class="pre">v</span> <span class="pre">=</span> <span class="pre">p</span> <span class="pre">in</span> <span class="pre">b</span></code> evaluates <code class="docutils literal notranslate"><span class="pre">b</span></code>, with <code class="docutils literal notranslate"><span class="pre">v</span></code> bound
+to the value of evaluating the expression <code class="docutils literal notranslate"><span class="pre">p</span></code>.  The binding of <code class="docutils literal notranslate"><span class="pre">v</span></code>
+introduced by the let-expression can shadow a binding of <code class="docutils literal notranslate"><span class="pre">v</span></code> outside
+of the <code class="docutils literal notranslate"><span class="pre">let</span></code> expression.</p>
+<p>More than one binding can be established in one let-expression.
+Bindings are evaluated sequentially, i.e., later bindings can use
+earlier variables in their value expression.</p>
+<table class="syntax docutils align-left" id="id7">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>LetExp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">let</span></code> <em>Type</em> <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>PureExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>{ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>PureExp</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">in</span></code> <em>PureExp</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let Int x = 2 + 2, Int y = x + 1 in y * 2 ①
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The value of this expression is 10 (<code class="docutils literal notranslate"><span class="pre">((2</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">2</span></code>)</div>
+</div>
+</section>
+<section id="data-constructor-expressions">
+<h2>Data constructor expressions<a class="headerlink" href="#data-constructor-expressions" title="Link to this heading">¶</a></h2>
+<p>Data Constructor Expressions are expressions that create data values
+by applying arguments to data type constructors.  Data constructor
+expressions look similar to function calls, but data constructors
+always start with an upper-case letter.</p>
+<p>For data type constructors without parameters, the parentheses are
+optional.</p>
+<table class="syntax docutils align-left" id="id8">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>DataConstrExp</em> ::=</p></td>
+<td><p><em>TypeIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code> ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
+<span class="n">Cons</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">Nil</span><span class="p">)</span>
+<span class="n">Nil</span>
+</pre></div>
+</div>
+<p>Defining new data types and their constructors is described in
+<a class="reference internal" href="types.html#sec-algebraic-data-types"><span class="std std-ref">Algebraic data types</span></a>.</p>
+</section>
+<section id="function-calls">
+<h2>Function calls<a class="headerlink" href="#function-calls" title="Link to this heading">¶</a></h2>
+<p>Function calls apply arguments to functions, producing a value.
+Function call expressions look similar to data constructor
+expressions, but function names always start with a lower-case letter.
+The parentheses are mandatory in function calls.</p>
+<table class="syntax docutils align-left" id="id9">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>FnAppExp</em> ::=</p></td>
+<td><p><em>Identifier</em> <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tail</span><span class="p">(</span><span class="n">Cons</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">Nil</span><span class="p">))</span>
+<span class="n">head</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="n-ary-function-calls">
+<h3>N-ary function calls<a class="headerlink" href="#n-ary-function-calls" title="Link to this heading">¶</a></h3>
+<p>Calls to n-ary Constructors (see <a class="reference internal" href="types.html#sec-n-ary-constructors"><span class="std std-ref">N-ary constructors</span></a>) are
+written with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) instead of parentheses (<code class="docutils literal notranslate"><span class="pre">()</span></code>).</p>
+<table class="syntax docutils align-left" id="id10">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id10" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>FnAppListExp</em> ::=</p></td>
+<td><p><em>Identifier</em> <code class="docutils literal notranslate"><span class="pre">[</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">map</span><span class="p">[</span><span class="n">Pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="n">Pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">)]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="partially-defined-function-calls">
+<h2>Partially-defined-function calls<a class="headerlink" href="#partially-defined-function-calls" title="Link to this heading">¶</a></h2>
+<p>Calls to partially defined functions (see
+<a class="reference internal" href="functions.html#sec-partially-defined-functions"><span class="std std-ref">Partial function definitions</span></a>) are similar to function call
+expressions, but have an additional prepended set of function
+arguments.</p>
+<table class="syntax docutils align-left" id="id11">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id11" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ParFnAppExp</em> ::=</p></td>
+<td><p><em>Identifier</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(</span></code> <em>ParFnAppParam</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>ParFnAppParam</em> } <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>ParFnAppParam</em> ::=</p></td>
+<td><p><em>Identifier</em> | <em>AnonymousFunction</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>AnonymousFunction</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>Type</em> <em>SimpleIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> <em>SimpleIdentifier</em>  } ]  <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> <em>PureExp</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>map(toString)(list[1, 2]) ①
+filter((Int i) =&gt; i &gt; 0)(list[0, 1, 2]) ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① evalutes to <code class="docutils literal notranslate"><span class="pre">list[&quot;1&quot;,</span> <span class="pre">&quot;2&quot;]</span></code></div>
+<div class="line">② evalutes to <code class="docutils literal notranslate"><span class="pre">list[1,</span> <span class="pre">2]</span></code></div>
+</div>
+</section>
+<section id="conditional-expressions">
+<h2>Conditional expressions<a class="headerlink" href="#conditional-expressions" title="Link to this heading">¶</a></h2>
+<p>The value of the conditional expression <code class="docutils literal notranslate"><span class="pre">when</span> <span class="pre">c</span> <span class="pre">then</span> <span class="pre">e1</span> <span class="pre">else</span> <span class="pre">e2</span></code> is either the
+value of <code class="docutils literal notranslate"><span class="pre">e1</span></code> or the value of <code class="docutils literal notranslate"><span class="pre">e2</span></code>, depending on the value of <code class="docutils literal notranslate"><span class="pre">c</span></code>, which must
+be of type <code class="docutils literal notranslate"><span class="pre">Bool</span></code>.  Depending on the value of <code class="docutils literal notranslate"><span class="pre">c</span></code>, either <code class="docutils literal notranslate"><span class="pre">e1</span></code> or <code class="docutils literal notranslate"><span class="pre">e2</span></code> is
+evaluated, but not both.</p>
+<table class="syntax docutils align-left" id="id12">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id12" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>WhenExp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">when</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">then</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">else</span></code> <em>PureExp</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">when</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">4</span> <span class="n">then</span> <span class="s2">&quot;Hmm&quot;</span> <span class="k">else</span> <span class="s2">&quot;ok&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="case">
+<span id="case-expression"></span><h2>Case<a class="headerlink" href="#case" title="Link to this heading">¶</a></h2>
+<p>ABS supports pattern matching via the Case Expression.  A case
+expression consists of an input expression and one or more branches,
+each consisting of a pattern and a right hand side expression.</p>
+<p>The case expression evaluates its input expression and attempts to
+match the resulting value against the branches until a matching
+pattern is found.  The value of the case expression itself is the
+value of the expression on the right-hand side of the first matching
+pattern.</p>
+<p>If no pattern matches the expression, a <code class="docutils literal notranslate"><span class="pre">PatternMatchFailException</span></code> is thrown.</p>
+<p>There are four different kinds of patterns available in ABS:</p>
+<ul class="simple">
+<li><p>Variables (with different semantics depending on whether the
+variable is bound or not)</p></li>
+<li><p>Literal Patterns (e.g., <code class="docutils literal notranslate"><span class="pre">5</span></code>)</p></li>
+<li><p>Data Constructor Patterns (e.g., <code class="docutils literal notranslate"><span class="pre">Cons(Nil,x)</span></code>)</p></li>
+<li><p>Underscore Pattern (<code class="docutils literal notranslate"><span class="pre">_</span></code>)</p></li>
+</ul>
+<table class="syntax docutils align-left" id="id13">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id13" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>CaseExp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">case</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">{</span></code> <em>CaseExpBranch</em> { <code class="docutils literal notranslate"><span class="pre">|</span></code> <em>CaseExpBranch</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>CaseExpBranch</em> ::=</p></td>
+<td><p><em>Pattern</em> <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> <em>PureExp</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Pattern</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>SimpleIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>Literal</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ConstrPattern</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>ConstrPattern</em> ::=</p></td>
+<td><p><em>TypeIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>Pattern</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Pattern</em> }  ] <code class="docutils literal notranslate"><span class="pre">)</span></code> ]</p></td>
+</tr>
+</tbody>
+</table>
+<section id="variable-patterns">
+<h3>Variable patterns<a class="headerlink" href="#variable-patterns" title="Link to this heading">¶</a></h3>
+<p>Variable patterns are written as identifiers starting with a
+lower-case letter.  If the identifier does not name a variable in the
+current scope, the variable pattern matches any value and introduces a
+binding of the given identifier to the matched value for the
+right-hand side of the branch and the rest of the pattern itself.  If,
+on the other hand, a variable with the given name is already in scope,
+its value is compared to the value being matched against.</p>
+<p>The variable being named by the variable pattern can be used in the
+right-hand-side expression of the corresponding branch.  Typically,
+pattern variables are used inside of data constructor patterns to
+extract values from data constructors.  For example:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let (Pair&lt;Int, Int&gt; a) = Pair(5, 5) in
+  case a {
+    Pair(x, x) =&gt; x ①
+    | Pair(x, y) =&gt; y ②
+  } ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This branch matches a pair with identical values.</div>
+<div class="line">② This branch matches every pair.  Since pairs with identical values
+are matched by the previous branch, <cite>x</cite> and <cite>y</cite> will be different.</div>
+<div class="line">③ The value of the whole expression is 5, produced by the first
+branch.</div>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let (x = 7) in
+  case Pair(5, 5) {
+    Pair(x, x) =&gt; x ①
+    | Pair(x, y) =&gt; y ②
+    | Pair(y, z) =&gt; z ③
+  } ④
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This pattern does not match since <cite>x</cite> is bound to 7 and does not
+match 5.</div>
+<div class="line">② This pattern does not match either, for the same reason.</div>
+<div class="line">③ This pattern contains only unbound variable patterns and therefore
+matches.</div>
+<div class="line">④ The value of the whole expression is 5, produced by the third
+branch.</div>
+</div>
+</section>
+<section id="literal-patterns">
+<h3>Literal patterns<a class="headerlink" href="#literal-patterns" title="Link to this heading">¶</a></h3>
+<p>Literals can be used as patterns.  The pattern matches if the value of
+the case expression is equal to the literal value.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let (Pair&lt;Int, Int&gt; a) = Pair(5, 5) in
+  case a {
+    Pair(3, x) =&gt; x ①
+    | Pair(x, y) =&gt; y ②
+  } ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The pattern <cite>3</cite> does not match the value in the first position of
+the <cite>Pair</cite> constructor pattern.</div>
+<div class="line">② This pattern matches.</div>
+<div class="line">③ The value of the whole expression is 5, produced by the second
+branch.</div>
+</div>
+</section>
+<section id="data-constructor-patterns">
+<h3>Data constructor patterns<a class="headerlink" href="#data-constructor-patterns" title="Link to this heading">¶</a></h3>
+<p>A data constructor pattern is written like a standard data constructor
+expression.  Constructor arguments are again patterns.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let (List&lt;Int&gt; l) = list[1, 2, 3] in
+  case l {
+    Nil =&gt; 0 ①
+    | Cons(1, _) =&gt; 15 ②
+    | Cons(_, Cons(y, _)) =&gt; y ③
+  } ④
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This pattern matches the empty list.</div>
+<div class="line">② This pattern matches a list starting with the literal <cite>1</cite>.</div>
+<div class="line">③ This pattern matches a list of at least length 2, and binds the
+second element to <cite>y</cite>.</div>
+<div class="line">④ The value of the whole expression is 15, produced by the second
+branch.</div>
+</div>
+</section>
+<section id="the-wildcard-pattern">
+<h3>The wildcard pattern<a class="headerlink" href="#the-wildcard-pattern" title="Link to this heading">¶</a></h3>
+<p>The wildcard pattern, written with an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>) matches any
+value.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let (List&lt;Int&gt; l) = list[1, 2, 3] in
+  case l {
+    Nil =&gt; True ①
+    | _ =&gt; False ②
+}; ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This pattern matches the empty list.</div>
+<div class="line">② This pattern matches anything.</div>
+<div class="line">③ The value of the whole expression is <cite>False</cite>, produced by the
+second branch.</div>
+</div>
+<p>The wildcard pattern can be used as the last pattern in a case
+expression to define a default case.</p>
+</section>
+<section id="typing-of-case-expressions">
+<h3>Typing of <code class="docutils literal notranslate"><span class="pre">case</span></code> Expressions<a class="headerlink" href="#typing-of-case-expressions" title="Link to this heading">¶</a></h3>
+<p>A case expression is type-correct if and only if all its expressions
+and all its branches are type-correct and the right-hand side of all
+branches have a common supertype.  This common supertype is also the
+type of the overall case expression.  A branch (a pattern and its
+expression) is type-correct if its pattern and its right-hand side
+expression are type-correct.  A pattern is type-correct if it can
+match the corresponding case expression.</p>
+</section>
+</section>
+<section id="type-check-expressions">
+<span id="typecheck-expression"></span><h2>Type-check expressions<a class="headerlink" href="#type-check-expressions" title="Link to this heading">¶</a></h2>
+<p>Variables pointing to objects are typed by interface, which means that
+the concrete class of the referenced object might support more methods
+than can be called through the reference.  The type-check expression
+checks if an object implements a given interface.</p>
+<table class="syntax docutils align-left" id="id14">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>TypeCheckExp</em> ::=</p></td>
+<td><p><em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">implements</span></code> <em>TypeIdentifier</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>interface I {}
+interface J {}
+class C implements I, J {}
+{
+  I o = new C();
+  if (o implements J) { ①
+    println(&quot;o is a J&quot;);
+  }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① this evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>, since <code class="docutils literal notranslate"><span class="pre">C</span></code> implements both <code class="docutils literal notranslate"><span class="pre">I</span></code> and
+<code class="docutils literal notranslate"><span class="pre">J</span></code> even though they are distinct types.</div>
+</div>
+</section>
+<section id="type-cast-expressions">
+<span id="typecast-expression"></span><h2>Type-cast expressions<a class="headerlink" href="#type-cast-expressions" title="Link to this heading">¶</a></h2>
+<p>Variables pointing to objects are typed by interface, which means that
+the concrete class of the referenced object might support more methods
+than can be called through the reference.  The type-cast expression
+returns a reference of type <code class="docutils literal notranslate"><span class="pre">I</span></code> to the same object if it implements
+the given interface <code class="docutils literal notranslate"><span class="pre">I</span></code>, or <code class="docutils literal notranslate"><span class="pre">null</span></code> otherwise.</p>
+<table class="syntax docutils align-left" id="id15">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id15" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>TypeCastExp</em> ::=</p></td>
+<td><p><em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">as</span></code> <em>TypeIdentifier</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>interface I {}
+interface J {}
+class C implements I, J {}
+class D implements I {}
+{
+  I o = new C();
+  J j = o as J; ①
+  I o2 = new D();
+  J j2 = o2 as J; ②
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① <code class="docutils literal notranslate"><span class="pre">j</span></code> will be non-<code class="docutils literal notranslate"><span class="pre">null</span></code> since <code class="docutils literal notranslate"><span class="pre">C</span></code> implements <code class="docutils literal notranslate"><span class="pre">J</span></code>.</div>
+<div class="line">② <code class="docutils literal notranslate"><span class="pre">j2</span></code> will be <code class="docutils literal notranslate"><span class="pre">null</span></code> since <code class="docutils literal notranslate"><span class="pre">D</span></code> does not implement <code class="docutils literal notranslate"><span class="pre">J</span></code>.</div>
+</div>
+</section>
+<section id="new">
+<h2>New<a class="headerlink" href="#new" title="Link to this heading">¶</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">new</span></code> expression creates a new object from a class name and a list
+of arguments.  In ABS, objects can be created in two different ways.
+Either they are created in the current COG, using the <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">local</span></code>
+expression, or they are created in a new COG by using the <code class="docutils literal notranslate"><span class="pre">new</span></code>
+expression (see <a class="reference internal" href="introduction.html#sec-concurrency-model"><span class="std std-ref">The ABS actor and concurrency model</span></a> for more details about
+cogs).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This expression is a side-effect expression and cannot be
+used as a sub-expression.</p>
+</div>
+<table class="syntax docutils align-left" id="id16">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id16" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>NewExp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new</span></code> [ <code class="docutils literal notranslate"><span class="pre">local</span></code> ] <em>TypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> {<code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span> <span class="n">local</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">new</span> <span class="n">Bar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Classes can declare an <em>init block</em> (see <a class="reference internal" href="classes.html#sec-classes"><span class="std std-ref">Classes</span></a>), which is
+executed for each new instance.  The semantics of the <code class="docutils literal notranslate"><span class="pre">new</span></code>
+expression guarantee that the init block is fully executed before the
+new object begins receiving method calls.  Classes can also declare a
+<code class="docutils literal notranslate"><span class="pre">run</span></code> method, which is asynchronously invoked after the init block
+and subject to the normal scheduling rules for processes.</p>
+</section>
+<section id="synchronous-method-calls">
+<h2>Synchronous method calls<a class="headerlink" href="#synchronous-method-calls" title="Link to this heading">¶</a></h2>
+<p>A synchronous call consists of a target expression evaluating to an
+interface type, a method name declared in that interface, and a list
+of argument expressions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This expression is a side-effect expression and cannot be
+used as a sub-expression.</p>
+</div>
+<table class="syntax docutils align-left" id="id17">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id17" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>SyncCall</em> ::=</p></td>
+<td><p><em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">.</span></code> <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">m</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The semantics of the synchronous method call differ depending on
+whether the caller and callee are in the same cog.  A synchronous
+method call between objects in the same cog has Java-like semantics,
+i.e., the caller is suspended and the called method starts executing
+immediately.  When the called method finishes, the caller process is
+scheduled and resumes execution.</p>
+<p>However, if caller and called object are in different cogs, a
+synchronous method call is equivalent to an asynchronous method call
+immediately followed by a <code class="docutils literal notranslate"><span class="pre">get</span></code> expression on the resulting future.
+This means that the intuitive semantics of synchronous method calls
+are preserved, but introduces the possibility of deadlocks in case the
+callee tries to call back to an object of the caller cog.</p>
+</section>
+<section id="asynchronous-method-calls">
+<span id="async-call-expression"></span><h2>Asynchronous method calls<a class="headerlink" href="#asynchronous-method-calls" title="Link to this heading">¶</a></h2>
+<p>An asynchronous call consists of a target expression evaluating to an
+interface type, a method name declared in that interface, and a list
+of argument expressions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This expression is a side-effect expression and cannot be
+used as a sub-expression.</p>
+</div>
+<table class="syntax docutils align-left" id="id18">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id18" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AsyncCall</em> ::=</p></td>
+<td><p><em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">!</span></code> <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>PureExp</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>An asynchronous method call creates a new task in the COG that
+contains the target.  This means that the caller task proceeds
+independently and in parallel with the callee task, without waiting
+for the result.  The result of evaluating an asynchronous method call
+expression <code class="docutils literal notranslate"><span class="pre">o!m(e)</span></code> is a _future_ of type (<code class="docutils literal notranslate"><span class="pre">Fut&lt;V&gt;</span></code>), where <code class="docutils literal notranslate"><span class="pre">V</span></code>
+is the return type of the callee method <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
+<p>This future is resolved (i.e., it gets a value) when the callee task
+finishes.  It can be used to synchronize with the callee task and
+obtain the result of the method call.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;Bool&gt; f = x!m(5);
+</pre></div>
+</div>
+</section>
+<section id="get">
+<span id="get-expression"></span><h2>Get<a class="headerlink" href="#get" title="Link to this heading">¶</a></h2>
+<p>A get expression is used to obtain the value from a future.  The
+current task is blocked until the future has been resolved, i.e.,
+until either the return value is available or an exception has
+occurred in the callee task.  No other task in the COG can be
+activated while the current task is blocked by a get expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This expression is a side-effect expression and cannot be
+used as a sub-expression.</p>
+</div>
+<table class="syntax docutils align-left" id="id19">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id19" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>GetExp</em> ::=</p></td>
+<td><p><em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">.</span></code> <code class="docutils literal notranslate"><span class="pre">get</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">b</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If the future contains a normal return value, the value of the get
+expression is that value.  If the future contains an exception thrown
+by the callee process, evaluating the get expression will throw the
+same exception.  The value thrown by a get expression can be caught by
+try-catch as normal (see <a class="reference internal" href="statements.html#try-catch-finally-stmt"><span class="std std-ref">Handling exceptions with try-catch-finally</span></a>).</p>
+<p>The following example assigns the return value contained in <code class="docutils literal notranslate"><span class="pre">f</span></code> to the
+variable <code class="docutils literal notranslate"><span class="pre">b</span></code>.  In case of any error, <code class="docutils literal notranslate"><span class="pre">b</span></code> is assigned <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="n">b</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">;</span> <span class="n">catch</span> <span class="p">{</span> <span class="n">_</span> <span class="o">=&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="kc">False</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="await-expression">
+<span id="id1"></span><h2>Await (expression)<a class="headerlink" href="#await-expression" title="Link to this heading">¶</a></h2>
+<p>An await expression is a way to asynchronously call a method, wait for
+the callee to finish, and optionally get the result in one expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This expression is a side-effect expression and cannot be
+used as a sub-expression.</p>
+</div>
+<table class="syntax docutils align-left" id="id20">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id20" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AwaitExp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">await</span></code> <em>AsyncCall</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A x = await o!m();
+</pre></div>
+</div>
+<p>The statement above is equivalent to these three statements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;A&gt; fx = o!m();
+await fx?;
+A x = fx.get;
+</pre></div>
+</div>
+<section id="exception-propagation-and-the-await-expression">
+<h3>Exception propagation and the await expression<a class="headerlink" href="#exception-propagation-and-the-await-expression" title="Link to this heading">¶</a></h3>
+<p>As explained in Section <a class="reference internal" href="#get-expression"><span class="std std-ref">Get</span></a>, exceptions propagate from
+callee to caller via the <code class="docutils literal notranslate"><span class="pre">get</span></code> expression.  An <code class="docutils literal notranslate"><span class="pre">await</span></code> statement
+will proceed once the callee process has finished, but an exception in
+the future will not be raised when executing the <code class="docutils literal notranslate"><span class="pre">await</span></code> statement.
+To align the <code class="docutils literal notranslate"><span class="pre">await</span></code> expression with that behavior, an exception
+will only be raised when the return value of a method call is used,
+e.g., by assigning it to a variable. Hence the following line of code
+will not raise an error even if the call to <code class="docutils literal notranslate"><span class="pre">o!m()</span></code> results in an
+exception:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>await o!m();
+</pre></div>
+</div>
+<p>Since the return value is ignored in the statement above, it is
+equivalent to these two statements (note the absence of a <code class="docutils literal notranslate"><span class="pre">get</span></code>
+expression`):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;A&gt; fx = o!m();
+await fx?;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="destiny-expression">
+<span id="id2"></span><h2>Destiny (expression)<a class="headerlink" href="#destiny-expression" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is only available in the Erlang backend.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">destiny</span></code> expression returns the future of the asynchronous call
+that is currently being executed.  It returns a value of type
+<code class="docutils literal notranslate"><span class="pre">Destiny</span></code>.  For more information on how <code class="docutils literal notranslate"><span class="pre">Destiny</span></code> values can be
+used, see <a class="reference internal" href="stdlib/futures.html#type-destiny"><span class="std std-ref">The destiny type</span></a>.</p>
+<table class="syntax docutils align-left" id="id21">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id21" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p>_DestinyExp_ ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">destiny</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class C {
+    Destiny myMethod() {
+        return destiny;
+    }
+
+    Unit run() {
+        Fut&lt;Destiny&gt; f = this!myMethod();
+        await f?;
+        Destiny g = f.get;
+        assert(f == g); ①
+    }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① the expression will evaluate to <code class="docutils literal notranslate"><span class="pre">True</span></code> since the returned
+<code class="docutils literal notranslate"><span class="pre">destiny</span></code> value is the same as the future of the asynchronous call
+to <code class="docutils literal notranslate"><span class="pre">myMethod</span></code>.</div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">destiny</span></code> is evaluated as part of a synchronous call S then it evaluates to
+the future of the task that is executing S:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class C {
+    Unit syn(Destiny caller) {
+        assert(destiny == caller);
+    }
+
+    Unit asyn() {
+        this.syn(destiny);
+    }
+
+    Unit run() {
+        this!asyn();
+    }
+}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is also a <code class="docutils literal notranslate"><span class="pre">destinyOf</span></code> built-in function that can
+retrieve the future of the asynchronous call that is
+currently being executed by a <code class="docutils literal notranslate"><span class="pre">Process</span></code>, see
+<a class="reference internal" href="schedulers.html#sec-process-attributes"><span class="std std-ref">Processes and process attributes</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#literals">Literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-strings">Template strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operator-expressions">Operator expressions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#semantics-of-comparison-operators">Semantics of comparison operators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#let">Let</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-constructor-expressions">Data constructor expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calls">Function calls</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#n-ary-function-calls">N-ary function calls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#partially-defined-function-calls">Partially-defined-function calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conditional-expressions">Conditional expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#case">Case</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#variable-patterns">Variable patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#literal-patterns">Literal patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-constructor-patterns">Data constructor patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-wildcard-pattern">The wildcard pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#typing-of-case-expressions">Typing of <code class="docutils literal notranslate"><span class="pre">case</span></code> Expressions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#type-check-expressions">Type-check expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type-cast-expressions">Type-cast expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synchronous-method-calls">Synchronous method calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asynchronous-method-calls">Asynchronous method calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#await-expression">Await (expression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exception-propagation-and-the-await-expression">Exception propagation and the await expression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#destiny-expression">Destiny (expression)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="types.html" title="previous chapter">Types</a></li>
+      <li>Next: <a href="functions.html" title="next chapter">Function definitions</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/expressions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

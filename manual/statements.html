@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Statements &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/statements.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interfaces" href="interfaces.html" />
+    <link rel="prev" title="Function definitions" href="functions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="statements">
+<h1>Statements<a class="headerlink" href="#statements" title="Link to this heading">¶</a></h1>
+<p>This chapter specifies all ABS statements.</p>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Statement</em> ::=</p></td>
+<td><p><em>SkipStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>VarDeclStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AssignStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ExpStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AssertStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>AwaitStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>SuspendStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ThrowStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>ReturnStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>Block</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>IfStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>SwitchStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>WhileStmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ForeachStmt</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>TryCatchFinallyStmt</em></p></td>
+</tr>
+</tbody>
+</table>
+<section id="skip">
+<h2>Skip<a class="headerlink" href="#skip" title="Link to this heading">¶</a></h2>
+<p>The skip statement is a statement that does nothing.</p>
+<table class="syntax docutils align-left" id="id2">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>SkipStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">skip</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">skip</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="variable-declarations">
+<h2>Variable declarations<a class="headerlink" href="#variable-declarations" title="Link to this heading">¶</a></h2>
+<p>A variable declaration statement is used to declare variables.
+Variable declarations can occur at any point in a sequence of
+statements; i.e., it is not necessary to declare variables only at the
+beginning of methods or blocks.</p>
+<p>Variables declared inside a block are in scope for the duration of the
+block.  It is an error to declare a variable with the same name of
+another variable in scope.  A local variable can have the same name as
+an object field.</p>
+<p>A variable declaration has an expression that defines the initial
+value of the variable.  The initialization expression is mandatory
+except for variables of reference types (interfaces and futures), in
+which case the variable is initialized with <code class="docutils literal notranslate"><span class="pre">null</span></code> if the
+initialization expression is omitted.</p>
+<table class="syntax docutils align-left" id="id3">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>VarDeclStmt</em> ::=</p></td>
+<td><p><em>Type</em> <em>SimpleIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>Exp</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">b</span> <span class="o">=</span> <span class="kc">True</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that the initialization expression does not need to be a pure expression.</p>
+<section id="constant-declarations">
+<h3>Constant declarations<a class="headerlink" href="#constant-declarations" title="Link to this heading">¶</a></h3>
+<p>Variable and field declarations can carry a <code class="docutils literal notranslate"><span class="pre">Final</span></code> annotation.  The
+effect of such an annotation is to forbid re-assignment to the
+variable or field.</p>
+<p>The following example will cause a compile-time error since we are
+trying to assign a new value to <code class="docutils literal notranslate"><span class="pre">constant_i</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="p">[</span><span class="n">Final</span><span class="p">]</span> <span class="n">Int</span> <span class="n">constant_i</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+    <span class="n">constant_i</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="assignment">
+<h2>Assignment<a class="headerlink" href="#assignment" title="Link to this heading">¶</a></h2>
+<p>The assign statement assigns a value to a variable or a field.</p>
+<p>Assignments to a field <code class="docutils literal notranslate"><span class="pre">f</span></code> can be written either <code class="docutils literal notranslate"><span class="pre">this.f</span> <span class="pre">=</span> <span class="pre">e;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">e;</span></code>.  In case a local variable <code class="docutils literal notranslate"><span class="pre">f</span></code> is in scope at the point
+of the assignment statement, the <code class="docutils literal notranslate"><span class="pre">this</span></code> prefix has to be used to
+assign to the field <code class="docutils literal notranslate"><span class="pre">f</span></code>; assignment to <code class="docutils literal notranslate"><span class="pre">f</span></code> will change the value
+of the local variable.</p>
+<table class="syntax docutils align-left" id="id4">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AssignStmt</em> ::=</p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">this</span></code> <code class="docutils literal notranslate"><span class="pre">.</span></code> ] <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>Exp</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">this</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="kc">True</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that the expression does not need to be pure.</p>
+</section>
+<section id="expressions-as-statements">
+<h2>Expressions as statements<a class="headerlink" href="#expressions-as-statements" title="Link to this heading">¶</a></h2>
+<p>An expression statement is a statement that consists of a single
+expression.  When an expression statement is executed, the expression
+is evaluated and the resulting value is discarded.</p>
+<p>Expression statements are used for their side effects, for example
+issuing an asynchronous method call without waiting for its result.</p>
+<table class="syntax docutils align-left" id="id5">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id5" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ExpStmt</em> ::=</p></td>
+<td><p><em>Exp</em> <cite>;</cite></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Creating an object without storing a reference (and hence
+never invoking a method on the new object) can be a
+meaningful operation, for example when the object has a
+<code class="docutils literal notranslate"><span class="pre">run</span></code> method and interacts with the rest of the system by
+calling methods on references passed in via the <code class="docutils literal notranslate"><span class="pre">new</span></code>
+expression.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>server!operate();
+new Client(server);
+</pre></div>
+</div>
+</section>
+<section id="assertions">
+<h2>Assertions<a class="headerlink" href="#assertions" title="Link to this heading">¶</a></h2>
+<p>An assert statement is a statement for asserting certain conditions.
+If the expression evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>, executing an assertion is
+equivalent to <code class="docutils literal notranslate"><span class="pre">skip;</span></code>.  If the expression evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code>, it
+is equivalent to <code class="docutils literal notranslate"><span class="pre">throw</span> <span class="pre">AssertionFailException;</span></code>.</p>
+<table class="syntax docutils align-left" id="id6">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AssertStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">assert</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">null</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="await-statement">
+<span id="await-stmt"></span><h2>Await (statement)<a class="headerlink" href="#await-statement" title="Link to this heading">¶</a></h2>
+<p>An await statement suspends the current task until the given guard
+becomes active (evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>).  While the task is suspended,
+other tasks within the same COG can be scheduled.</p>
+<p>Guards can wait for a futures to become resolved, for a Boolean
+condition over the object state to become true, or (in timed ABS) for
+a certain duration to pass.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When evaluating a guard results in an exception, that
+exception will be thrown when the task is scheduled next,
+and can be caught as normal (see
+<a class="reference internal" href="#try-catch-finally-stmt"><span class="std std-ref">Handling exceptions with try-catch-finally</span></a>).  Note that a guard can be
+evaluated multiple times before its task is scheduled – the
+most recent exception will be thrown even if the guard
+evaluated without an exception afterwards.</p>
+</div>
+<p>In general, each cog will continue running a task without preempting
+it until the task is finished or it reaches a <em>scheduling point</em>.
+Await statements are scheduling points, as are <code class="docutils literal notranslate"><span class="pre">suspend</span></code> statements
+and assignment or expression statements containing an await expression
+(see <a class="reference internal" href="expressions.html#await-expression"><span class="std std-ref">Await (expression)</span></a>).</p>
+<table class="syntax docutils align-left" id="id7">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>AwaitStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">await</span></code> <em>Guard</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Guard</em> ::=</p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">this</span></code> <code class="docutils literal notranslate"><span class="pre">.</span></code> ] <em>SimpleIdentifier</em> <code class="docutils literal notranslate"><span class="pre">?</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>PureExp</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>Guard</em> <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> <em>Guard</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">duration</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> [ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>PureExp</em> ] <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;Bool&gt; f = x!m();
+await f?; ①
+await this.x == True; ②
+await f? &amp; this.y &gt; 5; ③
+await duration(3, 5); ④
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① A <em>claim guard</em> becomes active when the future is resolved
+(contains a value or an exception).</div>
+<div class="line">② A <em>field guard</em> is a Boolean expression over the object state.</div>
+<div class="line">③ A <em>guard conjunction</em> becomes active when both its components are
+active.</div>
+<div class="line">④ A <em>duration guard</em> becomes active after a certain amount of
+simulated time has passed.  See <a class="reference internal" href="timed.html#sec-timed-abs"><span class="std std-ref">Timed ABS</span></a> for more on
+timed models.</div>
+</div>
+</section>
+<section id="unconditional-release-suspend">
+<span id="suspend-stmt"></span><h2>Unconditional release: suspend<a class="headerlink" href="#unconditional-release-suspend" title="Link to this heading">¶</a></h2>
+<p>The suspend statement causes the current task to be suspended.</p>
+<table class="syntax docutils align-left" id="id8">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>SuspendStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">suspend</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no guarantee that the cog will choose another task
+to run; the current task might be resumed immediately after
+suspending itself.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is tempting to misuse the <code class="docutils literal notranslate"><span class="pre">suspend</span></code> statement for
+busy-waiting (<code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">(!condition)</span> <span class="pre">suspend;</span>
+<span class="pre">doTheThing();</span></code>).  Since ABS does not guarantee fair
+scheduling, it is highly recommended to await on the
+condition intead (<code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">condition;</span> <span class="pre">doTheThing();</span></code>).</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">suspend</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="return">
+<h2>Return<a class="headerlink" href="#return" title="Link to this heading">¶</a></h2>
+<p>A return statement returns a value from a method.  A return statement
+can only appear as the last statement in a method body.</p>
+<p>For asynchronous method calls, executing the return statement will
+cause the future to be resolved so that it contains a value.  Any
+claim guards awaiting the future will become active.</p>
+<p>Methods that have a <code class="docutils literal notranslate"><span class="pre">Unit</span></code> return type do not need an explicit
+return statement.  The future will be resolved when the method
+terminates.</p>
+<table class="syntax docutils align-left" id="id9">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id9" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ReturnStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">return</span></code> <em>Exp</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ABS methods are “single entry single exit”, i.e., do not
+allow exiting from multiple points via multiple <code class="docutils literal notranslate"><span class="pre">return</span></code>
+statements.  This makes model analysis easier.</p>
+</div>
+</section>
+<section id="throw">
+<span id="throw-statement"></span><h2>Throw<a class="headerlink" href="#throw" title="Link to this heading">¶</a></h2>
+<p>The throw statement signals an exception (see
+<a class="reference internal" href="types.html#sec-exception-types"><span class="std std-ref">Exceptions</span></a>).  It takes a single argument of type
+<code class="docutils literal notranslate"><span class="pre">ABS.StdLib.Exception</span></code>, which is the exception value to throw.</p>
+<table class="syntax docutils align-left" id="id10">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id10" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ThrowStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">throw</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">throw</span> <span class="n">AssertionFailException</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that the throw statement can only be used inside imperative code.
+Functional code that cannot return a value in all cases should use the
+<code class="docutils literal notranslate"><span class="pre">Maybe</span></code> datatype:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Maybe</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">Int</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">then</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Just</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>But also note that some built-in exceptions, like
+<code class="docutils literal notranslate"><span class="pre">DivisionByZeroException</span></code> and <code class="docutils literal notranslate"><span class="pre">PatternMatchFailException</span></code> can
+originate from functional code.  See
+<a class="reference internal" href="stdlib/exceptions.html#stdlib-predefined-exceptions"><span class="std std-ref">Predefined exceptions in the standard library</span></a> for a list of built-in exceptions.</p>
+</section>
+<section id="blocks-of-statements">
+<h2>Blocks of statements<a class="headerlink" href="#blocks-of-statements" title="Link to this heading">¶</a></h2>
+<p>A sequence of statements is called a <em>block</em>.  A block introduces a
+scope for local variables.</p>
+<table class="syntax docutils align-left" id="id11">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id11" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Block</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>Statement</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+  Int a = 0; ①
+  a = a + 1;
+  n = a % 10; ②
+}
+
+{ } ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The variable <code class="docutils literal notranslate"><span class="pre">a</span></code> is in scope until the end of the block.</div>
+<div class="line">② <code class="docutils literal notranslate"><span class="pre">n</span></code> has to exist in an outer block or as a class field.</div>
+<div class="line">③ An empty block is equivalent to <code class="docutils literal notranslate"><span class="pre">skip;</span></code>.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Semantically, a whole block is a single statement and can be
+written anywhere a single statement is valid.</p>
+</div>
+</section>
+<section id="conditionals">
+<h2>Conditionals<a class="headerlink" href="#conditionals" title="Link to this heading">¶</a></h2>
+<p>ABS has the standard conditional statement.  The condition has to
+evaluate to a Boolean value.</p>
+<table class="syntax docutils align-left" id="id12">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id12" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>IfStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">if</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> <em>Stmt</em> [ <code class="docutils literal notranslate"><span class="pre">else</span></code> <em>Stmt</em> ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="mi">5</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="switch-pattern-matching">
+<span id="switch-stmt"></span><h2>Switch: pattern matching<a class="headerlink" href="#switch-pattern-matching" title="Link to this heading">¶</a></h2>
+<p>The switch statement, like the case expression (see
+<a class="reference internal" href="expressions.html#case-expression"><span class="std std-ref">Case</span></a>), consists of an expression and a series of
+branches, each consisting of a pattern and a statement (which can be a
+block).</p>
+<p>When a switch statement is executed, its input expression is evaluated
+and the value matched against the branches until a matching pattern is
+found.  The statement in the right-hand side of that branch is then
+executed.  Any variable bindings introduced by matching the pattern
+are in effect while executing that statement.</p>
+<p>If no pattern matches the expression, a <code class="docutils literal notranslate"><span class="pre">PatternMatchFailException</span></code> is
+thrown.</p>
+<p>For a description of the pattern syntax, see <a class="reference internal" href="expressions.html#case-expression"><span class="std std-ref">Case</span></a>.</p>
+<table class="syntax docutils align-left" id="id13">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id13" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>SwitchStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">switch</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> <code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>SwitchStmtBranch</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>SwitchStmtBranch</em> ::=</p></td>
+<td><p><em>Pattern</em> <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> <em>Stmt</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">Int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">Int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">switch</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> <span class="n">skip</span><span class="p">;</span> <span class="p">}</span>
+  <span class="n">_</span> <span class="o">=&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-while-loop">
+<h2>The <code class="docutils literal notranslate"><span class="pre">while</span></code> loop<a class="headerlink" href="#the-while-loop" title="Link to this heading">¶</a></h2>
+<p>The while loop repeats its body while the condition evaluates to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.  The condition is re-evaluated after each iteration of the
+loop.</p>
+<table class="syntax docutils align-left" id="id14">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>WhileStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">while</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> <em>Stmt</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-foreach-loop">
+<span id="foreach-loop"></span><h2>The <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop<a class="headerlink" href="#the-foreach-loop" title="Link to this heading">¶</a></h2>
+<p>The foreach loop repeatedly executes its body with a loop value
+variable bound to each element of the given list, in sequence.  An
+optional loop index variable is bound to the index of the element
+bound to the value variable, starting with 0.</p>
+<p>The rules for the loop variables follow the rules of local variable
+declarations in blocks: the loop variables cannot shadow existing
+variables, but can use the same name as an object field.  Loop
+variables go out of scope after execution leaves the body of their
+foreach loop.</p>
+<table class="syntax docutils align-left" id="id15">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id15" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ForeachStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">foreach</span></code> <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>Identifier</em> [ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Identifier</em>] <code class="docutils literal notranslate"><span class="pre">in</span></code> <em>PureExp</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> <em>Stmt</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>foreach (v in list[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]) {
+  println(`v is bound to $v$`);
+}
+
+foreach (v, i in list[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]) {
+  println(`Element number $i$ has value $v$`);
+}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also see the second-order functions <code class="docutils literal notranslate"><span class="pre">map</span></code>, <code class="docutils literal notranslate"><span class="pre">filter</span></code>,
+<code class="docutils literal notranslate"><span class="pre">foldl</span></code> and <code class="docutils literal notranslate"><span class="pre">foldr</span></code> in Section <a class="reference internal" href="stdlib/lists.html#type-list"><span class="std std-ref">Lists</span></a> for common
+list processing idioms.</p>
+</div>
+</section>
+<section id="handling-exceptions-with-try-catch-finally">
+<span id="try-catch-finally-stmt"></span><h2>Handling exceptions with try-catch-finally<a class="headerlink" href="#handling-exceptions-with-try-catch-finally" title="Link to this heading">¶</a></h2>
+<p>Executing a statement can result in an exception, either explicitly
+signaled using the <code class="docutils literal notranslate"><span class="pre">throw</span></code> keyword or implicitly, for example by
+dividing by zero.  The try-catch-finally statement is used to handle
+exceptions and resume normal execution afterwards.</p>
+<table class="syntax docutils align-left" id="id16">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id16" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>TryCatchFinallyStmt</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">try</span></code> <em>Stmt</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">catch</span></code> ( <code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>SwitchStmtBranch</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code> | <em>SwitchStmtBranch</em> )</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">finally</span></code> <em>Stmt</em> ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The statement protected by <code class="docutils literal notranslate"><span class="pre">try</span></code> (which can be a block) is executed
+first.  If no exception is thrown, execution continues with the
+optional <code class="docutils literal notranslate"><span class="pre">finally</span></code> statement, then with the next statement after the
+try-catch-finally statement.</p>
+<p>If during execution of the statement protected by <code class="docutils literal notranslate"><span class="pre">try</span></code> an exception
+is thrown, it is matched one-by-one against the exception patterns
+defined in the <code class="docutils literal notranslate"><span class="pre">catch</span></code> block.  The statement following the first
+matching pattern will be executed, as in the switch statement (see
+<a class="reference internal" href="#switch-stmt"><span class="std std-ref">Switch: pattern matching</span></a>).  Execution continues with the optional
+<code class="docutils literal notranslate"><span class="pre">finally</span></code> statement, then with the statement following the
+try-catch-finally statement.</p>
+<p>If during execution of the statement protected by <code class="docutils literal notranslate"><span class="pre">try</span></code> an exception
+is thrown that is not matched by any branch in the <code class="docutils literal notranslate"><span class="pre">catch</span></code> block,
+the exception is <em>unhandled</em>.  In this case, first the optional
+<code class="docutils literal notranslate"><span class="pre">finally</span></code> statement is executed.  If the try-catch-finally was
+protected by another try-catch-finally statement, the unhandled
+exception is passed on to this surrounding try-catch-finally
+statement.  Otherwise, the current process terminates and its future
+is resolved by storing the unhandled exception.  Any <code class="docutils literal notranslate"><span class="pre">get</span></code>
+expression on this future will re-throw the exception (see
+<a class="reference internal" href="expressions.html#get-expression"><span class="std std-ref">Get</span></a>).  The object that ran the aborted process will
+execute its recovery block with the unhandled exception as parameter
+(see <a class="reference internal" href="classes.html#sec-classes"><span class="std std-ref">Classes</span></a>).</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>try {
+    Rat z = 1/x; ①
+} catch {
+    DivisionByZeroException =&gt; println(&quot;We divided by zero&quot;); ②
+} finally {
+    println(&quot;Leaving the protected area&quot;); ③
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① If <code class="docutils literal notranslate"><span class="pre">x</span></code> is zero, this will throw an exception</div>
+<div class="line">② Division by zero is handled here; other exceptions will not be
+handled here</div>
+<div class="line">③ This statement is always executed</div>
+</div>
+<p>As a syntactic convenience, when matching only a single pattern, the
+braces around the catch block can be omitted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>try b = f.get; catch _ =&gt; b = False; ①
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① A “catch-all” exception handler that sets <code class="docutils literal notranslate"><span class="pre">b</span></code> to a default value
+in case an unhandled exception was propagated via <code class="docutils literal notranslate"><span class="pre">f</span></code></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">finally</span></code> block has the same restrictions as the class
+init and recovery blocks, i.e., it cannot contain processor
+release points (i.e., <code class="docutils literal notranslate"><span class="pre">await</span></code> or <code class="docutils literal notranslate"><span class="pre">suspend</span></code>), blocking
+expressions (i.e., <code class="docutils literal notranslate"><span class="pre">get</span></code>), or explicitly throw an
+exception via the <code class="docutils literal notranslate"><span class="pre">throw</span></code> statement.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Statements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#skip">Skip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-declarations">Variable declarations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constant-declarations">Constant declarations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#assignment">Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expressions-as-statements">Expressions as statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assertions">Assertions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#await-statement">Await (statement)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unconditional-release-suspend">Unconditional release: suspend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#return">Return</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#throw">Throw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#blocks-of-statements">Blocks of statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conditionals">Conditionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switch-pattern-matching">Switch: pattern matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-while-loop">The <code class="docutils literal notranslate"><span class="pre">while</span></code> loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-foreach-loop">The <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#handling-exceptions-with-try-catch-finally">Handling exceptions with try-catch-finally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="functions.html" title="previous chapter">Function definitions</a></li>
+      <li>Next: <a href="interfaces.html" title="next chapter">Interfaces</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/statements.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

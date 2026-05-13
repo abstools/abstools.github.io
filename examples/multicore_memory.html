@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ABS model of a multicore memory system &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/examples/multicore_memory.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ABS language manual" href="../manual/index.html" />
+    <link rel="prev" title="Modeling resources in ABS" href="resource-modeling.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="abs-model-of-a-multicore-memory-system">
+<h1>ABS model of a multicore memory system<a class="headerlink" href="#abs-model-of-a-multicore-memory-system" title="Link to this heading">¶</a></h1>
+<p>This page presents a model of the MSI cache coherency protocol.  The
+complete code can be found at
+<a class="reference external" href="https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/">https://github.com/abstools/absexamples/tree/master/collaboratory/case_studies/Multicore_Model/</a>.</p>
+<p>A multicore memory system consists of cores that contain tasks to be
+executed, the data layout in main memory (indicating where data is
+allocated), and a system architecture consisting of cores with private
+multi-level caches and shared memory (see Figure
+<a class="reference internal" href="#fig-multicore-memory-cores"><span class="std std-ref">System memory architecture</span></a>).  Such a system is parametric in
+the number of cores, the number and size of caches, and the
+associativity and replacement policy.  Data is organised in blocks
+that move between the caches and the main memory.  For simplicity, we
+abstract from the data content of the memory blocks, assume that the
+size of cache lines and memory blocks in main memory coincide and
+transfer memory blocks from the caches of one core to the caches of
+another core via the main memory.  As a consequence, the tasks
+executed in the cores are represented as data access patterns,
+abstracting from their computational content.</p>
+<figure class="align-default" id="id1">
+<span id="fig-multicore-memory-cores"></span><img alt="System memory architecture" src="../_images/cores.png" />
+<figcaption>
+<p><span class="caption-text">System memory architecture</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Task execution on a core requires memory blocks to be transferred from
+the main memory to the closest cache.  Each cache has a pool of
+instructions to move memory blocks among caches and between caches and
+main memory.  Memory blocks may exist in multiple copies in the memory
+system.  Consistency between different copies of a memory block is
+ensured using the standard <a class="reference external" href="https://en.wikipedia.org/wiki/MSI_protocol">cache coherence protocol MSI</a>, with which a cache
+line can be either modified, shared or invalid.  A modified cache line
+has the most recent value of the memory block, therefore all other
+copies are invalid (including the one in main memory).  A shared cache
+line indicates that all copies of the block are consistent.  The
+protocol’s messages are broadcast to the cores.  Following standard
+nomenclature, <code class="docutils literal notranslate"><span class="pre">Rd</span></code> messages request read access and <code class="docutils literal notranslate"><span class="pre">RdX</span></code> messages
+read exclusive access to a memory block.  The latter invalidates other
+copies of the same block in other caches to provide write access.</p>
+<figure class="align-default" id="id2">
+<span id="fig-multicore-model-structure"></span><img alt="ABS model structure" src="../_images/initialConfiguration.png" />
+<figcaption>
+<p><span class="caption-text">ABS model structure</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This use-case contains a distributed implementation of this model in
+ABS (see Figure <a class="reference internal" href="#fig-multicore-model-structure"><span class="std std-ref">ABS model structure</span></a>).  A transition
+system specification of this model can be found at
+<a class="reference external" href="https://doi.org/10.1016/j.scico.2019.04.003">https://doi.org/10.1016/j.scico.2019.04.003</a>.</p>
+<p>We have two versions of the model which can run with different initial
+configurations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">withoutPenaltiesSimplified</span></code>: no collection of penalties</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">withPenaltiesSimplified</span></code>: collection of hits and penalties.  Hits
+count the number of times a memory block was found in the caches.
+Penalties vary (from 1,10, 100, etc.) depending from where in the
+memory system the memory block was accessed.  The further down the
+data is accessed in the memory system, the higher the penalty.</p></li>
+</ul>
+<section id="model-configurations">
+<h2>Model configurations<a class="headerlink" href="#model-configurations" title="Link to this heading">¶</a></h2>
+<p>All the configurations have 4 cores with three levels of caches, but
+they are varying in the number, size and access patterns of the tasks.</p>
+<dl class="simple">
+<dt><strong>Config1</strong></dt><dd><p>Contains 10 tasks with 100 read/write instructions each.  It has one
+access per memory block, where all the tasks do not share any block
+during execution.</p>
+</dd>
+<dt><strong>Config2</strong></dt><dd><p>Contains 10 tasks with 100 read/write instructions each.  Tasks
+interleaves between a read and a write with one access per memory
+block.  Each task shares with the next task 1/4 of its blocks.</p>
+</dd>
+<dt><strong>Config3</strong></dt><dd><p>Contains 10 tasks with 100 read/write instructions each.  Task
+interleaves between a read and a write to the same memory block,
+therefore each task has two accesses read/write per memory block.  All
+the tasks do not share any block between them during execution.</p>
+</dd>
+<dt><strong>Config4</strong></dt><dd><p>Contains 10 identical tasks with a loop accessing one memory block
+many times.  Since all the cores access a single memory block many
+times, the execution generates congestion.</p>
+</dd>
+</dl>
+</section>
+<section id="running-the-simulation-with-penalties">
+<h2>Running the simulation with penalties<a class="headerlink" href="#running-the-simulation-with-penalties" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">absc</span> <span class="o">--</span><span class="n">erlang</span> <span class="n">common</span><span class="o">/*.</span><span class="n">abs</span>  <span class="n">withPenalties</span><span class="o">/*.</span><span class="n">abs</span>  <span class="n">configs</span><span class="o">/</span><span class="n">ConfigX</span><span class="o">.</span><span class="n">abs</span>
+<span class="o">./</span><span class="n">gen</span><span class="o">/</span><span class="n">erl</span><span class="o">/</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">X</span></code> correspond to which initial configuration is chosen.</p>
+<p>Example output of running <strong>Config4</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C1</span><span class="p">:</span> <span class="n">hits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">penalties</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">C2</span><span class="p">:</span> <span class="n">hits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">penalties</span> <span class="o">=</span> <span class="mi">1220</span>
+<span class="n">C3</span><span class="p">:</span> <span class="n">hits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">penalties</span> <span class="o">=</span> <span class="mi">2210</span>
+<span class="n">C4</span><span class="p">:</span> <span class="n">hits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">penalties</span> <span class="o">=</span> <span class="mi">3090</span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-simulation-without-penalties">
+<h2>Running the simulation without penalties<a class="headerlink" href="#running-the-simulation-without-penalties" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">absc</span> <span class="o">--</span><span class="n">erlang</span> <span class="n">common</span><span class="o">/*.</span><span class="n">abs</span>  <span class="n">withoutPenalties</span><span class="o">/*.</span><span class="n">abs</span>  <span class="n">configs</span><span class="o">/</span><span class="n">ConfigX</span><span class="o">.</span><span class="n">abs</span>
+<span class="o">./</span><span class="n">gen</span><span class="o">/</span><span class="n">erl</span><span class="o">/</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>Example output of running <strong>Config1</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Execution</span> <span class="n">has</span> <span class="n">terminated</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="monty-hall.html">The Monty Hall problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time-and-date.html">Modeling time in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gis-modeling.html">Geodata in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-watertank.html">Modeling a water tank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resource-modeling.html">Modeling resources in ABS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ABS model of a multicore memory system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-configurations">Model configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-with-penalties">Running the simulation with penalties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-without-penalties">Running the simulation without penalties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Examples</a><ul>
+      <li>Previous: <a href="resource-modeling.html" title="previous chapter">Modeling resources in ABS</a></li>
+      <li>Next: <a href="../manual/index.html" title="next chapter">ABS language manual</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/examples/multicore_memory.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

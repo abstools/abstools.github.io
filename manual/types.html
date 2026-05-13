@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Types &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/types.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Expressions" href="expressions.html" />
+    <link rel="prev" title="Lexical structure" href="lexical.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="types">
+<h1>Types<a class="headerlink" href="#types" title="Link to this heading">¶</a></h1>
+<p>ABS has a static, nominal type system.  Local variables, object
+fields, function parameters and method parameters are statically
+typed.  A type name can refer to a algebraic data type, an interface,
+a type synonym.  There are a number of pre-defined data types which
+are documented in Chapter <a class="reference internal" href="stdlib/index.html#sec-standard-library"><span class="std std-ref">The standard library</span></a>.</p>
+<p>A <em>type name</em> is a sequence of letters, digits and  underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>) starting
+with an uppercase letter.  In case of a parametric data type, the type name
+continues with a left angle (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>), a list of type names separated by commas
+and ends with a right angle (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>).</p>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Type</em> ::=</p></td>
+<td><p><em>TypeIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> <em>Type</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> } <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>New types are defined as either <em>interfaces</em> or <em>algebraic data
+types</em>.  Algebraic data types can be <em>parametric</em>, which is useful for
+defining “container-like” data types.  Only algebraic data types can
+be parameterized, i.e., ABS does not currently offer class templates.</p>
+<p>Note that classes are not types in ABS; object references are typed by
+an interface that the object’s class implements.  (Classes that do not
+implement any interfaces can be instantiated, and can interact with
+the rest of the system via their <code class="docutils literal notranslate"><span class="pre">run</span></code> method and constructor
+arguments.)</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>String ①
+A_s1mple_type ②
+Map&lt;Int, List&lt;String&gt;&gt; ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The type name is <cite>String</cite>.  The string type is defined in the standard library.</div>
+<div class="line">② This is a type name containing underscores and digits.</div>
+<div class="line">③ This type name denotes a map from integers to lists of strings.</div>
+</div>
+<section id="built-in-types">
+<span id="sec-builtin-types"></span><h2>Built-in types<a class="headerlink" href="#built-in-types" title="Link to this heading">¶</a></h2>
+<p>ABS offers the following built-in datatypes:</p>
+<table class="docutils align-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Unit</span></code></p></td>
+<td><p>The empty (void) type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Unit</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/unit.html#type-unit"><span class="std std-ref">Unit</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Bool</span></code></p></td>
+<td><p>Boolean values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/bool.html#type-bool"><span class="std std-ref">Boolean values</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Int</span></code></p></td>
+<td><p>Integers of arbitrary size</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">-15</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/numbers.html#type-numbers"><span class="std std-ref">Numbers</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Rat</span></code></p></td>
+<td><p>Rational numbers</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1/5</span></code>, <code class="docutils literal notranslate"><span class="pre">22/58775</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/numbers.html#type-numbers"><span class="std std-ref">Numbers</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Float</span></code></p></td>
+<td><p>Floating-point numbers</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.5</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0e-15</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/numbers.html#type-numbers"><span class="std std-ref">Numbers</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">String</span></code></p></td>
+<td><p>Strings</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">world\n&quot;</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/strings.html#type-string"><span class="std std-ref">Strings</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fut&lt;A&gt;</span></code></p></td>
+<td><p>Futures</p></td>
+<td><p>–</p></td>
+<td><p><a class="reference internal" href="stdlib/futures.html#type-future"><span class="std std-ref">The future type</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Destiny</span></code></p></td>
+<td><p>Supertype of all futures</p></td>
+<td><p>–</p></td>
+<td><p><a class="reference internal" href="stdlib/futures.html#type-destiny"><span class="std std-ref">The destiny type</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Exception</span></code></p></td>
+<td><p>Exceptions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DivisionByZeroException</span></code></p></td>
+<td><p><a class="reference internal" href="#sec-exception-types"><span class="std std-ref">Exceptions</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">List&lt;A&gt;</span></code></p></td>
+<td><p>Lists of values of type <code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/lists.html#type-list"><span class="std std-ref">Lists</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Set&lt;A&gt;</span></code></p></td>
+<td><p>Sets of values of type <code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">set[True,</span> <span class="pre">False]</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/sets.html#type-set"><span class="std std-ref">Sets</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Map&lt;A,B&gt;</span></code></p></td>
+<td><p>Maps from type <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">map[Pair(1,</span> <span class="pre">True)]</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/maps.html#type-map"><span class="std std-ref">Maps</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Pair&lt;A,B&gt;</span></code></p></td>
+<td><p>Pairs of values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Pair(1,</span> <span class="pre">True)</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/pairs.html#type-pair"><span class="std std-ref">Pairs</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Triple&lt;A,B,C&gt;</span></code></p></td>
+<td><p>Triples of values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Triple(1,</span> <span class="pre">&quot;hi&quot;,</span> <span class="pre">True)</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/triples.html#type-triple"><span class="std std-ref">Triples</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Maybe&lt;A&gt;</span></code></p></td>
+<td><p>Optional values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Just(True)</span></code>, <code class="docutils literal notranslate"><span class="pre">Nothing</span></code></p></td>
+<td><p><a class="reference internal" href="stdlib/optionals.html#type-optionals"><span class="std std-ref">Optionals</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">Int</span></code> type is a subtype of <code class="docutils literal notranslate"><span class="pre">Rat</span></code>; this means that <code class="docutils literal notranslate"><span class="pre">Int</span></code> values
+are assignable to places of type <code class="docutils literal notranslate"><span class="pre">Rat</span></code>.  Rational values can be
+converted to integers via the <code class="docutils literal notranslate"><span class="pre">truncate</span></code> function.  <code class="docutils literal notranslate"><span class="pre">Float</span></code> is a
+distinct numeric type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for floating-point calculations is under development;
+calculations resulting in <code class="docutils literal notranslate"><span class="pre">Inf</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code> currently have unspecified
+runtime behavior.</p>
+</div>
+<p>The future type <code class="docutils literal notranslate"><span class="pre">Fut&lt;A&gt;</span></code> is a special built-in type that denotes
+that an ABS value of type <code class="docutils literal notranslate"><span class="pre">A</span></code> will become available in the future.
+The value that a future holds and will return can be of any concrete
+type.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Fut&lt;String&gt; ①
+Fut&lt;List&lt;Rat&gt;&gt; ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① This future will contain a value of type <code class="docutils literal notranslate"><span class="pre">String</span></code></div>
+<div class="line">② This future will contain a list of rational numbers</div>
+</div>
+</section>
+<section id="algebraic-data-types">
+<span id="sec-algebraic-data-types"></span><h2>Algebraic data types<a class="headerlink" href="#algebraic-data-types" title="Link to this heading">¶</a></h2>
+<p>Algebraic Data Types in ABS are used to implement user-defined,
+immutable data values.  Because values of algebraic data types are
+immutable, they can be safely passed on to other objects and make it
+easy to reason about program correctness.</p>
+<table class="syntax docutils align-left" id="id2">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>DataTypeDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">data</span></code> <em>SimpleTypeIdentifier</em> [ <em>TypeParams</em> ]</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>DataConstr</em> { <code class="docutils literal notranslate"><span class="pre">|</span></code> <em>DataConstr</em> } ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>TypeParams</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> <em>SimpleTypeIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>SimpleTypeIdentifier</em> } <code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>DataConstr</em> ::=</p></td>
+<td><p><em>SimpleTypeIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>Type</em> [ <em>SimpleIdentifier</em> ]</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>{ <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> [ <em>SimpleIdentifier</em> ] } <code class="docutils literal notranslate"><span class="pre">)</span></code> ]</p></td>
+</tr>
+</tbody>
+</table>
+<p>Data Type <em>Constructors</em> enumerate the possible values of a data type.
+Constructors can have zero or more arguments.  Each argument can have
+an optional accessor function (see <a class="reference internal" href="#sec-accessor-functions"><span class="std std-ref">Accessor functions</span></a>).</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data IntList = NoInt | ConsInt(Int head, IntList tail); ①
+data Bool = True | False; ②
+data NotInstantiable; ③
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The data type <cite>IntList</cite> has two constructors: <cite>NoInt</cite> and
+<cite>ConsInt</cite>.  The second constructor defines two accessor functions.</div>
+<div class="line">② This is the definition of the built-in data type <cite>Bool</cite>.</div>
+<div class="line">③ This type does not have constructors and therefore cannot be
+instantiated.</div>
+</div>
+<section id="accessor-functions">
+<span id="sec-accessor-functions"></span><h3>Accessor functions<a class="headerlink" href="#accessor-functions" title="Link to this heading">¶</a></h3>
+<p>Data constructor arguments can optionally have a name, which needs to
+be a valid identifier.  If a name is given, it defines a function
+that, when passed a value expressed with the given constructor, return
+the argument.</p>
+<p>The name of an accessor function must be unique in the module it is
+defined in, it is an error to have a function definition with the same
+name as an accessor function.  Two constructors for the same data type
+can have an accessor function with the same name if they return the
+same type.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data Test = Test1(String s, Int i) ①
+          | Test2(String s, Bool b);
+
+data Person = Person(String name, Int age);
+{
+  Person john = Person(&quot;John&quot;, 34);
+  Int age = age(john); ②
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Both constructors of <code class="docutils literal notranslate"><span class="pre">Test</span></code> define an accessor function <code class="docutils literal notranslate"><span class="pre">s</span></code>,
+which is ok since <code class="docutils literal notranslate"><span class="pre">s</span></code> returns a string in all cases.</div>
+<div class="line">② The call to <cite>age</cite> returns 34.</div>
+</div>
+</section>
+<section id="parametric-data-types">
+<h3>Parametric data types<a class="headerlink" href="#parametric-data-types" title="Link to this heading">¶</a></h3>
+<p>Algebraic data types can carry <em>type parameters</em>.  Data types with
+type parameters are called <em>parametric data types</em>.</p>
+<p>Parametric Data Types are useful to define “container” data types,
+such as lists, sets or maps. Parametric data types are declared like
+normal data types but have an additional type parameter section inside
+broken brackets (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code> <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>) after the data type name.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Nil</span> <span class="o">|</span> <span class="n">Cons</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When using a parametric data type, concrete types are given for the type parameters.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">Cons</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Cons</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">Nil</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="n-ary-constructors">
+<span id="sec-n-ary-constructors"></span><h3>N-ary constructors<a class="headerlink" href="#n-ary-constructors" title="Link to this heading">¶</a></h3>
+<p>Literal values of recursive data types like lists and sets can be
+arbitrarily long, and nested constructor expressions can become
+unwieldy.  ABS provides a special syntax for n-ary constructors, which
+are transformed into constructor expressions via a user-supplied
+function.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def Set&lt;A&gt; set&lt;A&gt;(List&lt;A&gt; l) = ①
+    case l {
+       Nil =&gt; EmptySet
+       | Cons(x,xs) =&gt; insertElement(set(xs), x)
+    };
+
+{
+  Set&lt;Int&gt; s1 = set(Cons(1, Cons(2, Cons(3, Nil)))); ②
+  Set&lt;Int&gt; s = set[1, 2, 3]; ③
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The parametric function <cite>set</cite> is defined to take a list of
+elements and return a set.</div>
+<div class="line">② <cite>set</cite> is called with a literal list constructed as normal.</div>
+<div class="line">③ <cite>set</cite> is called with the special n-ary constructor syntax.  The
+two calls return the same value.</div>
+</div>
+<p>The constructor function usually has the same name as the type it is
+constructing.  For example, a value of type <cite>Set</cite> is constructed via
+the function <cite>set</cite>.</p>
+</section>
+<section id="fully-abstract-data-types">
+<h3>Fully abstract data types<a class="headerlink" href="#fully-abstract-data-types" title="Link to this heading">¶</a></h3>
+<p>Using the module system it is possible to define abstract data types.
+For an abstract data type, only the functions that operate on them are
+known to the client, but not its constructors.  This can be
+implemented in ABS by putting such a data type in its own module and
+only exporting the data type and its functions, without exporting the
+constructors.</p>
+</section>
+</section>
+<section id="interface-types">
+<h2>Interface types<a class="headerlink" href="#interface-types" title="Link to this heading">¶</a></h2>
+<p>Interfaces in ABS describe the functionality of objects.  Thus,
+Interfaces in ABS are similar to interfaces in Java.  Unlike Java,
+object references are typed by interfaces and not by their class.  See
+<a class="reference internal" href="expressions.html#typecheck-expression"><span class="std std-ref">Type-check expressions</span></a> and <a class="reference internal" href="expressions.html#typecast-expression"><span class="std std-ref">Type-cast expressions</span></a> for how to obtain
+a reference to the same object via a different interface.</p>
+<p>The syntax of interfaces is given in <a class="reference internal" href="interfaces.html#sec-interfaces"><span class="std std-ref">Interfaces</span></a>.</p>
+</section>
+<section id="exceptions">
+<span id="sec-exception-types"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">¶</a></h2>
+<p>In higher-level programming languages, exceptions are generally used to signal
+an <em>erroneous</em> or <em>abnormal</em> runtime behavior of the program, that should be
+treated (handled) separately compared to normal values.</p>
+<p>Exceptions are declared with the keyword <code class="docutils literal notranslate"><span class="pre">exception</span></code>, followed by
+the name of an exception and an optional list of parameters.  The
+semantics are the same as for defining data constructors; naming a
+parameter will create an accessor function (see
+<a class="reference internal" href="#sec-accessor-functions"><span class="std std-ref">Accessor functions</span></a>).</p>
+<table class="syntax docutils align-left" id="id3">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ExceptionDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">exception</span></code> <em>SimpleTypeIdentifier</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>[ ( <em>Type</em> [ <em>SimpleIdentifier</em> ] { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> [ <em>SimpleIdentifier</em> ] } ) ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Like any other constructor or datatype name, exceptions always start with an
+upper-case letter.</p>
+<p>Exceptions are of type <code class="docutils literal notranslate"><span class="pre">ABS.StdLib.Exception</span></code>, which is pre-defined in the
+standard library.  It is possible to store exception values in variables of
+type <code class="docutils literal notranslate"><span class="pre">Exception</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exception</span> <span class="n">MyException</span><span class="p">;</span>
+<span class="n">exception</span> <span class="n">MyOtherException</span><span class="p">(</span><span class="n">String</span> <span class="n">param</span><span class="p">,</span> <span class="n">Int</span><span class="p">);</span> <span class="o">//</span> <span class="n">no</span> <span class="n">accessor</span> <span class="k">for</span> <span class="n">second</span> <span class="n">param</span>
+</pre></div>
+</div>
+<p>In ABS, exceptions are first-class values; the user can construct
+exception-values, assign them to variables, pass them in expressions, etc.  An
+exception can be thrown via the <code class="docutils literal notranslate"><span class="pre">throw</span></code> statement (see <a class="reference internal" href="statements.html#throw-statement"><span class="std std-ref">Throw</span></a>)
+and be caught in a <code class="docutils literal notranslate"><span class="pre">catch</span></code> block (see <a class="reference internal" href="statements.html#try-catch-finally-stmt"><span class="std std-ref">Handling exceptions with try-catch-finally</span></a>).
+Additionally, the object itself can recover its invariant after an uncaught
+exception in a process via its recovery block (see <a class="reference internal" href="classes.html#sec-classes"><span class="std std-ref">Classes</span></a>).</p>
+</section>
+<section id="type-synonyms">
+<h2>Type synonyms<a class="headerlink" href="#type-synonyms" title="Link to this heading">¶</a></h2>
+<p>A <em>Type Synonym</em> is an alternative type name for a type.  Type synonyms are
+introduced with the keyword <code class="docutils literal notranslate"><span class="pre">type</span></code>.  Parametric type synonyms are not
+currently supported.</p>
+<table class="syntax docutils align-left" id="id4">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>TypeSynDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">type</span></code> <em>SimpleTypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>Type</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">Filename</span> <span class="o">=</span> <span class="n">String</span><span class="p">;</span>
+<span class="nb">type</span> <span class="n">Filenames</span> <span class="o">=</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Filename</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="nb">type</span> <span class="n">Servername</span> <span class="o">=</span> <span class="n">String</span><span class="p">;</span>
+<span class="nb">type</span> <span class="n">Packet</span> <span class="o">=</span> <span class="n">String</span><span class="p">;</span>
+<span class="nb">type</span> <span class="n">File</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Packet</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="nb">type</span> <span class="n">Catalog</span> <span class="o">=</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">Servername</span><span class="p">,</span><span class="n">Filenames</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="location-types">
+<h2>Location types<a class="headerlink" href="#location-types" title="Link to this heading">¶</a></h2>
+<p>A <em>Location Type</em> is an interface type annotated with a location.  The
+location is seen relative to the current context, and can be one of
+the following:</p>
+<table class="docutils align-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Far</span></code></p></td>
+<td><p>The object is on a different cog</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Near</span></code></p></td>
+<td><p>The object is on the same cog</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Somewhere</span></code></p></td>
+<td><p>The object is either <code class="docutils literal notranslate"><span class="pre">Near</span></code> or <code class="docutils literal notranslate"><span class="pre">Far</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Infer</span></code></p></td>
+<td><p>Have the type-checker infer the location</p></td>
+</tr>
+</tbody>
+</table>
+<p>When location type checking is active, the following example is
+erroneous, and will result in a type error:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>interface I { }
+class C {
+    [Far] I m([Near] I o) {
+        return o; ①
+    }
+    [Somewhere] I m2([Near] I o) {
+        return o; ②
+    }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Here, <code class="docutils literal notranslate"><span class="pre">o</span></code> is of type <code class="docutils literal notranslate"><span class="pre">[Near]</span> <span class="pre">I</span></code>, which cannot be converted to
+the return type <code class="docutils literal notranslate"><span class="pre">[Far]</span> <span class="pre">I</span></code>.</div>
+<div class="line">② Here, <code class="docutils literal notranslate"><span class="pre">o</span></code>’s type <code class="docutils literal notranslate"><span class="pre">[Near]</span> <span class="pre">I</span></code> can be converted to <code class="docutils literal notranslate"><span class="pre">[Somewhere]</span>
+<span class="pre">I</span></code>.</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#built-in-types">Built-in types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#algebraic-data-types">Algebraic data types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accessor-functions">Accessor functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parametric-data-types">Parametric data types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#n-ary-constructors">N-ary constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fully-abstract-data-types">Fully abstract data types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#interface-types">Interface types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type-synonyms">Type synonyms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#location-types">Location types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="lexical.html" title="previous chapter">Lexical structure</a></li>
+      <li>Next: <a href="expressions.html" title="next chapter">Expressions</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/types.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

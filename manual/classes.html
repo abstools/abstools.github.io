@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Classes &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/classes.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Traits" href="traits.html" />
+    <link rel="prev" title="Interfaces" href="interfaces.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="classes">
+<span id="sec-classes"></span><h1>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h1>
+<p>Classes in ABS describe stateful behavior.  All objects in ABS have
+exactly one class; objects are created via the <code class="docutils literal notranslate"><span class="pre">new</span></code> expression.</p>
+<p>Classes implement one or more interfaces.  If a class implements more
+than one interface, <a class="reference internal" href="expressions.html#typecheck-expression"><span class="std std-ref">Type-check expressions</span></a> and
+<a class="reference internal" href="expressions.html#typecast-expression"><span class="std std-ref">Type-cast expressions</span></a> are used to obtain a reference to the same
+object typed with a different interface.  If no explicit
+<code class="docutils literal notranslate"><span class="pre">implements</span></code> clause is given, the class will extend the standard
+library interface <code class="docutils literal notranslate"><span class="pre">ABS.StdLib.Object</span></code> (see <a class="reference internal" href="stdlib/object.html#type-object"><span class="std std-ref">Object</span></a>).  The
+<code class="docutils literal notranslate"><span class="pre">ABS.StdLib.Object</span></code> interface does not specify any methods.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Classes typically explicitly implement one or more
+interfaces so that they can receive method calls, but the
+<code class="docutils literal notranslate"><span class="pre">run</span></code> method makes it meaningful to have objects without
+public methods; such objects cannot accept method calls but
+can send method calls to other objects.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For ease of reasoning and analysis, ABS methods differ only
+by name.  It is an error for a class to implement two
+interfaces that both contain a method with the same name.</p>
+</div>
+<p>Classes have <em>fields</em> that define the state of objects of that class.
+All fields are private and can only be accessed from methods defined
+in the class.  Fields are defined in two ways:</p>
+<ul class="simple">
+<li><p><em>Field declarations</em> in the body of the class define fields that get
+their initial value from their init expression.</p></li>
+<li><p><em>Class parameters</em> define fields that get their initial value from
+the <code class="docutils literal notranslate"><span class="pre">new</span></code> expression.</p></li>
+</ul>
+<p>Classes have an optional <em>init block</em>, which is executed for each new
+object before any other code.  The init block cannot contain processor
+release points (i.e., <code class="docutils literal notranslate"><span class="pre">await</span></code> or <code class="docutils literal notranslate"><span class="pre">suspend</span></code>), blocking expressions
+(i.e., <code class="docutils literal notranslate"><span class="pre">get</span></code>, <code class="docutils literal notranslate"><span class="pre">duration</span></code>, using resources), or explicitly throw an
+exception via the <code class="docutils literal notranslate"><span class="pre">throw</span></code> statement.  It is mainly used for
+complicated field initializations and can be omitted.</p>
+<p>Classes have an optional <em>run method</em> (see <a class="reference internal" href="#sec-active-classes"><span class="std std-ref">Active classes</span></a>).</p>
+<p>Classes have an optional <em>recovery block</em>.  In case an uncaught
+exception occurs in a method, the exception is matched against the
+patterns given in the recovery block, and the associated statement(s)
+are executed.  If the exception does not match any pattern in the
+recovery block, or if the recovery block itself raises an exception,
+the object is killed.  Code in the recovery block has the same
+restrictions as in the init block (i.e., no processor release points,
+blocking expressions and <code class="docutils literal notranslate"><span class="pre">throw</span></code> statements).</p>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ClassDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">class</span></code> <em>SimpleTypeIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>ClassParameters</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> ]</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">implements</span></code> <em>InterfaceList</em> ]</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> [ <em>FieldDeclList</em> ] [ <em>Block</em> ] [<em>RecoveryBlock</em>] { <em>TraitUse</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>{ <em>MethDecl</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>ClassParameters</em> ::=</p></td>
+<td><p><em>Type</em> <em>SimpleIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> <em>SimpleIdentifier</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p><em>InterfaceList</em> ::=</p></td>
+<td><p><em>TypeIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>TypeIdentifier</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>TraitUse</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uses</span></code> <em>TraitExpr</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>FieldDeclList</em> ::=</p></td>
+<td><p>{ <em>Type</em> <em>SimpleIdentifier</em> [ <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>PureExp</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>RecoveryBlock</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">recover</span></code> <code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>Pattern</em> <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> <em>Stmt</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>MethDecl</em> ::=</p></td>
+<td><p><em>Type</em> <em>SimpleIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(</span></code> [ <em>Type</em> <em>SimpleIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>Type</em> <em>SimpleIdentifier</em> } ] <code class="docutils literal notranslate"><span class="pre">)</span></code> <em>Block</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>A class definition contains zero or more method definitions.  Each
+method has a name, return type and zero or more parameters.  All
+methods declared in an interface that is implemented by the class or
+one of their super-interfaces must be defined in the class body or in
+one of the used traits (see <a class="reference internal" href="traits.html#sec-traits"><span class="std std-ref">Traits</span></a>).  A class is free to
+define methods not declared in an interface; such methods are private
+to the class and cannot be called from outside the class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ABS currently does not support method overloading.  Each
+method must have a unique name since methods are not
+disambiguated by their parameter lists.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">DataBase</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Filename</span><span class="p">,</span><span class="n">File</span><span class="o">&gt;</span> <span class="n">db</span><span class="p">)</span> <span class="n">implements</span> <span class="n">DB</span> <span class="p">{</span>
+    <span class="n">File</span> <span class="n">getFile</span><span class="p">(</span><span class="n">Filename</span> <span class="n">fId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lookup</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">fId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Int</span> <span class="n">getLength</span><span class="p">(</span><span class="n">Filename</span> <span class="n">fId</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">length</span><span class="p">(</span><span class="n">lookup</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">fId</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="n">Unit</span> <span class="n">storeFile</span><span class="p">(</span><span class="n">Filename</span> <span class="n">fId</span><span class="p">,</span> <span class="n">File</span> <span class="n">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">Pair</span><span class="p">(</span><span class="n">fId</span><span class="p">,</span><span class="n">file</span><span class="p">),</span> <span class="n">db</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">Filenames</span> <span class="n">listFiles</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">keys</span><span class="p">(</span><span class="n">db</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">(</span><span class="n">DB</span> <span class="n">db</span><span class="p">,</span> <span class="n">Peer</span> <span class="n">admin</span><span class="p">,</span> <span class="n">Filename</span> <span class="n">file</span><span class="p">)</span> <span class="n">implements</span> <span class="n">Peer</span> <span class="p">{</span>
+    <span class="n">Catalog</span> <span class="n">catalog</span><span class="p">;</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Server</span><span class="o">&gt;</span> <span class="n">myNeighbors</span><span class="p">;</span>
+    <span class="o">//</span> <span class="n">implementation</span><span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="active-classes">
+<span id="sec-active-classes"></span><h2>Active classes<a class="headerlink" href="#active-classes" title="Link to this heading">¶</a></h2>
+<p>A class can be active or passive. Active classes start an activity on
+their own upon creation. Passive classes only react to incoming method
+calls. A class is active if and only if it has a run method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unit</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">active</span> <span class="n">behavior</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The run method is asynchronously called after object initialization.
+Note that the run method does not need to terminate, but should
+periodically suspend itself so that the object can execute other
+methods.</p>
+</section>
+<section id="constant-fields">
+<h2>Constant fields<a class="headerlink" href="#constant-fields" title="Link to this heading">¶</a></h2>
+<p>Similar to variable declarations, field declarations and class
+parameters can carry a <code class="docutils literal notranslate"><span class="pre">Final</span></code> annotation.  the effect of such an
+annotation is to forbid re-assignment to such a field.</p>
+<p>The following example will lead to compile-time errors since we are
+trying to assign new values to two fields declared as <code class="docutils literal notranslate"><span class="pre">Final</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Sample ([Final] Int constant_i) {
+    [Final] Int constant_j = 24;
+    Unit m() {
+        constant_i = 25; ①
+        constant_j = 24; ②
+    }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① compile-time error since the class parameter was declared
+<code class="docutils literal notranslate"><span class="pre">Final</span></code>.</div>
+<div class="line">② compile-time error since the field was declared <code class="docutils literal notranslate"><span class="pre">Final</span></code>.</div>
+</div>
+</section>
+<section id="read-only-methods">
+<h2>Read-only methods<a class="headerlink" href="#read-only-methods" title="Link to this heading">¶</a></h2>
+<p>For any method definition annotated with <code class="docutils literal notranslate"><span class="pre">[Readonly]</span></code>, the compiler
+will statically check that its body does not contain assignments to
+fields.</p>
+<p>If an interface declares a method to be read-only, its definition has
+to be annotated with <code class="docutils literal notranslate"><span class="pre">[Readonly]</span></code> as well.</p>
+<p>The following example shows a class declaration with a readonly method
+that will lead to a compile error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Wrong {
+    Int field = 12;
+    [Readonly] Unit fails() {
+        field = field + 1; ①
+    }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① compile-time error since the method was declared <code class="docutils literal notranslate"><span class="pre">Readonly</span></code> but
+modifies a field.</div>
+</div>
+</section>
+<section id="atomic-methods">
+<h2>Atomic methods<a class="headerlink" href="#atomic-methods" title="Link to this heading">¶</a></h2>
+<p>For any method definition annotated with <code class="docutils literal notranslate"><span class="pre">[Atomic]</span></code>, the compiler
+will statically check that its body does not contain suspension points
+(<code class="docutils literal notranslate"><span class="pre">suspend</span></code> and <code class="docutils literal notranslate"><span class="pre">await</span></code> statements) and blocking <code class="docutils literal notranslate"><span class="pre">get</span></code>
+expressions.  Such methods can be called inside init blocks and in
+<code class="docutils literal notranslate"><span class="pre">finally</span></code> clauses; all other methods cannot be called in these
+places.</p>
+<p>If an interface declares a method to be atomic, its implementation has
+to be annotated with <code class="docutils literal notranslate"><span class="pre">[Atomic]</span></code> as well.</p>
+<p>The following example shows a call to an atomic method from an init
+block.  Removing the <code class="docutils literal notranslate"><span class="pre">Atomic</span></code> annotation from method <code class="docutils literal notranslate"><span class="pre">m</span></code> would
+lead to a compile-time error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Sample {
+    Int field = 12;
+
+    {
+        field = this.m(); ①
+    }
+
+    [Atomic] Int m() {
+        return 24;
+    }
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① this method call inside the init block is allowed since the method
+is declared <code class="docutils literal notranslate"><span class="pre">Atomic</span></code>.</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active-classes">Active classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constant-fields">Constant fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-only-methods">Read-only methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atomic-methods">Atomic methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="interfaces.html" title="previous chapter">Interfaces</a></li>
+      <li>Next: <a href="traits.html" title="next chapter">Traits</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/classes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

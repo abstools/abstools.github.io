@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Software product line engineering &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/feature-modeling.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ABS backends" href="backends.html" />
+    <link rel="prev" title="User-defined schedulers" href="schedulers.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="software-product-line-engineering">
+<h1>Software product line engineering<a class="headerlink" href="#software-product-line-engineering" title="Link to this heading">¶</a></h1>
+<p>ABS supports the development of software product lines with a set of
+language constructs for defining system variants.  Following a
+feature-oriented software development approach, variants are described
+as sets of features.  Features and their dependencies are specified in
+a feature model.  Each feature has its corresponding ABS
+implementation.  A feature’s implementation is specified in terms of
+the code modifications (i.e., additions and removals) that need to be
+performed to a variant of the system that does not include that
+feature in order to add it.  This style of programming is called
+delta-oriented programming.  The ABS code modules that encapsulate
+feature implementations are called delta modules (deltas).</p>
+<section id="delta-oriented-programming">
+<h2>Delta-oriented programming<a class="headerlink" href="#delta-oriented-programming" title="Link to this heading">¶</a></h2>
+<p>ABS supports the delta-oriented programming model, an approach that
+aids the development of a set of programs simultaneously from a single
+code base, following the software product line engineering approach.
+In delta-oriented programming, features defined by a feature model are
+associated with code modules that describe modifications to a core
+program.  In ABS, these modules are called <em>delta modules</em>.  Hence the
+implementation of a software product line in ABS is divided into a
+<em>core</em> and a set of delta modules.</p>
+<p>The core consists of a set of ABS modules that implement a complete
+software product of the corresponding software product line.  Delta
+modules (or <em>deltas</em> in short) describe how to change the core program
+to obtain new products.  This includes adding new classes and
+interfaces, modifying existing ones, or even removing some classes
+from the core.  Delta modules can also modify the functional entities
+of an ABS program, that is, they can add and modify data types and
+type synonyms, and add functions.</p>
+<p>Deltas are applied to the core program by the ABS compiler front
+end.  The choice of which delta modules to apply depends on the
+selection of a set of features, that is, a particular product of the
+SPL.  The role of the ABS compiler front end is to translate textual
+ABS models into an internal representation and check the models for
+syntax and semantic errors.  The role of the back ends is to generate
+code for the models targeting some suitable execution or simulation
+environment.</p>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>DeltaDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">delta</span></code> <em>SimpleTypeIdentifier</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>[ <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>DeltaParam</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>DeltaParam</em> } <code class="docutils literal notranslate"><span class="pre">)</span></code> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>[ <em>ModuleAccess</em> ] { <em>ModuleModifier</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p><em>DeltaParam</em> ::=</p></td>
+<td><p><em>Type</em> ( <em>SimpleIdentifier</em> | <em>QualifiedTypeIdentifier</em> )</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><em>HasCondition</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>HasCondition</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hasField</span></code> FieldDecl</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">hasMethod</span></code> MethSig</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">hasInterface</span></code> TypeId</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>ModuleAccess</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uses</span></code> <em>TypeId</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>ModuleModifier</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>ClassDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">removes</span></code> <code class="docutils literal notranslate"><span class="pre">class</span></code> <em>TypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">modifies</span></code> <code class="docutils literal notranslate"><span class="pre">class</span></code> <em>TypeIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>[<code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>TypeIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>TypeIdentifier</em> } ]</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>[<code class="docutils literal notranslate"><span class="pre">removes</span></code> <em>TypeIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>TypeIdentifier</em> } ]</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> { ClassModifier } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>InterfaceDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">removes</span></code> <code class="docutils literal notranslate"><span class="pre">interface</span></code> <em>TypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">modifies</span></code> <code class="docutils literal notranslate"><span class="pre">interface</span></code> <em>TypeIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>InterfaceModifier</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>FunctionDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>DataTypeDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">modifies</span></code> <em>DataTypeDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>TypeSynDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">modifies</span></code> <em>TypeSynDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>Import</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>Export</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>ClassModifier</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>FieldDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">removes</span></code> <em>FieldDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>Method</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">modifies</span></code> <em>Method</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">removes</span></code> <em>MethodSig</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>InterfaceModifier</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adds</span></code> <em>MethodSig</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">removes</span></code> <em>MethodSig</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>The <em>DeltaDecl</em> clause specifies the syntax of delta modules,
+consisting of a unique identifier, an optional list of delta
+parameters, an optional module access directive, and a sequence of
+module modifiers.</p>
+<p>The <em>ModuleAccess</em> clause specifies the semantics of unqualified
+identifiers within a delta.  Any identifiers without namespace prefix
+will be resolved as if they occurred in the module named in the
+<em>ModuleAccess</em> clause.  A delta can always make additions and
+modifications in any module by fully qualifying the <em>TypeName</em> within
+module modifiers.  New program elements (classes, interfaces, etc.)
+with unqualified names are added to the module given in the <code class="docutils literal notranslate"><span class="pre">uses</span></code>
+clause; it is an error to add new program elements with unqualified
+names in a delta that does not have a <code class="docutils literal notranslate"><span class="pre">uses</span></code> clause.</p>
+<p>While delta modeling supports a broad range of ways to modify an ABS
+model, not all ABS program entities are modifiable.  These unsupported
+modifications are listed here for completeness.  While these
+modifications could be easily specified and implemented, we opted not
+to overload the language with features that have not been regarded as
+necessary so far.</p>
+<dl class="simple">
+<dt>Class parameters and init block</dt><dd><p>Deltas currently do not support the modification of class parameter
+lists or class init blocks.</p>
+</dd>
+<dt>Functions</dt><dd><p>Deltas currently only support adding functions, and adding and
+modifying data types and type synonyms. Removal is not supported.</p>
+</dd>
+<dt>Modules</dt><dd><p>Deltas currently do not support adding new modules or removing
+modules.</p>
+</dd>
+<dt>Imports and Exports</dt><dd><p>While deltas do support the addition of import and export statements
+to modules, they do not support their modification or removal.</p>
+</dd>
+<dt>Main block</dt><dd><p>Deltas currently do not support the modification of the program’s
+main block.</p>
+</dd>
+</dl>
+</section>
+<section id="the-feature-model">
+<h2>The feature model<a class="headerlink" href="#the-feature-model" title="Link to this heading">¶</a></h2>
+<p>Software variability is commonly expressed using features which can be
+present or absent from a product of the product line.  Features are
+defined and organised in a feature model, which is essentially a set
+of logical constraints expressing the dependencies between
+features.  Thus the feature model defines a set of legal feature
+combinations, which represent the set of valid software variants that
+can be built.</p>
+<section id="specifying-the-feature-model">
+<h3>Specifying the feature model<a class="headerlink" href="#specifying-the-feature-model" title="Link to this heading">¶</a></h3>
+<p>The <em>FeatureModel</em> clause specifies a number of “orthogonal” root feature
+models along with a number of extensions that specify additional constraints,
+typically cross-tree dependencies.  Its grammar is as follows:</p>
+<table class="syntax docutils align-left" id="id2">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>FeatureModel</em> ::=</p></td>
+<td><p>{ <code class="docutils literal notranslate"><span class="pre">root</span></code> <em>FeatureDecl</em> } { <em>FeatureExtension</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p><em>FeatureDecl</em>  ::=</p></td>
+<td><p><em>FName</em> [ <code class="docutils literal notranslate"><span class="pre">{</span></code> [ <em>Group</em> ] { <em>AttributeDecl</em> } { <em>Constraint</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code> ]</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>FeatureExtension</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">extension</span></code> <em>FName</em> <code class="docutils literal notranslate"><span class="pre">{</span></code> { <em>AttributeDecl</em> } { <em>Constraint</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Group</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">group</span></code> <em>Cardinality</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> [ <code class="docutils literal notranslate"><span class="pre">opt</span></code> ] <em>FeatureDecl</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> [ <code class="docutils literal notranslate"><span class="pre">opt</span></code> ] <em>FeatureDecl</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Cardinality</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">allof</span></code> | <code class="docutils literal notranslate"><span class="pre">oneof</span></code> | <code class="docutils literal notranslate"><span class="pre">[</span></code> <em>IntLiteral</em> <code class="docutils literal notranslate"><span class="pre">..</span></code> <em>Limit</em> <code class="docutils literal notranslate"><span class="pre">]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>AttributeDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Int</span></code> <em>AName</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">Int</span></code> <em>AName</em> <code class="docutils literal notranslate"><span class="pre">in</span></code> <code class="docutils literal notranslate"><span class="pre">[</span></code> <em>Limit</em> <code class="docutils literal notranslate"><span class="pre">..</span></code> <em>Limit</em> <code class="docutils literal notranslate"><span class="pre">]</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">Int</span></code> <em>AName</em> <code class="docutils literal notranslate"><span class="pre">in</span></code> <code class="docutils literal notranslate"><span class="pre">{</span></code> <em>IntLiteral</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>IntLiteral</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">Bool</span></code> <em>AName</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">String</span></code> <em>AName</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Limit</em> ::=</p></td>
+<td><p><em>IntLiteral</em> | <code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Constraint</em> ::=</p></td>
+<td><p><em>Expr</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">ifin</span></code> <code class="docutils literal notranslate"><span class="pre">:</span></code>  <em>Expr</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">ifout</span></code> <code class="docutils literal notranslate"><span class="pre">:</span></code> <em>Expr</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">require</span></code> <code class="docutils literal notranslate"><span class="pre">:</span></code> <em>FName</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">exclude</span></code> <code class="docutils literal notranslate"><span class="pre">:</span></code> <em>FName</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Expr</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>IntLiteral</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>StringLiteral</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>FName</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AName</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>FName</em> <code class="docutils literal notranslate"><span class="pre">.</span></code> <em>AName</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>UnOp</em> <em>Expr</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>Expr</em> <em>BinOp</em> <em>Expr</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>Expr</em> <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>UnOp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!</span></code> | <code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>BinOp</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">||</span></code> | <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> | <code class="docutils literal notranslate"><span class="pre">\-&gt;</span></code> | <code class="docutils literal notranslate"><span class="pre">&lt;-&gt;</span></code> | <code class="docutils literal notranslate"><span class="pre">==</span></code> | <code class="docutils literal notranslate"><span class="pre">!=</span></code> | <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> | <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> | <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> | <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> | <code class="docutils literal notranslate"><span class="pre">+</span></code> | <code class="docutils literal notranslate"><span class="pre">-</span></code> | <code class="docutils literal notranslate"><span class="pre">*</span></code> | <code class="docutils literal notranslate"><span class="pre">/</span></code> | <code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Attributes and values range over integers, strings or booleans.</p>
+<p>The <em>FeatureDecl</em> clause specifies the details of a given feature,
+firstly by giving it a name (<em>FName</em>), followed by a number of
+possibly optional sub-features, the feature’s attributes and any
+relevant constraints.</p>
+<p>The <em>FeatureExtension</em> clause specifies additional constraints and
+attributes for a feature, and if the extended feature has no children
+a group can also be specified.  This is particularly useful for
+specifying constraints that do not fit into the tree structure given
+by the root feature model.</p>
+<p>Here is an example feature model for the <code class="docutils literal notranslate"><span class="pre">DeltaResourceExample</span></code>
+product line, defining valid combinations of features and valid ranges
+of parameters for cost, capacity and number of machines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="n">Calculations</span> <span class="p">{</span>
+  <span class="n">group</span> <span class="n">oneof</span> <span class="p">{</span>
+    <span class="n">Wordcount</span><span class="p">,</span>
+    <span class="n">Wordsearch</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">root</span> <span class="n">Resources</span> <span class="p">{</span>
+  <span class="n">group</span> <span class="n">oneof</span> <span class="p">{</span>
+    <span class="n">NoCost</span><span class="p">,</span>
+    <span class="n">Cost</span> <span class="p">{</span> <span class="n">Int</span> <span class="n">cost</span> <span class="ow">in</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">..</span> <span class="mi">10000</span> <span class="p">]</span> <span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">root</span> <span class="n">Deployments</span> <span class="p">{</span>
+  <span class="n">group</span> <span class="n">oneof</span> <span class="p">{</span>
+    <span class="n">NoDeploymentScenario</span><span class="p">,</span>
+    <span class="n">UnlimitedMachines</span> <span class="p">{</span> <span class="n">Int</span> <span class="n">capacity</span> <span class="ow">in</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">..</span> <span class="mi">10000</span> <span class="p">]</span> <span class="p">;</span> <span class="p">},</span>
+    <span class="n">LimitedMachines</span> <span class="p">{</span> <span class="n">Int</span> <span class="n">capacity</span> <span class="ow">in</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">..</span> <span class="mi">10000</span> <span class="p">]</span> <span class="p">;</span>
+      <span class="n">Int</span> <span class="n">machinelimit</span> <span class="ow">in</span> <span class="p">[</span> <span class="mi">0</span> <span class="o">..</span> <span class="mi">100</span> <span class="p">]</span> <span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="feature-model-reflection">
+<h3>Feature model reflection<a class="headerlink" href="#feature-model-reflection" title="Link to this heading">¶</a></h3>
+<p>There is support for limited reflection on the feature model and
+configured product in the module <code class="docutils literal notranslate"><span class="pre">ABS.Productline</span></code>.  The datatype
+<code class="docutils literal notranslate"><span class="pre">Feature</span></code> contains constructors for all feature names.  The function
+<code class="docutils literal notranslate"><span class="pre">product_features</span></code> returns a list of features contained in the
+current product, and <code class="docutils literal notranslate"><span class="pre">product_name</span></code> returns the name of the product,
+or the empty string if no product was specified.</p>
+<p>The following sample code shows the usage, assuming that product
+<code class="docutils literal notranslate"><span class="pre">Product</span></code> was generated:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Test</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">ABS.Productline</span><span class="p">;</span>
+
+<span class="p">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Feature</span><span class="o">&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">product_features</span><span class="p">();</span> <span class="o">//</span> <span class="o">=&gt;</span> <span class="n">Cons</span><span class="p">(</span><span class="n">FeatureA</span><span class="p">,</span> <span class="n">Cons</span><span class="p">(</span><span class="n">FeatureC</span><span class="p">,</span> <span class="n">Nil</span><span class="p">))</span>
+  <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">product_name</span><span class="p">();</span>           <span class="o">//</span> <span class="o">=&gt;</span> <span class="s2">&quot;Product&quot;</span>
+<span class="p">}</span>
+
+<span class="n">productline</span> <span class="n">Test</span><span class="p">;</span>
+<span class="n">features</span> <span class="n">FeatureA</span><span class="p">,</span> <span class="n">FeatureB</span><span class="p">,</span> <span class="n">FeatureC</span><span class="p">;</span>
+
+<span class="n">product</span> <span class="n">Product</span><span class="p">(</span><span class="n">FeatureA</span><span class="p">,</span> <span class="n">FeatureC</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="software-product-lines-and-products">
+<h2>Software product lines and products<a class="headerlink" href="#software-product-lines-and-products" title="Link to this heading">¶</a></h2>
+<p>A (software) product line is a set of software variants that can be
+built by selecting any combination of features allowed by the feature
+model and applying the deltas that provide the implementation for
+those features to the core program.  How features are associated with
+their implementation is defined in ABS with a <em>SPL configuration</em>.</p>
+<p>An ABS <em>product</em> is simply a set of features associated with a name.</p>
+<section id="specifying-the-product-line">
+<h3>Specifying the product line<a class="headerlink" href="#specifying-the-product-line" title="Link to this heading">¶</a></h3>
+<p>The ABS configuration language links feature models, which describe
+the structure of a SPL, to delta modules which implement behavior.
+The configuration defines, for each selection of features satisfied by
+the product selection, which delta modules should be applied to the
+core.  Furthermore, it guides the code generation by ordering the
+application of the delta modules.</p>
+<table class="syntax docutils align-left" id="id3">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Configuration</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">productline</span></code> <em>TypeId</em> <code class="docutils literal notranslate"><span class="pre">;</span></code> <em>Features</em> <code class="docutils literal notranslate"><span class="pre">;</span></code> { <em>DeltaClause</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p><em>Features</em>      ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">features</span></code> <em>FName</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>FName</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>DeltaClause</em>   ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">delta</span></code> <em>DeltaSpec</em> [ <em>AfterClause</em> ] [ <em>WhenClause</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>DeltaSpec</em>     ::=</p></td>
+<td><p><em>DeltaName</em> [ <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>DeltaParams</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> ]</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>DeltaName</em>     ::=</p></td>
+<td><p><em>TypeId</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>DeltaParams</em>   ::=</p></td>
+<td><p><em>DeltaParam</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>DeltaParam</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>DeltaParam</em>    ::=</p></td>
+<td><p><em>FName</em> {vbar} <em>FName</em> <code class="docutils literal notranslate"><span class="pre">.</span></code> <em>AName</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>AfterClause</em>   ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">after</span></code> <em>DeltaName</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>DeltaName</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>WhenClause</em>    ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">when</span></code> <em>AppCond</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em>AppCond</em>       ::=</p></td>
+<td><p><em>AppCond</em> <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> <em>AppCond</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>AppCond</em> <code class="docutils literal notranslate"><span class="pre">{vbar}{vbar}</span></code> <em>AppCond</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">!</span></code> <em>AppCond</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>AppCond</em> <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>FName</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Features and delta modules are associated through <em>application
+conditions</em> (a.k.a. <em>activation conditions</em>), which are logical
+expressions over the set of features and attributes in a feature
+model.  The collection of applicable delta modules is given by the
+application conditions that are true for a particular feature and
+attribute selection.  By not associating the delta modules directly
+with features, a degree of flexibility is obtained.</p>
+<p>Each delta clause has a <em>DeltaSpec</em>, specifying the name of a delta
+module name and, optionally, a list of parameters; an <em>AfterClause</em>,
+specifying the delta modules that the current delta must be applied
+after; and an application condition <em>AppCond</em>, specifying an arbitrary
+predicate over the feature names (<em>FName</em>) and attribute names
+(<em>AName</em>) in the feature model that describes when the given delta
+module is applied.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">productline</span> <span class="n">DeltaResourceExample</span><span class="p">;</span>
+<span class="n">features</span> <span class="n">Cost</span><span class="p">,</span> <span class="n">NoCost</span><span class="p">,</span> <span class="n">NoDeploymentScenario</span><span class="p">,</span> <span class="n">UnlimitedMachines</span><span class="p">,</span> <span class="n">LimitedMachines</span><span class="p">,</span> <span class="n">Wordcount</span><span class="p">,</span> <span class="n">Wordsearch</span><span class="p">;</span>
+<span class="n">delta</span> <span class="n">DOccurrences</span> <span class="n">when</span> <span class="n">Wordsearch</span><span class="p">;</span>
+<span class="n">delta</span> <span class="n">DFixedCost</span><span class="p">(</span><span class="n">Cost</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="n">when</span> <span class="n">Cost</span><span class="p">;</span>
+<span class="n">delta</span> <span class="n">DUnboundedDeployment</span><span class="p">(</span><span class="n">UnlimitedMachines</span><span class="o">.</span><span class="n">capacity</span><span class="p">)</span> <span class="n">when</span> <span class="n">UnlimitedMachines</span><span class="p">;</span>
+<span class="n">delta</span> <span class="n">DBoundedDeployment</span><span class="p">(</span><span class="n">LimitedMachines</span><span class="o">.</span><span class="n">capacity</span><span class="p">,</span> <span class="n">LimitedMachines</span><span class="o">.</span><span class="n">machinelimit</span><span class="p">)</span> <span class="n">when</span> <span class="n">LimitedMachines</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="specifying-products">
+<h3>Specifying products<a class="headerlink" href="#specifying-products" title="Link to this heading">¶</a></h3>
+<p>ABS allows the developer to name products that are of particular
+interest, in order to easily refer to them later when the actual code
+needs to be generated.  A product definition states which features are
+to be included in the product and sets attributes of those features to
+concrete values.  In the simplest case products are declared directly,
+by listing the features that they include.  It is also possible to
+declare products based on other products using <em>product expressions</em>.
+Product expressions use set-theoretic operations (union, intersection,
+complement) over products and sets of features.</p>
+<table class="syntax docutils align-left" id="id4">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>Selection</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">product</span></code> <em>TypeId</em> ( <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>FeatureSpecs</em> <code class="docutils literal notranslate"><span class="pre">)</span></code> <code class="docutils literal notranslate"><span class="pre">;</span></code> | <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>ProductExpr</em> <code class="docutils literal notranslate"><span class="pre">;</span></code> )</p></td>
+</tr>
+<tr class="row-even"><td><p><em>ProductExpr</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> <em>FeatureSpecs</em> <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>ProductExpr</em> <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> <em>ProductExpr</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>ProductExpr</em> <code class="docutils literal notranslate"><span class="pre">{vbar}{vbar}</span></code> <em>ProductExpr</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>ProductExpr</em> <code class="docutils literal notranslate"><span class="pre">-</span></code> <em>ProductExpr</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>TypeId</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">(</span></code> <em>ProductExpr</em> <code class="docutils literal notranslate"><span class="pre">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><em>FeatureSpecs</em> ::=</p></td>
+<td><p><em>FeatureSpec</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>FeatureSpec</em> }</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>FeatureSpec</em> ::=</p></td>
+<td><p><em>FName</em> [ <em>AttributeAssignments</em> ]</p></td>
+</tr>
+<tr class="row-even"><td><p><em>AttributeAssignments</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{</span></code> <em>AttributeAssignment</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>AttributeAssignment</em> } <code class="docutils literal notranslate"><span class="pre">}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>AttributeAssignment</em> ::=</p></td>
+<td><p><em>AName</em> <code class="docutils literal notranslate"><span class="pre">=</span></code> <em>Literal</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>Here are some product definitions for the <code class="docutils literal notranslate"><span class="pre">DeltaResourceExample</span></code>
+product line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">product</span> <span class="n">WordcountModel</span> <span class="p">(</span><span class="n">Wordcount</span><span class="p">,</span> <span class="n">NoCost</span><span class="p">,</span> <span class="n">NoDeploymentScenario</span><span class="p">);</span>
+<span class="n">product</span> <span class="n">WordcountFull</span> <span class="p">(</span><span class="n">Wordcount</span><span class="p">,</span> <span class="n">Cost</span><span class="p">{</span><span class="n">cost</span><span class="o">=</span><span class="mi">10</span><span class="p">},</span> <span class="n">UnlimitedMachines</span><span class="p">{</span><span class="n">capacity</span><span class="o">=</span><span class="mi">20</span><span class="p">});</span>
+<span class="n">product</span> <span class="n">WordsearchFull</span> <span class="p">(</span><span class="n">Wordsearch</span><span class="p">,</span> <span class="n">Cost</span><span class="p">{</span><span class="n">cost</span><span class="o">=</span><span class="mi">10</span><span class="p">},</span> <span class="n">UnlimitedMachines</span><span class="p">{</span><span class="n">capacity</span><span class="o">=</span><span class="mi">20</span><span class="p">});</span>
+<span class="n">product</span> <span class="n">WordsearchDemo</span> <span class="p">(</span><span class="n">Wordsearch</span><span class="p">,</span> <span class="n">Cost</span><span class="p">{</span><span class="n">cost</span><span class="o">=</span><span class="mi">10</span><span class="p">},</span> <span class="n">LimitedMachines</span><span class="p">{</span><span class="n">capacity</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">machinelimit</span><span class="o">=</span><span class="mi">2</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Here are some product definitions for the <code class="docutils literal notranslate"><span class="pre">CharityOrganizationExample</span></code> with <code class="docutils literal notranslate"><span class="pre">ProductExpr</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">product</span> <span class="n">Org1</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">||</span> <span class="p">{</span><span class="n">Continuous</span><span class="p">};</span>
+<span class="n">product</span> <span class="n">Org2</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">||</span> <span class="p">{</span><span class="n">Continuous</span><span class="p">,</span> <span class="n">Automatic_Report</span><span class="p">};</span>
+<span class="n">product</span> <span class="n">Org3</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">||</span> <span class="n">PKPU</span><span class="p">;</span>
+<span class="n">product</span> <span class="n">Org4</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">||</span> <span class="n">PKPU</span> <span class="o">||</span> <span class="n">RamadhanForKids</span><span class="p">;</span>
+<span class="n">product</span> <span class="n">Org5</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">||</span> <span class="n">PKPU</span> <span class="o">||</span> <span class="n">RamadhanForKids</span> <span class="o">||</span> <span class="n">BeriBuku</span><span class="p">;</span>
+<span class="n">product</span> <span class="n">Org6</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">&amp;&amp;</span> <span class="n">RamadhanForKids</span><span class="p">;</span>
+<span class="n">product</span> <span class="n">Org7</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">&amp;&amp;</span> <span class="n">BeriBuku</span><span class="p">;</span>
+<span class="n">product</span> <span class="n">Org8</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">-</span> <span class="p">{</span><span class="n">Eventual</span><span class="p">};</span>
+<span class="n">product</span> <span class="n">Org9</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">-</span> <span class="p">{</span><span class="n">Eventual</span><span class="p">,</span> <span class="n">Income</span><span class="p">};</span>
+<span class="n">product</span> <span class="n">Org10</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">&amp;&amp;</span> <span class="n">RamadhanForKids</span> <span class="o">||</span> <span class="p">{</span><span class="n">Money</span><span class="p">,</span> <span class="n">Item</span><span class="p">};</span>
+<span class="n">product</span> <span class="n">Org11</span> <span class="o">=</span> <span class="n">SekolahBermainMatahari</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">RamadhanForKids</span> <span class="o">||</span> <span class="p">{</span><span class="n">Money</span><span class="p">,</span> <span class="n">Item</span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="checking-the-spl">
+<h3>Checking the SPL<a class="headerlink" href="#checking-the-spl" title="Link to this heading">¶</a></h3>
+<p>Because the number of variants in an SPL can be very large, checking
+them efficiently (e.g., to ensure that they are all well-typed) is
+challenging.  Building each variant in order to type-check it is
+usually not feasible from a performance perspective.  Instead, the ABS
+compiler employs a number of efficient consistency checks. These fall
+into two categories.</p>
+<ul class="simple">
+<li><p><em>Family-based</em> analysis steps operate on the SPL definition itself,</p></li>
+<li><p>Analysis steps operate on lightweight <em>abstractions</em> of the SPL
+variants.</p></li>
+</ul>
+<p>These checks are performed automatically upon compilation and help
+ensure that all variants defined by an SPL specified in ABS can be
+built and are well-typed ABS programs.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Software product line engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#delta-oriented-programming">Delta-oriented programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-feature-model">The feature model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#specifying-the-feature-model">Specifying the feature model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#feature-model-reflection">Feature model reflection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#software-product-lines-and-products">Software product lines and products</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#specifying-the-product-line">Specifying the product line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifying-products">Specifying products</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checking-the-spl">Checking the SPL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="schedulers.html" title="previous chapter">User-defined schedulers</a></li>
+      <li>Next: <a href="backends.html" title="next chapter">ABS backends</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/feature-modeling.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

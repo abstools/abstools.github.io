@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Semantic lifting &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/semantic-lifting.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Timed ABS" href="timed.html" />
+    <link rel="prev" title="The model API" href="modelapi.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="semantic-lifting">
+<span id="sec-semantic-lifting"></span><h1>Semantic lifting<a class="headerlink" href="#semantic-lifting" title="Link to this heading">¶</a></h1>
+<p>ABS implements <em>semantic lifting</em>, i.e., obtaining a semantic
+representation of aspects of the model and the runtime state.  The
+data is provided in <a class="reference internal" href="glossary.html#term-RDF"><span class="xref std std-term">RDF</span></a> form.</p>
+<p>Semantically-lifted program state can be queried from the command
+line, via a SPARQL endpoint implemented in the Model API, or from
+within the model itself.</p>
+<p>Semantic lifting is supported in the Java backend.</p>
+<section id="the-lifting-ontology">
+<h2>The lifting ontology<a class="headerlink" href="#the-lifting-ontology" title="Link to this heading">¶</a></h2>
+<p>The following namespaces are always defined:</p>
+<p><code class="docutils literal notranslate"><span class="pre">abs:</span></code></p>
+<blockquote>
+<div><p>The ABS language ontology, containing definitions for ABS
+interfaces, classes, fields, datatypes and constructors.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">prog:</span></code></p>
+<blockquote>
+<div><p>The program ontology, containing all classes, interfaces, members,
+datatypes and datatype constructors of the model.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">run:</span></code></p>
+<blockquote>
+<div><p>the runtime ontology, containing objects and object state.</p>
+</div></blockquote>
+<p>Additionally, when an ABS model is compiled with an argument
+<code class="docutils literal notranslate"><span class="pre">--domain-ontology</span> <span class="pre">domain.ttl</span></code> to the compiler, the content of the
+file named by that argument (<code class="docutils literal notranslate"><span class="pre">domain.ttl</span></code> in the example) is added
+to the lifted program state and is visible to all SPARQL queries.</p>
+<section id="representation-of-abs-language-constructs">
+<h3>Representation of ABS language constructs<a class="headerlink" href="#representation-of-abs-language-constructs" title="Link to this heading">¶</a></h3>
+<p>This section shows concretely how ABS model and state information is
+lifted.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The lifting ontology might change as we gain experience
+applying semantic lifting to concrete case studies.</p>
+</div>
+<p>We consider the following small ABS model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Test</span><span class="p">;</span>
+
+<span class="n">interface</span> <span class="n">I</span> <span class="p">{}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">C</span> <span class="p">(</span><span class="n">Maybe</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="n">implements</span> <span class="n">I</span> <span class="p">{}</span>
+
+<span class="p">{</span>
+  <span class="n">I</span> <span class="n">o</span> <span class="o">=</span> <span class="n">new</span> <span class="n">C</span><span class="p">(</span><span class="n">Just</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All datatypes are represented as resources of type <code class="docutils literal notranslate"><span class="pre">abs:datatype</span></code>,
+their dataconstructors are represented via <code class="docutils literal notranslate"><span class="pre">abs:dataconstructor</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="mf">.1985362663</span>
+      <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span>            <span class="nb">abs</span><span class="p">:</span><span class="n">datatype</span><span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">label</span>          <span class="s2">&quot;ABS.StdLib.Maybe&quot;</span><span class="p">;</span>
+      <span class="nb">abs</span><span class="p">:</span><span class="n">hasConstructor</span>  <span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="o">.</span><span class="n">Just</span> <span class="p">,</span> <span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="o">.</span><span class="n">Nothing</span> <span class="o">.</span>
+
+<span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="o">.</span><span class="n">Just</span>  <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span>  <span class="nb">abs</span><span class="p">:</span><span class="n">dataconstructor</span><span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">label</span>  <span class="s2">&quot;ABS.StdLib.Just&quot;</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>All interfaces are represented as resources of type <code class="docutils literal notranslate"><span class="pre">abs:interface</span></code>,
+with a label containing the fully-qualified name of the interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="mf">.823775087</span>  <span class="n">a</span>  <span class="nb">abs</span><span class="p">:</span><span class="n">interface</span><span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">label</span>   <span class="s2">&quot;Test.I&quot;</span><span class="p">;</span>
+      <span class="nb">abs</span><span class="p">:</span><span class="n">extends</span>  <span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="mf">.2078396010</span> <span class="o">.</span>  <span class="c1"># ABS.StdLib.Object</span>
+</pre></div>
+</div>
+<p>All classes are represented as resources of type <code class="docutils literal notranslate"><span class="pre">abs:class</span></code>, again
+with a label with the class name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="mf">.1041552272</span>  <span class="n">a</span>  <span class="nb">abs</span><span class="p">:</span><span class="n">class</span><span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">label</span>      <span class="s2">&quot;Test.C&quot;</span><span class="p">;</span>
+      <span class="nb">abs</span><span class="p">:</span><span class="n">hasField</span>    <span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="o">.</span><span class="n">i</span><span class="p">;</span>
+      <span class="nb">abs</span><span class="p">:</span><span class="n">implements</span>  <span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="mf">.823775087</span> <span class="o">.</span>
+
+<span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="o">.</span><span class="n">i</span>  <span class="n">a</span>      <span class="nb">abs</span><span class="p">:</span><span class="n">field</span><span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">label</span>  <span class="s2">&quot;Test.i&quot;</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>All the information above is static and calculated at compile-time.
+At runtime, the object created in the main block is lifted as
+follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">:</span><span class="n">obj1719860023</span>  <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="mf">.1041552272</span><span class="p">;</span>
+      <span class="nb">abs</span><span class="p">:</span><span class="ow">in</span>       <span class="n">run</span><span class="p">:</span><span class="n">cog1652764753</span><span class="p">;</span>
+      <span class="n">prog</span><span class="p">:</span><span class="n">Test</span><span class="o">.</span><span class="n">i</span>  <span class="p">[</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span>   <span class="n">prog</span><span class="p">:</span><span class="n">ABS</span><span class="o">.</span><span class="n">StdLib</span><span class="o">.</span><span class="n">Just</span><span class="p">;</span>
+                     <span class="n">prog</span><span class="p">:</span><span class="n">arg0</span>  <span class="mi">1</span>
+                   <span class="p">]</span> <span class="o">.</span>
+
+<span class="n">run</span><span class="p">:</span><span class="n">cog1652764753</span>  <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span>  <span class="nb">abs</span><span class="p">:</span><span class="n">cog</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Numeric and string data values are represented directly, user-defined
+datatypes are lifted as anonymous resources referencing the
+constructor and its arguments.</p>
+<p>Note that the lifted representation of an object also references the
+cog that contains the object.  This information can be used to, for
+example, find all objects running on the same cog.</p>
+</section>
+<section id="linking-objects-to-domain-concepts">
+<h3>Linking objects to domain concepts<a class="headerlink" href="#linking-objects-to-domain-concepts" title="Link to this heading">¶</a></h3>
+<p>An ABS class can be linked to a domain concept via a <code class="docutils literal notranslate"><span class="pre">DomainClass</span></code> annotation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[DomainClass: &quot;domain:Housing&quot;]
+class House { } ①
+
+[DomainClass: when i &gt; 0 then &quot;:containsPositive&quot; else &quot;:containsNonPositive&quot;] ②
+class C(Int i) { }
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① All lifted instances <code class="docutils literal notranslate"><span class="pre">x</span></code> of <code class="docutils literal notranslate"><span class="pre">House</span></code> will have an additional
+triple <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">rdf:type</span> <span class="pre">domain:Housing</span></code>.</div>
+</div>
+<div class="line-block">
+<div class="line">② The <code class="docutils literal notranslate"><span class="pre">DomainClass</span></code> annotation is an expression that must return a
+string and can use all fields of the object to calculate its result.</div>
+</div>
+</section>
+</section>
+<section id="accessing-lifted-state-externally">
+<h2>Accessing lifted state externally<a class="headerlink" href="#accessing-lifted-state-externally" title="Link to this heading">¶</a></h2>
+<p>When an ABS model is started with the <code class="docutils literal notranslate"><span class="pre">--printRDF</span></code> argument, the
+complete semantic representation is printed to the terminal in
+<a class="reference internal" href="glossary.html#term-TRTL"><span class="xref std std-term">TRTL</span></a> format after the model finishes.</p>
+<p>When an ABS model is started with the <code class="docutils literal notranslate"><span class="pre">--sparqlQuery</span></code> argument
+followed by a valid SPARQL query, that query is run after the model
+finishes and its result is printed in TRTL format.</p>
+<p>When an ABS model is running with the <a class="reference internal" href="modelapi.html#sec-model-api"><span class="std std-ref">Model API</span></a>
+active, it provides a SPARQL endpoint under the <code class="docutils literal notranslate"><span class="pre">/sparql</span></code> URL.  The
+endpoint accepts SPARQL queries as specified in <a class="reference external" href="https://www.w3.org/TR/sparql11-protocol/#query-operation">Section 2.1</a> of the
+<a class="reference external" href="https://www.w3.org/TR/sparql11-protocol/">SPARQL 1.1 Protocol</a>.
+The sparql endpoint returns results in <a class="reference external" href="https://www.w3.org/TR/sparql11-results-json/">JSON format</a> by default.</p>
+</section>
+<section id="accessing-lifted-state-within-the-model">
+<h2>Accessing lifted state within the model<a class="headerlink" href="#accessing-lifted-state-within-the-model" title="Link to this heading">¶</a></h2>
+<p>A SPARQL query that can be executed at runtime from within the model
+is defined by writing a function with a <code class="docutils literal notranslate"><span class="pre">builtin</span></code> body with two
+arguments: a literal <code class="docutils literal notranslate"><span class="pre">sparql</span></code> followed by the query as a SPARQL
+string.</p>
+<p>The result of a SPARQL query is converted into an ABS list of values.</p>
+<p>Currently only the first SPARQL variable listed in the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code>
+clause is used to construct the ABS return value.  Valid return types
+of <code class="docutils literal notranslate"><span class="pre">builtin</span></code> SPARQL query functions are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;Int&gt;</span></code> when the first SPARQL variable is a RDF literal that
+can be converted to an integer;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;Float&gt;</span></code> when the first SPARQL variable is a RDF literal that
+can be converted to a float;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;Rat&gt;</span></code> ditto;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;Bool&gt;</span></code> when the first SPARQL variable is a RDF literal that
+can be converted to a Boolean;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;String&gt;</span></code> when the first SPARQL variable is a RDF literal;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">List&lt;I&gt;</span></code> when <code class="docutils literal notranslate"><span class="pre">I</span></code> names an interface, and the first SPARQL
+variable is a RDF resource that names an ABS object whose class
+implements that interface.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is an error if the resources found by a query where ABS
+expects objects of type <code class="docutils literal notranslate"><span class="pre">I</span></code> do not represent ABS objects
+that implement <code class="docutils literal notranslate"><span class="pre">I</span></code>, but currently such objects are
+silently dropped when creating the result.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Test;
+
+interface I {}
+
+class C(Int i) implements I {}
+
+def List&lt;String&gt; all_integer_field_values() = builtin(sparql, ①
+    `SELECT ?i
+     WHERE { ?obj a/rdfs:label &quot;Test.C&quot; . ②
+             ?obj prog:Test.i ?i . }`); ③
+
+def List&lt;I&gt; all_I_instances() = builtin(sparql,
+    `SELECT ?o WHERE {
+       ?o a/abs:implements/rdfs:label &quot;BackendTest.I&quot; . ④
+     }`);
+
+
+{
+    I o1 = new C(5);
+    I o2 = new C(4);
+    I o3 = new C(2);
+    List&lt;String&gt; result = all_integer_field_values(); ⑤
+    List&lt;I&gt; all_I = all_I_instances(); ⑥
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① A <code class="docutils literal notranslate"><span class="pre">builtin</span></code> function with first argument <code class="docutils literal notranslate"><span class="pre">sparql</span></code> takes an
+additional argument, a SPARQL query string.</div>
+</div>
+<div class="line-block">
+<div class="line">② The lifted representation of an ABS class has the ABS qualified
+name as an <code class="docutils literal notranslate"><span class="pre">rdfs:label</span></code> property, so we use a property path
+<cite>a/rdfs:label</cite> to find class instances.</div>
+</div>
+<div class="line-block">
+<div class="line">③ The <code class="docutils literal notranslate"><span class="pre">prog:</span></code> namespace contains, among others, all class and
+attribute definitions.  The <code class="docutils literal notranslate"><span class="pre">prog</span></code> ontology uses fully qualified
+ABS names.</div>
+</div>
+<div class="line-block">
+<div class="line">④ This query uses SPARQL <em>property paths</em>
+<a class="reference external" href="https://www.w3.org/TR/sparql11-property-paths/">https://www.w3.org/TR/sparql11-property-paths/</a> to succinctly
+find resources of a class that implements an interface with a label
+<code class="docutils literal notranslate"><span class="pre">&quot;BackendTest.I&quot;</span></code>.</div>
+</div>
+<div class="line-block">
+<div class="line">⑤ This query returns a list containing “2”, “4”, “5” in some
+permutation.  Since the function returns <code class="docutils literal notranslate"><span class="pre">List&lt;String&gt;</span></code>, the RDF
+literals are converted to ABS strings.</div>
+</div>
+<div class="line-block">
+<div class="line">⑥ This query returns the list of all objects implementing the
+interface <code class="docutils literal notranslate"><span class="pre">I</span></code>.  Note that ABS objects are subject to garbage
+collection, so objects that are not referenced may have vanished by
+the time the query executes.</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Semantic lifting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-lifting-ontology">The lifting ontology</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#representation-of-abs-language-constructs">Representation of ABS language constructs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linking-objects-to-domain-concepts">Linking objects to domain concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-lifted-state-externally">Accessing lifted state externally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-lifted-state-within-the-model">Accessing lifted state within the model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="modelapi.html" title="previous chapter">The model API</a></li>
+      <li>Next: <a href="timed.html" title="next chapter">Timed ABS</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/semantic-lifting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

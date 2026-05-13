@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Modules &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/modules.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The standard library" href="stdlib/index.html" />
+    <link rel="prev" title="Traits" href="traits.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="modules">
+<span id="sec-modules"></span><h1>Modules<a class="headerlink" href="#modules" title="Link to this heading">¶</a></h1>
+<p>All Core ABS definitions (classes, interfaces, functions data types,
+type aliases) are contained in modules.  All definitions are visible
+in their own module only, except when the module exports the name and
+it is imported in another module or referenced by its qualified name.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">export</span></code> clause in a module definition exports
+<em>names</em>, not definitions as such.  This means that, for
+example, a module that defines a class and an interface with
+the same name cannot export only the interface.</p>
+</div>
+<section id="defining-a-module">
+<h2>Defining a module<a class="headerlink" href="#defining-a-module" title="Link to this heading">¶</a></h2>
+<table class="syntax docutils align-left" id="id1">
+<caption><span class="caption-text">Syntax</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p><em>ModuleDecl</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module</span></code> <em>TypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">;</span></code> { <em>ExportImport</em> } { <em>Decl</em> } [ <em>Block</em> ]</p></td>
+</tr>
+<tr class="row-even"><td><p><em>ExportImport</em> ::=</p></td>
+<td><p><em>Export</em> {vbar} <em>Import</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Export</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">export</span></code> <em>IdentifierList</em> [ <code class="docutils literal notranslate"><span class="pre">from</span></code> <em>TypeIdentifier</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">export</span></code> <code class="docutils literal notranslate"><span class="pre">*</span></code> [ <code class="docutils literal notranslate"><span class="pre">from</span></code> <em>TypeIdentifier</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Import</em> ::=</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import</span></code> <em>IdentifierList</em> [ <code class="docutils literal notranslate"><span class="pre">from</span></code> <em>TypeIdentifier</em> ] <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <code class="docutils literal notranslate"><span class="pre">import</span></code> <code class="docutils literal notranslate"><span class="pre">*</span></code> <code class="docutils literal notranslate"><span class="pre">from</span></code> <em>TypeIdentifier</em> <code class="docutils literal notranslate"><span class="pre">;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>IdentifierList</em> ::=</p></td>
+<td><p><em>AnyIdentifier</em> { <code class="docutils literal notranslate"><span class="pre">,</span></code> <em>AnyIdentifier</em> }</p></td>
+</tr>
+<tr class="row-even"><td><p><em>AnyIdentifier</em> ::=</p></td>
+<td><p><em>Identifier</em> {vbar} <em>TypeIdentifier</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Decl* ::=</p></td>
+<td><p><em>FunctionDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>PartialFunctionDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>TypeSynDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>DataTypeDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>ExceptionDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>InterfaceDecl</em></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>| <em>ClassDecl</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>| <em>TraitDecl</em></p></td>
+</tr>
+</tbody>
+</table>
+<p>A module name is a type name and must always start with an upper case
+letter.</p>
+<p>Every module starts with a declaration of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">MyModule</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This declaration starts a new module named <code class="docutils literal notranslate"><span class="pre">MyModule</span></code>.  All
+declarations after this line until the next module declaration belong
+to the module <code class="docutils literal notranslate"><span class="pre">MyModule</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The module <code class="docutils literal notranslate"><span class="pre">ABS.StdLib</span></code> contains the standard library and
+is imported by every module by default.  If a module
+contains an explicit <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">x,</span> <span class="pre">y</span> <span class="pre">from</span> <span class="pre">ABS.StdLib;</span></code> import
+clause, only <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> will be imported, otherwise all
+names exported from the standard library will be imported in
+that module.</p>
+</div>
+</section>
+<section id="exporting-identifiers">
+<h2>Exporting identifiers<a class="headerlink" href="#exporting-identifiers" title="Link to this heading">¶</a></h2>
+<p>By default, modules do not export any names.  In order to make names
+defined within a module available to other modules, the names have to
+be <em>exported</em>.  For example, to export a data type and a data
+constructor, one can write something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Drinks</span><span class="p">;</span>
+<span class="n">export</span> <span class="n">Drink</span><span class="p">,</span> <span class="n">pourMilk</span><span class="p">,</span> <span class="n">pourWater</span><span class="p">;</span>
+<span class="n">data</span> <span class="n">Drink</span> <span class="o">=</span> <span class="n">Milk</span> <span class="o">|</span> <span class="n">Water</span><span class="p">;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Drink</span> <span class="n">pourMilk</span><span class="p">()</span> <span class="o">=</span> <span class="n">Milk</span><span class="p">;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">Drink</span> <span class="n">pourWater</span><span class="p">()</span> <span class="o">=</span> <span class="n">Water</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that in this example, the data constructors are not exported, and
+other modules can only create values of type <code class="docutils literal notranslate"><span class="pre">Drink</span></code> by calling the
+exported constructor functions <code class="docutils literal notranslate"><span class="pre">pourMilk</span></code> and <code class="docutils literal notranslate"><span class="pre">pourWater</span></code>.  By
+only exporting the data type without any of its constructors, one can
+realize <em>abstract data types</em> in ABS.</p>
+<p>A special export clause <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">*;</span></code> exports all names that are
+defined in the module.  Note that imported names are <em>not</em> re-exported
+by <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">*;</span></code> or <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">Name;</span></code> (but can be re-exported via
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">OtherModule;</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">Name</span> <span class="pre">from</span> <span class="pre">OtherModule;</span></code>
+clauses):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Test</span><span class="p">;</span>
+<span class="n">export</span> <span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">OtherModule</span><span class="p">;</span>
+<span class="n">export</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">OtherModule</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="importing-identifiers">
+<h2>Importing identifiers<a class="headerlink" href="#importing-identifiers" title="Link to this heading">¶</a></h2>
+<p>In order to use exported names of a module in another module, the
+names have to be imported.  In a module definition, a list of import
+clauses follows the list of export clauses.  After being imported,
+these names are accessible in the current module.</p>
+<p>Names can be accessible either qualified (with package prefix) or
+unqualified, depending on how they are imported.</p>
+<p>The following example makes the <code class="docutils literal notranslate"><span class="pre">Drink</span></code> data type of the module
+<code class="docutils literal notranslate"><span class="pre">Drinks</span></code> accessible as <code class="docutils literal notranslate"><span class="pre">Drinks.Drink</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Bar;
+import Drinks.Drink; ①
+import pourMilk from Drinks; ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The name <code class="docutils literal notranslate"><span class="pre">Drink</span></code> is accessible in module <code class="docutils literal notranslate"><span class="pre">Bar</span></code> as
+<code class="docutils literal notranslate"><span class="pre">Drinks.Drink</span></code>.</div>
+<div class="line">② The name <code class="docutils literal notranslate"><span class="pre">pourMilk</span></code> is accessible in module <code class="docutils literal notranslate"><span class="pre">Bar</span></code> both as
+<code class="docutils literal notranslate"><span class="pre">Drinks.pourMilk</span></code> and <code class="docutils literal notranslate"><span class="pre">pourMilk</span></code>.</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">Module;</span></code> statement makes all names that are
+exported from module <code class="docutils literal notranslate"><span class="pre">Module</span></code> accessible without module qualifier in
+the current module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Bar;
+import * from Drinks; ①
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① All names from <code class="docutils literal notranslate"><span class="pre">Drinks</span></code> are accessible in <code class="docutils literal notranslate"><span class="pre">Bar</span></code> with and
+without the <code class="docutils literal notranslate"><span class="pre">Drinks.</span></code> prefix.</div>
+</div>
+<section id="re-exporting-imported-names">
+<h3>Re-exporting imported names<a class="headerlink" href="#re-exporting-imported-names" title="Link to this heading">¶</a></h3>
+<p>It is possible to re-export names that are imported from another
+module. For example, this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Bar</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">Drinks</span><span class="p">;</span>
+<span class="n">export</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">Drinks</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>re-exports from <code class="docutils literal notranslate"><span class="pre">Bar</span></code> all names that are exported by module
+<code class="docutils literal notranslate"><span class="pre">Drinks</span></code>.  Another module that writes <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">Bar;</span></code> will
+have the names from <code class="docutils literal notranslate"><span class="pre">Drinks</span></code> accessible as well.</p>
+<p>To re-export only selected names, include only these names in the
+export list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Bar;
+import * from Drinks;
+export Drink from Drinks; ①
+</pre></div>
+</div>
+<p>Here, only <code class="docutils literal notranslate"><span class="pre">Drink</span></code> is exported from <code class="docutils literal notranslate"><span class="pre">Bar</span></code>.</p>
+<p>Note that only names that have been imported can be re-exported.  For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Bar</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">Drink</span> <span class="kn">from</span><span class="w"> </span><span class="nn">Drinks</span><span class="p">;</span>
+<span class="n">export</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">Drinks</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>only re-exports <code class="docutils literal notranslate"><span class="pre">Drink</span></code>, as this is the only name imported from
+module <code class="docutils literal notranslate"><span class="pre">Drinks</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#defining-a-module">Defining a module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-identifiers">Exporting identifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-identifiers">Importing identifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#re-exporting-imported-names">Re-exporting imported names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="traits.html" title="previous chapter">Traits</a></li>
+      <li>Next: <a href="stdlib/index.html" title="next chapter">The standard library</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,253 +1,652 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+
+<html lang="en" data-content_root="./">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.147.9">
-    <meta name="generator" content="Relearn 7.6.1+4407b4364ab6f7477f7671fbd20c0494bade40ee">
-    <meta name="description" content="The ABS Language ABS is a language for Abstract Behavioral Specification, which combines implementation-level specifications with verifiability, high-level design with executablity, and formal semantics with practical usability. ABS is a concurrent, object-oriented, modeling language that features functional data-types.
-ABS is designed to develop executable models with an object-oriented program flow ABS targets distributed and concurrent systems by means of concurrent object groups and asynchronous method calls ABS supports model variability based on delta-oriented specifications ABS supports deployment modelling based on high-level deployment models ABS supports a range of techniques for model exploration and analysis, based on formal semantics Overview">
-    <meta name="author" content="">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="The ABS Language :: The ABS Modeling Language">
-    <meta name="twitter:description" content="The ABS Language ABS is a language for Abstract Behavioral Specification, which combines implementation-level specifications with verifiability, high-level design with executablity, and formal semantics with practical usability. ABS is a concurrent, object-oriented, modeling language that features functional data-types.
-ABS is designed to develop executable models with an object-oriented program flow ABS targets distributed and concurrent systems by means of concurrent object groups and asynchronous method calls ABS supports model variability based on delta-oriented specifications ABS supports deployment modelling based on high-level deployment models ABS supports a range of techniques for model exploration and analysis, based on formal semantics Overview">
-    <meta property="og:url" content="https://abs-models.org/index.html">
-    <meta property="og:site_name" content="The ABS Modeling Language">
-    <meta property="og:title" content="The ABS Language :: The ABS Modeling Language">
-    <meta property="og:description" content="The ABS Language ABS is a language for Abstract Behavioral Specification, which combines implementation-level specifications with verifiability, high-level design with executablity, and formal semantics with practical usability. ABS is a concurrent, object-oriented, modeling language that features functional data-types.
-ABS is designed to develop executable models with an object-oriented program flow ABS targets distributed and concurrent systems by means of concurrent object groups and asynchronous method calls ABS supports model variability based on delta-oriented specifications ABS supports deployment modelling based on high-level deployment models ABS supports a range of techniques for model exploration and analysis, based on formal semantics Overview">
-    <meta property="og:locale" content="en_us">
-    <meta property="og:type" content="website">
-    <meta itemprop="name" content="The ABS Language :: The ABS Modeling Language">
-    <meta itemprop="description" content="The ABS Language ABS is a language for Abstract Behavioral Specification, which combines implementation-level specifications with verifiability, high-level design with executablity, and formal semantics with practical usability. ABS is a concurrent, object-oriented, modeling language that features functional data-types.
-ABS is designed to develop executable models with an object-oriented program flow ABS targets distributed and concurrent systems by means of concurrent object groups and asynchronous method calls ABS supports model variability based on delta-oriented specifications ABS supports deployment modelling based on high-level deployment models ABS supports a range of techniques for model exploration and analysis, based on formal semantics Overview">
-    <meta itemprop="datePublished" content="2018-03-22T12:21:59+01:00">
-    <meta itemprop="dateModified" content="2018-03-22T12:21:59+01:00">
-    <meta itemprop="wordCount" content="109">
-    <title>The ABS Language :: The ABS Modeling Language</title>
-    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="The ABS Language :: The ABS Modeling Language">
-    <link href="/index.searchindex.html" rel="alternate" type="text/html" title="The ABS Language :: The ABS Modeling Language">
-    <link href="/index.searchpage.html" rel="alternate" type="text/html" title="The ABS Language :: The ABS Modeling Language">
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1750859515" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1750859515" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1750859515" rel="stylesheet">
-    <link href="/css/theme.min.css?1750859515" rel="stylesheet">
-    <link href="/css/format-html.min.css?1750859515" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1750859515" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1750859515" defer></script>
-    <script src="/js/lunr/lunr.min.js?1750859515" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1750859515" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1750859515" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1750859515" defer></script>
-    <script src="/js/search.min.js?1750859515" defer></script>
-    <script>
-      window.relearn = window.relearn || {};
-      // configuration
-      window.relearn.min = `.min`;
-      window.relearn.path='\/index.html';
-      window.relearn.relBasePath='.';
-      window.relearn.relBaseUri='.';
-      window.relearn.absBaseUri='https:\/\/abs-models.org';
-      window.relearn.contentLangs=['en'];
-      window.relearn.index_js_url="/searchindex.en.js?1750859515";
-      window.relearn.disableAnchorCopy=false;
-      window.relearn.disableAnchorScrolling=false;
-      window.relearn.disableInlineCopyToClipboard=false;
-      window.relearn.enableBlockCodeWrap=true;
-      // legal
-      window.relearn.getItem = (s,n) => {return s.getItem(n)};
-      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
-      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
-      // variant stuff
-      window.relearn.themevariants = [ 'abs' ];
-      window.relearn.customvariantname = "my-custom-variant";
-      window.relearn.changeVariant = function(variant) {
-        var oldVariant = document.documentElement.dataset.rThemeVariant;
-        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
-        document.documentElement.dataset.rThemeVariant = variant;
-        if (oldVariant != variant) {
-          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
-          window.relearn.markVariant();
-        }
-      }
-      window.relearn.markVariant = function() {
-        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
-        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
-      }
-      window.relearn.initVariant = function() {
-        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
-        if( variant == window.relearn.customvariantname ){
-        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
-          variant = window.relearn.themevariants[0];
-          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
-        }
-        document.documentElement.dataset.rThemeVariant = variant;
-      }
-      window.relearn.initVariant();
-      window.relearn.markVariant();
-      // translations
-      window.T_Copy_to_clipboard = `Copy to clipboard`;
-      window.T_Copied_to_clipboard = `Copied to clipboard!`;
-      window.T_Copy_link_to_clipboard = `Copy link to clipboard`;
-      window.T_Link_copied_to_clipboard = `Copied link to clipboard!`;
-      window.T_Reset_view = `Reset view`;
-      window.T_View_reset = `View reset!`;
-      window.T_No_results_found = `No results found for "{0}"`;
-      window.T_N_results_found = `{1} results found for "{0}"`;
-    </script>
-  </head>
-  <body class="mobile-support html" data-url="/index.html">
-    <div id="R-body" class="default-animation">
-      <div id="R-body-overlay"></div>
-      <nav id="R-topbar">
-        <div class="topbar-wrapper">
-          <div class="topbar-sidebar-divider"></div>
-          <div class="topbar-area topbar-area-start" data-area="start">
-            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
-            </div>
-            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
-              <div class="topbar-content">
-                <div class="topbar-content-wrapper"> 
-                </div>
-              </div>
-            </div>
-          </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
-            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">The ABS Language</span><meta itemprop="position" content="1"></li>
-          </ol>
-          <div class="topbar-area topbar-area-end" data-area="end">
-            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><span class="topbar-control"><i class="fa-fw fas fa-chevron-left"></i></span>
-            </div>
-            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/overview/index.html" title="Overview (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
-            </div>
-            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button>
-              <div class="topbar-content">
-                <div class="topbar-content-wrapper">
-                  <div class="topbar-area topbar-area-more" data-area="more">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <div id="R-main-overlay"></div>
-      <main id="R-body-inner" class="highlightable page" tabindex="-1">
-        <div class="flex-block-wrapper">
-<article class="default">
-  <header class="headline">
-  </header>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<h1 id="the-abs-language">The ABS Language</h1>
+    <title>The ABS Language &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=3cb1bcfc" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="overview.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-<h1 id="the-abs-language">The ABS Language</h1>
-<p>ABS is a language for Abstract Behavioral Specification, which combines
-implementation-level specifications with verifiability, high-level design with
-executablity, and formal semantics with practical usability. ABS is a
-concurrent, object-oriented, modeling language that features functional
-data-types.</p>
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-abs-language">
+<h1>The ABS Language<a class="headerlink" href="#the-abs-language" title="Link to this heading">¶</a></h1>
+<p>ABS is a language for Abstract Behavioral Specification, which
+combines implementation-level specifications with verifiability,
+high-level design with executability, and formal semantics with
+practical usability. ABS is a concurrent, object-oriented, modeling
+language that features functional data-types.</p>
+<ul class="simple">
+<li><p>ABS is designed to develop executable models with an object-oriented
+program flow</p></li>
+<li><p>ABS targets distributed and concurrent systems by means of
+concurrent object groups and asynchronous method calls</p></li>
+<li><p>ABS supports model variability based on delta-oriented
+specifications</p></li>
+<li><p>ABS supports deployment modelling based on high-level deployment
+models</p></li>
+<li><p>ABS supports a range of techniques for model exploration and
+analysis, based on formal semantics</p></li>
+</ul>
+<div class="toctree-wrapper compound">
 <ul>
-<li>ABS is designed to develop executable models with an object-oriented program
-flow</li>
-<li>ABS targets distributed and concurrent systems by means of concurrent object
-groups and asynchronous method calls</li>
-<li>ABS supports model variability based on delta-oriented specifications</li>
-<li>ABS supports deployment modelling based on high-level deployment models</li>
-<li>ABS supports a range of techniques for model exploration and analysis, based
-on formal semantics</li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#design-principles-of-abs">Design principles of ABS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/online-tools.html">Use on-line tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/online-tools.html#running-the-collaboratory-locally">Running the collaboratory locally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/local-installation.html">Installing command-line tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#installing-dependencies">Installing dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="getting-started/local-installation.html#macos">MacOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getting-started/local-installation.html#windows">Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getting-started/local-installation.html#linux">Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#using-a-pre-built-abs-compiler">Using a pre-built ABS compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#using-docker-to-run-the-abs-compiler">Using docker to run the ABS compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#compiling-the-abs-compiler-from-source">Compiling the ABS compiler from source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#installing-crowbar">Installing Crowbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/local-installation.html#installing-key-abs">Installing KeY-ABS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/editor-support.html">Installing editor support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/editor-support.html#emacs">Emacs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/editor-support.html#atom">Atom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started/editor-support.html#visual-studio-code">Visual Studio Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/monty-hall.html">The Monty Hall problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/monty-hall.html#modeling-the-participants">Modeling the participants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/monty-hall.html#the-host">The host</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/monty-hall.html#the-contestants">The contestants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/monty-hall.html#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/time-and-date.html">Modeling time in ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/time-and-date.html#converting-time-values">Converting time values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/time-and-date.html#visualizing-the-time-series">Visualizing the time series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/time-and-date.html#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gis-modeling.html">Geodata in ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/gis-modeling.html#accessing-and-displaying-coordinates">Accessing and displaying coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/gis-modeling.html#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/single-watertank.html">Modeling a water tank</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/single-watertank.html#modeling-the-controller">Modeling the controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/single-watertank.html#visualizing-the-water-level-over-time">Visualizing the water level over time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/single-watertank.html#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/resource-modeling.html">Modeling resources in ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/resource-modeling.html#functional-model-without-resources">Functional model without resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/resource-modeling.html#adding-resources-to-the-model">Adding resources to the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/resource-modeling.html#changing-load-balancing-strategies">Changing load balancing strategies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/resource-modeling.html#changing-the-client-load-scenario">Changing the client load scenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/resource-modeling.html#further-possibilities-for-resource-modeling">Further possibilities for resource modeling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/multicore_memory.html">ABS model of a multicore memory system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/multicore_memory.html#model-configurations">Model configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multicore_memory.html#running-the-simulation-with-penalties">Running the simulation with penalties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multicore_memory.html#running-the-simulation-without-penalties">Running the simulation without penalties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manual/index.html">ABS language manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual/introduction.html">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/introduction.html#the-abs-language">The ABS language</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/introduction.html#non-goals">Non-goals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/introduction.html#the-abs-actor-and-concurrency-model">The ABS actor and concurrency model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/introduction.html#error-propagation-and-recovery-in-abs">Error propagation and recovery in ABS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/lexical.html">Lexical structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#line-terminators-and-white-spaces">Line terminators and white spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#identifiers">Identifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#keywords">Keywords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#literals">Literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/lexical.html#annotations">Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/types.html">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#built-in-types">Built-in types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#algebraic-data-types">Algebraic data types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/types.html#accessor-functions">Accessor functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/types.html#parametric-data-types">Parametric data types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/types.html#n-ary-constructors">N-ary constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/types.html#fully-abstract-data-types">Fully abstract data types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#interface-types">Interface types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#exceptions">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#type-synonyms">Type synonyms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/types.html#location-types">Location types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/expressions.html">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#literals">Literals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#template-strings">Template strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#operator-expressions">Operator expressions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#semantics-of-comparison-operators">Semantics of comparison operators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#let">Let</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#data-constructor-expressions">Data constructor expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#function-calls">Function calls</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#n-ary-function-calls">N-ary function calls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#partially-defined-function-calls">Partially-defined-function calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#conditional-expressions">Conditional expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#case">Case</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#variable-patterns">Variable patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#literal-patterns">Literal patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#data-constructor-patterns">Data constructor patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#the-wildcard-pattern">The wildcard pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#typing-of-case-expressions">Typing of <code class="docutils literal notranslate"><span class="pre">case</span></code> Expressions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#type-check-expressions">Type-check expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#type-cast-expressions">Type-cast expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#new">New</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#synchronous-method-calls">Synchronous method calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#asynchronous-method-calls">Asynchronous method calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#get">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#await-expression">Await (expression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/expressions.html#exception-propagation-and-the-await-expression">Exception propagation and the await expression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/expressions.html#destiny-expression">Destiny (expression)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/functions.html">Function definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/functions.html#partial-function-definitions">Partial function definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/functions.html#anonymous-functions">Anonymous functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/functions.html#built-in-functions">Built-in functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/functions.html#embedded-sqlite-database-queries">Embedded SQLite database queries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/statements.html">Statements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#skip">Skip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#variable-declarations">Variable declarations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/statements.html#constant-declarations">Constant declarations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#assignment">Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#expressions-as-statements">Expressions as statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#assertions">Assertions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#await-statement">Await (statement)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#unconditional-release-suspend">Unconditional release: suspend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#return">Return</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#throw">Throw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#blocks-of-statements">Blocks of statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#conditionals">Conditionals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#switch-pattern-matching">Switch: pattern matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#the-while-loop">The <code class="docutils literal notranslate"><span class="pre">while</span></code> loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#the-foreach-loop">The <code class="docutils literal notranslate"><span class="pre">foreach</span></code> loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/statements.html#handling-exceptions-with-try-catch-finally">Handling exceptions with try-catch-finally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/classes.html#active-classes">Active classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/classes.html#constant-fields">Constant fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/classes.html#read-only-methods">Read-only methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/classes.html#atomic-methods">Atomic methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/traits.html">Traits</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/traits.html#trait-operations">Trait operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/modules.html">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/modules.html#defining-a-module">Defining a module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modules.html#exporting-identifiers">Exporting identifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modules.html#importing-identifiers">Importing identifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/modules.html#re-exporting-imported-names">Re-exporting imported names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/stdlib/index.html">The standard library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/bool.html">Boolean values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/bool.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/bool.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/numbers.html">Numbers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/numbers.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/numbers.html#operators">Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/numbers.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#min-max">min, max</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#abs">abs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#truncate">truncate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#float">float</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#rat">rat</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#floor">floor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#ceil">ceil</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#numerator">numerator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#denominator">denominator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#pow">pow</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#sqrt-newton">sqrt_newton</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#exp-newton">exp_newton</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#sqrt">sqrt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#log">log</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#exp">exp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/numbers.html#random">random</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/strings.html">Strings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/strings.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/strings.html#operators">Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/strings.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/strings.html#tostring">toString</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/strings.html#substr">substr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/strings.html#strlen">strlen</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/strings.html#println">println</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/strings.html#print">print</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/unit.html">Unit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/unit.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/object.html">Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/futures.html">The future type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/futures.html#the-destiny-type">The destiny type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/exceptions.html">Predefined exceptions in the standard library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/lists.html">Lists</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/lists.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/lists.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#head">head</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#tail">tail</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#length">length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#isempty">isEmpty</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#nth">nth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#without">without</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#concatenate">concatenate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#appendright">appendright</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#reverse">reverse</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#copy">copy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#map">map</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#filter">filter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#foldl">foldl</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#foldr">foldr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/lists.html#range">range</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/sets.html">Sets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/sets.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/sets.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#contains">contains</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#emptyset">emptySet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#size">size</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#elements">elements</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#union">union</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#intersection">intersection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#difference">difference</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#issubset">isSubset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#insertelement">insertElement</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#remove">remove</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#take">take</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/sets.html#takemaybe">takeMaybe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/maps.html">Maps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/maps.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/maps.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#emptymap">emptyMap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#removekey">removeKey</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#values">values</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#keys">keys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#entries">entries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#lookup">lookup</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#lookupdefault">lookupDefault</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#lookupunsafe">lookupUnsafe</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#lookupreverse">lookupReverse</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#lookupreversedefault">lookupReverseDefault</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#insert">insert</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/maps.html#put">put</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/pairs.html">Pairs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/pairs.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/pairs.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/pairs.html#fst">fst</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/pairs.html#snd">snd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/triples.html">Triples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/triples.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/triples.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/triples.html#fstt">fstT</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/triples.html#sndt">sndT</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/triples.html#trdt">trdT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/optionals.html">Optionals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/optionals.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/optionals.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/optionals.html#isjust">isJust</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/optionals.html#fromjust">fromJust</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/optionals.html#fromjustdefault">fromJustDefault</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/stdlib/others.html">Others</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/stdlib/others.html#functions">Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/stdlib/others.html#ms-since-model-start">ms_since_model_start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/modelapi.html">The model API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#starting-the-model-api">Starting the model API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#shutting-down-the-model-api">Shutting down the model API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#exposing-objects">Exposing objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#exposing-methods">Exposing methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/modelapi.html#encoding-method-parameters">Encoding method parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/modelapi.html#return-value-format">Return value format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#querying-object-state">Querying object state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#listing-the-exposed-methods-of-an-object">Listing the exposed methods of an object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#calling-exposed-methods">Calling exposed methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#the-model-api-and-timed-abs">The model API and timed ABS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#customizing-the-browser-based-visualization">Customizing the browser-based visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/modelapi.html#customizing-the-model-api-url">Customizing the model API URL</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/semantic-lifting.html">Semantic lifting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/semantic-lifting.html#the-lifting-ontology">The lifting ontology</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/semantic-lifting.html#representation-of-abs-language-constructs">Representation of ABS language constructs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/semantic-lifting.html#linking-objects-to-domain-concepts">Linking objects to domain concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/semantic-lifting.html#accessing-lifted-state-externally">Accessing lifted state externally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/semantic-lifting.html#accessing-lifted-state-within-the-model">Accessing lifted state within the model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/timed.html">Timed ABS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/timed.html#semantics-of-time-advancement">Semantics of time advancement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/timed.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/timed.html#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#now">now</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#deadline">deadline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#timevalue">timeValue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#timedifference">timeDifference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#timelessthan">timeLessThan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#durationvalue">durationValue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#isdurationinfinite">isDurationInfinite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#addduration">addDuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#subtractduration">subtractDuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#durationlessthan">durationLessThan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#subtractfromduration">subtractFromDuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/timed.html#statements">Statements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#duration">duration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/timed.html#await-duration">await duration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/timed.html#timed-abs-and-the-model-api">Timed ABS and the model API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/deployment.html">Deployment and resource modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/deployment.html#deployment-components">Deployment components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#methods">Methods</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#load">load</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#total">total</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#decrementresources">decrementResources</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#incrementresources">incrementResources</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#transfer">transfer</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getname">getName</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getcreationtime">getCreationTime</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getstartupduration">getStartupDuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getshutdownduration">getShutdownDuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getpaymentinterval">getPaymentInterval</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getcostperinterval">getCostPerInterval</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#shutdown">shutdown</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getprovider">getProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#acquire">acquire</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#release">release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/deployment.html#resource-types">Resource types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#speed">Speed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#bandwidth">Bandwidth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#memory">Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#cores">Cores</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/deployment.html#modeling-resource-usage">Modeling resource usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/deployment.html#the-cloudprovider-api">The <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#using-the-cloud-provider">Using the cloud provider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/deployment.html#id1">Methods</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#setinstancedescriptions">setInstanceDescriptions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#getinstancedescriptions">getInstanceDescriptions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#launchinstancenamed">launchInstanceNamed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#prelaunchinstancenamed">prelaunchInstanceNamed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#launchinstance">launchInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#prelaunchinstance">prelaunchInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#acquireinstance">acquireInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#releaseinstance">releaseInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="manual/deployment.html#shutdowninstance">shutdownInstance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/schedulers.html">User-defined schedulers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/schedulers.html#defining-schedulers">Defining schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/schedulers.html#using-schedulers">Using schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/schedulers.html#using-object-state-in-schedulers">Using object state in schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/schedulers.html#processes-and-process-attributes">Processes and process attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/feature-modeling.html">Software product line engineering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/feature-modeling.html#delta-oriented-programming">Delta-oriented programming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual/feature-modeling.html#the-feature-model">The feature model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/feature-modeling.html#specifying-the-feature-model">Specifying the feature model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/feature-modeling.html#feature-model-reflection">Feature model reflection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/feature-modeling.html#software-product-lines-and-products">Software product lines and products</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/feature-modeling.html#specifying-the-product-line">Specifying the product line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/feature-modeling.html#specifying-products">Specifying products</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/feature-modeling.html#checking-the-spl">Checking the SPL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/backends.html">ABS backends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual/backends.html#java">Java</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#how-to-run-the-java-backend">How to run the Java backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#compiling-abs-code-from-gradle">Compiling ABS code from gradle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#running-an-abs-model-from-java">Running an ABS model from java</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/backends.html#erlang">Erlang</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#how-to-run-the-erlang-backend">How to run the Erlang backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#recording-and-replaying-traces">Recording and replaying traces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#generating-code-coverage-information">Generating code coverage information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="manual/backends.html#maude">Maude</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="manual/backends.html#how-to-run-the-maude-backend">How to run the Maude backend</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manual/glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publications-and-workshops.html">Publications and workshops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#abs-workshops">ABS workshops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#case-studies">Case studies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#language-development">Language development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#software-product-lines">Software product lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#deductive-verification">Deductive verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#analysis">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#abs-tools">ABS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#code-generation-from-abs">Code generation from ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publications-and-workshops.html#model-based-deployment-and-monitoring">Model-based deployment and monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="acknowledgments.html#projects">Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acknowledgments.html#contributors">Contributors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="#">
+    <img class="logo" src="_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
 </ul>
 
-
-<p><a href="/overview/index.html">Overview</a></p>
-<p><a href="/getting_started/index.html">Getting Started</a></p>
-<p><a href="manual/">The Language Manual</a></p>
-<p><a href="/documentation/examples/index.html">Examples</a></p>
-<p><a href="/documentation/tutorials/index.html">Tutorials</a></p>
-<p><a href="/publications/index.html">Publications</a></p>
-<p><a href="/contact/index.html">Contact</a></p>
-<p><a href="/acknowledgments/index.html">Acknowledgments</a></p>
-
-  <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> Mar 22, 2018
-  </footer>
-</article>
-        </div>
-      </main>
-    </div>
-    <aside id="R-sidebar" class="default-animation">
-      <div id="R-header-topbar" class="default-animation"></div>
-      <div id="R-header-wrapper" class="default-animation">
-        <div id="R-header" class="default-animation">
-<a id="logo" href="https://abs-models.org/" >
-  <img src='/images/ABS_logo_colors.png' width="80%">
-  </img>
-</a>
-
-        </div>
-        <search><form action="/search/index.html" method="get">
-          <div class="searchbox default-animation">
-            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
-            <label class="a11y-only" for="R-search-by">Search</label>
-            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
-            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
-          </div>
-        </form></search>
-      </div>
-      <div id="R-homelinks" class="default-animation homelinks">
-        <div class="R-menu-divider default-animation">
-          <hr class="padding">
-        </div>
-        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
-          <ul class="space collapsible-menu">
-            <li class="active " data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
-          </ul>
-        </div>
-        <div class="R-menu-divider default-animation">
-          <hr class="padding">
-        </div>
-        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
-          <ul class="">
-          </ul>
-        </div>
-        <div class="R-menu-divider default-animation">
-          <hr class="padding">
-        </div>
-      </div>
-      <div id="R-content-wrapper" class="highlightable">
-        <div class="R-sidebarmenu R-shortcutmenu-main">
-          <ul class="enlarge morespace collapsible-menu">
-            <li class="" data-nav-id="/overview/index.html"><a class="padding" href="/overview/index.html">Overview</a></li>
-            <li class="" data-nav-id="/getting_started/index.html"><a class="padding" href="/getting_started/index.html">Getting Started</a><ul id="R-subsections-d1738ab40ac858ee010dd1d061d67a7f" class="collapsible-menu"></ul></li>
-            <li class="" data-nav-id="/documentation/index.html"><a class="padding" href="/documentation/index.html">Documentation</a><ul id="R-subsections-916c6c190c00564c28a689ed3cba8d7e" class="collapsible-menu"></ul></li>
-            <li class="" data-nav-id="/publications/index.html"><a class="padding" href="/publications/index.html">Publications and Workshops</a></li>
-            <li class="" data-nav-id="/contact/index.html"><a class="padding" href="/contact/index.html">Contact</a></li>
-            <li class="" data-nav-id="/acknowledgments/index.html"><a class="padding" href="/acknowledgments/index.html">Acknowledgments</a></li>
-            <li class="" data-nav-id="/laboratory/index.html"><a class="padding" href="/laboratory/index.html">The Collaboratory</a></li>
-          </ul>
-        </div>
-        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
-          <ul class="space collapsible-menu">
-          </ul>
-        </div>
-        <div id="R-footer-margin"></div>
-        <div class="R-menu-divider default-animation">
-          <hr class="padding">
-        </div>
-        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
-          <ul class="">
-          </ul>
-        </div>
-<div id="R-footer"><ul class="topics"><li class="dd-item" title="Language Manual"><a href="/manual/">Language Manual</a></li></ul>
-<br/>
-<p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="overview.html" title="next chapter">Overview</a></li>
+  </ul></li>
+</ul>
 </div>
+
+
+
+
+
+
+
+
+        </div>
       </div>
-    </aside>
-    <script src="/js/clipboard/clipboard.min.js?1750859515" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1750859515" defer></script>
-    <script src="/js/theme.min.js?1750859515" defer></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
+    
 
+    
   </body>
 </html>

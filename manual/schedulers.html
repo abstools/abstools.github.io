@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User-defined schedulers &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/schedulers.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Software product line engineering" href="feature-modeling.html" />
+    <link rel="prev" title="Deployment and resource modeling" href="deployment.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-defined-schedulers">
+<span id="sec-schedulers"></span><h1>User-defined schedulers<a class="headerlink" href="#user-defined-schedulers" title="Link to this heading">¶</a></h1>
+<p>User-defined schedulers are an experimental feature of Timed ABS.
+They are currently available on the Erlang backend.  This section
+describes the current state of the implementation.</p>
+<p>All identifiers introduced in this section reside in the
+<code class="docutils literal notranslate"><span class="pre">ABS.Scheduler</span></code> module, which is not imported by default.</p>
+<p>See <a class="reference external" href="https://doi.org/10.1007/s11334-012-0184-5">https://doi.org/10.1007/s11334-012-0184-5</a> for a discussion
+of ABS user-defined schedulers and process attributes.</p>
+<section id="defining-schedulers">
+<h2>Defining schedulers<a class="headerlink" href="#defining-schedulers" title="Link to this heading">¶</a></h2>
+<p>A scheduler is a function that takes a list of processes and chooses
+one of them.  Schedulers are defined as ordinary ABS functions, taking
+an argument of type <code class="docutils literal notranslate"><span class="pre">List&lt;Process&gt;</span></code> as their first argument and
+returning a result of type <code class="docutils literal notranslate"><span class="pre">Process</span></code>.</p>
+<p>The following example schedulers illustrate the concept.  This
+deterministic scheduler returns the first process of the list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Process</span> <span class="n">defaultscheduler</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Process</span><span class="o">&gt;</span> <span class="n">queue</span><span class="p">)</span> <span class="o">=</span> <span class="n">head</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A random scheduler chooses a process non-deterministically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Process</span> <span class="n">randomscheduler</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Process</span><span class="o">&gt;</span> <span class="n">queue</span><span class="p">)</span> <span class="o">=</span> <span class="n">nth</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">random</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">queue</span><span class="p">)));</span>
+</pre></div>
+</div>
+</section>
+<section id="using-schedulers">
+<h2>Using schedulers<a class="headerlink" href="#using-schedulers" title="Link to this heading">¶</a></h2>
+<p>A scheduler is not called by code within the ABS model.  Instead, the
+scheduler function is called by the runtime system to decide which
+process to schedule.  It is guaranteed that the process list is
+non-empty, and the ABS type system guarantees that the scheduler
+returns one of the processes in the list it gets passed.</p>
+<p>Schedulers apply to <em>cogs</em> since cogs are responsible for scheduling
+one of their processes when idle.  Since cogs are created via <code class="docutils literal notranslate"><span class="pre">new</span></code>
+expressions, a scheduler can be given at that point via an annotation.
+Classes can have a <em>default scheduler</em> that is given as an annotation
+to the class definition; any cog created when instantiating this class
+will have that scheduler by default (unless overridden by an
+annotation at the <code class="docutils literal notranslate"><span class="pre">new</span></code> expression).</p>
+<p>The following example shows how to annotate a class to schedule
+processes via the <code class="docutils literal notranslate"><span class="pre">randomscheduler</span></code> function by default.  The first
+argument to the scheduler (i.e., the list of processes) must have the
+name <code class="docutils literal notranslate"><span class="pre">queue</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Scheduler</span><span class="p">:</span> <span class="n">defaultscheduler</span><span class="p">(</span><span class="n">queue</span><span class="p">)]</span> <span class="k">class</span><span class="w"> </span><span class="nc">C</span> <span class="n">implements</span> <span class="n">I</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All instances of <code class="docutils literal notranslate"><span class="pre">C</span></code> created via <code class="docutils literal notranslate"><span class="pre">new</span></code> will use
+<code class="docutils literal notranslate"><span class="pre">defaultscheduler</span></code> to schedule tasks in the created cog.</p>
+<p>The following example shows how to create an instance of <code class="docutils literal notranslate"><span class="pre">C</span></code> with a
+different scheduler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Scheduler</span><span class="p">:</span> <span class="n">randomscheduler</span><span class="p">(</span><span class="n">queue</span><span class="p">)]</span> <span class="n">I</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">new</span> <span class="n">C</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="using-object-state-in-schedulers">
+<h2>Using object state in schedulers<a class="headerlink" href="#using-object-state-in-schedulers" title="Link to this heading">¶</a></h2>
+<p>Schedulers can have more than one argument.  The first argument must
+be the list of processes, values for subsequent arguments are taken
+from value of an object field with the same name when calling the
+scheduler.</p>
+<p>The object whose fields are used is the first object in a cog, i.e.,
+the object created via the <code class="docutils literal notranslate"><span class="pre">new</span></code> expression that created the cog.
+Subseqent objects created in that cog via <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">local</span></code> cannot
+influence the scheduler.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Test;
+import * from ABS.StdLib.Scheduler;
+
+class C {
+    Bool flag = False; ①
+}
+
+def Process some_scheduler(List&lt;Process&gt; queue, Bool value) = head(queue); ②
+
+{
+    [Scheduler: some_scheduler(queue, flag)] new C(); ③
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Here, class <code class="docutils literal notranslate"><span class="pre">C</span></code> defines a field called <code class="docutils literal notranslate"><span class="pre">flag</span></code></div>
+<div class="line">② The scheduler <code class="docutils literal notranslate"><span class="pre">some_scheduler</span></code> has a second argument of type
+<code class="docutils literal notranslate"><span class="pre">Bool</span></code></div>
+<div class="line">③ The current value of field <code class="docutils literal notranslate"><span class="pre">flag</span></code> will be used as the second
+argument to <code class="docutils literal notranslate"><span class="pre">some_scheduler</span></code></div>
+</div>
+</section>
+<section id="processes-and-process-attributes">
+<span id="sec-process-attributes"></span><h2>Processes and process attributes<a class="headerlink" href="#processes-and-process-attributes" title="Link to this heading">¶</a></h2>
+<p>A <em>process</em> is an ABS abstract datatype; i.e., there is no constructor
+available to create a <code class="docutils literal notranslate"><span class="pre">Process</span></code> value inside ABS.  Processes are
+created by the runtime and handed to schedulers.</p>
+<p>Processes have <em>attributes</em> which can be used by schedulers to choose
+the next process to run.  For example, a scheduler could always prefer
+processes that run a certain method.  The following attributes are
+available:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Process Attributes</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">method</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">String</span></code></p></td>
+<td><p>Name of the method executed by the process</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">arrival</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Time</span></code></p></td>
+<td><p>Time when method call was issued</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">proc_deadline</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Duration</span></code></p></td>
+<td><p>The (current) deadline value of the process (<code class="docutils literal notranslate"><span class="pre">InfDuration</span></code> if none)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">destinyOf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Destiny</span></code></p></td>
+<td><p>The future of the asynchronous call that is currently being executed by the process</p></td>
+</tr>
+</tbody>
+</table>
+<p>Using process attributes, an Earliest Deadline First (EDF) scheduler
+can be defined in ABS as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">Process</span> <span class="n">earliest_deadline_scheduler</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Process</span><span class="o">&gt;</span> <span class="n">queue</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">foldl</span><span class="p">((</span><span class="n">Process</span> <span class="n">a</span><span class="p">,</span> <span class="n">Process</span> <span class="n">b</span><span class="p">)</span> <span class="o">=&gt;</span>
+      <span class="k">if</span> <span class="n">durationLessThan</span><span class="p">(</span><span class="n">proc_deadline</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">proc_deadline</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="o">//</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+      <span class="n">then</span> <span class="n">a</span> <span class="k">else</span> <span class="n">b</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">head</span><span class="p">(</span><span class="n">queue</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Other process attributes in the real-time scheduling field
+include <code class="docutils literal notranslate"><span class="pre">cost</span></code>, <code class="docutils literal notranslate"><span class="pre">start</span></code>, and <code class="docutils literal notranslate"><span class="pre">crit</span></code>, which are planned
+to be implemented.  The attributes <code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">finish</span></code> are
+of questionable usefulness but might be implemented still.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">Deployment and resource modeling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">User-defined schedulers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#defining-schedulers">Defining schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-schedulers">Using schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-object-state-in-schedulers">Using object state in schedulers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#processes-and-process-attributes">Processes and process attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="deployment.html" title="previous chapter">Deployment and resource modeling</a></li>
+      <li>Next: <a href="feature-modeling.html" title="next chapter">Software product line engineering</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/schedulers.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

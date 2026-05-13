@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Monty Hall problem &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/examples/monty-hall.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling time in ABS" href="time-and-date.html" />
+    <link rel="prev" title="Examples" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-monty-hall-problem">
+<h1>The Monty Hall problem<a class="headerlink" href="#the-monty-hall-problem" title="Link to this heading">¶</a></h1>
+<p>One reason to model systems is to gain insight into and predict
+complex behavior.  Ideally, the components of the system are
+reasonably easy to understand in isolation, while assembling them
+together results in surprising behavior that can give insight or
+support for a theory about the whole system.</p>
+<p>The Monty Hall problem is usually defined as follows:</p>
+<blockquote>
+<div><p>Suppose you’re on a game show, and you’re given the choice of three
+doors: Behind one door is a car; behind the others, goats. You pick
+a door, say No. 1, and the host, who knows what’s behind the doors,
+opens another door, say No. 3, which has a goat. He then says to
+you, “Do you want to pick door No. 2?” Is it to your advantage to
+switch your choice?</p>
+<p class="attribution">—<a class="reference external" href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem - Wikipedia</a></p>
+</div></blockquote>
+<p>The “intuitive” assumption from many people would be that changing
+one’s guess cannot make a difference to the outcome. But is this true?
+Let us model this system and find out!</p>
+<p>The code for this example is at
+<a class="reference external" href="https://github.com/abstools/absexamples/tree/master/collaboratory/examples/monty-hall/">https://github.com/abstools/absexamples/tree/master/collaboratory/examples/monty-hall/</a></p>
+<section id="modeling-the-participants">
+<h2>Modeling the participants<a class="headerlink" href="#modeling-the-participants" title="Link to this heading">¶</a></h2>
+<p>Each round in the game is played between a participant and a host. First
+the guest submits an initial guess to the host. The host answers by
+ruling out one of the two other doors as being the correct one. Then,
+the participant decides on which door to open according to their
+strategy: either decide to open the original door, or switching to the
+other closed door. The following sequence diagram illustrates the
+interaction:</p>
+<figure class="align-default" id="id1">
+<p class="plantuml">
+<img src="../_images/plantuml-073ff7ab3f6857984824d377b4ee9cc23aa672ad.png" alt="Contestant -&gt; Host: guess(door1)
+Host -&gt; Contestant: goat_door
+Contestant -&gt; Host: open(door)
+Note right of Contestant: depending on strategy, same as initial guess or different
+Host-&gt; Contestant: prize
+Note right of Contestant: prize is Car or Goat"/>
+</p>
+<figcaption>
+<p><span class="caption-text">Interaction between participant and game show host</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-host">
+<h2>The host<a class="headerlink" href="#the-host" title="Link to this heading">¶</a></h2>
+<p>For simplicity, we model the three doors as the numbers <code class="docutils literal notranslate"><span class="pre">0..2</span></code>. The
+host has two methods: <code class="docutils literal notranslate"><span class="pre">guess</span></code>, which takes a door and returns another
+door that is definitely the wrong answer (the host is trustworthy). The
+method <code class="docutils literal notranslate"><span class="pre">open</span></code> takes a door and returns its content: <code class="docutils literal notranslate"><span class="pre">Car</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Goat</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="n">Prize</span> <span class="o">=</span> <span class="n">Car</span> <span class="o">|</span> <span class="n">Goat</span><span class="p">;</span>
+
+<span class="n">interface</span> <span class="n">Host</span> <span class="p">{</span>
+    <span class="n">Int</span> <span class="n">guess</span><span class="p">(</span><span class="n">Int</span> <span class="n">door_guess</span><span class="p">);</span>
+    <span class="n">Prize</span> <span class="nb">open</span><span class="p">(</span><span class="n">Int</span> <span class="n">door</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Host</span> <span class="n">implements</span> <span class="n">Host</span> <span class="p">{</span>
+    <span class="n">Int</span> <span class="n">winning_door</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="o">//</span> <span class="mf">0..2</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span> <span class="n">losing_doors</span> <span class="o">=</span> <span class="n">without</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">winning_door</span><span class="p">);</span>
+    <span class="n">Int</span> <span class="n">guess</span><span class="p">(</span><span class="n">Int</span> <span class="n">door_guess</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">when</span> <span class="n">door_guess</span> <span class="o">==</span> <span class="n">winning_door</span>
+                <span class="n">then</span> <span class="n">nth</span><span class="p">(</span><span class="n">losing_doors</span><span class="p">,</span> <span class="n">random</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+                <span class="k">else</span> <span class="n">head</span><span class="p">(</span><span class="n">without</span><span class="p">(</span><span class="n">losing_doors</span><span class="p">,</span> <span class="n">door_guess</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="n">Prize</span> <span class="nb">open</span><span class="p">(</span><span class="n">Int</span> <span class="n">door</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">when</span> <span class="n">door</span> <span class="o">==</span> <span class="n">winning_door</span> <span class="n">then</span> <span class="n">Car</span> <span class="k">else</span> <span class="n">Goat</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="the-contestants">
+<h2>The contestants<a class="headerlink" href="#the-contestants" title="Link to this heading">¶</a></h2>
+<p>The Contestants “drive” the interaction. The method <code class="docutils literal notranslate"><span class="pre">play</span></code> implements
+the sequence of interactions shown above: the contestant picks a number,
+submits it to the host, receives information about another door, and
+finally asks the host to open the chosen door. Each contestant keeps
+track of the number of rounds and wins they have played.</p>
+<p>The following code shows the contestant that switches their guess
+after shown the incorrect door; the non-switching contestant is
+similar except for one line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>interface Contestant {
+    Unit play(Host host);
+    Unit printSummary();
+}
+class SwitchingContestant implements Contestant {
+    Int nPlays = 0;
+    Int nWins = 0;
+
+    Unit play(Host host) {
+        Int pick_door = random(3);
+        Int goat_door = await host!guess(pick_door);
+        Int final_door = head(without(without(list[0, 1, 2], pick_door), goat_door));
+        Prize prize = await host!open(final_door);
+        nPlays = nPlays + 1;
+        if (prize == Car) nWins = nWins + 1;
+    }
+    Unit printSummary() {
+        println(`I always switched, won $nWins$ out of $nPlays$ rounds.`);
+    }
+}
+</pre></div>
+</div>
+</section>
+<section id="running-the-example">
+<h2>Running the example<a class="headerlink" href="#running-the-example" title="Link to this heading">¶</a></h2>
+<p>Since we want to investigate whether the results for switching and
+non-switching strategies are different, we create one participant of
+each type and let them play against 1000 hosts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    Int nRounds = 1000;
+    Contestant swc = new SwitchingContestant();
+    Contestant nsc = new NonSwitchingContestant();
+    while (nRounds &gt; 0) {
+        nRounds = nRounds - 1;
+        Host host = new Host();
+        await swc!play(host);
+        await nsc!play(host);
+    }
+    swc.printSummary();
+    nsc.printSummary();
+}
+</pre></div>
+</div>
+<p>Running the model produces output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">always</span> <span class="n">switched</span><span class="p">,</span> <span class="n">won</span> <span class="mi">628</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">1000</span> <span class="n">rounds</span><span class="o">.</span>
+<span class="n">I</span> <span class="n">never</span> <span class="n">switched</span><span class="p">,</span> <span class="n">won</span> <span class="mi">333</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">1000</span> <span class="n">rounds</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>As we see, the intuitive expectation about the outcome is not supported
+by the simulation!  The composition of simple components with
+understandable behavior can indeed lead to observation of surprising
+behavior, which is the goal of modeling a system.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Monty Hall problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-participants">Modeling the participants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-host">The host</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-contestants">The contestants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-example">Running the example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="time-and-date.html">Modeling time in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gis-modeling.html">Geodata in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single-watertank.html">Modeling a water tank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resource-modeling.html">Modeling resources in ABS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multicore_memory.html">ABS model of a multicore memory system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Examples</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Examples</a></li>
+      <li>Next: <a href="time-and-date.html" title="next chapter">Modeling time in ABS</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/examples/monty-hall.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

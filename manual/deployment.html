@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Deployment and resource modeling &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=3cb1bcfc" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://abs-models.org/manual/deployment.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="User-defined schedulers" href="schedulers.html" />
+    <link rel="prev" title="Timed ABS" href="timed.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="deployment-and-resource-modeling">
+<span id="sec-deployment"></span><h1>Deployment and resource modeling<a class="headerlink" href="#deployment-and-resource-modeling" title="Link to this heading">¶</a></h1>
+<p>This chapter describes how to model non-functional properties of
+systems: code deployment on varying numbers and kinds of machines, and
+the effects of code locality and different resource types such as CPU
+speeds, interconnection bandwidth, etc. on the performance of a
+system.</p>
+<p>To simulate the effects of deployment decisions on the cost and
+performance of running a distributed system, the following aspects
+need to be added to a model:</p>
+<ul class="simple">
+<li><p>A notion of <em>location</em> to describe where different parts of the
+system will run</p></li>
+<li><p>A notion of <em>cost</em> of executing code on such locations; and finally</p></li>
+<li><p>A notion of <em>time</em> that allows us to observe the effects of varying
+the location and cost.</p></li>
+</ul>
+<p>In ABS, the following language elements implement these aspects:</p>
+<dl class="simple">
+<dt>Deployment Components</dt><dd><p>ABS cogs can be created on a deployment component (see
+<a class="reference internal" href="#sec-deployment-components"><span class="std std-ref">Deployment components</span></a>).  Deployment components have a
+limited number of resources available.</p>
+</dd>
+<dt>Resource Annotations</dt><dd><p>ABS statements can be annotated with resource costs (see
+<a class="reference internal" href="#sec-resources"><span class="std std-ref">Resource types</span></a>).  Executing such annotated statements incurs
+resource costs.</p>
+</dd>
+<dt>Timed ABS</dt><dd><p>The time model of Section <a class="reference internal" href="timed.html#sec-timed-abs"><span class="std std-ref">Timed ABS</span></a> naturally extends to
+observations on resource usage.</p>
+</dd>
+</dl>
+<p>These elements work together as in Figure
+<a class="reference internal" href="#fig-resource-consumption"><span class="std std-ref">Resource Consumption</span></a>:</p>
+<figure class="align-default" id="id2">
+<span id="fig-resource-consumption"></span><img alt="Resource Consumption" src="../_images/ABS-resources.png" />
+<figcaption>
+<p><span class="caption-text">Resource Consumption</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The figure shows a process with a <code class="docutils literal notranslate"><span class="pre">skip</span></code> statement with an
+associated cost of 5, followed by a <code class="docutils literal notranslate"><span class="pre">println</span></code> statement with a cost
+of 10.  The deployment component <code class="docutils literal notranslate"><span class="pre">DC</span></code> has 10 resources available in
+each time interval.</p>
+<p>At time <code class="docutils literal notranslate"><span class="pre">t</span></code>, the <code class="docutils literal notranslate"><span class="pre">skip</span></code> statement consumes the five needed
+resources and is successfully executed.  The <code class="docutils literal notranslate"><span class="pre">println</span></code> statement
+consumes the remaining five resources but is not executed yet.</p>
+<p>At time <code class="docutils literal notranslate"><span class="pre">t+1</span></code>, the deployment component’s resources are refilled.
+The five remaining resources of the <code class="docutils literal notranslate"><span class="pre">println</span></code> statement are consumed
+and the statement is executed.  The five remaining resources of <code class="docutils literal notranslate"><span class="pre">DC</span></code>
+are not used.</p>
+<p>At time <code class="docutils literal notranslate"><span class="pre">t+2</span></code>, the deployment component’s resources are again
+refilled to 10.</p>
+<p>The rest of this chapter explains these language elements concerning
+resource modeling in detail.  All identifiers introduced in this
+section reside in the <code class="docutils literal notranslate"><span class="pre">ABS.DC</span></code> module; they are not imported into
+other modules by default.</p>
+<section id="deployment-components">
+<span id="sec-deployment-components"></span><h2>Deployment components<a class="headerlink" href="#deployment-components" title="Link to this heading">¶</a></h2>
+<p>In ABS, processes run inside cogs.  Deployment components are used to
+provide a location to cogs.  Cogs residing on the same deployment
+component share the resources provided by the deployment component.</p>
+<span class="target" id="fig-deployment-component"></span><p>Deployment Components are first-class constructs in the ABS language.
+References to deployment components can be stored in variables of type
+<code class="docutils literal notranslate"><span class="pre">DeploymentComponent</span></code>, and the methods documented in this section
+can be called via asynchronous method calls.</p>
+<p>Deployment Components are usually created by a cloud provider instance
+(see <a class="reference internal" href="#sec-cloudprovider"><span class="std std-ref">The CloudProvider API</span></a>), but can also be created using the <code class="docutils literal notranslate"><span class="pre">new</span></code>
+expression.  A new cog is created on a given deployment component by
+using a <code class="docutils literal notranslate"><span class="pre">DC</span></code> annotation to the <code class="docutils literal notranslate"><span class="pre">new</span></code> statement.</p>
+<p>If no <code class="docutils literal notranslate"><span class="pre">DC</span></code> annotation is given for a <code class="docutils literal notranslate"><span class="pre">new</span></code> statement, the fresh
+cog (and its first object) are created on the same deployment
+component as the current cog.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is an error to try to create a deployment component via
+<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">local</span></code>.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>DeploymentComponent dc = await provider!launchInstance(map[Pair(Speed, 10)]); ①
+[DC: dc] Worker w = new CWorker(); ②
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The cloud provider <code class="docutils literal notranslate"><span class="pre">provider</span></code> creates a new deployment component
+<code class="docutils literal notranslate"><span class="pre">dc</span></code> with 10 <code class="docutils literal notranslate"><span class="pre">Speed</span></code> resources</div>
+<div class="line">② A new cog containing a <code class="docutils literal notranslate"><span class="pre">CWorker</span></code> object is created on the new
+deployment component <code class="docutils literal notranslate"><span class="pre">dc</span></code></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All objects of a cog must reside on the same deployment
+component, i.e., <code class="docutils literal notranslate"><span class="pre">[DC:</span> <span class="pre">x]</span> <span class="pre">new</span> <span class="pre">local</span> <span class="pre">C()</span></code> is an error.</p>
+</div>
+<p>As seen above, each deployment component “carries” some amount of
+resources for each resource type.  This is expressed as a map from
+resource type to a number, for example <code class="docutils literal notranslate"><span class="pre">map[Pair(Speed,</span> <span class="pre">10),</span>
+<span class="pre">Pair(Bandwidth,</span> <span class="pre">20)]</span></code>.  When no amount is given for some resource
+type, it is infinite.  See <a class="reference internal" href="#sec-resources"><span class="std std-ref">Resource types</span></a> for a description of the
+available resource types.</p>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h3>
+<section id="load">
+<h4>load<a class="headerlink" href="#load" title="Link to this heading">¶</a></h4>
+<p>Return the load (0-100) for the given resource type <code class="docutils literal notranslate"><span class="pre">rtype</span></code> over the
+last <span class="math notranslate nohighlight">\(n\)</span> periods.  If the deployment component was created with
+infinite resources for the given resource type, <code class="docutils literal notranslate"><span class="pre">load</span></code> returns 0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">load</span><span class="p">(</span><span class="n">Resourcetype</span> <span class="n">rtype</span><span class="p">,</span> <span class="n">Int</span> <span class="n">periods</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="total">
+<h4>total<a class="headerlink" href="#total" title="Link to this heading">¶</a></h4>
+<p>Return the total available amount for the given resourcetype.  If the
+deployment component was created with infinite resources for the given
+resource type, <code class="docutils literal notranslate"><span class="pre">total</span></code> returns <code class="docutils literal notranslate"><span class="pre">InfRat</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">Fin(value)</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">InfRat</span> <span class="n">total</span><span class="p">(</span><span class="n">Resourcetype</span> <span class="n">rtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="decrementresources">
+<h4>decrementResources<a class="headerlink" href="#decrementresources" title="Link to this heading">¶</a></h4>
+<p>Decrease the total available amount for the resourcetype <code class="docutils literal notranslate"><span class="pre">rtype</span></code> by
+<code class="docutils literal notranslate"><span class="pre">amount</span></code> from the next time interval onwards.  Trying to decrement
+infinite resources has no effect.  Trying to decrement by more than
+available will decrement the maximum amount possible but not below
+zero.  Returns the amount by which the resource was decreased.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">decrementResources</span><span class="p">(</span><span class="n">Rat</span> <span class="n">amount</span><span class="p">,</span> <span class="n">Resourcetype</span> <span class="n">rtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="incrementresources">
+<h4>incrementResources<a class="headerlink" href="#incrementresources" title="Link to this heading">¶</a></h4>
+<p>Increase the total available amount for the resourcetype <code class="docutils literal notranslate"><span class="pre">rtype</span></code> by
+<code class="docutils literal notranslate"><span class="pre">amount</span></code> from the next time interval onwards.  Trying to increment
+infinite resources has no effect.  Returns the amount by which the
+resource was increased.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">incrementResources</span><span class="p">(</span><span class="n">Rat</span> <span class="n">amount</span><span class="p">,</span> <span class="n">Resourcetype</span> <span class="n">rtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="transfer">
+<h4>transfer<a class="headerlink" href="#transfer" title="Link to this heading">¶</a></h4>
+<p>Transfer <code class="docutils literal notranslate"><span class="pre">amount</span></code> resources of type <code class="docutils literal notranslate"><span class="pre">rtype</span></code> from the current
+deployment component to <code class="docutils literal notranslate"><span class="pre">target</span></code>.  Takes effect on the next time
+period.  Returns the amount transferred, which will be lower than
+<code class="docutils literal notranslate"><span class="pre">amount</span></code> in case the deployment component has less resources
+available.</p>
+<p>(This method is implemented via <code class="docutils literal notranslate"><span class="pre">decrementResources</span></code> and
+<code class="docutils literal notranslate"><span class="pre">incrementResources</span></code>.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">transfer</span><span class="p">(</span><span class="n">DeploymentComponent</span> <span class="n">target</span><span class="p">,</span> <span class="n">Rat</span> <span class="n">amount</span><span class="p">,</span> <span class="n">Resourcetype</span> <span class="n">rtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="getname">
+<h4>getName<a class="headerlink" href="#getname" title="Link to this heading">¶</a></h4>
+<p>Returns the name of the deployment component.  Deployment components
+created via a <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> are guaranteed to have a unique name
+if no two cloud providers have the same name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">String</span> <span class="n">getName</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getcreationtime">
+<h4>getCreationTime<a class="headerlink" href="#getcreationtime" title="Link to this heading">¶</a></h4>
+<p>Get the creation time of the deployment component, i.e., the value of
+<code class="docutils literal notranslate"><span class="pre">now()</span></code> at the time of creation of the component.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Time</span> <span class="n">getCreationTime</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getstartupduration">
+<h4>getStartupDuration<a class="headerlink" href="#getstartupduration" title="Link to this heading">¶</a></h4>
+<p>Get the specified startup duration, or 0 if none specified.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">getStartupDuration</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getshutdownduration">
+<h4>getShutdownDuration<a class="headerlink" href="#getshutdownduration" title="Link to this heading">¶</a></h4>
+<p>Get the specified shutdown duration, or 0 if none specified.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">getShutdownDuration</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getpaymentinterval">
+<h4>getPaymentInterval<a class="headerlink" href="#getpaymentinterval" title="Link to this heading">¶</a></h4>
+<p>Get the specified payment interval, or 1 if none specified.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Int</span> <span class="n">getPaymentInterval</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getcostperinterval">
+<h4>getCostPerInterval<a class="headerlink" href="#getcostperinterval" title="Link to this heading">¶</a></h4>
+<p>Get the specified cost (price) per interval, or 0 if none specified.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">getCostPerInterval</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="shutdown">
+<h4>shutdown<a class="headerlink" href="#shutdown" title="Link to this heading">¶</a></h4>
+<p>Shut down the deployment component.  It is an error to create a new
+object on a deployment component that has been shutdown, or to invoke
+a method on an object residing on a deployment component that has been
+shut down.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">shutdown</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getprovider">
+<h4>getProvider<a class="headerlink" href="#getprovider" title="Link to this heading">¶</a></h4>
+<p>Get the cloud provider that manages this deployment component.  Returns <code class="docutils literal notranslate"><span class="pre">null</span></code>
+if the deployment component was not created by a cloud provider.  See
+<a class="reference internal" href="#sec-cloudprovider"><span class="std std-ref">The CloudProvider API</span></a> for a discussion of cloud providers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">CloudProvider</span> <span class="n">getProvider</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="acquire">
+<h4>acquire<a class="headerlink" href="#acquire" title="Link to this heading">¶</a></h4>
+<p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code> of the associated
+cloud provider.  If no cloud provider is set, returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.  See
+<a class="reference internal" href="#sec-cloudprovider"><span class="std std-ref">The CloudProvider API</span></a> for a discussion of cloud providers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">acquire</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="release">
+<h4>release<a class="headerlink" href="#release" title="Link to this heading">¶</a></h4>
+<p>Convenience method for calling <code class="docutils literal notranslate"><span class="pre">releaseInstance</span></code> of the associated
+cloud provider.  If no cloud provider is set, returns <code class="docutils literal notranslate"><span class="pre">True</span></code>.  See
+<a class="reference internal" href="#sec-cloudprovider"><span class="std std-ref">The CloudProvider API</span></a> for a discussion of cloud providers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="resource-types">
+<span id="sec-resources"></span><h2>Resource types<a class="headerlink" href="#resource-types" title="Link to this heading">¶</a></h2>
+<p>The term “Resource” can be understood in different ways.  In ABS, we
+define “Resource” to be a countable, measurable property of a
+deployment component.  Some resources stay constant throughout the
+life of a deployment component (e.g., the number of cores), some
+others are influenced by program execution (e.g., the available
+bandwidth in the current time slot).</p>
+<p>The resource types currently supported by the ABS language are defined
+in the <code class="docutils literal notranslate"><span class="pre">ABS.DC</span></code> module as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="n">Resourcetype</span> <span class="o">=</span> <span class="n">Speed</span> <span class="o">|</span> <span class="n">Bandwidth</span> <span class="o">|</span> <span class="n">Memory</span> <span class="o">|</span> <span class="n">Cores</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p>When a deployment component is created without explicitly giving a
+value for a resource type, it is assumed to have an infinite amount of
+that resource.  E.g., for the purpose of modeling a denial of service
+attack, the deployment component running the attacker code will have
+infinite speed and bandwidth.</p>
+<section id="speed">
+<h3>Speed<a class="headerlink" href="#speed" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Speed</span></code> resource type models execution speed.  Intuitively, a
+deployment component with twice the number of <code class="docutils literal notranslate"><span class="pre">Speed</span></code> resources will
+execute twice as fast.  Speed resources are consumed when execution in
+the current process reaches a statement that is annotated with a
+<code class="docutils literal notranslate"><span class="pre">Cost</span></code> annotation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">now</span><span class="p">();</span>
+<span class="p">[</span><span class="n">Cost</span><span class="p">:</span> <span class="mi">5</span><span class="p">]</span> <span class="n">skip</span><span class="p">;</span>
+<span class="n">Time</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">now</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Executing the above <code class="docutils literal notranslate"><span class="pre">skip</span></code> statement will consume 5 <code class="docutils literal notranslate"><span class="pre">Speed</span></code> resources
+from the deployment component where the cog was deployed.  If the
+deployment component does not have infinite Speed resources, executing
+the <code class="docutils literal notranslate"><span class="pre">skip</span></code> statement might take an observable amount of time, i.e.,
+<code class="docutils literal notranslate"><span class="pre">t1</span></code> and <code class="docutils literal notranslate"><span class="pre">t2</span></code> might be different.</p>
+</section>
+<section id="bandwidth">
+<h3>Bandwidth<a class="headerlink" href="#bandwidth" title="Link to this heading">¶</a></h3>
+<p>Bandwidth is a measure of transmission speed.  Bandwidth resources are
+consumed during method invocation and <code class="docutils literal notranslate"><span class="pre">return</span></code> statements.  No
+bandwidth is consumed if sender and receiver reside on the same
+deployment component.</p>
+<p>Bandwidth consumption is expressed via a <code class="docutils literal notranslate"><span class="pre">DataSize</span></code> annotation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Time t1 = now();
+[DataSize: 2 * length(datalist)] o!process(datalist);
+Time t2 = now();
+</pre></div>
+</div>
+<p>Executing the above method invocation statement will consume bandwidth
+resources proportional to the length of list <code class="docutils literal notranslate"><span class="pre">datalist</span></code>.</p>
+</section>
+<section id="memory">
+<h3>Memory<a class="headerlink" href="#memory" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Memory</span></code> resource type abstracts from the size of main memory,
+as a measure of how many and which cogs can be created on a deployment
+component.  In contrast to bandwidth and speed, memory does not
+influence the timed behavior of the simulation of an ABS model; it is
+used for static deployment modeling.</p>
+<p>It is planned to implement memory semantics by annotating methods with
+the amount of memory required to start one process running that
+method; under simulated memory pressure, creation of processes from
+incoming method calls would be delayed until another process
+terminated and freed enough memory to create a new process.</p>
+</section>
+<section id="cores">
+<h3>Cores<a class="headerlink" href="#cores" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Cores</span></code> resource type expresses the number of CPU cores on a
+deployment component.  It is used for static deployment decisions and
+does not have influence on the timing behavior of simulations (use the
+<code class="docutils literal notranslate"><span class="pre">Speed</span></code> resource type for this purpose).</p>
+</section>
+</section>
+<section id="modeling-resource-usage">
+<h2>Modeling resource usage<a class="headerlink" href="#modeling-resource-usage" title="Link to this heading">¶</a></h2>
+<p>As described above, resource information is added to statements of an
+ABS model using <code class="docutils literal notranslate"><span class="pre">Cost</span></code> and <code class="docutils literal notranslate"><span class="pre">DataSize</span></code> annotations.  Executing such
+annotated statements causes observable changes in the simulated time
+and deployment component load during simulation.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Test;
+import * from ABS.DC; ①
+interface I {
+  Unit process();
+}
+class C implements I {
+  Unit process() {
+    [Cost: 10] skip; ②
+}
+
+{
+  DeploymentComponent dc = new DeploymentComponent(&quot;Server&quot;,
+    map[Pair(Speed, 5), Pair(Bandwidth, 10)]);
+  [DC: dc] I i = new C();
+  [DataSize: 5] i!process(); ③
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① Make all necessary identifiers accessible in the current module</div>
+<div class="line">② Executing this statement costs 10 <code class="docutils literal notranslate"><span class="pre">Speed</span></code> units; the time needed
+depends on the capacity of the deployment component, and on other
+cogs executing in parallel on the same deployment component.</div>
+<div class="line">③ Executing this method call consumes 5 Bandwidth resources.  Since
+<code class="docutils literal notranslate"><span class="pre">dc</span></code> has 10 bandwidth resources per time unit, the message will be
+transported instantly.  Executing the <code class="docutils literal notranslate"><span class="pre">skip</span></code> statement in the
+method body will not finish instantaneously because <code class="docutils literal notranslate"><span class="pre">dc</span></code> only has
+5 <code class="docutils literal notranslate"><span class="pre">Speed</span></code> resources in total.</div>
+</div>
+</section>
+<section id="the-cloudprovider-api">
+<span id="sec-cloudprovider"></span><h2>The <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> API<a class="headerlink" href="#the-cloudprovider-api" title="Link to this heading">¶</a></h2>
+<p>Deployment components can be managed by a <em>Cloud Provider</em> instance.
+The Cloud Provider implements the life cycle shown in Figure
+<a class="reference internal" href="#fig-instance-lifecycle"><span class="std std-ref">Deployment Component lifecycle</span></a>.  A deployment component is <em>managed</em> by
+a cloud provider if it was created via one of the <code class="docutils literal notranslate"><span class="pre">launchInstance</span></code>
+methods.</p>
+<p>Modeling deployment container allocation and deallocation using cloud
+provider instances is useful for modeling and simulating the cost (as
+in money) of running a system involving machines of various sizes and
+costs.</p>
+<figure class="align-default" id="id3">
+<span id="fig-instance-lifecycle"></span><img alt="Deployment Component lifecycle" src="../_images/Cloud-API.png" />
+<figcaption>
+<p><span class="caption-text">Deployment Component lifecycle</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The operations supported by deployment components during their
+lifecycle are summarized in Table <a class="reference internal" href="#table-dc-lifecycle"><span class="std std-ref">Deployment Component Lifecycle</span></a>.</p>
+<span id="table-dc-lifecycle"></span><table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Deployment Component Lifecycle</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td><p>State</p></td>
+<td><p>Starting</p></td>
+<td><p>Running</p></td>
+<td><p>Terminating</p></td>
+<td><p>Terminated</p></td>
+</tr>
+<tr class="row-even"><td><p>Create objects</p></td>
+<td><p>delayed</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>Invoke methods</p></td>
+<td><p>delayed</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>Process keep running</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>yes</p></td>
+<td><p>yes/no</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="using-the-cloud-provider">
+<h3>Using the cloud provider<a class="headerlink" href="#using-the-cloud-provider" title="Link to this heading">¶</a></h3>
+<p>To use deployment components via a cloud provider, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> instance</p></li>
+<li><p>Set the instance descriptions via the <code class="docutils literal notranslate"><span class="pre">setInstanceDescriptions</span></code>
+method</p></li>
+<li><p>Create deployment components using the <code class="docutils literal notranslate"><span class="pre">launchInstanceNamed</span></code>
+method</p></li>
+<li><p>(optional) Manage access via <code class="docutils literal notranslate"><span class="pre">releaseInstance</span></code> /
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code></p></li>
+<li><p>(optional) Release deployment components via <code class="docutils literal notranslate"><span class="pre">shutdownInstance</span></code></p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module ProviderDemo;
+import * from ABS.DC;
+
+{
+    CloudProvider p = new CloudProvider(&quot;Amazon&quot;);
+    await p!setInstanceDescriptions(
+        map[Pair(&quot;T2_MICRO&quot;, map[Pair(Memory,1), Pair(Speed,1)]),
+            Pair(&quot;T2_SMALL&quot;, map[Pair(Memory,2), Pair(Speed,1)]),
+            Pair(&quot;T2_MEDIUM&quot;, map[Pair(Memory,4), Pair(Speed,2)]),
+            Pair(&quot;M4_LARGE&quot;, map[Pair(Memory,8), Pair(Speed,2)])]);
+    DeploymentComponent dc = await p!launchInstanceNamed(&quot;T2_SMALL&quot;);
+    // ... use the deployment component ...
+}
+</pre></div>
+</div>
+</section>
+<section id="datatypes-and-constructors">
+<h3>Datatypes and constructors<a class="headerlink" href="#datatypes-and-constructors" title="Link to this heading">¶</a></h3>
+<p>The type for cloud provider instances is <code class="docutils literal notranslate"><span class="pre">ABS.DC.CloudProvider</span></code>.</p>
+<p>Cloud provider instances are created with a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">CloudProvider(String</span>
+<span class="pre">name)</span></code> expression.  It is not mandatory but recommended that each
+cloud provider instance has a unique name.</p>
+<p>It is recommended to call <code class="docutils literal notranslate"><span class="pre">setInstanceDescriptions</span></code> once after
+creating a cloud provider to set the list of named instance types that
+this cloud provider offers.</p>
+</section>
+<section id="id1">
+<h3>Methods<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="setinstancedescriptions">
+<h4>setInstanceDescriptions<a class="headerlink" href="#setinstancedescriptions" title="Link to this heading">¶</a></h4>
+<p>This method sets the named instance configurations that the cloud
+provider instance should support.  These names are used in the methods
+<code class="docutils literal notranslate"><span class="pre">launchInstanceNamed</span></code> and <code class="docutils literal notranslate"><span class="pre">prelaunchInstanceNamed</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Unit</span> <span class="n">setInstanceDescriptions</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Resourcetype</span><span class="p">,</span> <span class="n">Rat</span><span class="o">&gt;&gt;</span> <span class="n">instanceDescriptions</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="getinstancedescriptions">
+<h4>getInstanceDescriptions<a class="headerlink" href="#getinstancedescriptions" title="Link to this heading">¶</a></h4>
+<p>This method returns the map of named instance configurations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Resourcetype</span><span class="p">,</span> <span class="n">Rat</span><span class="o">&gt;&gt;</span> <span class="n">getInstanceDescriptions</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="launchinstancenamed">
+<h4>launchInstanceNamed<a class="headerlink" href="#launchinstancenamed" title="Link to this heading">¶</a></h4>
+<p>This method creates and returns a new deployment component with a
+resource configuration corresponding to <code class="docutils literal notranslate"><span class="pre">instancename</span></code>, as set by
+the <code class="docutils literal notranslate"><span class="pre">setInstanceDescriptions</span></code> method.  If no description for
+<code class="docutils literal notranslate"><span class="pre">instancename</span></code> exists, <code class="docutils literal notranslate"><span class="pre">launchInstanceNamed</span></code> returns <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DeploymentComponent</span> <span class="n">launchInstanceNamed</span><span class="p">(</span><span class="n">String</span> <span class="n">instancename</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The name of the new deployment component will be <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Cloud</span> <span class="pre">provider</span>
+<span class="pre">name&gt;-&lt;instancename&gt;-&lt;Counter&gt;&quot;</span></code>, i.e., a concatenation of the name
+of the cloud provider itself, the instance name, and a unique integer
+as suffix.</p>
+<p>If the instance description specifies a startup duration,
+<code class="docutils literal notranslate"><span class="pre">launchInstanceNamed</span></code> will only return after that amount of
+simulated time has elapsed.</p>
+<p>The returned deployment component will be acquired (as per
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>) and can be used immediately.</p>
+</section>
+<section id="prelaunchinstancenamed">
+<h4>prelaunchInstanceNamed<a class="headerlink" href="#prelaunchinstancenamed" title="Link to this heading">¶</a></h4>
+<p>This method creates and returns a new deployment component with a
+resource configuration corresponding to <code class="docutils literal notranslate"><span class="pre">instancename</span></code>, as set by
+the <code class="docutils literal notranslate"><span class="pre">setInstanceDescriptions</span></code> method.  If no description for
+<code class="docutils literal notranslate"><span class="pre">instancename</span></code> exists, <code class="docutils literal notranslate"><span class="pre">prelaunchInstanceNamed</span></code> returns <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DeploymentComponent</span> <span class="n">prelaunchInstanceNamed</span><span class="p">(</span><span class="n">String</span> <span class="n">instancename</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>As with <code class="docutils literal notranslate"><span class="pre">launchInstance</span></code>, the name of the new deployment component
+will be <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Cloud</span> <span class="pre">provider</span> <span class="pre">name&gt;-&lt;instancename&gt;-&lt;Counter&gt;&quot;</span></code>, i.e., a
+concatenation of the name of the cloud provider itself, the instance
+name, and a unique integer as suffix.</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">prelaunchInstanceNamed</span></code> returns immediately, but the
+method <code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>, when called on the returned deployment
+component, will not return before its startup duration (if specified)
+has elapsed.</p>
+<p>The returned deployment component needs to be acquired (as per
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>) before it can be used.</p>
+</section>
+<section id="launchinstance">
+<h4>launchInstance<a class="headerlink" href="#launchinstance" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">launchInstance</span></code> method creates and returns a new deployment
+component with the specified resource configuration.  It can be used
+when, for whatever reason, the resource configuration should not be
+registered with the cloud provider, but the deployment component
+should still be managed by it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DeploymentComponent</span> <span class="n">launchInstance</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Resourcetype</span><span class="p">,</span> <span class="n">Rat</span><span class="o">&gt;</span> <span class="n">description</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The name of the new deployment component will be <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Cloud</span> <span class="pre">provider</span>
+<span class="pre">name&gt;-&lt;Counter&gt;&quot;</span></code>, i.e., a concatenation of the name of the cloud
+provider itself and a unique integer as suffix.</p>
+<p>If the resource configuration specifies a startup duration,
+<code class="docutils literal notranslate"><span class="pre">launchInstanceNamed</span></code> will only return after that amount of
+simulated time has elapsed.</p>
+<p>The returned deployment component will be acquired (as per
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>) and can be used immediately.</p>
+</section>
+<section id="prelaunchinstance">
+<h4>prelaunchInstance<a class="headerlink" href="#prelaunchinstance" title="Link to this heading">¶</a></h4>
+<p>This method creates and returns a new deployment component with the
+specified resource configuration.  As with <code class="docutils literal notranslate"><span class="pre">launchInstance</span></code>, this
+method can be used when, for whatever reason, the resource
+configuration should not be registered with the cloud provider, but
+the deployment component should still be managed by it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DeploymentComponent</span> <span class="n">prelaunchInstance</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Resourcetype</span><span class="p">,</span> <span class="n">Rat</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The name of the new deployment component will be <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Cloud</span> <span class="pre">provider</span>
+<span class="pre">name&gt;-&lt;Counter&gt;&quot;</span></code>, i.e., a concatenation of the name of the cloud
+provider itself and a unique integer as suffix.</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">prelaunchInstance</span></code> returns immediately, but the method
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>, when called on the returned deployment component,
+will not return before its startup duration (if specified) has
+elapsed.</p>
+<p>The returned deployment component needs to be acquired (as per
+<code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code>) before it can be used.</p>
+</section>
+<section id="acquireinstance">
+<h4>acquireInstance<a class="headerlink" href="#acquireinstance" title="Link to this heading">¶</a></h4>
+<p>This method, together with <code class="docutils literal notranslate"><span class="pre">releaseInstance</span></code>, implements exclusive
+access to a deployment component.  After <code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code> returns
+true, all further invocations will return false until
+<code class="docutils literal notranslate"><span class="pre">releaseInstance</span></code> is called for the deployment component.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">acquireInstance</span><span class="p">(</span><span class="n">DeploymentComponent</span> <span class="n">instance</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the deployment component passed as argument was not created by the
+cloud provider, the method returns false.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The methods <code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code> and <code class="docutils literal notranslate"><span class="pre">releaseInstance</span></code> are
+used to implement exclusive access in a <em>cooperative</em>
+manner.  Attempting to create a cog on a deployment
+component without having acquired it beforehand will not
+lead to a runtime error; ensuring exclusive access to
+deployment components is the responsibility of the modeler.</p>
+</div>
+</section>
+<section id="releaseinstance">
+<h4>releaseInstance<a class="headerlink" href="#releaseinstance" title="Link to this heading">¶</a></h4>
+<p>This method releases the deployment component, such that the next call
+to <code class="docutils literal notranslate"><span class="pre">acquireInstance</span></code> will return true.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">releaseInstance</span><span class="p">(</span><span class="n">DeploymentComponent</span> <span class="n">instance</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This method returns true if the deployment component was successfully
+released.  It returns false if the deployment component was already
+not acquired.</p>
+<p>If the deployment component passed as argument was not created by the
+cloud provider, the method returns false.</p>
+</section>
+<section id="shutdowninstance">
+<h4>shutdownInstance<a class="headerlink" href="#shutdowninstance" title="Link to this heading">¶</a></h4>
+<p>This method shuts down a deployment component.  The effect on the cogs,
+objects and running tasks deployed on that deployment component are
+backend-specific.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Bool</span> <span class="n">shutdownInstance</span><span class="p">(</span><span class="n">DeploymentComponent</span> <span class="n">instance</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Rat</span> <span class="n">getAccumulatedCost</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Atomic</span><span class="p">]</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Resourcetype</span><span class="p">,</span> <span class="n">Rat</span><span class="o">&gt;&gt;</span> <span class="n">getInstanceDescriptions</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">ABS language manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lexical.html">Lexical structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expressions.html">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html">Function definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statements.html">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces.html">Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="traits.html">Traits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdlib/index.html">The standard library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modelapi.html">The model API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semantic-lifting.html">Semantic lifting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deployment and resource modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-components">Deployment components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#load">load</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#total">total</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#decrementresources">decrementResources</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#incrementresources">incrementResources</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#transfer">transfer</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getname">getName</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getcreationtime">getCreationTime</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getstartupduration">getStartupDuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getshutdownduration">getShutdownDuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getpaymentinterval">getPaymentInterval</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getcostperinterval">getCostPerInterval</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#shutdown">shutdown</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getprovider">getProvider</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#acquire">acquire</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#release">release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-types">Resource types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#speed">Speed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bandwidth">Bandwidth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory">Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cores">Cores</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-resource-usage">Modeling resource usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-cloudprovider-api">The <code class="docutils literal notranslate"><span class="pre">CloudProvider</span></code> API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-cloud-provider">Using the cloud provider</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#datatypes-and-constructors">Datatypes and constructors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Methods</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#setinstancedescriptions">setInstanceDescriptions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#getinstancedescriptions">getInstanceDescriptions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#launchinstancenamed">launchInstanceNamed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#prelaunchinstancenamed">prelaunchInstanceNamed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#launchinstance">launchInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#prelaunchinstance">prelaunchInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#acquireinstance">acquireInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#releaseinstance">releaseInstance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#shutdowninstance">shutdownInstance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">User-defined schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-modeling.html">Software product line engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html">ABS backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">ABS language manual</a><ul>
+      <li>Previous: <a href="timed.html" title="previous chapter">Timed ABS</a></li>
+      <li>Next: <a href="schedulers.html" title="next chapter">User-defined schedulers</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/manual/deployment.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

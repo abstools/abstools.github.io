@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Overview &#8212; The ABS Language  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=3cb1bcfc" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="canonical" href="https://abs-models.org/overview.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting started" href="getting-started/getting-started.html" />
+    <link rel="prev" title="The ABS Language" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h1>
+<section id="design-principles-of-abs">
+<h2>Design principles of ABS<a class="headerlink" href="#design-principles-of-abs" title="Link to this heading">¶</a></h2>
+<p>ABS targets the modeling of software systems that are concurrent,
+distributed, object-oriented, built from components, and highly
+reusable.  To achieve the latter, we follow the arguably most
+successful software reuse methodology in practice: software product
+families or software product lines <a class="reference external" href="http://dx.doi.org/10.1007/3-540-28901-1">[35]</a>, see also the <a class="reference external" href="http://splc.net/hall-of-fame/">Product
+Line Hall of Fame</a>.  ABS supports
+the modeling of variability in terms of feature models as a
+first-class language concept.  ABS thus provides language-based
+support for product line engineering (PLE).</p>
+<p>As an abstract language, ABS is well suited to model software that is
+supposed to be deployed in a virtualized environment.  To close the
+gap between design and deployment it is necessary to represent
+low-level concepts such as system time, memory, latency, or scheduling
+at the level of abstract models.  In ABS this is possible via a
+flexible and pluggable notation called <em>deployment components</em>,
+covered in detail in <a class="reference external" href="http://dx.doi.org/10.1007/978-3-642-40615-7">[24]</a>.</p>
+<p>ABS is not merely a modeling notation, but it arrives with an
+integrated tool set that helps to automate the software engineering
+process.  Tools are useless, however, unless they ensure
+predictability of results, interoperability, and usability.  A
+fundamental requirement for the first two criteria is a uniform,
+formal semantics.  But interoperability also involves the capability
+to use other notations than ABS. This is ensured by providing
+numerous language interfaces from and to ABS. These are realized by
+various import, export, and code generation tools.</p>
+<p>Arguably the most important criterion for tools, however, is
+usability. This tutorial is not the place to embark on a full
+discussion of what that entails, but it should be indisputable that
+automation, scalability, and integration are of the utmost
+importance. To ensure the first two of these qualities, the HATS
+project adopted as a central principle to develop ABS in tandem with
+its tool set. This is not merely a historical footnote, but central to
+an understanding of the trade-offs made in the design of the ABS
+language. For most specification and programming languages their
+(automatic) analyzability is considered in hindsight and turns out not
+to be scalable or even feasible. With ABS, the slogan of design for
+verifiability that originated in the context of hardware description
+languages <a class="reference external" href="http://link.springer.com/chapter/10.1007/0-387-97226-9_20">[30]</a>, has
+been systematically applied to a software modeling language.  For
+example, the concurrency model of ABS is designed such that it permits
+a compositional proof system <a class="reference external" href="http://link.springer.com/chapter/10.1007/0-387-97226-9_20">[3]</a>, the
+reuse principle employed in ABS is chosen in such a way that
+incremental verification is possible <a class="reference external" href="http://dx.doi.org/10.1007/978-3-642-34026-0_4">[21]</a>, etc.  Many formal
+methods tools focus on analysis, in particular, on
+verification. Functional verification, model checking, test case
+generation, and resource estimation are supported by ABS tools as
+well. Just as important as analytic methods, specifically in a
+model-based context, are generative ones: ABS is fully executable
+(albeit in a non-deterministic manner) and supports code generation to
+Java and Erlang.</p>
+<figure class="align-default" id="id1">
+<img alt="_images/abs-layers.png" src="_images/abs-layers.png" />
+<figcaption>
+<p><span class="caption-text">ABS language architecture</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In addition to the simulation tools, a number of analysis and
+generation tools are available as well.  See <a class="reference external" href="http://dx.doi.org/10.1007/s10009-012-0250-1">[42]</a> for an overview of
+the ABS tool suite.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/ABS_logo_colors.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">A timed actor-based modeling language</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abstools&repo=abstools&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-principles-of-abs">Design principles of ABS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual/index.html">ABS language manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publications-and-workshops.html">Publications and workshops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Acknowledgments</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">The ABS Language</a></li>
+      <li>Next: <a href="getting-started/getting-started.html" title="next chapter">Getting started</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;CC-BY-SA 3.0.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
