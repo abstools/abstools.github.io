@@ -37,11 +37,10 @@
   <section id="semantic-lifting">
 <span id="sec-semantic-lifting"></span><h1>Semantic lifting<a class="headerlink" href="#semantic-lifting" title="Link to this heading">¶</a></h1>
 <p>ABS implements <em>semantic lifting</em>, i.e., obtaining a semantic
-representation of aspects of the model and the runtime state.  The
-data is provided in <a class="reference internal" href="glossary.html#term-RDF"><span class="xref std std-term">RDF</span></a> form.</p>
+representation of aspects of the model and the runtime state in
+<a class="reference internal" href="glossary.html#term-RDF"><span class="xref std std-term">RDF</span></a> form.</p>
 <p>Semantically-lifted program state can be queried from the command
-line, via a SPARQL endpoint implemented in the Model API, or from
-within the model itself.</p>
+line, a SPARQL endpoint implemented in the <a class="reference internal" href="modelapi.html#sec-model-api"><span class="std std-ref">Model API</span></a>, or within the model itself.</p>
 <p>Semantic lifting is supported in the Java backend.</p>
 <section id="the-lifting-ontology">
 <h2>The lifting ontology<a class="headerlink" href="#the-lifting-ontology" title="Link to this heading">¶</a></h2>
@@ -73,6 +72,43 @@ lifted.</p>
 <p>The lifting ontology might change as we gain experience
 applying semantic lifting to concrete case studies.</p>
 </div>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">RDF representations for ABS language constructs</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>ABS construct</p></th>
+<th class="head"><p>RDF representation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p>resource of type <code class="docutils literal notranslate"><span class="pre">abs:interface</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>class</p></td>
+<td><p>resource of type <code class="docutils literal notranslate"><span class="pre">abs:class</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>datatype</p></td>
+<td><p>resource of type <code class="docutils literal notranslate"><span class="pre">abs:datatype</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>data constructor</p></td>
+<td><p>resource of type <code class="docutils literal notranslate"><span class="pre">abs:dataconstructor</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>future</p></td>
+<td><p>resource of type <code class="docutils literal notranslate"><span class="pre">prog:ABS.StdLib.Fut</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>string</p></td>
+<td><p>RDF string</p></td>
+</tr>
+<tr class="row-even"><td><p>number</p></td>
+<td><p>RDF int or float number</p></td>
+</tr>
+<tr class="row-odd"><td><p>Boolean</p></td>
+<td><p>RDF boolean</p></td>
+</tr>
+<tr class="row-even"><td><p>null value</p></td>
+<td><p>RDF string <code class="docutils literal notranslate"><span class="pre">&quot;null&quot;</span></code></p></td>
+</tr>
+</tbody>
+</table>
 <p>We consider the following small ABS model:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">Test</span><span class="p">;</span>
 
@@ -251,9 +287,78 @@ literals are converted to ABS strings.</div>
 <div class="line-block">
 <div class="line">⑥ This query returns the list of all objects implementing the
 interface <code class="docutils literal notranslate"><span class="pre">I</span></code>.  Note that ABS objects are subject to garbage
-collection, so objects that are not referenced may have vanished by
+collection, so objects that are not referenced might have vanished by
 the time the query executes.</div>
 </div>
+<section id="parameterized-queries">
+<h3>Parameterized queries<a class="headerlink" href="#parameterized-queries" title="Link to this heading">¶</a></h3>
+<p>It is possible to pass parameters to SPARQL queries.  Currently
+parameters of type <code class="docutils literal notranslate"><span class="pre">Bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Int</span></code>, <code class="docutils literal notranslate"><span class="pre">Rat</span></code> (converted to floating
+point), <code class="docutils literal notranslate"><span class="pre">Float</span></code>, <code class="docutils literal notranslate"><span class="pre">String</span></code> and <code class="docutils literal notranslate"><span class="pre">Object</span></code> (object references) are
+supported.</p>
+<p>A SPARQL query can contain one or more placeholders, written as <code class="docutils literal notranslate"><span class="pre">?</span></code>.
+The query function must supply a value for each of these placeholders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>module Test;
+
+class C(String s, Int i) {
+}
+
+  def List&lt;String&gt; query_via_int(Int i) = builtin(sparql,
+      `SELECT ?s WHERE {
+         ?o a/rdfs:label &quot;Test.C&quot; ;
+            prog:Test.s ?s ;
+            prog:Test.i ? . ①
+       }`, i); ②
+
+  def List&lt;String&gt; query_via_object(I o) = builtin(sparql,
+        `SELECT ?s WHERE {
+           ? a/abs:implements/rdfs:label &quot;BackendTest.I&quot; ; ③
+             prog:BackendTest.s ?s .
+         }`, o);
+
+
+{
+    Object o = new C(&quot;hello&quot;, 15);
+    Object o2 = new C(&quot;world&quot;, 1);
+    List&lt;String&gt; world_string = query_via_int(1); ④
+    println(`query_via_int(1): $world_string$`);
+    List&lt;String&gt; hello_string = query_via_object(o); ⑤
+    println(`query_via_object(o): $hello_string$`);
+}
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">① The SPARQL query contains a placeholder <code class="docutils literal notranslate"><span class="pre">?</span></code>.</div>
+</div>
+<div class="line-block">
+<div class="line">② The value of the function parameter <code class="docutils literal notranslate"><span class="pre">i</span></code> replaces the placeholder
+before the query is executed.</div>
+</div>
+<div class="line-block">
+<div class="line">③ The parameter <code class="docutils literal notranslate"><span class="pre">o</span></code> is converted into an RDF resource IRI and
+inserted as subject of the two search triples.</div>
+</div>
+<div class="line-block">
+<div class="line">④ The query will return a one-element list containing <code class="docutils literal notranslate"><span class="pre">&quot;world&quot;</span></code>.</div>
+</div>
+<div class="line-block">
+<div class="line">⑤ The query will return a one-element list containing <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code>.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following caveats apply to SPARQL queries with
+parameters:</p>
+<ul class="simple">
+<li><p>Querying for integer numbers beyond the range of the Java
+<code class="docutils literal notranslate"><span class="pre">long</span></code> type results in a runtime exception rather than
+silently wrong query results</p></li>
+<li><p>Queries are susceptible to SPARQL injection; see the
+section “SPARQL Injection Notes” at the bottom of the
+<a class="reference external" href="https://jena.apache.org/documentation/query/parameterized-sparql-strings.html">documentation</a>
+of the underlying Jena library.</p></li>
+</ul>
+</div>
+</section>
 </section>
 </section>
 
@@ -321,7 +426,10 @@ the time the query executes.</div>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#accessing-lifted-state-externally">Accessing lifted state externally</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accessing-lifted-state-within-the-model">Accessing lifted state within the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-lifted-state-within-the-model">Accessing lifted state within the model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameterized-queries">Parameterized queries</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="timed.html">Timed ABS</a></li>
@@ -364,7 +472,7 @@ the time the query executes.</div>
       &#169;CC-BY-SA 3.0.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |

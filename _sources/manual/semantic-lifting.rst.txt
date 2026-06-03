@@ -5,12 +5,12 @@ Semantic lifting
 ****************
 
 ABS implements *semantic lifting*, i.e., obtaining a semantic
-representation of aspects of the model and the runtime state.  The
-data is provided in :term:`RDF` form.
+representation of aspects of the model and the runtime state in
+:term:`RDF` form.
 
 Semantically-lifted program state can be queried from the command
-line, via a SPARQL endpoint implemented in the Model API, or from
-within the model itself.
+line, a SPARQL endpoint implemented in the :ref:`Model API
+<sec:model-api>`, or within the model itself.
 
 Semantic lifting is supported in the Java backend.
 
@@ -47,6 +47,51 @@ lifted.
 
 .. note:: The lifting ontology might change as we gain experience
           applying semantic lifting to concrete case studies.
+
+.. list-table:: RDF representations for ABS language constructs
+   :header-rows: 1
+   :widths: auto
+
+   * - ABS construct
+
+     - RDF representation
+
+   * - interface
+
+     - resource of type ``abs:interface``
+
+   * - class
+
+     - resource of type ``abs:class``
+
+   * - datatype
+
+     - resource of type ``abs:datatype``
+
+   * - data constructor
+
+     - resource of type ``abs:dataconstructor``
+
+   * - future
+
+     - resource of type ``prog:ABS.StdLib.Fut``
+
+   * - string
+
+     - RDF string
+
+   * - number
+
+     - RDF int or float number
+
+   * - Boolean
+
+     - RDF boolean
+
+   * - null value
+
+     - RDF string ``"null"``
+
 
 We consider the following small ABS model::
 
@@ -235,5 +280,70 @@ of ``builtin`` SPARQL query functions are:
 
 | ⑥ This query returns the list of all objects implementing the
   interface ``I``.  Note that ABS objects are subject to garbage
-  collection, so objects that are not referenced may have vanished by
+  collection, so objects that are not referenced might have vanished by
   the time the query executes.
+
+Parameterized queries
+---------------------
+
+It is possible to pass parameters to SPARQL queries.  Currently
+parameters of type ``Bool``, ``Int``, ``Rat`` (converted to floating
+point), ``Float``, ``String`` and ``Object`` (object references) are
+supported.
+
+A SPARQL query can contain one or more placeholders, written as ``?``.
+The query function must supply a value for each of these placeholders::
+
+  module Test;
+
+  class C(String s, Int i) {
+  }
+
+    def List<String> query_via_int(Int i) = builtin(sparql,
+        `SELECT ?s WHERE {
+           ?o a/rdfs:label "Test.C" ;
+              prog:Test.s ?s ;
+              prog:Test.i ? . ①
+         }`, i); ②
+
+    def List<String> query_via_object(I o) = builtin(sparql,
+          `SELECT ?s WHERE {
+             ? a/abs:implements/rdfs:label "BackendTest.I" ; ③
+               prog:BackendTest.s ?s .
+           }`, o);
+
+
+  {
+      Object o = new C("hello", 15);
+      Object o2 = new C("world", 1);
+      List<String> world_string = query_via_int(1); ④
+      println(`query_via_int(1): $world_string$`);
+      List<String> hello_string = query_via_object(o); ⑤
+      println(`query_via_object(o): $hello_string$`);
+  }
+
+| ① The SPARQL query contains a placeholder ``?``.
+
+| ② The value of the function parameter ``i`` replaces the placeholder
+  before the query is executed.
+
+| ③ The parameter ``o`` is converted into an RDF resource IRI and
+  inserted as subject of the two search triples.
+
+| ④ The query will return a one-element list containing ``"world"``.
+
+| ⑤ The query will return a one-element list containing ``"hello"``.
+
+.. note:: The following caveats apply to SPARQL queries with
+          parameters:
+
+          - Querying for integer numbers beyond the range of the Java
+            ``long`` type results in a runtime exception rather than
+            silently wrong query results
+
+          - Queries are susceptible to SPARQL injection; see the
+            section "SPARQL Injection Notes" at the bottom of the
+            `documentation
+            <https://jena.apache.org/documentation/query/parameterized-sparql-strings.html>`_
+            of the underlying Jena library.
+
